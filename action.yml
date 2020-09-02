@@ -8,7 +8,8 @@ name: fair-software
 runs:
   args:
     - /bin/sh
+    - -c
     - echo
-    - "hello gh-action"
+    - hello gh-action
   image: Dockerfile
   using: docker
