@@ -10,8 +10,7 @@ def has_pypi_badge(readme_file):
 
 
 def main():
-    # print(has_pypi_badge("/home/runner/work/badge-test/badge-test/README.md"))
-    print(os.listdir('.'))
+    print(has_pypi_badge("README.md"))
 
 
 if __name__ == "__main__":
