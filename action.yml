@@ -6,8 +6,5 @@ branding:
 description: "Analyze compliance with fair-software.eu recommendations"
 name: fair-software
 runs:
-  args:
-    - /usr/local/bin/python3
-    - /data/3-registry/check_registry.py
   image: Dockerfile
   using: docker
