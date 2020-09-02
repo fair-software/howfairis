@@ -1,4 +1,5 @@
 def has_pypi_badge(readme_string):
+    print("checking for pypi")
     return readme_string.lower().find("pypi") != -1
 
 
