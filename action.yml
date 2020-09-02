@@ -7,9 +7,7 @@ description: "Analyze compliance with fair-software.eu recommendations"
 name: fair-software
 runs:
   args:
-    - /bin/sh
-    - -c
-    - echo
-    - hello gh-action
+    - /usr/local/bin/python3
+    - 3-registry/check_registry.py
   image: Dockerfile
   using: docker

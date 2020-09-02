@@ -1,0 +1,9 @@
+# Ignore everything ...
+*
+
+# ... except these
+!1-repository
+!2-license
+!3-registry
+!4-citation
+!5-checklist
