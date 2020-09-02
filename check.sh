@@ -1,6 +1,7 @@
 #! /bin/sh
+echo $INPUT_SWITCH
 
-if [ "$SWITCH" == "registry" ] ; then
+if [ "$INPUT_SWITCH" == "registry" ] ; then
     echo "python should do something"
 else
     echo "Nope"
