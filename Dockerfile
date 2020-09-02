@@ -4,4 +4,4 @@ RUN mkdir /data
 COPY . /data/
 WORKDIR /data
 
-CMD ["/bin/sh"]
+CMD ["/bin/sh", "/data/check.sh"]
