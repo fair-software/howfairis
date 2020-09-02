@@ -1,0 +1,13 @@
+---
+author: "https://github.com/fair-software"
+branding:
+  color: purple
+  icon: check
+description: "Analyze compliance with fair-software.eu recommendations"
+name: fair-software
+runs:
+  args:
+    - /bin/sh
+    - echo "hello gh-action"
+  image: Dockerfile
+  using: docker
