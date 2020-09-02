@@ -1,3 +1,5 @@
+import os
+
 def has_pypi_badge(readme_file):
     with open(readme_file) as text:
         for line in text:
@@ -8,7 +10,8 @@ def has_pypi_badge(readme_file):
 
 
 def main():
-    print(has_pypi_badge("/home/runner/work/badge-test/badge-test/README.md"))
+    # print(has_pypi_badge("/home/runner/work/badge-test/badge-test/README.md"))
+    print(os.listdir('.'))
 
 
 if __name__ == "__main__":
