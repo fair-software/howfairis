@@ -8,7 +8,7 @@ def has_pypi_badge(readme_file):
 
 
 def main():
-    print(has_pypi_badge("some test string with the workd PyPI in it"))
+    print(has_pypi_badge("/home/runner/work/badge-test/badge-test/README.md"))
 
 
 if __name__ == "__main__":
