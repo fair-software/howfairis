@@ -11,5 +11,5 @@ elif [ "$INPUT_SWITCH" == "citation" ] ; then
 elif [ "$INPUT_SWITCH" == "checklist" ] ; then
     /usr/local/bin/python /data/5-checklist/check_checklist.py
 else
-    echo "Nope"
+    echo "You need to specify the value of \$SWITCH as one of 'repository', 'license', 'registry', 'citation', or 'checklist'."
 fi
