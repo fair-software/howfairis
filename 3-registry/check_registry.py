@@ -6,7 +6,7 @@ def has_pypi_badge(readme_file):
             if 'PyPi' in line or 'pypi' in line:
                 return "PyPi is found"
 
-    return "No PyPi"
+    return "No registry found"
 
 
 def main():
