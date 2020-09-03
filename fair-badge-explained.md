@@ -36,8 +36,7 @@ Yellow Badge means the repository complies with four recommendations
 
 Green badge means the repository complies with all five recommendations
 
-### Examples with interpretations
-
+### Examples explained
 ![](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%E2%97%8B%20%E2%97%8F%20%E2%97%8F%20%E2%97%8B-orange)
 
 The repository with with this badge coplies with 3 out of five recommendations. It is a publicly accessible repository with version control. It is register in a community registrly and it contains citation information. There is no license in this repository and the project does not use a checklist.
