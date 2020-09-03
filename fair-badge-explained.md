@@ -11,7 +11,7 @@ software to implement these FAIR recommendations, by making their effort and
 compliance with the fair-software.eu recommendations more visible to the rest of
 the world. We also want to promote the recommendations to a wider audience.
 
-# How to interpret FAIR badges?
+## How to interpret FAIR badges?
 A FAIR badge look, like this
 ![](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%E2%97%8B%20%E2%97%8F%20%E2%97%8F%20%E2%97%8B-orange)
 The pattern of full and empty circles will vary depending on the level of compliance.
@@ -36,12 +36,12 @@ Yellow Badge means the repository complies with four recommendations
 
 Green badge means the repository complies with all five recommendations
 
-## Example one
+### Examples with interpretations
+
 ![](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%E2%97%8B%20%E2%97%8F%20%E2%97%8F%20%E2%97%8B-orange)
 
 The repository with with this badge coplies with 3 out of five recommendations. It is a publicly accessible repository with version control. It is register in a community registrly and it contains citation information. There is no license in this repository and the project does not use a checklist.
 
-## Example two
-
 ![](https://img.shields.io/badge/fair--software.eu-%E2%97%8B%20%E2%97%8F%20%E2%97%8B%20%E2%97%8B%20%E2%97%8B-red)
 
+This repository complies only with one of five recommendations. I doaes contain a license.
