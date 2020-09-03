@@ -5,10 +5,6 @@ branding:
   icon: check
 description: "Analyze compliance with fair-software.eu recommendations"
 name: fair-software
-inputs:
-  SWITCH:
-    description: "One of 'repository', 'license', 'registry', 'citation', 'checklist'."
-    required: true
 runs:
   image: Dockerfile
   using: docker
