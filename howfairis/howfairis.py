@@ -17,18 +17,23 @@ class HowFairIsChecker:
 
     def check_repository(self):
         self.repository_is_compliant = check_repository()
+        return self
 
     def check_license(self):
         self.license_is_compliant = check_license()
+        return self
 
     def check_registry(self):
         self.registry_is_compliant = check_registry()
+        return self
 
     def check_citation(self):
-        pass
+        print("citation checks SKIPPED")
+        return self
 
     def check_checklist(self):
         self.checklist_is_compliant = check_checklist()
+        return self
 
     def check_badge(self):
 
@@ -63,13 +68,14 @@ class HowFairIsChecker:
             sys.exit(1)
 
 
+
 def main():
     print("Checking compliance with fair-software.eu...")
     checker = HowFairIsChecker()
     checker.check_repository()
     checker.check_license()
     checker.check_registry()
-    # disabled while we fix errors in it checker.check_citation()
+    checker.check_citation()
     checker.check_checklist()
 
 
