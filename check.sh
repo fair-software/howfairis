@@ -1,6 +1,7 @@
 #! /bin/sh
 
-echo "Repository: $INPUT_REPOSITORY"
+echo "Repository: https://github.com/${{github.repository}}"
+echo "Calling howfairis https://github.com/${{github.repository}}"
 if [ "$INPUT_SWITCH" == "repository" ] ; then
     /usr/local/bin/python /data/1-repository/check_repository.py
 elif [ "$INPUT_SWITCH" == "license" ] ; then
