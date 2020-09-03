@@ -1,6 +1,24 @@
 # badge
 A badge for showing compliance with fair-software.eu
 
+Example workflow file
+
+```
+name: fair-software
+
+on: push
+
+jobs:
+  verify:
+    name: "fair-software"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Check out a copy of your repository
+
+      - uses: fair-software/badge@master
+        name: Measure compliance with fair-software.eu recommendations
+```
 
 
 Building the docker image:
