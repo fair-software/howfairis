@@ -1,9 +1,9 @@
 # badge
 A badge for showing compliance with fair-software.eu
 
-Example workflow file
+To enable this checker, add the following snippet as ``.github/workflows/fair-software.yml`` in your GitHub repository.
 
-```
+```yaml
 name: fair-software
 
 on: push
