@@ -4,4 +4,6 @@ RUN mkdir /data
 COPY . /data/
 WORKDIR /data
 
-CMD ["/bin/sh", "/data/check.sh"]
+RUN pip install -e .
+
+CMD ["/bin/sh", "howfairis"]

@@ -7,6 +7,9 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 setup(
     name="howfairis",
+    entry_points={
+        "console_scripts": ["howfairis=howfairis.howfairis:main"],
+    },
     version="0.1.0",
     packages=find_packages(exclude=['*tests*']),
     include_package_data=True,
@@ -21,3 +24,4 @@ setup(
     },
     package_data={"howfairis": ["registries.yaml"]},
 )
+

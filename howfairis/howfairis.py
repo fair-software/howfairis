@@ -35,8 +35,13 @@ class HowFairIsChecker:
 
 
 def main():
-    print("How fair is")
+    print("Checking compliance with fair-software.eu...")
     checker = HowFairIsChecker()
+    checker.check_repository()
+    checker.check_license()
+    checker.check_registry()
+    checker.check_citation()
+    checker.check_checklist()
 
 
 if __name__ == "__main__":
