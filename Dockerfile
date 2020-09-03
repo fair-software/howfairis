@@ -6,4 +6,4 @@ WORKDIR /data
 
 RUN pip install -e .
 
-CMD ["/bin/sh", "howfairis"]
+CMD ["howfairis"]
