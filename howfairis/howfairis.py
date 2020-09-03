@@ -1,7 +1,6 @@
 import sys
 
 from howfairis.check_checklist import main as check_checklist
-from howfairis.check_citation import main as check_citation
 from howfairis.check_license import main as check_license
 from howfairis.check_registry import main as check_registry
 from howfairis.check_repository import main as check_repository
@@ -26,7 +25,7 @@ class HowFairIsChecker:
         self.registry_is_compliant = check_registry()
 
     def check_citation(self):
-        self.citation_is_compliant = check_citation()
+        pass
 
     def check_checklist(self):
         self.checklist_is_compliant = check_checklist()
@@ -70,7 +69,7 @@ def main():
     checker.check_repository()
     checker.check_license()
     checker.check_registry()
-    checker.check_citation()
+    # disabled while we fix errors in it checker.check_citation()
     checker.check_checklist()
 
 
