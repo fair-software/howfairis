@@ -1,3 +1,5 @@
+import sys
+
 from howfairis.check_badge import main as check_badge
 from howfairis.check_checklist import main as check_checklist
 from howfairis.check_citation import main as check_citation
@@ -36,6 +38,9 @@ class HowFairIsChecker:
 
 def main():
     print("Checking compliance with fair-software.eu...")
+    
+    if len(sys.argv) >= 2:
+        print('Running for ', sys.argv[1])
     checker = HowFairIsChecker()
     checker.check_repository()
     checker.check_license()
