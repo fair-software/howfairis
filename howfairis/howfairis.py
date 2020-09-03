@@ -54,17 +54,17 @@ class HowFairIsChecker:
         elif score == 5:
             color_string = "green"
 
-        self.badge = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(compliance_string, color_string)
+        self.badge = "![fair-software.eu](https://img.shields.io/badge/fair--software.eu-{0}-{1})".format(compliance_string, color_string)
 
-        readme_string = "sdlfnsdnfsdnf https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%E2%97%8F%20" +\
-                        "%E2%97%8F%20%E2%97%8F%20%E2%97%8F-green a sdnfk anjsdfkj adnfkj   abnsdfibuweifkj xzk" +\
-                        "cijbsdi"
+        readme_string = "sdlfnsdnfsdnf ![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%" +\
+                        "97%8F%20%E2%97%8F%20%E2%97%8F%20%E2%97%8F%20%E2%97%8F-green) a sdnfk anjsdfkj adnfkj " +\
+                        " abnsdfibuweifkj xzkcijbsdi"
 
         if readme_string.find(self.badge) == -1:
-            print("Expected badge value:\n" + self.badge + "\n")
+            print("\nWhile searching through your README.md, I did not find the expected badge:\n" + self.badge + "\n")
             sys.exit(1)
         else:
-            print("Expected badge is equal to the actual badge. It's all good.")
+            print("\nExpected badge is equal to the actual badge. It's all good.\n")
             sys.exit(0)
 
 
@@ -76,6 +76,7 @@ def main():
     checker.check_registry()
     checker.check_citation()
     checker.check_checklist()
+    checker.check_badge()
 
 
 if __name__ == "__main__":
