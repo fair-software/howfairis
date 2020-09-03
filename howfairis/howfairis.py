@@ -56,8 +56,9 @@ class HowFairIsChecker:
 
         self.badge = "![fair-software.eu](https://img.shields.io/badge/fair--software.eu-{0}-{1})".format(compliance_string, color_string)
 
-        readme_string = "sdlfnsdnfsdnf ![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%" +\
-                        "97%8F%20%E2%97%8F%20%E2%97%8F%20%E2%97%8F%20%E2%97%8F-green) a sdnfk anjsdfkj adnfkj " +\
+        # this string should be retrieved from the repo in the future:
+        readme_string = "sdlfnsdnfsdnf ![fair-software.eu](https://img.shields.io/badge/fair--software.eu-" +\
+                        "%E2%97%8B%20%E2%97%8B%20%E2%97%8B%20%E2%97%8B%20%E2%97%8B-red) a sdnfk anjsdfkj adnfkj " +\
                         " abnsdfibuweifkj xzkcijbsdi"
 
         if readme_string.find(self.badge) == -1:
