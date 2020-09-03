@@ -1,6 +1,6 @@
 #! /bin/sh
 
-echo "Repository: $INPUT_repository"
+echo "Repository: $INPUT_REPOSITORY"
 if [ "$INPUT_SWITCH" == "repository" ] ; then
     /usr/local/bin/python /data/1-repository/check_repository.py
 elif [ "$INPUT_SWITCH" == "license" ] ; then

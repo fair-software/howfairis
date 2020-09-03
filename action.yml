@@ -9,7 +9,7 @@ inputs:
   SWITCH:
     description: "One of 'repository', 'license', 'registry', 'citation', 'checklist'."
     required: true
-  repository:
+  REPOSITORY:
     description: URL of the repository being inspected
     required: true
 runs:
