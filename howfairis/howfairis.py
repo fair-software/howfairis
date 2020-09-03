@@ -61,12 +61,11 @@ class HowFairIsChecker:
                         "cijbsdi"
 
         if readme_string.find(self.badge) == -1:
-            print("Expected badge is equal to the actual badge. It's all good.")
-            sys.exit(0)
-        else:
             print("Expected badge value:\n" + self.badge + "\n")
             sys.exit(1)
-
+        else:
+            print("Expected badge is equal to the actual badge. It's all good.")
+            sys.exit(0)
 
 
 def main():
