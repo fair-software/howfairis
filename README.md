@@ -1,5 +1,6 @@
-# badge
-A badge for showing compliance with fair-software.eu
+# howfairis
+
+_GitHub action to assess compliance with fair-software.eu_
 
 To enable this checker, add the following snippet as ``.github/workflows/fair-software.yml`` in your GitHub repository.
 
