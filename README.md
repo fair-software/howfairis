@@ -29,5 +29,10 @@ source venv3/bin/activate
 # (from the project root directory)
 # install howfairis as an editable package
 pip install --editable .
+
+# You should now have a command line utility 
+# 'howfairis' (whenever you are in the virtualenv):
+howfairis
+
 ```
 
