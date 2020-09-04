@@ -5,7 +5,7 @@ import requests
 class HowFairIsChecker:
     def __init__(self, url):
         assert url.startswith("https://github.com/"), \
-                              "url should start with https://github.com"
+            "url should start with https://github.com"
         self.url = url
         self.readme = None
         self.repository_is_compliant = None
