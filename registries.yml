@@ -1,4 +1,0 @@
-PyPi : 'PyPi(.*)https://badge.fury.io/py/(.*).svg'
-Julia : 'http://pkg.julialang.org/badges/(.*).svg'
-CRAN: 'https://www.r-pkg.org/badges/version/'
-ROpenSci: 'https://badges.ropensci.org/(.*).svg'
