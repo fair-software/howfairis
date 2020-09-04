@@ -5,10 +5,9 @@ branding:
   icon: check
 description: "Analyze compliance with fair-software.eu recommendations"
 name: fair-software
-inputs:
-  REPOSITORY:
-    description: URL of the repository being inspected
-    required: true
 runs:
   image: Dockerfile
   using: docker
+  args:
+    - howfairis
+    - https://github.com/${{ github.repository }}
