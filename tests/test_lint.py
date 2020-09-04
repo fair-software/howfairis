@@ -9,7 +9,7 @@ def test_pep8_conformance():
     """Test that we conform to PEP-8."""
     check_paths = [
         'howfairis',
-        'tests',
+        'tests'
     ]
     exclude_paths = []
 

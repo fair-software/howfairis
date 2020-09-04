@@ -37,7 +37,8 @@ class HowFairIsChecker:
         elif score == 5:
             color_string = "green"
 
-        self.badge = "![fair-software.eu](https://img.shields.io/badge/fair--software.eu-{0}-{1})" \
+        self.badge = "![fair-software.eu](https://img.shields.io" +\
+                     "/badge/fair--software.eu-{0}-{1})" \
                      .format(compliance_string, color_string)
 
         if self.readme.find(self.badge) == -1:
