@@ -11,9 +11,9 @@ with open("README.md") as readme_file:
 setup(
     name="howfairis",
     entry_points={
-        "console_scripts": ["howfairis=howfairis:main"],
+        "console_scripts": ["howfairis=howfairis.howfairis:main"],
     },
-    version="0.1.0",
+    version="0.1.1",
     description="Python package to analyze compliance with fair-software.eu recommendations",
     long_description=readme + "\n\n",
     author="https://github.com/jspaaks",
