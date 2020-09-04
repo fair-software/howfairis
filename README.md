@@ -8,6 +8,9 @@ Install
 ```
 # while the package has not been released on PyPI yet, install with
 pip install --user git+https://github.com/fair-software/howfairis
+
+# Use it like this
+howfairis https://github.com/owner/repo
 ```
 
 Development install
