@@ -14,4 +14,4 @@ runs:
   using: docker
   args:
     - howfairis
-    - "https://github.com/some/repo"
+    - "${{ inputs.MY_REPO_URL }}"
