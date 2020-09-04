@@ -15,6 +15,7 @@ setup(
     include_package_data=True,
     license="Apache Software License 2.0",
     install_requires=[
+        "pyyaml>=5.3"
     ],
     setup_requires=[
     ],

@@ -6,4 +6,4 @@ WORKDIR /data
 
 RUN pip install -e .
 
-CMD howfairis "https://github.com/${INPUT_REPOSITORY}"
+ENTRYPOINT ["howfairis"]
