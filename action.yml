@@ -11,3 +11,4 @@ runs:
   args:
     - /bin/sh
     - env
+  entrypoint: ''
