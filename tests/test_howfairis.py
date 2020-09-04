@@ -5,8 +5,6 @@
 """
 import pytest
 
-from howfairis import howfairis
-
 
 def test_something():
     assert True
