@@ -35,7 +35,7 @@ Running the dockerized howfair is locally:
 
 ```shell
 # (from project root directory)
-docker run -ti howfairis
+docker run -ti howfairis https://github.com/owner/repo
 ```
 
 Non-dockerized howfairis:
@@ -53,7 +53,7 @@ pip install --editable .
 
 # You should now have a command line utility 
 # 'howfairis' (whenever you are in the virtualenv):
-howfairis
+howfairis https://github.com/owner/repo
 
 ```
 
