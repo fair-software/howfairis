@@ -41,20 +41,18 @@ setup(
         "requests"
     ],
     setup_requires=[
-        # dependency for `python setup.py test`
-        "pytest-runner"
     ],
     tests_require=[
-        "pytest",
-        "pytest-cov",
-        "pycodestyle",
     ],
     extras_require={
         "dev":  [
             "prospector[with_pyroma]",
             "yapf",
-            "isort",
-            "bumpversion"
+            "bumpversion",
+            "pytest",
+            "pytest-cov",
+            "pycodestyle",
+            "pytest-runner"
         ],
     },
     data_files=[]

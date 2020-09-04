@@ -10,7 +10,7 @@ test-warnings: true
 member-warnings: false
 
 ignore-paths:
-  - docs
+  - tests
 
 pyroma:
     run: true
