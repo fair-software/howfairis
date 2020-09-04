@@ -4,6 +4,6 @@ RUN mkdir /data
 COPY . /data/
 WORKDIR /data
 
-RUN pip install .
+RUN pip install git+https://github.com/fair-software/badge
 
 ENTRYPOINT ["howfairis"]
