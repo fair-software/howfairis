@@ -11,7 +11,7 @@ inputs:
 name: fair-software
 runs:
   args:
-    - howfairis
     - "${{ inputs.MY_REPO_URL }}"
+  entrypoint: howfairis
   image: Dockerfile
   using: docker
