@@ -4,6 +4,6 @@ RUN mkdir /data
 COPY . /data/
 WORKDIR /data
 
-RUN pip install -e .
+RUN pip install .
 
 ENTRYPOINT ["howfairis"]
