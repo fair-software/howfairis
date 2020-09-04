@@ -1,5 +1,6 @@
 import sys
 import requests
+from citation import has_zenodo_badge
 
 
 class HowFairIsChecker:
@@ -51,23 +52,28 @@ class HowFairIsChecker:
             sys.exit(0)
 
     def check_checklist(self):
-        print("checklist checks TODO")
+        print("(5/5) checklist checks TODO")
         return self
 
     def check_citation(self):
-        print("citation checks TODO")
+        print("(4/5) citation checks")
+        s = self.readme
+        if has_zenodo_badge(s):
+            self.citation_is_compliant = True
+        else:
+            self.citation_is_compliant = False
         return self
 
     def check_license(self):
-        print("license checks TODO")
+        print("(2/5) license checks TODO")
         return self
 
     def check_registry(self):
-        print("registry checks TODO")
+        print("(3/5) registry checks TODO")
         return self
 
     def check_repository(self):
-        print("repository checks TODO")
+        print("(1/5) repository checks TODO")
         return self
 
     def get_readme(self):
@@ -103,13 +109,13 @@ def main():
     url = sys.argv[1]
     print("Running for {0}".format(url))
     checker = HowFairIsChecker(url)
-    checker.get_readme()       \
-           .check_repository() \
-           .check_license()    \
-           .check_registry()   \
-           .check_citation()   \
-           .check_checklist()  \
-           .check_badge()
+    checker.get_readme()
+    checker.check_repository()
+    checker.check_license()
+    checker.check_registry()
+    checker.check_citation()
+    checker.check_checklist()
+    checker.check_badge()
 
 
 if __name__ == "__main__":
