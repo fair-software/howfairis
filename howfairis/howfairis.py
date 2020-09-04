@@ -1,6 +1,44 @@
 import sys
 import requests
-from citation import has_zenodo_badge
+import re
+
+
+def has_license(owner, repo):
+    url = "https://api.github.com/repos/{0}/{1}/license".format(owner, repo)
+
+    try:
+        response = requests.get(url)
+        # If the response was successful, no Exception will be raised
+        response.raise_for_status()
+    except requests.HTTPError:
+        print("Did not see a license file")
+        return False
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+
+    return True
+
+
+def has_zenodo_badge(s):
+    regex = r"!\[.*\]\(https://zenodo\.org/badge/DOI/10\.5281/zenodo" + \
+            r"\.[0-9]*\.svg\)\]\(https://doi\.org/10\.5281/zenodo\.[0-9]*\)"
+    return re.compile(regex).search(s) is not None
+
+
+def has_open_repository(owner, repo):
+    url = "https://api.github.com/repos/{0}/{1}".format(owner, repo)
+
+    try:
+        response = requests.get(url)
+        # If the response was successful, no Exception will be raised
+        response.raise_for_status()
+    except requests.HTTPError:
+        print("Repository doesn't seem to be publicly accessible.")
+        return False
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+
+    return True
 
 
 class HowFairIsChecker:
@@ -15,6 +53,10 @@ class HowFairIsChecker:
         self.citation_is_compliant = None
         self.checklist_is_compliant = None
         self.badge = None
+        self.owner = None
+        self.repo = None
+        self.readme_filename = None
+        self.branch = None
 
     def check_badge(self):
 
@@ -57,15 +99,12 @@ class HowFairIsChecker:
 
     def check_citation(self):
         print("(4/5) citation checks")
-        s = self.readme
-        if has_zenodo_badge(s):
-            self.citation_is_compliant = True
-        else:
-            self.citation_is_compliant = False
+        self.citation_is_compliant = has_zenodo_badge(self.readme)
         return self
 
     def check_license(self):
-        print("(2/5) license checks TODO")
+        print("(2/5) license checks")
+        self.license_is_compliant = has_license(self.owner, self.repo)
         return self
 
     def check_registry(self):
@@ -73,19 +112,25 @@ class HowFairIsChecker:
         return self
 
     def check_repository(self):
-        print("(1/5) repository checks TODO")
+        print("(1/5) repository checks")
+        self.repository_is_compliant = \
+            has_open_repository(self.owner, self.repo)
+        return self
+
+    def deconstruct_url(self):
+        self.owner, self.repo = self.url.replace("https://github.com/",
+                                                 "").split("/")[:2]
+        self.branch = "master"
+        self.readme_filename = "README.md"
         return self
 
     def get_readme(self):
         # only github urls supported
         # only README.md supported
-        owner, repo = self.url.replace("https://github.com/", "") \
-                              .split("/")[:2]
 
-        branch = "master"
-        file = "README.md"
         raw_url = "https://raw.githubusercontent.com/" + \
-                  "{0}/{1}/{2}/{3}".format(owner, repo, branch, file)
+                  "{0}/{1}/{2}/{3}".format(self.owner, self.repo,
+                                           self.branch, self.readme_filename)
         try:
             response = requests.get(raw_url)
             # If the response was successful, no Exception will be raised
@@ -109,6 +154,7 @@ def main():
     url = sys.argv[1]
     print("Running for {0}".format(url))
     checker = HowFairIsChecker(url)
+    checker.deconstruct_url()
     checker.get_readme()
     checker.check_repository()
     checker.check_license()
