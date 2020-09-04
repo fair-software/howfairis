@@ -79,7 +79,7 @@ class HowFairIsChecker:
         branch = "master"
         file = "README.md"
         raw_url = "https://raw.githubusercontent.com/" + \
-                  "{0}/{1}/{2}/{3}.md".format(owner, repo, branch, file)
+                  "{0}/{1}/{2}/{3}".format(owner, repo, branch, file)
         try:
             response = requests.get(raw_url)
             # If the response was successful, no Exception will be raised
