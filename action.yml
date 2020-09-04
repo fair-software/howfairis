@@ -10,4 +10,4 @@ runs:
   using: docker
   args:
     - howfairis
-    - https://github.com/${{ GITHUB_REPOSITORY }}
+    - "https://github.com/${{ GITHUB_REPOSITORY }}"
