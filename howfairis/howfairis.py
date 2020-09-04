@@ -10,7 +10,7 @@ def has_license(owner, repo):
         response = requests.get(url)
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
-    except requests.HTTPError as http_err:
+    except requests.HTTPError:
         print("Did not see a license file")
         return False
     except Exception as err:
@@ -32,8 +32,8 @@ def has_open_repository(owner, repo):
         response = requests.get(url)
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
-    except requests.HTTPError as http_err:
-        print(f"HTTP error occurred: {http_err}")
+    except requests.HTTPError:
+        print("Repository doesn't seem to be publicly accessible.")
         return False
     except Exception as err:
         print(f"Other error occurred: {err}")
@@ -113,12 +113,13 @@ class HowFairIsChecker:
 
     def check_repository(self):
         print("(1/5) repository checks")
-        self.repository_is_compliant = has_open_repository(self.owner, self.repo)
+        self.repository_is_compliant = \
+            has_open_repository(self.owner, self.repo)
         return self
 
     def deconstruct_url(self):
-        self.owner, self.repo = self.url.replace("https://github.com/", "") \
-                               .split("/")[:2]
+        self.owner, self.repo = self.url.replace("https://github.com/",
+                                                 "").split("/")[:2]
         self.branch = "master"
         self.readme_filename = "README.md"
         return self
