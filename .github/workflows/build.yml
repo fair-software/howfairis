@@ -30,7 +30,7 @@ jobs:
           pip install --editable .[dev]
       - name: Check style against standards using prospector
         shell: bash -l {0}
-        run: prospector -o grouped -o pylint:pylint-report.txt
+        run: cd howfairis && prospector -o grouped -o pylint:pylint-report.txt
       - name: Build
         shell: bash -l {0}
         run: |
