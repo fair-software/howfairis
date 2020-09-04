@@ -9,5 +9,5 @@ runs:
   image: Dockerfile
   using: docker
   args:
-    - howfairis
-    - "https://github.com/fair-software/badge-test"
+    - /bin/sh
+    - env
