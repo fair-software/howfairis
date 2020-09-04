@@ -1,6 +1,0 @@
-comment: This file somehow gets magically generated from https://github.com/NLeSC/awesome-research-software-registries
-known-registries:
-  byLanguage:
-    - https://npmjs.com
-    - https://pkg.julialang.org/docs/
-    - https://pypi.org

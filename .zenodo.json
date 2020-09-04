@@ -30,13 +30,12 @@
             "orcid": "0000-0002-8459-7048"
         }
     ],
-    "description": "GitHub Action to analyze compliance with fair-software.eu recommendations.",
+    "description": "Python package to analyze compliance with fair-software.eu recommendations.",
     "keywords": [
-        "GitHub Actions",
         "FAIR software"
     ],
     "license": {
         "id": "Apache-2.0"
     },
-    "title": "badge"
+    "title": "howfairis"
 }
