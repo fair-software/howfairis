@@ -11,3 +11,6 @@ name: fair-software
 runs:
   image: Dockerfile
   using: docker
+  args:
+    - howfairis
+    - $INPUT_REPO_URL
