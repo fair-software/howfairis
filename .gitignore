@@ -2,4 +2,10 @@
 /howfairis.egg-info/
 /howfairis/__pycache__/
 /venv3
+/.eggs
+/.coverage
+/coverage.xml
+/htmlcov/
+/tests/__pycache__/
+
 

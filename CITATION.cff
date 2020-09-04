@@ -1,6 +1,6 @@
 # YAML 1.2
 ---
-abstract: "GitHub Action to analyze compliance with fair-software.eu recommendations."
+abstract: "Python package to analyze compliance with fair-software.eu recommendations."
 authors: 
   -
     affiliation: "Netherlands eScience Center"
@@ -33,11 +33,10 @@ authors:
     orcid: "https://orcid.org/0000-0002-8459-7048"
 cff-version: "1.1.0"
 keywords: 
-  - "GitHub Actions"
   - "FAIR software"
 license: "Apache-2.0"
 message: "If you use this software, please cite it using these metadata."
-repository-code: "https://github.com/fair-software/badge"
-title: badge
-version: "0.1.0"
+repository-code: "https://github.com/fair-software/howfairis"
+title: howfairis
+version: "0.1.1"
 ...

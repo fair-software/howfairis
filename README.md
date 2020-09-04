@@ -22,9 +22,20 @@ source venv3/bin/activate
 # (from the project root directory)
 # install howfairis as an editable package
 pip install --editable .
+pip install --editable .[dev]
 
 # You should now have a command line utility 
 # 'howfairis' (whenever you are in the virtualenv):
 howfairis https://github.com/owner/repo
 
+```
+
+
+# For maintainers
+
+
+Bumping the version across all files is done with bump2version, e.g.
+
+```shell
+bump2version --current-version 0.1.0 major|minor|patch
 ```
