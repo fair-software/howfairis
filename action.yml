@@ -8,7 +8,4 @@ name: fair-software
 runs:
   image: Dockerfile
   using: docker
-  args:
-    - /bin/sh
-    - env
-  entrypoint: ''
+  entrypoint: '/bin/sh env'
