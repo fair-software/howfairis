@@ -5,6 +5,7 @@ branding:
   icon: check
 description: "Analyze compliance with fair-software.eu recommendations"
 name: fair-software
+inputs:
   REPO_URL:
     description: 'URL of the GitHub repository for which to run the analysis'
     required: true
