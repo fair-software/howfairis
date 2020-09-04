@@ -4,7 +4,14 @@ branding:
   color: purple
   icon: check
 description: "Analyze compliance with fair-software.eu recommendations"
+inputs:
+  MY_REPO_URL:
+    description: "URL of the GitHub repository for which to run the analysis"
+    required: true
 name: fair-software
 runs:
+  args:
+    - "${{ inputs.MY_REPO_URL }}"
+  entrypoint: howfairis
   image: Dockerfile
   using: docker

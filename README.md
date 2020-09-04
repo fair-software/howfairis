@@ -19,6 +19,8 @@ jobs:
 
       - uses: fair-software/badge@master
         name: Measure compliance with fair-software.eu recommendations
+        with:
+          MY_REPO_URL: "https://github/com/${{ github.repository }}"
 ```
 
 
@@ -33,7 +35,7 @@ Running the dockerized howfair is locally:
 
 ```shell
 # (from project root directory)
-docker run -ti howfairis
+docker run -ti howfairis https://github.com/owner/repo
 ```
 
 Non-dockerized howfairis:
@@ -51,7 +53,7 @@ pip install --editable .
 
 # You should now have a command line utility 
 # 'howfairis' (whenever you are in the virtualenv):
-howfairis
+howfairis https://github.com/owner/repo
 
 ```
 
@@ -83,4 +85,3 @@ Does the repository contain the description on how to cite the software? This ca
 
 ### [Checklist](https://fair-software.eu/recommendations/checklist)
 Do the developers of the software use a software quiality checklist?
-

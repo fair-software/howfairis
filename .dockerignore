@@ -1,8 +1,0 @@
-# Ignore everything ...
-*
-
-# ... except these
-!bin
-!howfairis
-!registries.yaml
-!setup.py

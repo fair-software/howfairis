@@ -7,7 +7,8 @@ from howfairis.check_repository import main as check_repository
 
 
 class HowFairIsChecker:
-    def __init__(self):
+    def __init__(self, url):
+        self.url = url
         self.repository_is_compliant = None
         self.license_is_compliant = None
         self.registry_is_compliant = None
@@ -71,7 +72,13 @@ class HowFairIsChecker:
 
 def main():
     print("Checking compliance with fair-software.eu...")
-    checker = HowFairIsChecker()
+    
+    if len(sys.argv) != 2:
+        raise Exception("Expected exactly one argument, i.e. the URL for which GitHub repository to run the analysis.")
+
+    url = sys.argv[1]
+    print('Running for {0}'.format(url))
+    checker = HowFairIsChecker(url)
     checker.check_repository()
     checker.check_license()
     checker.check_registry()

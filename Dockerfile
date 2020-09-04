@@ -1,9 +1,9 @@
 FROM python:3.8-alpine
 
-RUN mkdir /data
-COPY . /data/
+RUN apk add git
+
 WORKDIR /data
 
-RUN pip install -e .
+RUN pip install git+https://github.com/fair-software/badge@url
 
-CMD ["howfairis"]
+ENTRYPOINT ["howfairis"]
