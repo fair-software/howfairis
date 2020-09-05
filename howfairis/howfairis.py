@@ -59,6 +59,30 @@ def has_pypi_badge(s):
     return r
 
 
+def has_bintray_badge(s):
+    regex = r"!\[.*\]\(https://api\.bintray\.com/packages" + \
+            r"/.*/.*/.*/images/download\.svg\)\]" + \
+            r"\(https://bintray\.com/.*/.*/.*/.*\)"
+    r = re.compile(regex).search(s) is not None
+    if r is True:
+        print("        has_bintray_badge: true")
+    else:
+        print("        has_bintray_badge: false")
+    return r
+
+
+def has_conda_badge(s):
+    regex = r"!\[.*\]\(https://anaconda\.org/.*/.*/badges" + \
+            r"/installer/conda\.svg\)\]" + \
+            r"\(https://anaconda\.org/.*/.*\)"
+    r = re.compile(regex).search(s) is not None
+    if r is True:
+        print("        has_conda_badge: true")
+    else:
+        print("        has_conda_badge: false")
+    return r
+
+
 # # # # # # # # # # # # # # # # # # # # # #
 #                citation                 #
 # # # # # # # # # # # # # # # # # # # # # #
@@ -156,6 +180,17 @@ def has_core_infrastructures_badge(s):
     return r
 
 
+def has_sonarcloud_badge(s):
+    regex = r"!\[.*\]\(https://sonarcloud\.io/api/project_badges/.*\)\]" + \
+            r"\(https://sonarcloud\.io/dashboard\?id=.*\)"
+    r = re.compile(regex).search(s) is not None
+    if r is True:
+        print("        has_sonarcloud_badge: true")
+    else:
+        print("        has_sonarcloud_badge: false")
+    return r
+
+
 class HowFairIsChecker:
     def __init__(self, url):
         assert url.startswith("https://github.com/"), \
@@ -223,7 +258,10 @@ class HowFairIsChecker:
         if self.readme is None:
             self.checklist_is_compliant = False
             return self
-        results = [has_core_infrastructures_badge(self.readme)]
+        results = [
+            has_core_infrastructures_badge(self.readme),
+            has_sonarcloud_badge(self.readme)
+        ]
         self.checklist_is_compliant = True in results
         return self
 
@@ -253,7 +291,11 @@ class HowFairIsChecker:
         if self.readme is None:
             self.registry_is_compliant = False
             return self
-        results = [has_pypi_badge(self.readme)]
+        results = [
+            has_pypi_badge(self.readme),
+            has_conda_badge(self.readme),
+            has_bintray_badge(self.readme)
+        ]
         self.registry_is_compliant = True in results
         return self
 
