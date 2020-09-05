@@ -38,4 +38,4 @@ jobs:
       - name: Test
         shell: bash -l {0}
         run: |
-          cd howfairis && pytest
+          pytest
