@@ -59,6 +59,17 @@ def has_pypi_badge(s):
     return r
 
 
+def has_bintray_badge(s):
+    regex = r"!\[.*\]\(https://api\.bintray\.com/packages/.*/.*/.*/images/download\.svg\)\]" + \
+            r"\(https://bintray\.com/.*/.*/.*/.*\)"
+    r = re.compile(regex).search(s) is not None
+    if r is True:
+        print("        has_bintray_badge: true")
+    else:
+        print("        has_bintray_badge: false")
+    return r
+
+
 # # # # # # # # # # # # # # # # # # # # # #
 #                citation                 #
 # # # # # # # # # # # # # # # # # # # # # #
@@ -253,7 +264,10 @@ class HowFairIsChecker:
         if self.readme is None:
             self.registry_is_compliant = False
             return self
-        results = [has_pypi_badge(self.readme)]
+        results = [
+            has_pypi_badge(self.readme),
+            has_bintray_badge(self.readme)
+        ]
         self.registry_is_compliant = True in results
         return self
 
