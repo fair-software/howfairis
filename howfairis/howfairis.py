@@ -83,6 +83,28 @@ def has_conda_badge(s):
     return r
 
 
+def is_on_github_marketplace(url):
+    try:
+        response = requests.get(url)
+        # If the response was successful, no Exception will be raised
+        response.raise_for_status()
+    except requests.HTTPError as http_err:
+        print(f"HTTP error occurred: {http_err}")
+        print("        is_on_github_marketplace: false")
+        return False
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+
+    html = response.text
+    r = "Use this GitHub Action with your project" in html and \
+        "Add this Action to an existing workflow or create a new one." in html
+    if r is True:
+        print("        is_on_github_marketplace: true")
+    else:
+        print("        is_on_github_marketplace: false")
+    return r
+
+
 # # # # # # # # # # # # # # # # # # # # # #
 #                citation                 #
 # # # # # # # # # # # # # # # # # # # # # #
@@ -294,7 +316,8 @@ class HowFairIsChecker:
         results = [
             has_pypi_badge(self.readme),
             has_conda_badge(self.readme),
-            has_bintray_badge(self.readme)
+            has_bintray_badge(self.readme),
+            is_on_github_marketplace(self.url)
         ]
         self.registry_is_compliant = True in results
         return self
