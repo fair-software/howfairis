@@ -172,22 +172,28 @@ class HowFairIsChecker:
         self.repo = None
         self.readme_filename = None
         self.branch = None
+        self.compliant_symbol = "\u25CF"
+        self.noncompliant_symbol = "\u25CB"
 
     def check_badge(self):
 
-        compliance = [
+        compliance_bool = [
             self.repository_is_compliant, self.license_is_compliant,
             self.registry_is_compliant, self.citation_is_compliant,
             self.checklist_is_compliant
         ]
 
-        compliant_symbol = "%E2%97%8F"
-        noncompliant_symbol = "%E2%97%8B"
-        compliance_string = "%20%20".join([
-            compliant_symbol if c is True else noncompliant_symbol
-            for c in compliance
-        ])
-        score = compliance_string.count(compliant_symbol)
+        compliance_unicode = [None] * 5
+        for i, c in enumerate(compliance_bool):
+            if c is True:
+                compliance_unicode[i] = self.compliant_symbol
+            else:
+                compliance_unicode[i] = self.noncompliant_symbol
+
+        compliance_string = "%20%20".join(
+            [requests.utils.quote(symbol) for symbol in compliance_unicode])
+
+        score = compliance_bool.count(True)
         if score in [0, 1]:
             color_string = "red"
         elif score in [2, 3, 4]:
@@ -199,7 +205,11 @@ class HowFairIsChecker:
                      "/badge/fair--software.eu-{0}-{1})" \
                      .format(compliance_string, color_string)
 
-        if self.readme.find(self.badge) == -1:
+        print("\nCalculated compliance: " + " ".join(compliance_unicode))
+
+        if self.readme is None:
+            sys.exit(1)
+        elif self.readme.find(self.badge) == -1:
             print("\nWhile searching through your README.md, I" +
                   " did not find the expected badge:\n" + self.badge + "\n")
             sys.exit(1)
@@ -210,12 +220,18 @@ class HowFairIsChecker:
 
     def check_checklist(self):
         print("(5/5) checklist")
+        if self.readme is None:
+            self.checklist_is_compliant = False
+            return self
         results = [has_core_infrastructures_badge(self.readme)]
         self.checklist_is_compliant = True in results
         return self
 
     def check_citation(self):
         print("(4/5) citation")
+        if self.readme is None:
+            self.citation_is_compliant = False
+            return self
         results = [
             has_zenodo_badge(self.readme),
             has_citationcff_file(self.owner, self.repo, self.branch),
@@ -234,6 +250,9 @@ class HowFairIsChecker:
 
     def check_registry(self):
         print("(3/5) registry")
+        if self.readme is None:
+            self.registry_is_compliant = False
+            return self
         results = [has_pypi_badge(self.readme)]
         self.registry_is_compliant = True in results
         return self
@@ -264,6 +283,7 @@ class HowFairIsChecker:
             response.raise_for_status()
         except requests.HTTPError as http_err:
             print(f"HTTP error occurred: {http_err}")
+            return self
         except Exception as err:
             print(f"Other error occurred: {err}")
 
