@@ -2,6 +2,7 @@ import sys
 import requests
 import re
 
+
 # # # # # # # # # # # # # # # # # # # # # #
 #               repository                #
 # # # # # # # # # # # # # # # # # # # # # #
@@ -146,8 +147,9 @@ def has_codemeta_file(owner, repo, branch="master"):
 # # # # # # # # # # # # # # # # # # # # # #
 
 def has_core_infrastructures_badge(s):
-    regex = r"!\[.*\]\(https://bestpractices\.coreinfrastructure\.org/projects/[0-9]*/badge\)\]" + \
-            r"\(https://bestpractices\.coreinfrastructure\.org/projects/[0-9]*\)"
+    regex = r"!\[.*\]\(https://bestpractices\.coreinfrastructure\.org" + \
+            r"/projects/[0-9]*/badge\)\]\(https://bestpractices\." + \
+            r"coreinfrastructure\.org/projects/[0-9]*\)"
     r = re.compile(regex).search(s) is not None
     if r is True:
         print("        has_core_infrastructures_badge: true")
@@ -195,9 +197,9 @@ class HowFairIsChecker:
         elif score == 5:
             color_string = "green"
 
-        self.badge = "![fair-software.eu](https://img.shields.io" +\
+        self.badge = "![fair-software.eu](https://img.shields.io" + \
                      "/badge/fair--software.eu-{0}-{1})" \
-                     .format(compliance_string, color_string)
+                         .format(compliance_string, color_string)
 
         if self.readme.find(self.badge) == -1:
             print("\nWhile searching through your README.md, I" +
