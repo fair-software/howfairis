@@ -197,7 +197,7 @@ class HowFairIsChecker:
 
         self.badge = "![fair-software.eu](https://img.shields.io" + \
                      "/badge/fair--software.eu-{0}-{1})" \
-                         .format(compliance_string, color_string)
+                     .format(compliance_string, color_string)
 
         if self.readme.find(self.badge) == -1:
             print("\nWhile searching through your README.md, I" +
