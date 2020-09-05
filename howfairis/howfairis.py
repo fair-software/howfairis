@@ -2,27 +2,9 @@ import sys
 import requests
 import re
 
-
-def has_license(owner, repo):
-    url = "https://api.github.com/repos/{0}/{1}/license".format(owner, repo)
-
-    try:
-        response = requests.get(url)
-        # If the response was successful, no Exception will be raised
-        response.raise_for_status()
-    except requests.HTTPError:
-        print("Did not see a license file")
-        return False
-    except Exception as err:
-        print(f"Other error occurred: {err}")
-
-    return True
-
-
-def has_zenodo_badge(s):
-    regex = r"!\[.*\]\(https://zenodo\.org/badge/DOI/10\.5281/zenodo" + \
-            r"\.[0-9]*\.svg\)\]\(https://doi\.org/10\.5281/zenodo\.[0-9]*\)"
-    return re.compile(regex).search(s) is not None
+# # # # # # # # # # # # # # # # # # # # # #
+#               repository                #
+# # # # # # # # # # # # # # # # # # # # # #
 
 
 def has_open_repository(owner, repo):
@@ -33,12 +15,145 @@ def has_open_repository(owner, repo):
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
     except requests.HTTPError:
-        print("Repository doesn't seem to be publicly accessible.")
+        print("        has_open_repository: false")
         return False
     except Exception as err:
         print(f"Other error occurred: {err}")
-
+    print("        has_open_repository: true")
     return True
+
+
+# # # # # # # # # # # # # # # # # # # # # #
+#                license                  #
+# # # # # # # # # # # # # # # # # # # # # #
+
+
+def has_license(owner, repo):
+    url = "https://api.github.com/repos/{0}/{1}/license".format(owner, repo)
+    try:
+        response = requests.get(url)
+        # If the response was successful, no Exception will be raised
+        response.raise_for_status()
+    except requests.HTTPError:
+        print("        has_license: false")
+        return False
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    print("        has_license: true")
+    return True
+
+
+# # # # # # # # # # # # # # # # # # # # # #
+#                registry                 #
+# # # # # # # # # # # # # # # # # # # # # #
+
+# TODO
+# https://img.shields.io/pypi/v/cffconvert.svg?colorB=blue
+# https://pypi.python.org/pypi/cffconvert/
+def has_pypi_badge(s):
+    regex = r"!\[.*\]\(https://img\.shields\.io/pypi/v/[^.]*\.svg.*\)\]" + \
+            r"\(https://pypi\.python\.org/pypi/.*\)"
+    r = re.compile(regex).search(s) is not None
+    if r is True:
+        print("        has_pypi_badge: true")
+    else:
+        print("        has_pypi_badge: false")
+    return r
+
+
+# # # # # # # # # # # # # # # # # # # # # #
+#                citation                 #
+# # # # # # # # # # # # # # # # # # # # # #
+
+
+def has_zenodo_badge(s):
+    regex = r"!\[.*\]\(https://zenodo\.org/badge/DOI/10\.5281/zenodo" + \
+            r"\.[0-9]*\.svg\)\]\(https://doi\.org/10\.5281/zenodo\.[0-9]*\)"
+    r = re.compile(regex).search(s) is not None
+    if r is True:
+        print("        has_zenodo_badge: true")
+    else:
+        print("        has_zenodo_badge: false")
+    return r
+
+
+def has_citation_file(owner, repo, branch="master"):
+    url = "https://raw.githubusercontent.com/" + \
+          "{0}/{1}/{2}/CITATION".format(owner, repo, branch)
+    try:
+        response = requests.get(url)
+        # If the response was successful, no Exception will be raised
+        response.raise_for_status()
+    except requests.HTTPError:
+        print("        has_citation_file: false")
+        return False
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    print("        has_citation_file: true")
+    return True
+
+
+def has_citationcff_file(owner, repo, branch="master"):
+    url = "https://raw.githubusercontent.com/" + \
+          "{0}/{1}/{2}/CITATION.cff".format(owner, repo, branch)
+    try:
+        response = requests.get(url)
+        # If the response was successful, no Exception will be raised
+        response.raise_for_status()
+    except requests.HTTPError:
+        print("        has_citationcff_file: false")
+        return False
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    print("        has_citationcff_file: true")
+    return True
+
+
+def has_zenodo_metadata_file(owner, repo, branch="master"):
+    url = "https://raw.githubusercontent.com/" + \
+          "{0}/{1}/{2}/.zenodo.json".format(owner, repo, branch)
+    try:
+        response = requests.get(url)
+        # If the response was successful, no Exception will be raised
+        response.raise_for_status()
+    except requests.HTTPError:
+        print("        has_zenodo_metadata_file: false")
+        return False
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    print("        has_zenodo_metadata_file: true")
+    return True
+
+
+def has_codemeta_file(owner, repo, branch="master"):
+    url = "https://raw.githubusercontent.com/" + \
+          "{0}/{1}/{2}/codemeta.json".format(owner, repo, branch)
+    try:
+        response = requests.get(url)
+        # If the response was successful, no Exception will be raised
+        response.raise_for_status()
+    except requests.HTTPError:
+        print("        has_codemeta_file: false")
+        return False
+    except Exception as err:
+        print(f"Other error occurred: {err}")
+    print("        has_codemeta_file: true")
+    return True
+
+
+# # # # # # # # # # # # # # # # # # # # # #
+#                checklist                #
+# # # # # # # # # # # # # # # # # # # # # #
+
+def has_core_infrastructures_badge(s):
+    regex = r"!\[.*\]\(https://bestpractices\.coreinfrastructure\.org/projects/[0-9]*/badge\)\]" + \
+            r"\(https://bestpractices\.coreinfrastructure\.org/projects/[0-9]*\)"
+    r = re.compile(regex).search(s) is not None
+    if r is True:
+        print("        has_core_infrastructures_badge: true")
+    else:
+        print("        has_core_infrastructures_badge: false")
+    return r
 
 
 class HowFairIsChecker:
@@ -94,27 +209,47 @@ class HowFairIsChecker:
             sys.exit(0)
 
     def check_checklist(self):
-        print("(5/5) checklist checks TODO")
+        print("(5/5) checklist")
+        results = [
+            has_core_infrastructures_badge(self.readme)
+        ]
+        self.checklist_is_compliant = True in results
         return self
 
     def check_citation(self):
-        print("(4/5) citation checks")
-        self.citation_is_compliant = has_zenodo_badge(self.readme)
+        print("(4/5) citation")
+        results = [
+            has_zenodo_badge(self.readme),
+            has_citationcff_file(self.owner, self.repo, self.branch),
+            has_citation_file(self.owner, self.repo, self.branch),
+            has_zenodo_metadata_file(self.owner, self.repo, self.branch),
+            has_codemeta_file(self.owner, self.repo, self.branch)
+        ]
+        self.citation_is_compliant = True in results
         return self
 
     def check_license(self):
-        print("(2/5) license checks")
-        self.license_is_compliant = has_license(self.owner, self.repo)
+        print("(2/5) license")
+        results = [
+            has_license(self.owner, self.repo)
+        ]
+        self.license_is_compliant = True in results
         return self
 
     def check_registry(self):
-        print("(3/5) registry checks TODO")
+        print("(3/5) registry")
+        results = [
+            has_pypi_badge(self.readme)
+        ]
+        self.registry_is_compliant = True in results
         return self
 
     def check_repository(self):
-        print("(1/5) repository checks")
-        self.repository_is_compliant = \
+        print("(1/5) repository")
+        results = [
             has_open_repository(self.owner, self.repo)
+        ]
+        self.repository_is_compliant = True in results
         return self
 
     def deconstruct_url(self):
