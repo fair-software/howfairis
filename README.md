@@ -40,5 +40,7 @@ howfairis https://github.com/owner/repo
 Bumping the version across all files is done with bump2version, e.g.
 
 ```shell
-bump2version --current-version 0.1.0 major|minor|patch
+bump2version minor
 ```
+
+
