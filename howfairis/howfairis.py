@@ -2,7 +2,6 @@ import sys
 import requests
 import re
 
-
 # # # # # # # # # # # # # # # # # # # # # #
 #               repository                #
 # # # # # # # # # # # # # # # # # # # # # #
@@ -190,9 +189,9 @@ class HowFairIsChecker:
                 compliance_unicode[i] = self.compliant_symbol
             else:
                 compliance_unicode[i] = self.noncompliant_symbol
-        compliance_urlencoded = [requests.utils.quote(symbol) for symbol in compliance_unicode]
 
-        compliance_string = "%20%20".join(compliance_urlencoded)
+        compliance_string = "%20%20".join(
+            [requests.utils.quote(symbol) for symbol in compliance_unicode])
 
         score = compliance_bool.count(True)
         if score in [0, 1]:
