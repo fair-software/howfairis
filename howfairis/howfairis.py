@@ -364,7 +364,7 @@ def main():
                         "which GitHub repository to run the analysis.")
 
     url = sys.argv[1]
-    print("Running for {0}".format(url))
+    print("Running for {0}\n".format(url))
     checker = HowFairIsChecker(url)
     checker.deconstruct_url()
     checker.get_readme()
