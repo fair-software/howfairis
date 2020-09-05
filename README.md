@@ -3,7 +3,7 @@
 Python package to analyze a GitHub repository's compliance with the fair-software.eu recommendations.
 
 
-Install
+## Install
 
 ```
 # while the package has not been released on PyPI yet, install with
@@ -13,7 +13,7 @@ pip3 install --user git+https://github.com/fair-software/howfairis
 howfairis https://github.com/owner/repo
 ```
 
-Development install
+## Development install
 
 ```shell
 # Create a virtualenv, e.g. with
