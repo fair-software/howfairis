@@ -72,7 +72,8 @@ def has_bintray_badge(s):
 
 
 def has_conda_badge(s):
-    regex = r"!\[.*\]\(https://anaconda\.org/.*/.*/badges/installer/conda\.svg\)\]" + \
+    regex = r"!\[.*\]\(https://anaconda\.org/.*/.*/badges" + \
+            r"/installer/conda\.svg\)\]" + \
             r"\(https://anaconda\.org/.*/.*\)"
     r = re.compile(regex).search(s) is not None
     if r is True:
