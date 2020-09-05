@@ -2,7 +2,6 @@ import sys
 import requests
 import re
 
-
 # # # # # # # # # # # # # # # # # # # # # #
 #               repository                #
 # # # # # # # # # # # # # # # # # # # # # #
@@ -48,9 +47,7 @@ def has_license(owner, repo):
 #                registry                 #
 # # # # # # # # # # # # # # # # # # # # # #
 
-# TODO
-# https://img.shields.io/pypi/v/cffconvert.svg?colorB=blue
-# https://pypi.python.org/pypi/cffconvert/
+
 def has_pypi_badge(s):
     regex = r"!\[.*\]\(https://img\.shields\.io/pypi/v/[^.]*\.svg.*\)\]" + \
             r"\(https://pypi\.python\.org/pypi/.*\)"
@@ -146,6 +143,7 @@ def has_codemeta_file(owner, repo, branch="master"):
 #                checklist                #
 # # # # # # # # # # # # # # # # # # # # # #
 
+
 def has_core_infrastructures_badge(s):
     regex = r"!\[.*\]\(https://bestpractices\.coreinfrastructure\.org" + \
             r"/projects/[0-9]*/badge\)\]\(https://bestpractices\." + \
@@ -212,9 +210,7 @@ class HowFairIsChecker:
 
     def check_checklist(self):
         print("(5/5) checklist")
-        results = [
-            has_core_infrastructures_badge(self.readme)
-        ]
+        results = [has_core_infrastructures_badge(self.readme)]
         self.checklist_is_compliant = True in results
         return self
 
@@ -232,25 +228,19 @@ class HowFairIsChecker:
 
     def check_license(self):
         print("(2/5) license")
-        results = [
-            has_license(self.owner, self.repo)
-        ]
+        results = [has_license(self.owner, self.repo)]
         self.license_is_compliant = True in results
         return self
 
     def check_registry(self):
         print("(3/5) registry")
-        results = [
-            has_pypi_badge(self.readme)
-        ]
+        results = [has_pypi_badge(self.readme)]
         self.registry_is_compliant = True in results
         return self
 
     def check_repository(self):
         print("(1/5) repository")
-        results = [
-            has_open_repository(self.owner, self.repo)
-        ]
+        results = [has_open_repository(self.owner, self.repo)]
         self.repository_is_compliant = True in results
         return self
 
