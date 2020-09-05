@@ -34,7 +34,7 @@ howfairis https://github.com/owner/repo
 ```
 
 
-# For maintainers
+## For maintainers
 
 
 Bumping the version across all files is done with bump2version, e.g.
