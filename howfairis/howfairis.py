@@ -60,7 +60,8 @@ def has_pypi_badge(s):
 
 
 def has_bintray_badge(s):
-    regex = r"!\[.*\]\(https://api\.bintray\.com/packages/.*/.*/.*/images/download\.svg\)\]" + \
+    regex = r"!\[.*\]\(https://api\.bintray\.com/packages" + \
+            r"/.*/.*/.*/images/download\.svg\)\]" + \
             r"\(https://bintray\.com/.*/.*/.*/.*\)"
     r = re.compile(regex).search(s) is not None
     if r is True:
