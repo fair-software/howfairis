@@ -1,10 +1,17 @@
 import sys
 import requests
 import re
+from colorama import init as init_terminal_colors, Style, Fore
+
 
 # # # # # # # # # # # # # # # # # # # # # #
 #               repository                #
 # # # # # # # # # # # # # # # # # # # # # #
+def print_state(func_name="", state=None, indent=8):
+    if state is True:
+        print(" " * indent + func_name + ": " + Style.BRIGHT + Fore.GREEN + str(state).lower() + Style.RESET_ALL)
+    elif state is False:
+        print(" " * indent + func_name + ": " + str(state).lower())
 
 
 def has_open_repository(owner, repo):
@@ -15,11 +22,11 @@ def has_open_repository(owner, repo):
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
     except requests.HTTPError:
-        print("        has_open_repository: false")
+        print_state(func_name="has_open_repository", state=False)
         return False
     except Exception as err:
         print(f"Other error occurred: {err}")
-    print("        has_open_repository: true")
+    print_state(func_name="has_open_repository", state=True)
     return True
 
 
@@ -35,11 +42,11 @@ def has_license(owner, repo):
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
     except requests.HTTPError:
-        print("        has_license: false")
+        print_state(func_name="has_license", state=False)
         return False
     except Exception as err:
         print(f"Other error occurred: {err}")
-    print("        has_license: true")
+    print_state(func_name="has_license", state=True)
     return True
 
 
@@ -52,10 +59,7 @@ def has_pypi_badge(s):
     regex = r"!\[.*\]\(https://img\.shields\.io/pypi/v/[^.]*\.svg.*\)\]" + \
             r"\(https://pypi\.python\.org/pypi/.*\)"
     r = re.compile(regex).search(s) is not None
-    if r is True:
-        print("        has_pypi_badge: true")
-    else:
-        print("        has_pypi_badge: false")
+    print_state(func_name="has_pypi_badge", state=r)
     return r
 
 
@@ -64,10 +68,7 @@ def has_bintray_badge(s):
             r"/.*/.*/.*/images/download\.svg\)\]" + \
             r"\(https://bintray\.com/.*/.*/.*/.*\)"
     r = re.compile(regex).search(s) is not None
-    if r is True:
-        print("        has_bintray_badge: true")
-    else:
-        print("        has_bintray_badge: false")
+    print_state(func_name="has_bintray_badge", state=r)
     return r
 
 
@@ -76,10 +77,7 @@ def has_conda_badge(s):
             r"/installer/conda\.svg\)\]" + \
             r"\(https://anaconda\.org/.*/.*\)"
     r = re.compile(regex).search(s) is not None
-    if r is True:
-        print("        has_conda_badge: true")
-    else:
-        print("        has_conda_badge: false")
+    print_state(func_name="has_conda_badge", state=r)
     return r
 
 
@@ -90,7 +88,7 @@ def is_on_github_marketplace(url):
         response.raise_for_status()
     except requests.HTTPError as http_err:
         print(f"HTTP error occurred: {http_err}")
-        print("        is_on_github_marketplace: false")
+        print_state(func_name="is_on_github_marketplace", state=False)
         return False
     except Exception as err:
         print(f"Other error occurred: {err}")
@@ -98,10 +96,7 @@ def is_on_github_marketplace(url):
     html = response.text
     r = "Use this GitHub Action with your project" in html and \
         "Add this Action to an existing workflow or create a new one." in html
-    if r is True:
-        print("        is_on_github_marketplace: true")
-    else:
-        print("        is_on_github_marketplace: false")
+    print_state(func_name="has_bintray_badge", state=r)
     return r
 
 
@@ -114,10 +109,7 @@ def has_zenodo_badge(s):
     regex = r"!\[.*\]\(https://zenodo\.org/badge/DOI/10\.5281/zenodo" + \
             r"\.[0-9]*\.svg\)\]\(https://doi\.org/10\.5281/zenodo\.[0-9]*\)"
     r = re.compile(regex).search(s) is not None
-    if r is True:
-        print("        has_zenodo_badge: true")
-    else:
-        print("        has_zenodo_badge: false")
+    print_state(func_name="has_zenodo_badge", state=r)
     return r
 
 
@@ -129,11 +121,11 @@ def has_citation_file(owner, repo, branch="master"):
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
     except requests.HTTPError:
-        print("        has_citation_file: false")
+        print_state(func_name="has_citation_file", state=False)
         return False
     except Exception as err:
         print(f"Other error occurred: {err}")
-    print("        has_citation_file: true")
+    print_state(func_name="has_citation_file", state=True)
     return True
 
 
@@ -145,11 +137,11 @@ def has_citationcff_file(owner, repo, branch="master"):
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
     except requests.HTTPError:
-        print("        has_citationcff_file: false")
+        print_state(func_name="has_citationcff_file", state=False)
         return False
     except Exception as err:
         print(f"Other error occurred: {err}")
-    print("        has_citationcff_file: true")
+    print_state(func_name="has_citationcff_file", state=True)
     return True
 
 
@@ -161,11 +153,11 @@ def has_zenodo_metadata_file(owner, repo, branch="master"):
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
     except requests.HTTPError:
-        print("        has_zenodo_metadata_file: false")
+        print_state(func_name="has_zenodo_metadata_file", state=False)
         return False
     except Exception as err:
         print(f"Other error occurred: {err}")
-    print("        has_zenodo_metadata_file: true")
+    print_state(func_name="has_zenodo_metadata_file", state=True)
     return True
 
 
@@ -177,11 +169,11 @@ def has_codemeta_file(owner, repo, branch="master"):
         # If the response was successful, no Exception will be raised
         response.raise_for_status()
     except requests.HTTPError:
-        print("        has_codemeta_file: false")
+        print_state(func_name="has_codemeta_file", state=False)
         return False
     except Exception as err:
         print(f"Other error occurred: {err}")
-    print("        has_codemeta_file: true")
+    print_state(func_name="has_codemeta_file", state=True)
     return True
 
 
@@ -195,10 +187,7 @@ def has_core_infrastructures_badge(s):
             r"/projects/[0-9]*/badge\)\]\(https://bestpractices\." + \
             r"coreinfrastructure\.org/projects/[0-9]*\)"
     r = re.compile(regex).search(s) is not None
-    if r is True:
-        print("        has_core_infrastructures_badge: true")
-    else:
-        print("        has_core_infrastructures_badge: false")
+    print_state(func_name="has_core_infrastructures_badge", state=r)
     return r
 
 
@@ -206,10 +195,7 @@ def has_sonarcloud_badge(s):
     regex = r"!\[.*\]\(https://sonarcloud\.io/api/project_badges/.*\)\]" + \
             r"\(https://sonarcloud\.io/dashboard\?id=.*\)"
     r = re.compile(regex).search(s) is not None
-    if r is True:
-        print("        has_sonarcloud_badge: true")
-    else:
-        print("        has_sonarcloud_badge: false")
+    print_state(func_name="has_sonarcloud_badge", state=r)
     return r
 
 
@@ -258,26 +244,25 @@ class HowFairIsChecker:
         elif score == 5:
             color_string = "green"
 
-        self.badge = "![fair-software.eu](https://img.shields.io" + \
-                     "/badge/fair--software.eu-{0}-{1})" \
+        self.badge = "![fair-software.eu](https://img.shields.io/badge/fair--software.eu-{0}-{1})"\
                      .format(compliance_string, color_string)
 
-        print("\nCalculated compliance: " + " ".join(compliance_unicode))
+        print("\nCalculated compliance: " + " ".join(compliance_unicode) + "\n")
 
         if self.readme is None:
             sys.exit(1)
         elif self.readme.find(self.badge) == -1:
-            print("\nWhile searching through your README.md, I" +
+            print("While searching through your README.md, I" +
                   " did not find the expected badge:\n" + self.badge + "\n")
             sys.exit(1)
         else:
-            print("\nExpected badge is equal to the actual badge. " +
+            print("Expected badge is equal to the actual badge. " +
                   "It's all good.\n")
             sys.exit(0)
 
     def check_checklist(self):
         print("(5/5) checklist")
-        if self.readme is None:
+        if self.repository_is_compliant is False:
             self.checklist_is_compliant = False
             return self
         results = [
@@ -289,7 +274,7 @@ class HowFairIsChecker:
 
     def check_citation(self):
         print("(4/5) citation")
-        if self.readme is None:
+        if self.repository_is_compliant is False:
             self.citation_is_compliant = False
             return self
         results = [
@@ -304,13 +289,16 @@ class HowFairIsChecker:
 
     def check_license(self):
         print("(2/5) license")
+        if self.repository_is_compliant is False:
+            self.license_is_compliant = False
+            return self
         results = [has_license(self.owner, self.repo)]
         self.license_is_compliant = True in results
         return self
 
     def check_registry(self):
         print("(3/5) registry")
-        if self.readme is None:
+        if self.repository_is_compliant is False:
             self.registry_is_compliant = False
             return self
         results = [
@@ -357,6 +345,9 @@ class HowFairIsChecker:
 
 
 def main():
+
+    init_terminal_colors()
+
     print("Checking compliance with fair-software.eu...")
 
     if len(sys.argv) != 2:

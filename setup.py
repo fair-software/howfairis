@@ -36,7 +36,8 @@ setup(
     ],
     test_suite="tests",
     install_requires=[
-        "requests"
+        "requests",
+        "colorama"
     ],
     setup_requires=[
     ],
