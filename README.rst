@@ -51,7 +51,7 @@ looks something like this:
             has_core_infrastructures_badge: true
             has_sonarcloud_badge: false
 
-    Calculated compliance: ● ● ● ● ●
+    Calculated compliance: 
 
     Expected badge is equal to the actual badge. It's all good.
 
