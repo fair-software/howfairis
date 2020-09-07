@@ -30,7 +30,7 @@ jobs:
           pip install --editable .[dev]
       - name: Check style against standards using prospector
         shell: bash -l {0}
-        run: cd howfairis && prospector
+        run: prospector
       - name: Build
         shell: bash -l {0}
         run: |
