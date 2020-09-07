@@ -9,7 +9,6 @@ Install
 
 .. code:: shell
 
-    # while the package has not been released on PyPI yet, install with
     pip3 install --user howfairis
 
 Afterwards check that the install directory was added to the ``PATH``
