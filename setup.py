@@ -5,7 +5,7 @@ from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-with open("README.rst", "rt", encoding="UTF-8") as readme_file:
+with open("README.rst", mode="rt", encoding="UTF-8") as readme_file:
     readme = readme_file.read()
 
 setup(
