@@ -4,8 +4,8 @@
 Python package to analyze a GitHub repository's compliance with the
 fair-software.eu recommendations.
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017909.svg
-   :target: https://doi.org/10.5281/zenodo.4017909
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
+   :target: https://doi.org/10.5281/zenodo.4017908
    
 .. image:: https://img.shields.io/pypi/v/howfairis.svg?colorB=blue 
    :target: https://pypi.python.org/pypi/howfairis/
