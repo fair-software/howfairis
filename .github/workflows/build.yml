@@ -29,9 +29,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install --editable .
           python -m pip install --editable .[dev]
-#      - name: Check style against standards using prospector
-#        shell: bash -l {0}
-#        run: prospector
+      - name: Check style against standards using prospector
+        shell: bash
+        run: prospector
 #      - name: Build
 #        shell: bash -l {0}
 #        run: |
