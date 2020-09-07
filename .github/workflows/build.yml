@@ -21,20 +21,20 @@ jobs:
       - name: Python info
         shell: bash -l {0}
         run: |
-          which python3
-          python3 --version
+          which python
+          python --version
       - name: Install dependencies
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install --editable .
-          python3 -m pip install --editable .[dev]
+          python -m pip install --upgrade pip
+          python -m pip install --editable .
+          python -m pip install --editable .[dev]
       - name: Check style against standards using prospector
         shell: bash -l {0}
         run: prospector
       - name: Build
         shell: bash -l {0}
         run: |
-          python3 setup.py build
+          python setup.py build
       - name: Test
         shell: bash -l {0}
         run: |
