@@ -10,7 +10,7 @@ Install
 .. code:: shell
 
     # while the package has not been released on PyPI yet, install with
-    pip3 install --user git+https://github.com/fair-software/howfairis
+    pip3 install --user howfairis
 
 Afterwards check that the install directory was added to the ``PATH``
 environment variable. You should then be able to call the executable,
