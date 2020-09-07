@@ -21,7 +21,7 @@ jobs:
       - name: Python info
         shell: bash -l {0}
         run: |
-          which python${{ matrix.python-version }}
+          which python3
           python --version
       - name: Install dependencies
         run: |
