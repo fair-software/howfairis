@@ -34,7 +34,7 @@ jobs:
       - name: Build
         shell: bash -l {0}
         run: |
-          python setup.py build
+          python3 setup.py build
       - name: Test
         shell: bash -l {0}
         run: |
