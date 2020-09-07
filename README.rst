@@ -87,3 +87,32 @@ Bumping the version across all files is done with bump2version, e.g.
 .. code:: shell
 
     bump2version minor
+
+
+Making a release
+^^^^^^^^^^^^^^^^
+
+.. code:: shell
+
+    cd $(mktemp -d)
+    git clone https://github.com/fair-software/howfairis.git .
+    python3 -m virtualenv -p python3 venv3
+    source venv3/bin/activate
+    pip install --no-cache-dir --editable .
+    pip install --no-cache-dir --editable .[publishing]
+    rm -rf howfairis.egg-info
+    rm -rf dist
+    python setup.py sdist
+
+    # upload to test pypi instance
+    twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+    # install in user space from test pypi instance:
+    python3 -m pip -v install --user --no-cache-dir \
+    --index-url https://test.pypi.org/simple/ \
+    --extra-index-url https://pypi.org/simple howfairis
+
+    # check that the package works as it should when installed from pypitest
+
+    # FINAL STEP: upload to PyPI
+    twine upload dist/*

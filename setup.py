@@ -50,9 +50,11 @@ setup(
             "pytest",
             "pytest-cov",
             "pycodestyle",
-            "pytest-runner",
-            "twine"
+            "pytest-runner"
         ],
+        "publishing": [
+            "twine"
+        ]
     },
     data_files=[]
 )
