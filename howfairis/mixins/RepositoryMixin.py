@@ -17,5 +17,3 @@ class RepositoryMixin:
             print(f"Other error occurred: {err}")
         self.print_state(check_name="has_open_repository", state=True)
         return True
-
-

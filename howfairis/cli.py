@@ -1,5 +1,5 @@
 import sys
-from colorama import init as init_terminal_colors, Style, Fore
+from colorama import init as init_terminal_colors
 
 from howfairis import HowFairIsChecker
 

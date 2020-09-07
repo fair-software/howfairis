@@ -22,6 +22,3 @@ class ChecklistMixin:
         r = re.compile(regex).search(self.readme) is not None
         self.print_state(check_name="has_sonarcloud_badge", state=r)
         return r
-
-
-

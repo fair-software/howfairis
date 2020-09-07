@@ -72,5 +72,3 @@ class CitationMixin:
             print(f"Other error occurred: {err}")
         self.print_state(check_name="has_codemeta_file", state=True)
         return True
-
-
