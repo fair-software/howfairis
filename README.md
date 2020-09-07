@@ -1,4 +1,4 @@
-# howfairis
+# ``howfairis``
 
 Python package to analyze a GitHub repository's compliance with the fair-software.eu recommendations.
 
