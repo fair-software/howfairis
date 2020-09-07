@@ -5,12 +5,18 @@ Python package to analyze a GitHub repository's compliance with the fair-softwar
 
 ## Install
 
-```
+```shell
 # while the package has not been released on PyPI yet, install with
 pip3 install --user git+https://github.com/fair-software/howfairis
+```
 
-# Use it like this
-howfairis https://github.com/owner/repo
+Afterwards check that the install directory was added to the 
+``PATH`` environment variable. You should then be able to call the 
+executable, like so:
+
+```shell
+howfairis https://github.com/owner/repo      # Linux | Mac
+howfairis.exe https://github.com/owner/repo  # Windows
 ```
 
 ## Development install
@@ -26,11 +32,15 @@ source venv3/bin/activate
 # install howfairis as an editable package
 pip install --editable .
 pip install --editable .[dev]
+```
 
-# You should now have a command line utility 
-# 'howfairis' (whenever you are in the virtualenv):
-howfairis https://github.com/owner/repo
+Afterwards check that the install directory was added to the 
+``PATH`` environment variable. You should then be able to call the 
+executable, like so:
 
+```shell
+howfairis https://github.com/owner/repo      # Linux | Mac
+howfairis.exe https://github.com/owner/repo  # Windows
 ```
 
 
@@ -42,5 +52,3 @@ Bumping the version across all files is done with bump2version, e.g.
 ```shell
 bump2version minor
 ```
-
-
