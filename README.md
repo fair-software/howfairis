@@ -19,6 +19,39 @@ howfairis https://github.com/owner/repo      # Linux | Mac
 howfairis.exe https://github.com/owner/repo  # Windows
 ```
 
+## Expected output
+
+Depending on for which repository you are doing the analysis, the output looks something like this:
+
+```shell
+Checking compliance with fair-software.eu...
+Running for https://github.com/fair-software/badge-test
+
+(1/5) repository
+        has_open_repository: true
+(2/5) license
+        has_license: true
+(3/5) registry
+        has_pypi_badge: true
+        has_conda_badge: false
+        has_bintray_badge: false
+        is_on_github_marketplace: false
+(4/5) citation
+        has_zenodo_badge: true
+        has_citationcff_file: false
+        has_citation_file: false
+        has_zenodo_metadata_file: false
+        has_codemeta_file: false
+(5/5) checklist
+        has_core_infrastructures_badge: true
+        has_sonarcloud_badge: false
+
+Calculated compliance: ● ● ● ● ●
+
+Expected badge is equal to the actual badge. It's all good.
+```
+
+
 ## Development install
 
 ```shell
