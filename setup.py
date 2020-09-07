@@ -51,7 +51,8 @@ setup(
             "pytest",
             "pytest-cov",
             "pycodestyle",
-            "pytest-runner"
+            "pytest-runner",
+            "twine"
         ],
     },
     data_files=[]
