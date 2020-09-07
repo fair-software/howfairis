@@ -32,10 +32,10 @@ jobs:
       - name: Check style against standards using prospector
         shell: bash
         run: prospector
-#      - name: Build
-#        shell: bash -l {0}
-#        run: |
-#          python setup.py build
+      - name: Build
+        shell: bash
+        run: |
+          python setup.py build
 #      - name: Test
 #        shell: bash -l {0}
 #        run: |
