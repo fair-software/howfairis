@@ -146,8 +146,8 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         return self
 
     @staticmethod
-    def print_state(check_name="", state=None, indent=8):
+    def print_state(check_name="", state=None, indent=6):
         if state is True:
-            print(" " * indent + check_name + ": " + Style.BRIGHT + Fore.GREEN + str(state).lower() + Style.RESET_ALL)
+            print(" " * indent + Style.BRIGHT + Fore.GREEN + "\u2713 " + Style.RESET_ALL + check_name)
         elif state is False:
-            print(" " * indent + check_name + ": " + str(state).lower())
+            print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
