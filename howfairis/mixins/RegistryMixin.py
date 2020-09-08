@@ -3,29 +3,6 @@ import requests
 
 
 class RegistryMixin:
-    def has_pypi_badge(self):
-        if self.readme is None:
-            self.print_state(check_name="has_pypi_badge", state=False)
-            return False
-        regex = r"!\[.*\]\(https://img\.shields\.io/pypi/v/[^.]*\.svg.*\)\]" + \
-                r"\(https://pypi\.python\.org/pypi/.*\)"
-        r = re.compile(regex).search(self.readme) is not None
-        self.print_state(check_name="has_pypi_badge", state=r)
-        return r
-
-    def has_cran_badge(self):
-        if self.readme is None:
-            self.print_state(check_name="has_cran_badge", state=False)
-            return False
-        regex1 = r"!\[.*\]\(https://cranlogs\.r-pkg\.org/badges/.*\)\]" + \
-                 r"\(https://cran\.r-project\.org/package=.*\)"
-        regex2 = r"!\[.*\]\(https://cranlogs\.r-pkg\.org/badges/grand-total/.*\)\]" + \
-                 r"\(https://cran\.r-project\.org/package=.*\)"
-        r = True in [re.compile(regex1).search(self.readme) is not None,
-                     re.compile(regex2).search(self.readme) is not None]
-        self.print_state(check_name="has_cran_badge", state=r)
-        return r
-
     def has_bintray_badge(self):
         if self.readme is None:
             self.print_state(check_name="has_bintray_badge", state=False)
@@ -46,6 +23,29 @@ class RegistryMixin:
                 r"\(https://anaconda\.org/.*/.*\)"
         r = re.compile(regex).search(self.readme) is not None
         self.print_state(check_name="has_conda_badge", state=r)
+        return r
+
+    def has_cran_badge(self):
+        if self.readme is None:
+            self.print_state(check_name="has_cran_badge", state=False)
+            return False
+        regex1 = r"!\[.*\]\(https://cranlogs\.r-pkg\.org/badges/.*\)\]" + \
+                 r"\(https://cran\.r-project\.org/package=.*\)"
+        regex2 = r"!\[.*\]\(https://cranlogs\.r-pkg\.org/badges/grand-total/.*\)\]" + \
+                 r"\(https://cran\.r-project\.org/package=.*\)"
+        r = True in [re.compile(regex1).search(self.readme) is not None,
+                     re.compile(regex2).search(self.readme) is not None]
+        self.print_state(check_name="has_cran_badge", state=r)
+        return r
+
+    def has_pypi_badge(self):
+        if self.readme is None:
+            self.print_state(check_name="has_pypi_badge", state=False)
+            return False
+        regex = r"!\[.*\]\(https://img\.shields\.io/pypi/v/[^.]*\.svg.*\)\]" + \
+                r"\(https://pypi\.python\.org/pypi/.*\)"
+        r = re.compile(regex).search(self.readme) is not None
+        self.print_state(check_name="has_pypi_badge", state=r)
         return r
 
     def is_on_github_marketplace(self):

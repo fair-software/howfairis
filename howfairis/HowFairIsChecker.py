@@ -50,8 +50,10 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         score = compliance_bool.count(True)
         if score in [0, 1]:
             color_string = "red"
-        elif score in [2, 3, 4]:
+        elif score in [2, 3]:
             color_string = "orange"
+        elif score in [4]:
+            color_string = "yellow"
         elif score == 5:
             color_string = "green"
 
