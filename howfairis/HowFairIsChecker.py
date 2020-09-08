@@ -102,6 +102,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         print("(3/5) registry")
         results = [
             self.has_pypi_badge(),
+            self.has_cran_badge(),
             self.has_conda_badge(),
             self.has_bintray_badge(),
             self.is_on_github_marketplace()
