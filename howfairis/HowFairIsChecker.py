@@ -129,20 +129,32 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         # only github urls supported
         # only README.md supported
 
+        def get_url(raw_url):
+            try:
+                response = requests.get(raw_url)
+                # If the response was successful, no Exception will be raised
+                response.raise_for_status()
+            except requests.HTTPError as http_err:
+                return http_err
+            except Exception as err:
+                print(f"Other error occurred: {err}")
+            return response.text
+
         raw_url = "https://raw.githubusercontent.com/" + \
                   "{0}/{1}/{2}/{3}".format(self.owner, self.repo,
                                            self.branch, self.readme_filename)
-        try:
-            response = requests.get(raw_url)
-            # If the response was successful, no Exception will be raised
-            response.raise_for_status()
-        except requests.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
-            return self
-        except Exception as err:
-            print(f"Other error occurred: {err}")
+        response = get_url(raw_url)
+        if isinstance(response, requests.HTTPError):
+            #save the error of the first request
+            first_error = f"{response}"
+            #try once more for .rst
+            raw_url = raw_url[:-2] + "rst"
+            response = get_url(raw_url)
+            if isinstance(response, requests.HTTPError):
+                print(f"HTTP error occurred for .md: {first_error}")
+                print(f"HTTP error occurred for .rst: {response}")
 
-        self.readme = response.text
+        self.readme = response
         return self
 
     @staticmethod
