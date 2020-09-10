@@ -52,9 +52,13 @@ class CitationMixin:
         if self.readme is None:
             self.print_state(check_name="has_zenodo_badge", state=False)
             return False
-        regex = r"!\[.*\]\(https://zenodo\.org/badge/DOI/10\.5281/zenodo" + \
-                r"\.[0-9]*\.svg\)\]\(https://doi\.org/10\.5281/zenodo\.[0-9]*\)"
-        r = re.compile(regex).search(self.readme) is not None
+        regex1 = r"!\[.*\]\(https://zenodo\.org/badge/DOI/10\.5281/zenodo" + \
+                 r"\.[0-9]*\.svg\)\]\(https://doi\.org/10\.5281/zenodo\.[0-9]*\)"
+        regex2 = r"!\[.*\]\(https://zenodo\.org/badge/[0-9]*\.svg\)\]" + \
+                 r"\(https://doi\.org/10\.5281/zenodo\.[0-9]*\)"
+
+        r = True in [re.compile(regex1).search(self.readme) is not None,
+                     re.compile(regex2).search(self.readme) is not None]
         self.print_state(check_name="has_zenodo_badge", state=r)
         return r
 
