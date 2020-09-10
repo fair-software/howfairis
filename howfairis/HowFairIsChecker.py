@@ -145,9 +145,9 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
                                            self.branch, self.readme_filename)
         response = get_url(raw_url)
         if isinstance(response, requests.HTTPError):
-            #save the error of the first request
+            # Save the error of the first request
             first_error = f"{response}"
-            #try once more for .rst
+            # Try once more for .rst
             raw_url = raw_url[:-2] + "rst"
             response = get_url(raw_url)
             if isinstance(response, requests.HTTPError):
