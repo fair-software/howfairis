@@ -14,7 +14,7 @@ class LicenseMixin:
             print("(2/5) license: force {0}".format(force_state))
             return force_state
         print("(2/5) license")
-        results = [self.has_open_repository()]
+        results = [self.has_license()]
         return True in results
 
     def has_license(self):

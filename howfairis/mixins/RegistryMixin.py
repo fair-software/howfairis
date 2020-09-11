@@ -15,6 +15,7 @@ class RegistryMixin:
             return force_state
         print("(3/5) registry")
         results = [
+            self.has_ascl_badge(),
             self.has_bintray_badge(),
             self.has_conda_badge(),
             self.has_cran_badge(),
@@ -26,6 +27,10 @@ class RegistryMixin:
             self.is_on_github_marketplace()
         ]
         return True in results
+
+    def has_ascl_badge(self):
+        regexes = [r"https://img\.shields\.io/badge/ascl.*"]
+        return self._eval_regexes(regexes)
 
     def has_bintray_badge(self):
         regexes = [r"https://api\.bintray\.com/packages/.*/.*/.*/images/download\.svg",
