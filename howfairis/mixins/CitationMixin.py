@@ -10,19 +10,18 @@ class CitationMixin:
         force_state = force.get("citation")
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force.citation.")
-        elif isinstance(force_state, bool):
+        if isinstance(force_state, bool):
             print("(4/5) citation: force {0}".format(force_state))
             return force_state
-        else:
-            print("(4/5) citation")
-            results = [
-                self.has_citation_file(),
-                self.has_citationcff_file(),
-                self.has_codemeta_file(),
-                self.has_zenodo_badge(),
-                self.has_zenodo_metadata_file()
-            ]
-            return True in results
+        print("(4/5) citation")
+        results = [
+            self.has_citation_file(),
+            self.has_citationcff_file(),
+            self.has_codemeta_file(),
+            self.has_zenodo_badge(),
+            self.has_zenodo_metadata_file()
+        ]
+        return True in results
 
     def has_citation_file(self):
         url = "https://raw.githubusercontent.com/" + \

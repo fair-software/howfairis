@@ -10,23 +10,22 @@ class RegistryMixin:
         force_state = force.get("registry")
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force.registry.")
-        elif isinstance(force_state, bool):
+        if isinstance(force_state, bool):
             print("(3/5) registry: force {0}".format(force_state))
             return force_state
-        else:
-            print("(3/5) registry")
-            results = [
-                self.has_bintray_badge(),
-                self.has_conda_badge(),
-                self.has_cran_badge(),
-                self.has_crates_badge(),
-                self.has_maven_badge(),
-                self.has_npm_badge(),
-                self.has_pypi_badge(),
-                self.has_rsd_badge(),
-                self.is_on_github_marketplace()
-            ]
-            return True in results
+        print("(3/5) registry")
+        results = [
+            self.has_bintray_badge(),
+            self.has_conda_badge(),
+            self.has_cran_badge(),
+            self.has_crates_badge(),
+            self.has_maven_badge(),
+            self.has_npm_badge(),
+            self.has_pypi_badge(),
+            self.has_rsd_badge(),
+            self.is_on_github_marketplace()
+        ]
+        return True in results
 
     def has_bintray_badge(self):
         regexes = [r"https://api\.bintray\.com/packages/.*/.*/.*/images/download\.svg",

@@ -1,3 +1,4 @@
+# pylint: disable=too-many-arguments
 import sys
 from colorama import init as init_terminal_colors
 import click
@@ -12,7 +13,8 @@ from howfairis import __version__
 @click.option("-s", "--show-trace", default=False, help="Show full traceback on errors. Default: False", is_flag=True)
 @click.option("-v", "--version", default=False, help="Show version", is_flag=True)
 @click.argument("url", nargs=-1)
-def cli(url=None, config_file=".howfairis.yml", branch=None, path=None, show_trace=False, version=None):
+def cli(url=None, config_file=".howfairis.yml", branch=None,
+        path=None, show_trace=False, version=None):
     """Determine compliance with recommendations from fair-software.eu for the GitHub repository at URL."""
 
     if version is True:

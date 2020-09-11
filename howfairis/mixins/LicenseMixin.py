@@ -10,13 +10,12 @@ class LicenseMixin:
         force_state = force.get("license")
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force.license.")
-        elif isinstance(force_state, bool):
+        if isinstance(force_state, bool):
             print("(2/5) license: force {0}".format(force_state))
             return force_state
-        else:
-            print("(2/5) license")
-            results = [self.has_open_repository()]
-            return True in results
+        print("(2/5) license")
+        results = [self.has_open_repository()]
+        return True in results
 
     def has_license(self):
         url = "https://api.github.com/repos/{0}/{1}/license".format(self.owner, self.repo)
