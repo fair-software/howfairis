@@ -44,7 +44,7 @@ class RegistryMixin:
             response = requests.get(self.url)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
-        except requests.HTTPError as http_err:
+        except requests.HTTPError:
             self.print_state(check_name="is_on_github_marketplace", state=False)
             return False
 
