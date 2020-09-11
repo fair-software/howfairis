@@ -1,4 +1,6 @@
 import sys
+import re
+import inspect
 import requests
 from colorama import Style, Fore
 
@@ -12,8 +14,7 @@ from howfairis.mixins import ChecklistMixin
 class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
     def __init__(self, url):
         super().__init__()
-        assert url.startswith("https://github.com/"), \
-            "url should start with https://github.com"
+        assert url.startswith("https://github.com/"), "url should start with https://github.com"
         self.url = url
         self.readme = None
         self.repository_is_compliant = None
@@ -26,8 +27,23 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         self.repo = None
         self.readme_filename = None
         self.branch = None
+        self.path = None
         self.compliant_symbol = "\u25CF"
         self.noncompliant_symbol = "\u25CB"
+
+    def _eval_regexes(self, regexes, check_name=None):
+        if check_name is None:
+            # get name of the function who's calling me
+            check_name = inspect.stack()[1].function
+        if self.readme is None:
+            self.print_state(check_name=check_name, state=False)
+            return False
+        for regex in regexes:
+            if re.compile(regex).search(self.readme) is not None:
+                self.print_state(check_name=check_name, state=True)
+                return True
+        self.print_state(check_name=check_name, state=False)
+        return False
 
     def check_badge(self):
 
@@ -57,104 +73,53 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         elif score == 5:
             color_string = "green"
 
-        self.badge = "[![fair-software.eu](https://img.shields.io/badge/fair--software.eu-{0}-{1})]({2})"\
-                     .format(compliance_string, color_string, "https://fair-software.eu")
+        badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(compliance_string, color_string)
+        if self.readme_filename in ["README.rst", "readme.rst"]:
+            self.badge = ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
+        elif self.readme_filename in ["README.md", "readme.md"]:
+            self.badge = "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
 
         print("\nCalculated compliance: " + " ".join(compliance_unicode) + "\n")
 
         if self.readme is None:
             sys.exit(1)
-        elif self.readme.find(self.badge) == -1:
-            print("While searching through your README.md, I" +
-                  " did not find the expected badge:\n" + self.badge + "\n")
+        elif self.readme.find(badge_url) == -1:
+            print("While searching through your {0}, I did not find the expected badge:\n{1}"
+                  .format(self.readme_filename, self.badge))
             sys.exit(1)
         else:
-            print("Expected badge is equal to the actual badge. " +
-                  "It's all good.\n")
+            print("Expected badge is equal to the actual badge. It's all good.\n")
             sys.exit(0)
 
-    def check_checklist(self):
-        print("(5/5) checklist")
-        results = [
-            self.has_core_infrastructures_badge(),
-            self.has_sonarcloud_badge()
-        ]
-        self.checklist_is_compliant = True in results
-        return self
-
-    def check_citation(self):
-        print("(4/5) citation")
-        results = [
-            self.has_zenodo_badge(),
-            self.has_citationcff_file(),
-            self.has_citation_file(),
-            self.has_zenodo_metadata_file(),
-            self.has_codemeta_file()
-        ]
-        self.citation_is_compliant = True in results
-        return self
-
-    def check_license(self):
-        print("(2/5) license")
-        results = [self.has_license()]
-        self.license_is_compliant = True in results
-        return self
-
-    def check_registry(self):
-        print("(3/5) registry")
-        results = [
-            self.has_pypi_badge(),
-            self.has_cran_badge(),
-            self.has_conda_badge(),
-            self.has_bintray_badge(),
-            self.is_on_github_marketplace()
-        ]
-        self.registry_is_compliant = True in results
-        return self
-
-    def check_repository(self):
-        print("(1/5) repository")
-        results = [self.has_open_repository()]
-        self.repository_is_compliant = True in results
-        return self
+    def check_five_recommendations(self):
+        self.repository_is_compliant = self.check_repository()
+        self.license_is_compliant = self.check_license()
+        self.registry_is_compliant = self.check_registry()
+        self.citation_is_compliant = self.check_citation()
+        self.checklist_is_compliant = self.check_checklist()
 
     def deconstruct_url(self):
-        self.owner, self.repo = self.url.replace("https://github.com/",
-                                                 "").split("/")[:2]
+        self.owner, self.repo = self.url.replace("https://github.com/", "").split("/")[:2]
         self.branch = "master"
-        self.readme_filename = "README.md"
+        self.path = ""
         return self
 
     def get_readme(self):
-        # only github urls supported
-        # only README.md supported
-
-        def get_url(raw_url):
+        for readme_filename in ["README.rst", "README.md"]:
+            raw_url = "https://raw.githubusercontent.com/{0}/{1}/{2}/{3}/{4}"\
+                      .format(self.owner, self.repo, self.branch, self.path, readme_filename)
             try:
                 response = requests.get(raw_url)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError as http_err:
-                return http_err
-            except Exception as err:
-                print(f"Other error occurred: {err}")
-            return response.text
+                continue
 
-        raw_url = "https://raw.githubusercontent.com/" + \
-                  "{0}/{1}/{2}/{3}".format(self.owner, self.repo,
-                                           self.branch, self.readme_filename)
-        response = get_url(raw_url)
-        if isinstance(response, requests.HTTPError):
-            # Save the error of the first request
-            first_error = f"{response}"
-            # Try once more for .rst
-            raw_url = raw_url[:-2] + "rst"
-            response = get_url(raw_url)
-            if isinstance(response, requests.HTTPError):
-                print(f"HTTP error occurred for .md: {first_error}")
-                print(f"HTTP error occurred for .rst: {response}")
+            self.readme_filename = readme_filename
+            self.readme = response.text
+            return self
 
-        self.readme = response
+        print("Did not find a README[.md|.rst] file.")
         return self
 
     @staticmethod

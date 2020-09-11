@@ -1,23 +1,18 @@
-import re
-
-
 class ChecklistMixin:
+
+    def check_checklist(self):
+        print("(5/5) checklist")
+        results = [
+            self.has_core_infrastructures_badge(),
+            self.has_sonarcloud_badge()
+        ]
+        return True in results
+
     def has_core_infrastructures_badge(self):
-        if self.readme is None:
-            self.print_state(check_name="has_core_infrastructures_badge", state=False)
-            return False
-        regex = r"https://bestpractices\.coreinfrastructure\.org/projects/[0-9]*/badge"
-        r = re.compile(regex).search(self.readme) is not None
-        self.print_state(check_name="has_core_infrastructures_badge", state=r)
-        return r
+        regexes = [r"https://bestpractices\.coreinfrastructure\.org/projects/[0-9]*/badge"]
+        return self._eval_regexes(regexes)
 
     def has_sonarcloud_badge(self):
-        if self.readme is None:
-            self.print_state(check_name="has_sonarcloud_badge", state=False)
-            return False
-        regex1 = r"https://sonarcloud\.io/api/project_badges/.*"
-        regex2 = r"https://sonarcloud\.io/dashboard\?id=.*"
-        r = re.compile(regex1).search(self.readme) is not None
-        r = r and re.compile(regex2).search(self.readme) is not None
-        self.print_state(check_name="has_sonarcloud_badge", state=r)
-        return r
+        regexes = [r"https://sonarcloud\.io/api/project_badges/.*",
+                   r"https://sonarcloud\.io/dashboard\?id=.*"]
+        return self._eval_regexes(regexes)
