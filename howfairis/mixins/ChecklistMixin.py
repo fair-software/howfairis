@@ -17,8 +17,9 @@ class ChecklistMixin:
         if self.readme is None:
             self.print_state(check_name="has_sonarcloud_badge", state=False)
             return False
-        regex = r"!\[.*\]\(https://sonarcloud\.io/api/project_badges/.*\)\]" + \
-                r"\(https://sonarcloud\.io/dashboard\?id=.*\)"
-        r = re.compile(regex).search(self.readme) is not None
+        regex1 = r"https://sonarcloud\.io/api/project_badges/.*"
+        regex2 = r"https://sonarcloud\.io/dashboard\?id=.*"
+        r = re.compile(regex1).search(self.readme) is not None
+        r = r and re.compile(regex2).search(self.readme) is not None
         self.print_state(check_name="has_sonarcloud_badge", state=r)
         return r
