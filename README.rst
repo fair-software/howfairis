@@ -13,6 +13,9 @@ fair-software.eu recommendations.
 .. image:: https://github.com/fair-software/howfairis/workflows/Build/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3ABuild
 
+.. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
+   :target: https://fair-software.eu
+
 Install
 -------
 
