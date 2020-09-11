@@ -1,6 +1,5 @@
 import sys
 import re
-import os
 import inspect
 import yaml
 import requests
