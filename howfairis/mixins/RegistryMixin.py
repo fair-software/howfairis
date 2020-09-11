@@ -9,6 +9,7 @@ class RegistryMixin:
             self.has_bintray_badge(),
             self.has_conda_badge(),
             self.has_cran_badge(),
+            self.has_maven_badge(),
             self.has_pypi_badge(),
             self.has_rsd_badge(),
             self.is_on_github_marketplace()
@@ -28,10 +29,15 @@ class RegistryMixin:
                    r"https://cranlogs\.r-pkg\.org/badges/grand-total/.*"]
         return self._eval_regexes(regexes)
 
+    def has_maven_badge(self):
+        regexes = [r"https://badgen.net/maven/v/maven-central/.*"]
+        return self._eval_regexes(regexes)
+
     def has_pypi_badge(self):
         regexes = [r"https://img\.shields\.io/pypi/v/[^.]*",
                    r"https://pypi\.python\.org/pypi/",
-                   r"https://badge\.fury\.io/py/.*\.svg"]
+                   r"https://badge\.fury\.io/py/.*\.svg",
+                   r"https://badgen\.net/pypi/v/.*"]
         return self._eval_regexes(regexes)
 
     def has_rsd_badge(self):
