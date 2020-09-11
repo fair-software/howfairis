@@ -7,9 +7,7 @@ class RegistryMixin:
         if self.readme is None:
             self.print_state(check_name="has_bintray_badge", state=False)
             return False
-        regex = r"!\[.*\]\(https://api\.bintray\.com/packages" + \
-                r"/.*/.*/.*/images/download\.svg\)\]" + \
-                r"\(https://bintray\.com/.*/.*/.*/.*\)"
+        regex = r"https://api\.bintray\.com/packages/.*/.*/.*/images/download\.svg"
         r = re.compile(regex).search(self.readme) is not None
         self.print_state(check_name="has_bintray_badge", state=r)
         return r
@@ -18,9 +16,7 @@ class RegistryMixin:
         if self.readme is None:
             self.print_state(check_name="has_conda_badge", state=False)
             return False
-        regex = r"!\[.*\]\(https://anaconda\.org/.*/.*/badges" + \
-                r"/installer/conda\.svg\)\]" + \
-                r"\(https://anaconda\.org/.*/.*\)"
+        regex = r"https://anaconda\.org/.*/.*/badges/installer/conda\.svg"
         r = re.compile(regex).search(self.readme) is not None
         self.print_state(check_name="has_conda_badge", state=r)
         return r
@@ -29,10 +25,8 @@ class RegistryMixin:
         if self.readme is None:
             self.print_state(check_name="has_cran_badge", state=False)
             return False
-        regex1 = r"!\[.*\]\(https://cranlogs\.r-pkg\.org/badges/.*\)\]" + \
-                 r"\(https://cran\.r-project\.org/package=.*\)"
-        regex2 = r"!\[.*\]\(https://cranlogs\.r-pkg\.org/badges/grand-total/.*\)\]" + \
-                 r"\(https://cran\.r-project\.org/package=.*\)"
+        regex1 = r"https://cranlogs\.r-pkg\.org/badges/.*"
+        regex2 = r"https://cranlogs\.r-pkg\.org/badges/grand-total/.*"
         r = True in [re.compile(regex1).search(self.readme) is not None,
                      re.compile(regex2).search(self.readme) is not None]
         self.print_state(check_name="has_cran_badge", state=r)
