@@ -108,7 +108,6 @@ Making a release
 .. code:: shell
     
     # In a new terminal, without venv
-    
     cd $(mktemp -d --tmpdir howfairis.XXXXXX)
     git clone https://github.com/fair-software/howfairis.git .
     python3 -m virtualenv -p python3 venv3
