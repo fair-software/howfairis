@@ -50,6 +50,9 @@ looks something like this:
           × has_bintray_badge
           × has_conda_badge
           × has_cran_badge
+          × has_crates_badge
+          × has_maven_badge
+          × has_npm_badge
           ✓ has_pypi_badge
           × has_rsd_badge
           × is_on_github_marketplace

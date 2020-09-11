@@ -15,15 +15,11 @@ def cli():
                         "which GitHub repository to run the analysis.")
 
     url = sys.argv[1]
-    print("Running for {0}\n".format(url))
+    print("Running for {0}".format(url))
     checker = HowFairIsChecker(url)
     checker.deconstruct_url()
     checker.get_readme()
-    checker.check_repository()
-    checker.check_license()
-    checker.check_registry()
-    checker.check_citation()
-    checker.check_checklist()
+    checker.check_five_recommendations()
     checker.check_badge()
 
 

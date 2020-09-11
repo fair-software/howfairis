@@ -1,65 +1,76 @@
-import re
 import requests
 
 
 class RegistryMixin:
+
+    def check_registry(self):
+        print("(3/5) registry")
+        results = [
+            self.has_bintray_badge(),
+            self.has_conda_badge(),
+            self.has_cran_badge(),
+            self.has_crates_badge(),
+            self.has_maven_badge(),
+            self.has_npm_badge(),
+            self.has_pypi_badge(),
+            self.has_rsd_badge(),
+            self.is_on_github_marketplace()
+        ]
+        return True in results
+
     def has_bintray_badge(self):
-        if self.readme is None:
-            self.print_state(check_name="has_bintray_badge", state=False)
-            return False
-        regex = r"!\[.*\]\(https://api\.bintray\.com/packages" + \
-                r"/.*/.*/.*/images/download\.svg\)\]" + \
-                r"\(https://bintray\.com/.*/.*/.*/.*\)"
-        r = re.compile(regex).search(self.readme) is not None
-        self.print_state(check_name="has_bintray_badge", state=r)
-        return r
+        regexes = [r"https://api\.bintray\.com/packages/.*/.*/.*/images/download\.svg",
+                   r"https://img\.shields\.io/bintray/.*"]
+        return self._eval_regexes(regexes)
 
     def has_conda_badge(self):
-        if self.readme is None:
-            self.print_state(check_name="has_conda_badge", state=False)
-            return False
-        regex = r"!\[.*\]\(https://anaconda\.org/.*/.*/badges" + \
-                r"/installer/conda\.svg\)\]" + \
-                r"\(https://anaconda\.org/.*/.*\)"
-        r = re.compile(regex).search(self.readme) is not None
-        self.print_state(check_name="has_conda_badge", state=r)
-        return r
+        regexes = [r"https://anaconda\.org/.*/.*/badges/installer/conda\.svg",
+                   r"https://img\.shields\.io/conda/.*"]
+        return self._eval_regexes(regexes)
 
     def has_cran_badge(self):
-        if self.readme is None:
-            self.print_state(check_name="has_cran_badge", state=False)
-            return False
-        regex1 = r"!\[.*\]\(https://cranlogs\.r-pkg\.org/badges/.*\)\]" + \
-                 r"\(https://cran\.r-project\.org/package=.*\)"
-        regex2 = r"!\[.*\]\(https://cranlogs\.r-pkg\.org/badges/grand-total/.*\)\]" + \
-                 r"\(https://cran\.r-project\.org/package=.*\)"
-        r = True in [re.compile(regex1).search(self.readme) is not None,
-                     re.compile(regex2).search(self.readme) is not None]
-        self.print_state(check_name="has_cran_badge", state=r)
-        return r
+        regexes = [r"https://cranlogs\.r-pkg\.org/badges/.*",
+                   r"https://cranlogs\.r-pkg\.org/badges/grand-total/.*",
+                   r"https://img\.shields\.io/cran/.*"]
+        return self._eval_regexes(regexes)
+
+    def has_crates_badge(self):
+        regexes = [r"https://badgen.net/crates/v/.*",
+                   r"https://img\.shields\.io/crates/.*"]
+        return self._eval_regexes(regexes)
+
+    def has_maven_badge(self):
+        regexes = [r"https://badgen.net/maven/v/maven-central/.*",
+                   r"https://img\.shields\.io/maven-central/.*",
+                   r"https://img\.shields\.io/maven-metadata/.*"]
+        return self._eval_regexes(regexes)
+
+    def has_npm_badge(self):
+        regexes = [r"https://badge.fury.io/js/.*",
+                   r"https://badgen.net/npm/v/.*",
+                   r"https://img\.shields\.io/npm/.*"]
+        return self._eval_regexes(regexes)
 
     def has_pypi_badge(self):
-        if self.readme is None:
-            self.print_state(check_name="has_pypi_badge", state=False)
-            return False
-        regex1 = r"https://img\.shields\.io/pypi/v/[^.]*\.svg"
-        regex2 = r"https://pypi\.python\.org/pypi/"
-        r = re.compile(regex1).search(self.readme) is not None
-        r = r and re.compile(regex2).search(self.readme) is not None
-        self.print_state(check_name="has_pypi_badge", state=r)
-        return r
+        regexes = [r"https://pypi\.python\.org/pypi/",
+                   r"https://badge\.fury\.io/py/.*\.svg",
+                   r"https://badgen\.net/pypi/v/.*",
+                   r"https://img\.shields\.io/pypi/.*"]
+        return self._eval_regexes(regexes)
+
+    def has_rsd_badge(self):
+        regexes = [r"https://img\.shields\.io/badge/RSD-.*",
+                   r"https://img\.shields\.io/badge/rsd-.*"]
+        return self._eval_regexes(regexes)
 
     def is_on_github_marketplace(self):
         try:
             response = requests.get(self.url)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
-        except requests.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
+        except requests.HTTPError:
             self.print_state(check_name="is_on_github_marketplace", state=False)
             return False
-        except Exception as err:
-            print(f"Other error occurred: {err}")
 
         html = response.text
         r = "Use this GitHub Action with your project" in html and \
