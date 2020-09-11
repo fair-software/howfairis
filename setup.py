@@ -35,8 +35,10 @@ setup(
     ],
     test_suite="tests",
     install_requires=[
-        "requests",
-        "colorama"
+        "click>=7",
+        "colorama>=0",
+        "PyYAML>=5"
+        "requests>=2",
     ],
     setup_requires=[
     ],

@@ -1,6 +1,8 @@
 import sys
 import re
+import os
 import inspect
+import yaml
 import requests
 from colorama import Style, Fore
 
@@ -12,38 +14,97 @@ from howfairis.mixins import ChecklistMixin
 
 
 class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
-    def __init__(self, url):
+    def __init__(self, url, config_file=None, branch="master", path=""):
         super().__init__()
         assert url.startswith("https://github.com/"), "url should start with https://github.com"
-        self.url = url
-        self.readme = None
-        self.repository_is_compliant = None
-        self.license_is_compliant = None
-        self.registry_is_compliant = None
-        self.citation_is_compliant = None
-        self.checklist_is_compliant = None
         self.badge = None
-        self.owner = None
-        self.repo = None
-        self.readme_filename = None
-        self.branch = None
-        self.path = None
+        self.branch = branch
+        self.checklist_is_compliant = None
+        self.citation_is_compliant = None
         self.compliant_symbol = "\u25CF"
+        self.config = None
+        self.config_file = config_file
+        self.license_is_compliant = None
         self.noncompliant_symbol = "\u25CB"
+        self.owner = None
+        self.path = path.strip("/")
+        self.readme = None
+        self.readme_filename = None
+        self.registry_is_compliant = None
+        self.repo = None
+        self.repository_is_compliant = None
+        self.url = url
+
+        self._deconstruct_url()
+        self._load_config()
+        self._get_readme()
 
     def _eval_regexes(self, regexes, check_name=None):
         if check_name is None:
             # get name of the function who's calling me
             check_name = inspect.stack()[1].function
         if self.readme is None:
-            self.print_state(check_name=check_name, state=False)
+            self._print_state(check_name=check_name, state=False)
             return False
         for regex in regexes:
             if re.compile(regex).search(self.readme) is not None:
-                self.print_state(check_name=check_name, state=True)
+                self._print_state(check_name=check_name, state=True)
                 return True
-        self.print_state(check_name=check_name, state=False)
+        self._print_state(check_name=check_name, state=False)
         return False
+
+    def _deconstruct_url(self):
+        self.owner, self.repo = self.url.replace("https://github.com/", "").split("/")[:2]
+        return self
+
+    def _get_readme(self):
+        for readme_filename in ["README.rst", "README.md"]:
+            raw_url = "https://raw.githubusercontent.com/{0}/{1}/{2}/{3}/{4}"\
+                      .format(self.owner, self.repo, self.branch, self.path, readme_filename)
+            try:
+                response = requests.get(raw_url)
+                # If the response was successful, no Exception will be raised
+                response.raise_for_status()
+            except requests.HTTPError:
+                continue
+
+            self.readme_filename = readme_filename
+            self.readme = response.text
+            return self
+
+        print("Did not find a README[.md|.rst] file.")
+        return self
+
+    def _load_config(self):
+
+        s = ".howfairis.yml" if self.config_file is None else self.config_file
+        raw_url = "https://raw.githubusercontent.com/{0}/{1}/{2}/{3}/{4}" \
+            .format(self.owner, self.repo, self.branch, self.path, s)
+        try:
+            response = requests.get(raw_url)
+            # If the response was successful, no Exception will be raised
+            response.raise_for_status()
+            print("Using the configuration file from {0}".format(raw_url))
+        except requests.HTTPError:
+            self.config = dict()
+            if self.config_file is not None:
+                print("Could not find the configuration file at {0}".format(raw_url))
+            return self
+
+        config = yaml.safe_load(response.text)
+        if config is None:
+            config = dict()
+        if not isinstance(config, dict):
+            raise ValueError("Unexpected configuration file contents.")
+        self.config = config
+        return self
+
+    @staticmethod
+    def _print_state(check_name="", state=None, indent=6):
+        if state is True:
+            print(" " * indent + Style.BRIGHT + Fore.GREEN + "\u2713 " + Style.RESET_ALL + check_name)
+        elif state is False:
+            print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
 
     def check_badge(self):
 
@@ -97,34 +158,3 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         self.registry_is_compliant = self.check_registry()
         self.citation_is_compliant = self.check_citation()
         self.checklist_is_compliant = self.check_checklist()
-
-    def deconstruct_url(self):
-        self.owner, self.repo = self.url.replace("https://github.com/", "").split("/")[:2]
-        self.branch = "master"
-        self.path = ""
-        return self
-
-    def get_readme(self):
-        for readme_filename in ["README.rst", "README.md"]:
-            raw_url = "https://raw.githubusercontent.com/{0}/{1}/{2}/{3}/{4}"\
-                      .format(self.owner, self.repo, self.branch, self.path, readme_filename)
-            try:
-                response = requests.get(raw_url)
-                # If the response was successful, no Exception will be raised
-                response.raise_for_status()
-            except requests.HTTPError:
-                continue
-
-            self.readme_filename = readme_filename
-            self.readme = response.text
-            return self
-
-        print("Did not find a README[.md|.rst] file.")
-        return self
-
-    @staticmethod
-    def print_state(check_name="", state=None, indent=6):
-        if state is True:
-            print(" " * indent + Style.BRIGHT + Fore.GREEN + "\u2713 " + Style.RESET_ALL + check_name)
-        elif state is False:
-            print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
