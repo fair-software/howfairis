@@ -9,7 +9,9 @@ class RegistryMixin:
             self.has_bintray_badge(),
             self.has_conda_badge(),
             self.has_cran_badge(),
+            self.has_crates_badge(),
             self.has_maven_badge(),
+            self.has_npm_badge(),
             self.has_pypi_badge(),
             self.has_rsd_badge(),
             self.is_on_github_marketplace()
@@ -17,27 +19,43 @@ class RegistryMixin:
         return True in results
 
     def has_bintray_badge(self):
-        regexes = [r"https://api\.bintray\.com/packages/.*/.*/.*/images/download\.svg"]
+        regexes = [r"https://api\.bintray\.com/packages/.*/.*/.*/images/download\.svg",
+                   r"https://img\.shields\.io/bintray/.*"]
         return self._eval_regexes(regexes)
 
     def has_conda_badge(self):
-        regexes = [r"https://anaconda\.org/.*/.*/badges/installer/conda\.svg"]
+        regexes = [r"https://anaconda\.org/.*/.*/badges/installer/conda\.svg",
+                   r"https://img\.shields\.io/conda/.*"]
         return self._eval_regexes(regexes)
 
     def has_cran_badge(self):
         regexes = [r"https://cranlogs\.r-pkg\.org/badges/.*",
-                   r"https://cranlogs\.r-pkg\.org/badges/grand-total/.*"]
+                   r"https://cranlogs\.r-pkg\.org/badges/grand-total/.*",
+                   r"https://img\.shields\.io/cran/.*"]
+        return self._eval_regexes(regexes)
+
+    def has_crates_badge(self):
+        regexes = [r"https://badgen.net/crates/v/.*",
+                   r"https://img\.shields\.io/crates/.*"]
         return self._eval_regexes(regexes)
 
     def has_maven_badge(self):
-        regexes = [r"https://badgen.net/maven/v/maven-central/.*"]
+        regexes = [r"https://badgen.net/maven/v/maven-central/.*",
+                   r"https://img\.shields\.io/maven-central/.*",
+                   r"https://img\.shields\.io/maven-metadata/.*"]
+        return self._eval_regexes(regexes)
+
+    def has_npm_badge(self):
+        regexes = [r"https://badge.fury.io/js/.*",
+                   r"https://badgen.net/npm/v/.*",
+                   r"https://img\.shields\.io/npm/.*"]
         return self._eval_regexes(regexes)
 
     def has_pypi_badge(self):
-        regexes = [r"https://img\.shields\.io/pypi/v/[^.]*",
-                   r"https://pypi\.python\.org/pypi/",
+        regexes = [r"https://pypi\.python\.org/pypi/",
                    r"https://badge\.fury\.io/py/.*\.svg",
-                   r"https://badgen\.net/pypi/v/.*"]
+                   r"https://badgen\.net/pypi/v/.*",
+                   r"https://img\.shields\.io/pypi/.*"]
         return self._eval_regexes(regexes)
 
     def has_rsd_badge(self):
