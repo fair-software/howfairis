@@ -37,8 +37,8 @@ setup(
     install_requires=[
         "click>=7",
         "colorama>=0",
-        "PyYAML>=5"
-        "requests>=2",
+        "PyYAML>=5",
+        "requests>=2"
     ],
     setup_requires=[
     ],
