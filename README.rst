@@ -106,8 +106,10 @@ Making a release
 ^^^^^^^^^^^^^^^^
 
 .. code:: shell
-
-    cd $(mktemp -d)
+    
+    # In a new terminal, without venv
+    
+    cd $(mktemp -d --tmpdir howfairis.XXXXXX)
     git clone https://github.com/fair-software/howfairis.git .
     python3 -m virtualenv -p python3 venv3
     source venv3/bin/activate
@@ -120,6 +122,11 @@ Making a release
     # upload to test pypi instance
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
+    # In a new terminal, without venv
+    
+    # check you don't have an existing howfairis
+    python3 -m pip uninstall howfairis
+
     # install in user space from test pypi instance:
     python3 -m pip -v install --user --no-cache-dir \
     --index-url https://test.pypi.org/simple/ \
@@ -127,5 +134,6 @@ Making a release
 
     # check that the package works as it should when installed from pypitest
 
+    # Back to the first terminal,
     # FINAL STEP: upload to PyPI
     twine upload dist/*
