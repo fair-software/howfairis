@@ -108,6 +108,8 @@ Bumping the version across all files is done with bump2version, e.g.
 Making a release
 ^^^^^^^^^^^^^^^^
 
+Make sure the version is correct.
+
 .. code:: shell
     
     # In a new terminal, without venv
@@ -139,3 +141,5 @@ Making a release
     # Back to the first terminal,
     # FINAL STEP: upload to PyPI
     twine upload dist/*
+
+Don't forget to also make a release on GitHub.
