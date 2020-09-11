@@ -42,9 +42,10 @@ class RegistryMixin:
         if self.readme is None:
             self.print_state(check_name="has_pypi_badge", state=False)
             return False
-        regex = r"!\[.*\]\(https://img\.shields\.io/pypi/v/[^.]*\.svg.*\)\]" + \
-                r"\(https://pypi\.python\.org/pypi/.*\)"
-        r = re.compile(regex).search(self.readme) is not None
+        regex1 = r"https://img\.shields\.io/pypi/v/[^.]*\.svg"
+        regex2 = r"https://pypi\.python\.org/pypi/"
+        r = re.compile(regex1).search(self.readme) is not None
+        r = r and re.compile(regex2).search(self.readme) is not None
         self.print_state(check_name="has_pypi_badge", state=r)
         return r
 
