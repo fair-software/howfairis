@@ -112,7 +112,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
                 response = requests.get(raw_url)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
-            except requests.HTTPError as http_err:
+            except requests.HTTPError:
                 continue
 
             self.readme_filename = readme_filename
