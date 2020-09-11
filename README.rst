@@ -118,6 +118,7 @@ Making a release
     python setup.py sdist
 
     # upload to test pypi instance
+    pip install --editable .[publishing]
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
     # install in user space from test pypi instance:
