@@ -42,30 +42,31 @@ looks something like this:
 
     Checking compliance with fair-software.eu...
     Running for https://github.com/fair-software/badge-test
-
     (1/5) repository
-            has_open_repository: true
+          ✓ has_open_repository
     (2/5) license
-            has_license: true
+          ✓ has_license
     (3/5) registry
-            has_pypi_badge: true
-            has_conda_badge: false
-            has_bintray_badge: false
-            is_on_github_marketplace: false
+          × has_bintray_badge
+          × has_conda_badge
+          × has_cran_badge
+          ✓ has_pypi_badge
+          × has_rsd_badge
+          × is_on_github_marketplace
     (4/5) citation
-            has_zenodo_badge: true
-            has_citationcff_file: false
-            has_citation_file: false
-            has_zenodo_metadata_file: false
-            has_codemeta_file: false
+          × has_citation_file
+          × has_citationcff_file
+          × has_codemeta_file
+          ✓ has_zenodo_badge
+          × has_zenodo_metadata_file
     (5/5) checklist
-            has_core_infrastructures_badge: true
-            has_sonarcloud_badge: false
+          ✓ has_core_infrastructures_badge
+          × has_sonarcloud_badge
 
     Calculated compliance: ● ● ● ● ●
 
     Expected badge is equal to the actual badge. It's all good.
-
+    
 Development install
 -------------------
 
