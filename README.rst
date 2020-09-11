@@ -13,6 +13,9 @@ fair-software.eu recommendations.
 .. image:: https://github.com/fair-software/howfairis/workflows/Build/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3ABuild
 
+.. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
+   :target: https://fair-software.eu
+
 Install
 -------
 
@@ -39,30 +42,31 @@ looks something like this:
 
     Checking compliance with fair-software.eu...
     Running for https://github.com/fair-software/badge-test
-
     (1/5) repository
-            has_open_repository: true
+          ✓ has_open_repository
     (2/5) license
-            has_license: true
+          ✓ has_license
     (3/5) registry
-            has_pypi_badge: true
-            has_conda_badge: false
-            has_bintray_badge: false
-            is_on_github_marketplace: false
+          × has_bintray_badge
+          × has_conda_badge
+          × has_cran_badge
+          ✓ has_pypi_badge
+          × has_rsd_badge
+          × is_on_github_marketplace
     (4/5) citation
-            has_zenodo_badge: true
-            has_citationcff_file: false
-            has_citation_file: false
-            has_zenodo_metadata_file: false
-            has_codemeta_file: false
+          × has_citation_file
+          × has_citationcff_file
+          × has_codemeta_file
+          ✓ has_zenodo_badge
+          × has_zenodo_metadata_file
     (5/5) checklist
-            has_core_infrastructures_badge: true
-            has_sonarcloud_badge: false
+          ✓ has_core_infrastructures_badge
+          × has_sonarcloud_badge
 
     Calculated compliance: ● ● ● ● ●
 
     Expected badge is equal to the actual badge. It's all good.
-
+    
 Development install
 -------------------
 
@@ -102,8 +106,9 @@ Making a release
 ^^^^^^^^^^^^^^^^
 
 .. code:: shell
-
-    cd $(mktemp -d)
+    
+    # In a new terminal, without venv
+    cd $(mktemp -d --tmpdir howfairis.XXXXXX)
     git clone https://github.com/fair-software/howfairis.git .
     python3 -m virtualenv -p python3 venv3
     source venv3/bin/activate
@@ -116,6 +121,11 @@ Making a release
     # upload to test pypi instance
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
+    # In a new terminal, without venv
+    
+    # check you don't have an existing howfairis
+    python3 -m pip uninstall howfairis
+
     # install in user space from test pypi instance:
     python3 -m pip -v install --user --no-cache-dir \
     --index-url https://test.pypi.org/simple/ \
@@ -123,5 +133,6 @@ Making a release
 
     # check that the package works as it should when installed from pypitest
 
+    # Back to the first terminal,
     # FINAL STEP: upload to PyPI
     twine upload dist/*
