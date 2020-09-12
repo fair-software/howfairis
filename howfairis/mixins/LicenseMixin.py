@@ -30,7 +30,6 @@ class LicenseMixin:
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
-                r = False
                 self._print_state(check_name="has_license", state=r)
                 return r
             r = True
@@ -43,7 +42,6 @@ class LicenseMixin:
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
-                r = False
                 self._print_state(check_name="has_license", state=r)
                 return r
 
