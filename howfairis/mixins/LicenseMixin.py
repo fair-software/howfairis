@@ -21,6 +21,8 @@ class LicenseMixin:
 
     def has_license(self):
 
+        r = False
+
         if self.platform == Platform.GITHUB:
             url = "https://api.github.com/repos/{0}/{1}/license".format(self.owner, self.repo)
             try:
@@ -28,12 +30,12 @@ class LicenseMixin:
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
-                self._print_state(check_name="has_license", state=False)
-                return False
-            self._print_state(check_name="has_license", state=True)
-            return True
+                r = False
+                self._print_state(check_name="has_license", state=r)
+                return r
+            r = True
 
-        elif self.platform == Platform.GITLAB:
+        if self.platform == Platform.GITLAB:
             url = "https://gitlab.com/{0}/{1}".format(self.owner, self.repo)
 
             try:
@@ -41,18 +43,13 @@ class LicenseMixin:
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
-                self._print_state(check_name="has_license", state=False)
-                return False
+                r = False
+                self._print_state(check_name="has_license", state=r)
+                return r
 
-            has_license = BeautifulSoup(response.text, "html.parser") \
+            r = BeautifulSoup(response.text, "html.parser") \
                 .find("div", class_="project-buttons")\
                 .find(string="No license. All rights reserved") is None
 
-            self._print_state(check_name="has_license", state=has_license)
-            return has_license
-
-
-
-
-
-
+        self._print_state(check_name="has_license", state=r)
+        return r

@@ -80,19 +80,21 @@ class RegistryMixin:
 
     def is_on_github_marketplace(self):
 
+        r = False
+
         if self.platform == Platform.GITHUB:
             try:
                 response = requests.get(self.url)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
-                self._print_state(check_name="is_on_github_marketplace", state=False)
-                return False
+                r = False
+                self._print_state(check_name="is_on_github_marketplace", state=r)
+                return r
 
             html = response.text
             r = "Use this GitHub Action with your project" in html and \
                 "Add this Action to an existing workflow or create a new one." in html
-            self._print_state(check_name="is_on_github_marketplace", state=r)
-            return r
-        elif self.platform == Platform.GITLAB:
-            self._print_state(check_name="is_on_github_marketplace", state=False)
+
+        self._print_state(check_name="is_on_github_marketplace", state=r)
+        return r
