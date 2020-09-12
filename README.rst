@@ -87,7 +87,7 @@ you see something like this:
 When you get this message, just copy-and-paste the suggested badge into your README.
 
 Some examples of badges
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 The color of the badge depends on the level of compliance; the pattern of filled and empty circles will vary depending
 on which recommendations the repository complies with.
@@ -117,7 +117,7 @@ the one that calls for adding a checklist.
 Perfect compliance!
 
 More options
-^^^^^^^^^^^^
+------------
 
 There are some command line options to the executable. You can see them using:
 
