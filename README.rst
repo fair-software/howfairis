@@ -66,10 +66,56 @@ looks something like this:
           ✓ has_core_infrastructures_badge
           × has_sonarcloud_badge
 
+If your README already has the fair-software badge with calculated compliance, you'll see some output like this:
+
+.. code:: shell
+
     Calculated compliance: ● ● ● ● ●
 
     Expected badge is equal to the actual badge. It's all good.
     
+If your README doesn't have the fair-software badge yet, or its compliance is different from what's been calculated,
+you see something like this:
+
+.. code:: shell
+
+    Calculated compliance: ● ● ○ ○ ○
+
+    While searching through your README.md, I did not find the expected badge:
+    [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B-orange)](https://fair-software.eu)
+
+When you get this message, just copy-and-paste the suggested badge into your README.
+
+Some examples of badges
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The color of the badge depends on the level of compliance; the pattern of filled and empty circles will vary depending
+what aspects the software complies with.
+
+Each circle represents one of the recommendations, meaning the first symbol represents the first recommendation, Use a
+publicly accessible repository with version control, the second symbol represents the second recommendations, and so on.
+You can find more information about the recommendations on ``fair-software.eu``.
+
+.. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8B-red
+
+The state of the third circle indicates the software has been registered in a community registry. Since the repository
+only complies with one of the recommendations, this badge gets a red color.
+
+.. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-orange
+
+The repository with this badge complies with 3 out of 5 recommendations, hence its color is orange. It is a publicly
+accessible repository with version control. It has been registered in a community registry, and it contains citation
+information. There is no license in this repository, and the project does not use a checklist.
+
+.. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
+
+Almost complete compliance yields a yellow badge. The corresponding repository meets all the recommendations except
+the one that calls for adding a checklist.
+
+.. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
+
+Perfect compliance!
+
 Development install
 -------------------
 
