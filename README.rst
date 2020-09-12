@@ -90,10 +90,10 @@ Some examples of badges
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 The color of the badge depends on the level of compliance; the pattern of filled and empty circles will vary depending
-what aspects the software complies with.
+on which recommendations the repository complies with.
 
-Each circle represents one of the recommendations, meaning the first symbol represents the first recommendation, Use a
-publicly accessible repository with version control, the second symbol represents the second recommendations, and so on.
+Each circle represents one of the recommendations, meaning the first symbol represents the first recommendation, *Use a
+publicly accessible repository with version control*, the second symbol represents the second recommendations, and so on.
 You can find more information about the recommendations on ``fair-software.eu``.
 
 .. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8B-red
