@@ -18,6 +18,12 @@ authors:
     given-names: Carlos
     orcid: "https://orcid.org/0000-0001-5565-7577"
   -
+    affiliation: "Netherlands eScience Center"
+    family-names: Werkhoven
+    given-names: Ben
+    name-particle: van
+    orcid: "https://orcid.org/0000-0002-7508-3272"
+  -
     family-names: Etuk
     given-names: Edidiong
     orcid: "https://orcid.org/0000-0002-1511-0523"
