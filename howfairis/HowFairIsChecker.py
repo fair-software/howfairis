@@ -95,11 +95,11 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
             response = requests.get(raw_url)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
-            print("Using the configuration file from {0}".format(raw_url))
+            print("Using the configuration file {0}".format(raw_url))
         except requests.HTTPError:
             self.config = dict()
             if self.config_file is not None:
-                print("Could not find the configuration file at {0}".format(raw_url))
+                print("Could not find the configuration file {0}".format(raw_url))
             return self
 
         config = yaml.safe_load(response.text)
