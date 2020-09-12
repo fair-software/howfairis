@@ -15,7 +15,7 @@ from howfairis import __version__
 @click.argument("url", nargs=-1)
 def cli(url=None, config_file=None, branch=None,
         path=None, show_trace=False, version=None):
-    """Determine compliance with recommendations from fair-software.eu for the GitHub repository at URL."""
+    """Determine compliance with recommendations from fair-software.eu for the GitHub or GitLab repository at URL."""
 
     if version is True:
         print("version: {0}".format(__version__))

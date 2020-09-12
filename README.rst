@@ -132,17 +132,15 @@ Which then shows something like:
     Usage: howfairis [OPTIONS] [URL]...
 
       Determine compliance with recommendations from fair-software.eu for the
-      GitHub repository at URL.
+      GitHub or GitLab repository at URL.
 
     Options:
-      -b, --branch TEXT       Which git branch to use. Default: master
+      -b, --branch TEXT       Which git branch to use.
       -c, --config-file PATH  Config file. Default: .howfairis.yml
-      -p, --path TEXT         Relative path to the readme. Default: empty
+      -p, --path TEXT         Relative path.
       -s, --show-trace        Show full traceback on errors. Default: False
       -v, --version           Show version
       --help                  Show this message and exit.
-
-
 
 Development install
 -------------------
