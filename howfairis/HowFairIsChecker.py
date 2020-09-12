@@ -10,14 +10,14 @@ from howfairis.mixins import LicenseMixin
 from howfairis.mixins import RegistryMixin
 from howfairis.mixins import CitationMixin
 from howfairis.mixins import ChecklistMixin
+from howfairis.Platform import Platform
 
 
 class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
-    def __init__(self, url, config_file=None, branch="master", path=""):
+    def __init__(self, url, config_file=None, branch=None, path=None):
         super().__init__()
-        assert url.startswith("https://github.com/"), "url should start with https://github.com"
         self.badge = None
-        self.branch = branch
+        self.branch = "master" if branch is None else branch
         self.checklist_is_compliant = None
         self.citation_is_compliant = None
         self.compliant_symbol = "\u25CF"
@@ -26,7 +26,9 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         self.license_is_compliant = None
         self.noncompliant_symbol = "\u25CB"
         self.owner = None
-        self.path = path.strip("/")
+        self.path = "" if path is None else "/" + path.strip("/")
+        self.platform = None
+        self.raw_url_format_string = None
         self.readme = None
         self.readme_filename = None
         self.registry_is_compliant = None
@@ -53,13 +55,24 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         return False
 
     def _deconstruct_url(self):
-        self.owner, self.repo = self.url.replace("https://github.com/", "").split("/")[:2]
+        assert self.url.startswith("https://"), "url should start with https://"
+        assert True in [self.url.startswith("https://github.com/"),
+                        self.url.startswith("https://gitlab.com/")], "Repository should be on GitHub or on GitLab."
+
+        if self.url.startswith("https://github.com/"):
+            self.platform = Platform.GITHUB
+            self.owner, self.repo = self.url.replace("https://github.com/", "").split("/")[:2]
+            self.raw_url_format_string = "https://raw.githubusercontent.com/{0}/{1}/{2}{3}/{4}"
+        elif self.url.startswith("https://gitlab.com/"):
+            self.platform = Platform.GITLAB
+            self.owner, self.repo = self.url.replace("https://gitlab.com/", "").split("/")[:2]
+            self.raw_url_format_string = "https://gitlab.com/{0}/{1}/-/raw/{2}{3}/{4}"
+
         return self
 
     def _get_readme(self):
         for readme_filename in ["README.rst", "README.md"]:
-            raw_url = "https://raw.githubusercontent.com/{0}/{1}/{2}/{3}/{4}"\
-                      .format(self.owner, self.repo, self.branch, self.path, readme_filename)
+            raw_url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, readme_filename)
             try:
                 response = requests.get(raw_url)
                 # If the response was successful, no Exception will be raised
@@ -71,14 +84,13 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
             self.readme = response.text
             return self
 
-        print("Did not find a README[.md|.rst] file.")
+        print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
         return self
 
     def _load_config(self):
 
         s = ".howfairis.yml" if self.config_file is None else self.config_file
-        raw_url = "https://raw.githubusercontent.com/{0}/{1}/{2}/{3}/{4}" \
-            .format(self.owner, self.repo, self.branch, self.path, s)
+        raw_url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, s)
         try:
             response = requests.get(raw_url)
             # If the response was successful, no Exception will be raised

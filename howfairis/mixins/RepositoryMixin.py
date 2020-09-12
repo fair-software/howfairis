@@ -1,4 +1,5 @@
 import requests
+from howfairis.Platform import Platform
 
 
 class RepositoryMixin:
@@ -18,7 +19,11 @@ class RepositoryMixin:
         return True in results
 
     def has_open_repository(self):
-        url = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
+
+        if self.platform == Platform.GITHUB:
+            url = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
+        elif self.platform == Platform.GITLAB:
+            url = "https://gitlab.com/api/v4/projects/{0}%2F{1}/repository/tree".format(self.owner, self.repo)
 
         try:
             response = requests.get(url)
@@ -27,7 +32,5 @@ class RepositoryMixin:
         except requests.HTTPError:
             self._print_state(check_name="has_open_repository", state=False)
             return False
-        except Exception as err:
-            print(f"Other error occurred: {err}")
         self._print_state(check_name="has_open_repository", state=True)
         return True

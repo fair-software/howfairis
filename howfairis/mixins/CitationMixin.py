@@ -24,8 +24,7 @@ class CitationMixin:
         return True in results
 
     def has_citation_file(self):
-        url = "https://raw.githubusercontent.com/" + \
-              "{0}/{1}/{2}/{3}/CITATION".format(self.owner, self.repo, self.branch, self.path)
+        url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, "CITATION")
         try:
             response = requests.get(url)
             # If the response was successful, no Exception will be raised
@@ -37,8 +36,7 @@ class CitationMixin:
         return True
 
     def has_citationcff_file(self):
-        url = "https://raw.githubusercontent.com/" + \
-              "{0}/{1}/{2}/{3}/CITATION.cff".format(self.owner, self.repo, self.branch, self.path)
+        url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, "CITATION.cff")
         try:
             response = requests.get(url)
             # If the response was successful, no Exception will be raised
@@ -50,8 +48,7 @@ class CitationMixin:
         return True
 
     def has_codemeta_file(self):
-        url = "https://raw.githubusercontent.com/" + \
-              "{0}/{1}/{2}/{3}/codemeta.json".format(self.owner, self.repo, self.branch, self.path)
+        url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, "codemeta.json")
         try:
             response = requests.get(url)
             # If the response was successful, no Exception will be raised
@@ -68,8 +65,7 @@ class CitationMixin:
         return self._eval_regexes(regexes)
 
     def has_zenodo_metadata_file(self):
-        url = "https://raw.githubusercontent.com/" + \
-              "{0}/{1}/{2}/{3}/.zenodo.json".format(self.owner, self.repo, self.branch, self.path)
+        url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, ".zenodo.json")
         try:
             response = requests.get(url)
             # If the response was successful, no Exception will be raised

@@ -35,6 +35,7 @@ setup(
     ],
     test_suite="tests",
     install_requires=[
+        "beautifulsoup4>=4",
         "click>=7",
         "colorama>=0",
         "PyYAML>=5",
