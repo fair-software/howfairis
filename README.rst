@@ -116,6 +116,34 @@ the one that calls for adding a checklist.
 
 Perfect compliance!
 
+More options
+^^^^^^^^^^^^
+
+There are some command line options to the executable. You can see them using:
+
+.. code:: shell
+
+    howfairis --help
+
+Which then shows something like:
+
+.. code:: shell
+
+    Usage: howfairis [OPTIONS] [URL]...
+
+      Determine compliance with recommendations from fair-software.eu for the
+      GitHub repository at URL.
+
+    Options:
+      -b, --branch TEXT       Which git branch to use. Default: master
+      -c, --config-file PATH  Config file. Default: .howfairis.yml
+      -p, --path TEXT         Relative path to the readme. Default: empty
+      -s, --show-trace        Show full traceback on errors. Default: False
+      -v, --version           Show version
+      --help                  Show this message and exit.
+
+
+
 Development install
 -------------------
 
