@@ -56,17 +56,26 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
 
     def _deconstruct_url(self):
         assert self.url.startswith("https://"), "url should start with https://"
-        assert True in [self.url.startswith("https://github.com/"),
-                        self.url.startswith("https://gitlab.com/")], "Repository should be on GitHub or on GitLab."
+        assert True in [self.url.startswith("https://github.com"),
+                        self.url.startswith("https://gitlab.com")], "Repository should be on GitHub or on GitLab."
 
-        if self.url.startswith("https://github.com/"):
+        if self.url.startswith("https://github.com"):
             self.platform = Platform.GITHUB
-            self.owner, self.repo = self.url.replace("https://github.com/", "").split("/")[:2]
             self.raw_url_format_string = "https://raw.githubusercontent.com/{0}/{1}/{2}{3}/{4}"
-        elif self.url.startswith("https://gitlab.com/"):
+            try:
+                self.owner, self.repo = self.url.replace("https://github.com", "").strip("/").split("/")[:2]
+            except ValueError as e:
+                raise ValueError("Bad value for input argument URL.") from e
+        elif self.url.startswith("https://gitlab.com"):
             self.platform = Platform.GITLAB
-            self.owner, self.repo = self.url.replace("https://gitlab.com/", "").split("/")[:2]
             self.raw_url_format_string = "https://gitlab.com/{0}/{1}/-/raw/{2}{3}/{4}"
+            try:
+                self.owner, self.repo = self.url.replace("https://github.com", "").strip("/").split("/")[:2]
+            except ValueError as e:
+                raise ValueError("Bad value for input argument URL.") from e
+
+        if self.owner == "" or self.repo == "":
+            raise ValueError("Bad value for input argument URL.")
 
         return self
 
