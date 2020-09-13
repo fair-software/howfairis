@@ -11,6 +11,7 @@ from howfairis.mixins import LicenseMixin
 from howfairis.mixins import RegistryMixin
 from howfairis.mixins import RepositoryMixin
 from howfairis.Platform import Platform
+from howfairis.schema import validate_against_schema
 
 
 class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
@@ -115,10 +116,11 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         except Exception as e:
             raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from e
 
-        if config is None:
-            config = dict()
-        if not isinstance(config, dict):
-            raise ValueError("Unexpected configuration file contents.")
+        try:
+            validate_against_schema(config)
+        except Exception as e:
+            raise Exception("Configuration file should follow the schema.") from e
+
         self.config = config
         return self
 

@@ -142,6 +142,53 @@ Which then shows something like:
       -v, --version           Show version
       --help                  Show this message and exit.
 
+Configuration file
+^^^^^^^^^^^^^^^^^^
+
+The state of each check can be forced using a configuration file. This file needs to be present at ``URL``, taking into
+account the values passed with ``--path`` and with ``--config-file``.
+
+The configuration file should follow the voluptuous_ schema laid out in schema.py_:
+
+.. code:: python
+
+    {
+        Optional("force"): {
+            Optional("repository"): bool,
+            Optional("license"): bool,
+            Optional("registry"): bool,
+            Optional("citation"): bool,
+            Optional("checklist"): bool,
+        }
+    }
+
+For example, the following is a valid configuration file document:
+
+.. code:: yaml
+
+    force:
+      registry: true  # It is good practice to add an explanation
+                      # of why you chose to set the state manually
+
+The manual override will be reflected in tthe output, as follows:
+
+.. code:: shell
+
+    (1/5) repository
+          ✓ has_open_repository
+    (2/5) license
+          ✓ has_license
+    (3/5) registry: force True
+    (4/5) citation
+          × has_citation_file
+          × has_citationcff_file
+          × has_codemeta_file
+          × has_zenodo_badge
+          × has_zenodo_metadata_file
+    (5/5) checklist
+          × has_core_infrastructures_badge
+          × has_sonarcloud_badge
+
 Development install
 -------------------
 
@@ -218,3 +265,5 @@ Don't forget to also make a release on GitHub.
 
 
 .. _fair-software.eu: https://fair-software.eu
+.. _voluptuous: https://pypi.org/project/voluptuous/
+.. _schema.py: https://github.com/fair-software/howfairis/blob/master/howfairis/schema.py
