@@ -1,32 +1,34 @@
-import sys
-import re
 import inspect
-import yaml
+import re
+import sys
 import requests
-from colorama import Style, Fore
-
-from howfairis.mixins import RepositoryMixin
+import yaml
+from colorama import Fore
+from colorama import Style
+from howfairis.mixins import ChecklistMixin
+from howfairis.mixins import CitationMixin
 from howfairis.mixins import LicenseMixin
 from howfairis.mixins import RegistryMixin
-from howfairis.mixins import CitationMixin
-from howfairis.mixins import ChecklistMixin
+from howfairis.mixins import RepositoryMixin
+from howfairis.Platform import Platform
 
 
 class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
-    def __init__(self, url, config_file=None, branch="master", path=""):
+    def __init__(self, url, config_file=None, branch=None, path=None):
         super().__init__()
-        assert url.startswith("https://github.com/"), "url should start with https://github.com"
         self.badge = None
-        self.branch = branch
+        self.branch = "master" if branch is None else branch
         self.checklist_is_compliant = None
         self.citation_is_compliant = None
         self.compliant_symbol = "\u25CF"
         self.config = None
-        self.config_file = config_file
+        self.config_file = ".howfairis.yml" if config_file is None else config_file
         self.license_is_compliant = None
         self.noncompliant_symbol = "\u25CB"
         self.owner = None
-        self.path = path.strip("/")
+        self.path = "" if path is None else "/" + path.strip("/")
+        self.platform = None
+        self.raw_url_format_string = None
         self.readme = None
         self.readme_filename = None
         self.registry_is_compliant = None
@@ -35,7 +37,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         self.url = url
 
         self._deconstruct_url()
-        self._load_config()
+        self._load_config(has_user_input=config_file is not None)
         self._get_readme()
 
     def _eval_regexes(self, regexes, check_name=None):
@@ -53,13 +55,33 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         return False
 
     def _deconstruct_url(self):
-        self.owner, self.repo = self.url.replace("https://github.com/", "").split("/")[:2]
+        assert self.url.startswith("https://"), "url should start with https://"
+        assert True in [self.url.startswith("https://github.com"),
+                        self.url.startswith("https://gitlab.com")], "Repository should be on GitHub or on GitLab."
+
+        if self.url.startswith("https://github.com"):
+            self.platform = Platform.GITHUB
+            self.raw_url_format_string = "https://raw.githubusercontent.com/{0}/{1}/{2}{3}/{4}"
+            try:
+                self.owner, self.repo = self.url.replace("https://github.com", "").strip("/").split("/")[:2]
+            except ValueError as e:
+                raise ValueError("Bad value for input argument URL.") from e
+        elif self.url.startswith("https://gitlab.com"):
+            self.platform = Platform.GITLAB
+            self.raw_url_format_string = "https://gitlab.com/{0}/{1}/-/raw/{2}{3}/{4}"
+            try:
+                self.owner, self.repo = self.url.replace("https://github.com", "").strip("/").split("/")[:2]
+            except ValueError as e:
+                raise ValueError("Bad value for input argument URL.") from e
+
+        if self.owner == "" or self.repo == "":
+            raise ValueError("Bad value for input argument URL.")
+
         return self
 
     def _get_readme(self):
         for readme_filename in ["README.rst", "README.md"]:
-            raw_url = "https://raw.githubusercontent.com/{0}/{1}/{2}/{3}/{4}"\
-                      .format(self.owner, self.repo, self.branch, self.path, readme_filename)
+            raw_url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, readme_filename)
             try:
                 response = requests.get(raw_url)
                 # If the response was successful, no Exception will be raised
@@ -71,26 +93,28 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
             self.readme = response.text
             return self
 
-        print("Did not find a README[.md|.rst] file.")
+        print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
         return self
 
-    def _load_config(self):
+    def _load_config(self, has_user_input):
 
-        s = ".howfairis.yml" if self.config_file is None else self.config_file
-        raw_url = "https://raw.githubusercontent.com/{0}/{1}/{2}/{3}/{4}" \
-            .format(self.owner, self.repo, self.branch, self.path, s)
+        raw_url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, self.config_file)
         try:
             response = requests.get(raw_url)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
-            print("Using the configuration file from {0}".format(raw_url))
-        except requests.HTTPError:
+            print("Using the configuration file {0}".format(raw_url))
+        except requests.HTTPError as e:
             self.config = dict()
-            if self.config_file is not None:
-                print("Could not find the configuration file at {0}".format(raw_url))
+            if has_user_input:
+                raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
             return self
 
-        config = yaml.safe_load(response.text)
+        try:
+            config = yaml.safe_load(response.text)
+        except Exception as e:
+            raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from e
+
         if config is None:
             config = dict()
         if not isinstance(config, dict):

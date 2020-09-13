@@ -1,4 +1,5 @@
 import requests
+from howfairis.Platform import Platform
 
 
 class RegistryMixin:
@@ -44,7 +45,7 @@ class RegistryMixin:
 
     def has_cran_badge(self):
         regexes = [r"https://cranlogs\.r-pkg\.org/badges/.*",
-                   r"https://cranlogs\.r-pkg\.org/badges/grand-total/.*",
+                   r"https://www\.r-pkg\.org/badges/.*",
                    r"https://img\.shields\.io/cran/.*"]
         return self._eval_regexes(regexes)
 
@@ -78,16 +79,21 @@ class RegistryMixin:
         return self._eval_regexes(regexes)
 
     def is_on_github_marketplace(self):
-        try:
-            response = requests.get(self.url)
-            # If the response was successful, no Exception will be raised
-            response.raise_for_status()
-        except requests.HTTPError:
-            self._print_state(check_name="is_on_github_marketplace", state=False)
-            return False
 
-        html = response.text
-        r = "Use this GitHub Action with your project" in html and \
-            "Add this Action to an existing workflow or create a new one." in html
+        r = False
+
+        if self.platform == Platform.GITHUB:
+            try:
+                response = requests.get(self.url)
+                # If the response was successful, no Exception will be raised
+                response.raise_for_status()
+            except requests.HTTPError:
+                self._print_state(check_name="is_on_github_marketplace", state=r)
+                return r
+
+            html = response.text
+            r = "Use this GitHub Action with your project" in html and \
+                "Add this Action to an existing workflow or create a new one." in html
+
         self._print_state(check_name="is_on_github_marketplace", state=r)
         return r

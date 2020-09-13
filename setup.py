@@ -1,6 +1,6 @@
 import os
-
 from setuptools import setup
+
 
 here = os.path.abspath(os.path.dirname(__file__))
 
@@ -12,7 +12,7 @@ setup(
     entry_points={
         "console_scripts": ["howfairis=howfairis.cli:cli"],
     },
-    version="0.8.1",
+    version="0.9.0",
     description="Python package to analyze compliance with fair-software.eu recommendations",
     long_description=readme + "\n\n",
     author="https://github.com/jspaaks",
@@ -35,6 +35,7 @@ setup(
     ],
     test_suite="tests",
     install_requires=[
+        "beautifulsoup4>=4",
         "click>=7",
         "colorama>=0",
         "PyYAML>=5",

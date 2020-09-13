@@ -1,8 +1,8 @@
-from .RepositoryMixin import RepositoryMixin
+from .ChecklistMixin import ChecklistMixin
+from .CitationMixin import CitationMixin
 from .LicenseMixin import LicenseMixin
 from .RegistryMixin import RegistryMixin
-from .CitationMixin import CitationMixin
-from .ChecklistMixin import ChecklistMixin
+from .RepositoryMixin import RepositoryMixin
 
 
 __all__ = [

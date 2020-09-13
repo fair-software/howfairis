@@ -1,8 +1,8 @@
 ``howfairis``
 =============
 
-Python package to analyze a GitHub repository's compliance with the
-fair-software.eu recommendations.
+Python package to analyze a GitHub or GitLab repository's compliance with the
+fair-software.eu_ recommendations.
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
    :target: https://doi.org/10.5281/zenodo.4017908
@@ -23,9 +23,8 @@ Install
 
     pip3 install --user howfairis
 
-Afterwards check that the install directory was added to the ``PATH``
-environment variable. You should then be able to call the executable,
-like so:
+Verify that the install directory is on the ``PATH`` environment variable. If so,
+you should be able to call the executable, like so:
 
 .. code:: shell
 
@@ -35,7 +34,7 @@ like so:
 Expected output
 ---------------
 
-Depending on for which repository you are doing the analysis, the output
+Depending on which repository you are doing the analysis for, the output
 looks something like this:
 
 .. code:: shell
@@ -53,7 +52,7 @@ looks something like this:
           × has_crates_badge
           × has_maven_badge
           × has_npm_badge
-          ✓ has_pypi_badge
+          × has_pypi_badge
           × has_rsd_badge
           × is_on_github_marketplace
     (4/5) citation
@@ -66,16 +65,16 @@ looks something like this:
           ✓ has_core_infrastructures_badge
           × has_sonarcloud_badge
 
-If your README already has the fair-software badge with calculated compliance, you'll see some output like this:
+If your README already has the fair-software badge, you'll see some output like this:
 
 .. code:: shell
 
-    Calculated compliance: ● ● ● ● ●
+    Calculated compliance: ● ● ○ ● ●
 
     Expected badge is equal to the actual badge. It's all good.
     
 If your README doesn't have the fair-software badge yet, or its compliance is different from what's been calculated,
-you see something like this:
+you'll see output like this:
 
 .. code:: shell
 
@@ -93,8 +92,8 @@ The color of the badge depends on the level of compliance; the pattern of filled
 on which recommendations the repository complies with.
 
 Each circle represents one of the recommendations, meaning the first symbol represents the first recommendation, *Use a
-publicly accessible repository with version control*, the second symbol represents the second recommendations, and so on.
-You can find more information about the recommendations on ``fair-software.eu``.
+publicly accessible repository with version control*, the second symbol represents the second recommendation, and so on.
+You can find more information about the recommendations on fair-software.eu_.
 
 .. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8B-red
 
@@ -103,9 +102,10 @@ only complies with one of the recommendations, this badge gets a red color.
 
 .. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-orange
 
-The repository with this badge complies with 3 out of 5 recommendations, hence its color is orange. It is a publicly
-accessible repository with version control. It has been registered in a community registry, and it contains citation
-information. There is no license in this repository, and the project does not use a checklist.
+The repository with this badge complies with 3 out of 5 recommendations, hence its color is orange. From the open/closed
+state of the circles, it is a publicly accessible repository with version control. It has been registered in a community
+registry, and it contains citation information. There is no license in this repository, and the project does not use a
+checklist.
 
 .. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
 
@@ -132,17 +132,15 @@ Which then shows something like:
     Usage: howfairis [OPTIONS] [URL]...
 
       Determine compliance with recommendations from fair-software.eu for the
-      GitHub repository at URL.
+      GitHub or GitLab repository at URL.
 
     Options:
-      -b, --branch TEXT       Which git branch to use. Default: master
+      -b, --branch TEXT       Which git branch to use.
       -c, --config-file PATH  Config file. Default: .howfairis.yml
-      -p, --path TEXT         Relative path to the readme. Default: empty
+      -p, --path TEXT         Relative path.
       -s, --show-trace        Show full traceback on errors. Default: False
       -v, --version           Show version
       --help                  Show this message and exit.
-
-
 
 Development install
 -------------------
@@ -217,3 +215,6 @@ Make sure the version is correct.
     twine upload dist/*
 
 Don't forget to also make a release on GitHub.
+
+
+.. _fair-software.eu: https://fair-software.eu
