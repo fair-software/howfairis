@@ -70,7 +70,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
             self.platform = Platform.GITLAB
             self.raw_url_format_string = "https://gitlab.com/{0}/{1}/-/raw/{2}{3}/{4}"
             try:
-                self.owner, self.repo = self.url.replace("https://github.com", "").strip("/").split("/")[:2]
+                self.owner, self.repo = self.url.replace("https://gitlab.com", "").strip("/").split("/")[:2]
             except ValueError as e:
                 raise ValueError("Bad value for input argument URL.") from e
 
