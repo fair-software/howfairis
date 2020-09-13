@@ -170,7 +170,7 @@ For example, the following is a valid configuration file document:
       registry: true  # It is good practice to add an explanation
                       # of why you chose to set the state manually
 
-The manual override will be reflected in tthe output, as follows:
+The manual override will be reflected in the output, as follows:
 
 .. code:: shell
 
