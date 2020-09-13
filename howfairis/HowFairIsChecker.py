@@ -22,7 +22,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         self.citation_is_compliant = None
         self.compliant_symbol = "\u25CF"
         self.config = None
-        self.config_file = config_file
+        self.config_file = ".howfairis.yml" if config_file is None else config_file
         self.license_is_compliant = None
         self.noncompliant_symbol = "\u25CB"
         self.owner = None
@@ -98,20 +98,23 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
 
     def _load_config(self):
 
-        s = ".howfairis.yml" if self.config_file is None else self.config_file
-        raw_url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, s)
+        raw_url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, self.config_file)
         try:
             response = requests.get(raw_url)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
             print("Using the configuration file {0}".format(raw_url))
-        except requests.HTTPError:
+        except requests.HTTPError as e:
             self.config = dict()
-            if self.config_file is not None:
-                print("Could not find the configuration file {0}".format(raw_url))
+            if self.config_file != ".howfairis.yml":
+                raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
             return self
 
-        config = yaml.safe_load(response.text)
+        try:
+            config = yaml.safe_load(response.text)
+        except Exception as e:
+            raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from e
+
         if config is None:
             config = dict()
         if not isinstance(config, dict):
