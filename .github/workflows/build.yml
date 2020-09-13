@@ -34,7 +34,7 @@ jobs:
         run: prospector
       - name: Check style of imports
         shell: bash
-        run: isort --check-only --recursive howfairis
+        run: isort --check-only --recursive --diff howfairis
       - name: Build
         shell: bash
         run: |
