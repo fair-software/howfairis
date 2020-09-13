@@ -39,7 +39,8 @@ setup(
         "click>=7",
         "colorama>=0",
         "PyYAML>=5",
-        "requests>=2"
+        "requests>=2",
+        "voluptuous>=0.11"
     ],
     setup_requires=[
     ],
