@@ -1,15 +1,15 @@
-import sys
-import re
 import inspect
-import yaml
+import re
+import sys
 import requests
-from colorama import Style, Fore
-
-from howfairis.mixins import RepositoryMixin
+import yaml
+from colorama import Fore
+from colorama import Style
+from howfairis.mixins import ChecklistMixin
+from howfairis.mixins import CitationMixin
 from howfairis.mixins import LicenseMixin
 from howfairis.mixins import RegistryMixin
-from howfairis.mixins import CitationMixin
-from howfairis.mixins import ChecklistMixin
+from howfairis.mixins import RepositoryMixin
 from howfairis.Platform import Platform
 
 

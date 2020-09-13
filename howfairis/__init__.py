@@ -1,6 +1,6 @@
 from . import mixins
-from .HowFairIsChecker import HowFairIsChecker
 from .__version__ import __version__
+from .HowFairIsChecker import HowFairIsChecker
 from .Platform import Platform
 
 

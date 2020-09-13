@@ -1,7 +1,7 @@
 # pylint: disable=too-many-arguments
 import sys
-from colorama import init as init_terminal_colors
 import click
+from colorama import init as init_terminal_colors
 from howfairis import HowFairIsChecker
 from howfairis import __version__
 
