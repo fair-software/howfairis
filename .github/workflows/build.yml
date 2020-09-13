@@ -32,6 +32,9 @@ jobs:
       - name: Check style against standards using prospector
         shell: bash
         run: prospector
+      - name: Check style of imports
+        shell: bash
+        run: isort --check-only --recursive howfairis
       - name: Build
         shell: bash
         run: |
