@@ -37,7 +37,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         self.url = url
 
         self._deconstruct_url()
-        self._load_config()
+        self._load_config(has_user_input=config_file is not None)
         self._get_readme()
 
     def _eval_regexes(self, regexes, check_name=None):
@@ -96,7 +96,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
         return self
 
-    def _load_config(self):
+    def _load_config(self, has_user_input):
 
         raw_url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, self.config_file)
         try:
@@ -106,7 +106,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
             print("Using the configuration file {0}".format(raw_url))
         except requests.HTTPError as e:
             self.config = dict()
-            if self.config_file != ".howfairis.yml":
+            if has_user_input:
                 raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
             return self
 
