@@ -9,7 +9,7 @@ from howfairis import __version__
 @click.command()
 @click.option("-b", "--branch", default=None, help="Which git branch to use.")
 @click.option("-c", "--config-file", default=None, help="Config file. Default: .howfairis.yml", type=click.Path())
-@click.option("-p", "--path", default=None, help="Relative path. Use this if you want howfairis to look for " + \
+@click.option("-p", "--path", default=None, help="Relative path. Use this if you want howfairis to look for " +
                                                  "a README in a subdirectory.")
 @click.option("-s", "--show-trace", default=False, help="Show full traceback on errors. Default: False", is_flag=True)
 @click.option("-v", "--version", default=False, help="Show version.", is_flag=True)

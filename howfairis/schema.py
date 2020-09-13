@@ -1,4 +1,5 @@
-from voluptuous import Schema, Optional
+from voluptuous import Optional
+from voluptuous import Schema
 
 
 schema = {
