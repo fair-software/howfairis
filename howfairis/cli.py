@@ -52,14 +52,14 @@ def check_badge(compliance, readme=None, compliant_symbol="\u25CF", noncompliant
 
 
 # pylint: disable=too-many-arguments
-@click.command()
+@click.command(context_settings=dict(help_option_names=["-h", "--help"]))
 @click.option("-b", "--branch", default=None,
               help="Which git branch to use.")
 @click.option("-c", "--config-file", default=None, type=click.Path(),
               help="Config file. Default: .howfairis.yml")
 @click.option("-i", "--include-comments", default=False, is_flag=True,
-              help="When looking for badges, include sections of the README that have been " +
-              "commented out using <!-- and -->. Default: False")
+              help="When looking for badges, include sections of the README that " +
+              "have been commented out using <!-- and -->. Default: False")
 @click.option("-p", "--path", default=None,
               help="Relative path. Use this if you want howfairis to look for a README in a subdirectory.")
 @click.option("-s", "--show-trace", default=False, is_flag=True,
