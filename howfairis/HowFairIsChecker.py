@@ -80,7 +80,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
 
     def _get_readme(self):
         def remove_comments(text):
-            return re.sub(r"<!--.*-->", "", text, flags=re.DOTALL)
+            return re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
 
         for readme_filename in ["README.rst", "README.md"]:
             raw_url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, readme_filename)
