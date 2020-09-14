@@ -22,6 +22,7 @@ def test_heavy_handed_livetest_rsd():
         for key, values in d["repositoryURLs"].items():
             urls.extend(values)
 
+    # just do a couple to avoid rate limiting of GitHub API
     for url in urls[0:10]:
         print(url)
         checker = howfairis.HowFairIsChecker(url).check_five_recommendations()
