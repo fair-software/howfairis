@@ -93,8 +93,10 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
 
             if readme_filename == "README.md":
                 readme_fmt = ReadmeFormat.MARKDOWN
-            if readme_filename == "README.rst":
+            elif readme_filename == "README.rst":
                 readme_fmt = ReadmeFormat.RESTRUCTUREDTEXT
+            else:
+                readme_fmt = None
 
             if self.include_comments is True:
                 text = response.text
