@@ -22,7 +22,7 @@ def test_heavy_handed_livetest_rsd():
         for key, values in d["repositoryURLs"].items():
             urls.extend(values)
 
-    for url in urls[20:]:
+    for url in urls[0:10]:
         print(url)
         checker = howfairis.HowFairIsChecker(url).check_five_recommendations()
         for c in checker.compliance:
