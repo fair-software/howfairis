@@ -4,7 +4,7 @@ import requests
 from colorama import init as init_terminal_colors
 from howfairis import HowFairIsChecker
 from howfairis import __version__
-from .ReadmeFormat import ReadmeFormat
+from howfairis.ReadmeFormat import ReadmeFormat
 
 
 def check_badge(compliance, readme=None, compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
@@ -53,21 +53,21 @@ def check_badge(compliance, readme=None, compliant_symbol="\u25CF", noncompliant
 
 # pylint: disable=too-many-arguments
 @click.command(context_settings=dict(help_option_names=["-h", "--help"]))
-@click.option("-b", "--branch", default=None,
+@click.option("-b", "--branch", default=None, type=click.STRING,
               help="Which git branch to use.")
 @click.option("-c", "--config-file", default=None, type=click.Path(),
               help="Config file. Default: .howfairis.yml")
 @click.option("-i", "--include-comments", default=False, is_flag=True,
               help="When looking for badges, include sections of the README that " +
               "have been commented out using <!-- and -->. Default: False")
-@click.option("-p", "--path", default=None,
+@click.option("-p", "--path", default=None, type=click.STRING,
               help="Relative path. Use this if you want howfairis to look for a README in a subdirectory.")
 @click.option("-s", "--show-trace", default=False, is_flag=True,
               help="Show full traceback on errors. Default: False")
 @click.option("-v", "--version", default=False, is_flag=True,
               help="Show version.")
-@click.argument("url", nargs=-1)
-def cli(url, branch=None, config_file=None, include_comments=False,
+@click.argument("url", required=False)
+def cli(url=None, branch=None, config_file=None, include_comments=False,
         path=None, show_trace=False, version=False):
     """Determine compliance with recommendations from fair-software.eu for the GitHub or GitLab repository at URL."""
 
@@ -78,12 +78,9 @@ def cli(url, branch=None, config_file=None, include_comments=False,
         sys.tracebacklimit = 0
 
     init_terminal_colors()
-
-    if len(url) != 1:
-        raise ValueError("Expected exactly one value for input argument URL.")
-
+    assert url is not None, "Expected URL to not be emtpy."
     print("Checking compliance with fair-software.eu...")
-    print("url: " + url[0])
+    print("url: " + url)
     if config_file is not None:
         print("config_file: " + config_file)
     if branch is not None:
@@ -91,7 +88,7 @@ def cli(url, branch=None, config_file=None, include_comments=False,
     if path is not None:
         print("path: " + path)
 
-    checker = HowFairIsChecker(url[0], config_file, branch, path, include_comments)
+    checker = HowFairIsChecker(url, config_file, branch, path, include_comments)
     checker.check_five_recommendations()
     check_badge(compliance=checker.compliance, readme=checker.readme)
 
