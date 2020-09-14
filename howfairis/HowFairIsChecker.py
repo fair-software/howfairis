@@ -104,6 +104,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
             return self
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
+        self.readme = dict(filename=None, text=None, fmt=None)
         return self
 
     def _load_config(self, has_user_input):
@@ -146,6 +147,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         self.registry_is_compliant = self.check_registry()
         self.citation_is_compliant = self.check_citation()
         self.checklist_is_compliant = self.check_checklist()
+        return self
 
     @property
     def compliance(self):
