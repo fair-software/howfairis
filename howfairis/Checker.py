@@ -1,7 +1,7 @@
 import inspect
 import re
 import requests
-import yaml
+
 from colorama import Fore
 from colorama import Style
 from howfairis.mixins import ChecklistMixin
@@ -12,20 +12,17 @@ from howfairis.mixins import RepositoryMixin
 from howfairis.Compliance import Compliance
 from howfairis.ReadmeFormat import ReadmeFormat
 from howfairis.Readme import Readme
-from howfairis.schema import validate_against_schema
 
 
 class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
-    def __init__(self, repo, config_file=None, include_comments=False):
+    def __init__(self, repo, config=None, include_comments=False):
         super().__init__()
         self.compliance = None
-        self.config = None
-        self.config_file = ".howfairis.yml" if config_file is None else config_file
+        self.config = config
         self.readme = None
         self.include_comments = include_comments
         self.repo = repo
 
-        self._load_config(has_user_input=config_file is not None)
         self._get_readme()
 
     def _eval_regexes(self, regexes, check_name=None):
@@ -71,33 +68,6 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
         self.readme = Readme(filename=None, text=None, fmt=None)
-        return self
-
-    def _load_config(self, has_user_input):
-
-        raw_url = self.repo.raw_url_format_string.format(self.config_file)
-        try:
-            response = requests.get(raw_url)
-            # If the response was successful, no Exception will be raised
-            response.raise_for_status()
-            print("Using the configuration file {0}".format(raw_url))
-        except requests.HTTPError as e:
-            self.config = dict()
-            if has_user_input:
-                raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
-            return self
-
-        try:
-            config = yaml.safe_load(response.text)
-        except Exception as e:
-            raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from e
-
-        try:
-            validate_against_schema(config)
-        except Exception as e:
-            raise Exception("Configuration file should follow the schema.") from e
-
-        self.config = config
         return self
 
     @staticmethod
