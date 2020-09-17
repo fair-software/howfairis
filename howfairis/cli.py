@@ -1,11 +1,13 @@
 import sys
 import click
 from colorama import init as init_terminal_colors
-from howfairis import HowFairIsChecker
+from howfairis import Checker
 from howfairis import __version__
+from howfairis.Config import Config
 from howfairis.ReadmeFormat import ReadmeFormat
 from howfairis.Readme import Readme
 from howfairis.Repo import Repo
+from howfairis.schema import validate_against_schema
 
 
 def check_badge(compliance, readme=None):
@@ -66,13 +68,15 @@ def cli(url=None, branch=None, config_file=None, include_comments=False,
     if version is True:
         print("version: {0}".format(__version__))
         return
+
     if show_trace is False:
         sys.tracebacklimit = 0
 
     init_terminal_colors()
     assert url is not None, "Expected URL to not be emtpy."
     print("Checking compliance with fair-software.eu...")
-    print("url: " + url)
+    if url is not None:
+        print("url: " + url)
     if config_file is not None:
         print("config_file: " + config_file)
     if branch is not None:
@@ -81,8 +85,9 @@ def cli(url=None, branch=None, config_file=None, include_comments=False,
         print("path: " + path)
 
     repo = Repo(url, branch, path)
+    config = Config(repo, config_file, include_comments)
 
-    checker = HowFairIsChecker(repo, config_file, include_comments)
+    checker = Checker(config)
     checker.check_five_recommendations()
     check_badge(compliance=checker.compliance, readme=checker.readme)
 

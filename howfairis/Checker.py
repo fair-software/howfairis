@@ -14,14 +14,12 @@ from howfairis.ReadmeFormat import ReadmeFormat
 from howfairis.Readme import Readme
 
 
-class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
-    def __init__(self, repo, config=None, include_comments=False):
+class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
+    def __init__(self, config=None):
         super().__init__()
         self.compliance = None
         self.config = config
         self.readme = None
-        self.include_comments = include_comments
-        self.repo = repo
 
         self._get_readme()
 
@@ -44,7 +42,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
             return re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
 
         for readme_filename in ["README.rst", "README.md"]:
-            raw_url = self.repo.raw_url_format_string.format(readme_filename)
+            raw_url = self.config.repo.raw_url_format_string.format(readme_filename)
             try:
                 response = requests.get(raw_url)
                 # If the response was successful, no Exception will be raised
@@ -59,7 +57,7 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
             else:
                 readme_fmt = None
 
-            if self.include_comments is True:
+            if self.config.yaml.get("include_comments") is True:
                 text = response.text
             else:
                 text = remove_comments(response.text)

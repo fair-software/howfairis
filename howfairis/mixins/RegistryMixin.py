@@ -5,7 +5,7 @@ from howfairis.Platform import Platform
 class RegistryMixin:
 
     def check_registry(self):
-        force = self.config.get("force", dict())
+        force = self.config.yaml.get("force", dict())
         if not isinstance(force, dict):
             force = dict()
         force_state = force.get("registry")
@@ -82,9 +82,9 @@ class RegistryMixin:
 
         r = False
 
-        if self.repo.platform == Platform.GITHUB:
+        if self.config.repo.platform == Platform.GITHUB:
             try:
-                response = requests.get(self.repo.url)
+                response = requests.get(self.config.repo.url)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:

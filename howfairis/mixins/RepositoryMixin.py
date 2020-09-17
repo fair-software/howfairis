@@ -5,7 +5,7 @@ from howfairis.Platform import Platform
 class RepositoryMixin:
 
     def check_repository(self):
-        force = self.config.get("force", dict())
+        force = self.config.yaml.get("force", dict())
         if not isinstance(force, dict):
             force = dict()
         force_state = force.get("repository")
@@ -20,10 +20,10 @@ class RepositoryMixin:
 
     def has_open_repository(self):
 
-        if self.repo.platform == Platform.GITHUB:
-            url = self.repo.api
-        elif self.repo.platform == Platform.GITLAB:
-            url = self.repo.api + "/repository/tree"
+        if self.config.repo.platform == Platform.GITHUB:
+            url = self.config.repo.api
+        elif self.config.repo.platform == Platform.GITLAB:
+            url = self.config.repo.api + "/repository/tree"
 
         try:
             response = requests.get(url)
