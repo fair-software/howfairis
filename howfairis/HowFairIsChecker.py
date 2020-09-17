@@ -16,7 +16,6 @@ from howfairis.schema import validate_against_schema
 
 
 class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
-    # pylint: disable=too-many-arguments
     def __init__(self, repo, config_file=None, include_comments=False):
         super().__init__()
         self.compliance = None
