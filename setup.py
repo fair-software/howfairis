@@ -60,5 +60,5 @@ setup(
             "twine"
         ]
     },
-    data_files=["data/.howfairis.yml"]
+    data_files=[]
 )

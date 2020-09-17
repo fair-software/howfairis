@@ -2,4 +2,4 @@ include CITATION.cff
 include LICENSE
 include NOTICE
 include README.rst
-include data/.howfairis.yml
+include howfairis/data/.howfairis.yml
