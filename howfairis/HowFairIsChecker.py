@@ -1,6 +1,5 @@
 import inspect
 import re
-import sys
 import requests
 import yaml
 from colorama import Fore
@@ -11,28 +10,27 @@ from howfairis.mixins import LicenseMixin
 from howfairis.mixins import RegistryMixin
 from howfairis.mixins import RepositoryMixin
 from howfairis.Platform import Platform
+from howfairis.ReadmeFormat import ReadmeFormat
 from howfairis.schema import validate_against_schema
 
 
 class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
-    def __init__(self, url, config_file=None, branch=None, path=None):
+    # pylint: disable=too-many-arguments
+    def __init__(self, url, config_file=None, branch=None, path=None, include_comments=False):
         super().__init__()
-        self.badge = None
         self.branch = "master" if branch is None else branch
         self.checklist_is_compliant = None
         self.citation_is_compliant = None
-        self.compliant_symbol = "\u25CF"
         self.config = None
         self.config_file = ".howfairis.yml" if config_file is None else config_file
         self.license_is_compliant = None
-        self.noncompliant_symbol = "\u25CB"
         self.owner = None
         self.path = "" if path is None else "/" + path.strip("/")
         self.platform = None
         self.raw_url_format_string = None
         self.readme = None
-        self.readme_filename = None
         self.registry_is_compliant = None
+        self.include_comments = include_comments
         self.repo = None
         self.repository_is_compliant = None
         self.url = url
@@ -45,11 +43,11 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         if check_name is None:
             # get name of the function who's calling me
             check_name = inspect.stack()[1].function
-        if self.readme is None:
+        if self.readme["text"] is None:
             self._print_state(check_name=check_name, state=False)
             return False
         for regex in regexes:
-            if re.compile(regex).search(self.readme) is not None:
+            if re.compile(regex).search(self.readme["text"]) is not None:
                 self._print_state(check_name=check_name, state=True)
                 return True
         self._print_state(check_name=check_name, state=False)
@@ -81,6 +79,9 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         return self
 
     def _get_readme(self):
+        def remove_comments(text):
+            return re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
+
         for readme_filename in ["README.rst", "README.md"]:
             raw_url = self.raw_url_format_string.format(self.owner, self.repo, self.branch, self.path, readme_filename)
             try:
@@ -90,11 +91,22 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
             except requests.HTTPError:
                 continue
 
-            self.readme_filename = readme_filename
-            self.readme = response.text
+            if readme_filename == "README.md":
+                readme_fmt = ReadmeFormat.MARKDOWN
+            elif readme_filename == "README.rst":
+                readme_fmt = ReadmeFormat.RESTRUCTUREDTEXT
+            else:
+                readme_fmt = None
+
+            if self.include_comments is True:
+                text = response.text
+            else:
+                text = remove_comments(response.text)
+            self.readme = dict(filename=readme_filename, text=text, fmt=readme_fmt)
             return self
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
+        self.readme = dict(filename=None, text=None, fmt=None)
         return self
 
     def _load_config(self, has_user_input):
@@ -131,55 +143,18 @@ class HowFairIsChecker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMix
         elif state is False:
             print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
 
-    def check_badge(self):
-
-        compliance_bool = [
-            self.repository_is_compliant, self.license_is_compliant,
-            self.registry_is_compliant, self.citation_is_compliant,
-            self.checklist_is_compliant
-        ]
-
-        compliance_unicode = [None] * 5
-        for i, c in enumerate(compliance_bool):
-            if c is True:
-                compliance_unicode[i] = self.compliant_symbol
-            else:
-                compliance_unicode[i] = self.noncompliant_symbol
-
-        compliance_string = "%20%20".join(
-            [requests.utils.quote(symbol) for symbol in compliance_unicode])
-
-        score = compliance_bool.count(True)
-        if score in [0, 1]:
-            color_string = "red"
-        elif score in [2, 3]:
-            color_string = "orange"
-        elif score in [4]:
-            color_string = "yellow"
-        elif score == 5:
-            color_string = "green"
-
-        badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(compliance_string, color_string)
-        if self.readme_filename in ["README.rst", "readme.rst"]:
-            self.badge = ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
-        elif self.readme_filename in ["README.md", "readme.md"]:
-            self.badge = "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
-
-        print("\nCalculated compliance: " + " ".join(compliance_unicode) + "\n")
-
-        if self.readme is None:
-            sys.exit(1)
-        elif self.readme.find(badge_url) == -1:
-            print("While searching through your {0}, I did not find the expected badge:\n{1}"
-                  .format(self.readme_filename, self.badge))
-            sys.exit(1)
-        else:
-            print("Expected badge is equal to the actual badge. It's all good.\n")
-            sys.exit(0)
-
     def check_five_recommendations(self):
         self.repository_is_compliant = self.check_repository()
         self.license_is_compliant = self.check_license()
         self.registry_is_compliant = self.check_registry()
         self.citation_is_compliant = self.check_citation()
         self.checklist_is_compliant = self.check_checklist()
+        return self
+
+    @property
+    def compliance(self):
+        return [self.repository_is_compliant,
+                self.license_is_compliant,
+                self.registry_is_compliant,
+                self.citation_is_compliant,
+                self.checklist_is_compliant]
