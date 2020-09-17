@@ -4,7 +4,8 @@
 """Tests for the howfairis module.
 """
 import requests
-from howfairis import HowFairIsChecker
+from howfairis import Checker
+from howfairis import Config
 from howfairis import Repo
 
 
@@ -27,6 +28,7 @@ def test_heavy_handed_livetest_rsd():
     for url in urls[0:10]:
         print(url)
         repo = Repo(url)
-        checker = HowFairIsChecker(repo).check_five_recommendations()
+        config = Config(repo)
+        checker = Checker(config).check_five_recommendations()
         for c in checker.compliance:
             assert isinstance(c, bool)

@@ -64,4 +64,3 @@ class Config:
         self.yaml.update(data)
 
         return self
-

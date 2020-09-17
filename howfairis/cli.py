@@ -7,7 +7,6 @@ from howfairis.Config import Config
 from howfairis.ReadmeFormat import ReadmeFormat
 from howfairis.Readme import Readme
 from howfairis.Repo import Repo
-from howfairis.schema import validate_against_schema
 
 
 def check_badge(compliance, readme=None):
