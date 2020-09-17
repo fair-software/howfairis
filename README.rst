@@ -6,10 +6,10 @@ fair-software.eu_ recommendations.
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
    :target: https://doi.org/10.5281/zenodo.4017908
-   
-.. image:: https://img.shields.io/pypi/v/howfairis.svg?colorB=blue 
+
+.. image:: https://img.shields.io/pypi/v/howfairis.svg?colorB=blue
    :target: https://pypi.python.org/pypi/howfairis/
-   
+
 .. image:: https://github.com/fair-software/howfairis/workflows/Build/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3ABuild
 
@@ -72,7 +72,7 @@ If your README already has the fair-software badge, you'll see some output like 
     Calculated compliance: ● ● ○ ● ●
 
     Expected badge is equal to the actual badge. It's all good.
-    
+
 If your README doesn't have the fair-software badge yet, or its compliance is different from what's been calculated,
 you'll see output like this:
 
@@ -129,7 +129,7 @@ Which then shows something like:
 
 .. code:: shell
 
-    Usage: howfairis [OPTIONS] [URL]...
+    Usage: howfairis [OPTIONS] [URL]
 
       Determine compliance with recommendations from fair-software.eu for the
       GitHub or GitLab repository at URL.
@@ -137,10 +137,16 @@ Which then shows something like:
     Options:
       -b, --branch TEXT       Which git branch to use.
       -c, --config-file PATH  Config file. Default: .howfairis.yml
-      -p, --path TEXT         Relative path.
+      -i, --include-comments  When looking for badges, include sections of the
+                              README that have been commented out using <!-- and
+                              -->. Default: False
+
+      -p, --path TEXT         Relative path. Use this if you want howfairis to
+                              look for a README in a subdirectory.
+
       -s, --show-trace        Show full traceback on errors. Default: False
-      -v, --version           Show version
-      --help                  Show this message and exit.
+      -v, --version           Show version.
+      -h, --help              Show this message and exit.
 
 Configuration file
 ^^^^^^^^^^^^^^^^^^
@@ -230,7 +236,7 @@ Making a release
 Make sure the version is correct.
 
 .. code:: shell
-    
+
     # In a new terminal, without venv
     cd $(mktemp -d --tmpdir howfairis.XXXXXX)
     git clone https://github.com/fair-software/howfairis.git .
@@ -246,7 +252,7 @@ Make sure the version is correct.
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
     # In a new terminal, without venv
-    
+
     # check you don't have an existing howfairis
     python3 -m pip uninstall howfairis
 
