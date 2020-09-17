@@ -20,10 +20,10 @@ class RepositoryMixin:
 
     def has_open_repository(self):
 
-        if self.platform == Platform.GITHUB:
-            url = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
-        elif self.platform == Platform.GITLAB:
-            url = "https://gitlab.com/api/v4/projects/{0}%2F{1}/repository/tree".format(self.owner, self.repo)
+        if self.repo.platform == Platform.GITHUB:
+            url = self.repo.api
+        elif self.repo.platform == Platform.GITLAB:
+            url = self.repo.api + "/repository/tree"
 
         try:
             response = requests.get(url)

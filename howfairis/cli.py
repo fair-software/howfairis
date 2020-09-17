@@ -1,28 +1,20 @@
 import sys
 import click
-import requests
 from colorama import init as init_terminal_colors
 from howfairis import HowFairIsChecker
 from howfairis import __version__
 from howfairis.ReadmeFormat import ReadmeFormat
+from howfairis.Readme import Readme
+from howfairis.Repo import Repo
 
 
-def check_badge(compliance, readme=None, compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
+def check_badge(compliance, readme=None):
 
     if readme is None:
-        readme = dict(filename=None, text=None, fmt=None)
-
-    compliance_unicode = [None] * 5
-    for i, c in enumerate(compliance):
-        if c is True:
-            compliance_unicode[i] = compliant_symbol
-        else:
-            compliance_unicode[i] = noncompliant_symbol
-
-    compliance_string = "%20%20".join(
-        [requests.utils.quote(symbol) for symbol in compliance_unicode])
+        readme = Readme(filename=None, text=None, fmt=None)
 
     score = compliance.count(True)
+
     if score in [0, 1]:
         color_string = "red"
     elif score in [2, 3]:
@@ -32,19 +24,19 @@ def check_badge(compliance, readme=None, compliant_symbol="\u25CF", noncompliant
     elif score == 5:
         color_string = "green"
 
-    badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(compliance_string, color_string)
-    if readme["fmt"] == ReadmeFormat.RESTRUCTUREDTEXT:
+    badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(compliance.urlencode(), color_string)
+    if readme.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
         badge = ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
-    if readme["fmt"] == ReadmeFormat.MARKDOWN:
+    if readme.fmt == ReadmeFormat.MARKDOWN:
         badge = "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
 
-    print("\nCalculated compliance: " + " ".join(compliance_unicode) + "\n")
+    print("\nCalculated compliance: " + " ".join(compliance.as_unicode()) + "\n")
 
-    if readme["text"] is None:
+    if readme.text is None:
         sys.exit(1)
-    elif readme["text"].find(badge_url) == -1:
+    elif readme.text.find(badge_url) == -1:
         print("While searching through your {0}, I did not find the expected badge:\n{1}"
-              .format(readme["filename"], badge))
+              .format(readme.filename, badge))
         sys.exit(1)
     else:
         print("Expected badge is equal to the actual badge. It's all good.\n")
@@ -88,7 +80,9 @@ def cli(url=None, branch=None, config_file=None, include_comments=False,
     if path is not None:
         print("path: " + path)
 
-    checker = HowFairIsChecker(url, config_file, branch, path, include_comments)
+    repo = Repo(url, branch, path)
+
+    checker = HowFairIsChecker(repo, config_file, include_comments)
     checker.check_five_recommendations()
     check_badge(compliance=checker.compliance, readme=checker.readme)
 

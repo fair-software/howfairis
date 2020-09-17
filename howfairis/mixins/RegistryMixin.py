@@ -82,9 +82,9 @@ class RegistryMixin:
 
         r = False
 
-        if self.platform == Platform.GITHUB:
+        if self.repo.platform == Platform.GITHUB:
             try:
-                response = requests.get(self.url)
+                response = requests.get(self.repo.url)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:

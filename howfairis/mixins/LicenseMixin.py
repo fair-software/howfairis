@@ -23,8 +23,8 @@ class LicenseMixin:
 
         r = False
 
-        if self.platform == Platform.GITHUB:
-            url = "https://api.github.com/repos/{0}/{1}/license".format(self.owner, self.repo)
+        if self.repo.platform == Platform.GITHUB:
+            url = self.repo.api + "/license"
             try:
                 response = requests.get(url)
                 # If the response was successful, no Exception will be raised
@@ -34,8 +34,8 @@ class LicenseMixin:
                 return r
             r = True
 
-        if self.platform == Platform.GITLAB:
-            url = "https://gitlab.com/{0}/{1}".format(self.owner, self.repo)
+        if self.repo.platform == Platform.GITLAB:
+            url = "https://gitlab.com/{0}/{1}".format(self.repo.owner, self.repo.repo)
 
             try:
                 response = requests.get(url)

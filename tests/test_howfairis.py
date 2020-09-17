@@ -4,7 +4,8 @@
 """Tests for the howfairis module.
 """
 import requests
-import howfairis
+from howfairis import HowFairIsChecker
+from howfairis import Repo
 
 
 def test_heavy_handed_livetest_rsd():
@@ -25,6 +26,7 @@ def test_heavy_handed_livetest_rsd():
     # just do a couple to avoid rate limiting of GitHub API
     for url in urls[0:10]:
         print(url)
-        checker = howfairis.HowFairIsChecker(url).check_five_recommendations()
+        repo = Repo(url)
+        checker = HowFairIsChecker(repo).check_five_recommendations()
         for c in checker.compliance:
             assert isinstance(c, bool)
