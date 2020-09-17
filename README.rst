@@ -251,9 +251,11 @@ Make sure the version is correct.
     # upload to test pypi instance
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-    # In a new terminal, without venv
-
+    # In a new terminal, without an activated venv or a venv3 directory
+    cd $(mktemp -d --tmpdir howfairis-test.XXXXXX)
+    
     # check you don't have an existing howfairis
+    which howfairis
     python3 -m pip uninstall howfairis
 
     # install in user space from test pypi instance:
