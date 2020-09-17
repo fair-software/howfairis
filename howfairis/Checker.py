@@ -1,17 +1,16 @@
 import inspect
 import re
 import requests
-
 from colorama import Fore
 from colorama import Style
+from howfairis.Compliance import Compliance
 from howfairis.mixins import ChecklistMixin
 from howfairis.mixins import CitationMixin
 from howfairis.mixins import LicenseMixin
 from howfairis.mixins import RegistryMixin
 from howfairis.mixins import RepositoryMixin
-from howfairis.Compliance import Compliance
-from howfairis.ReadmeFormat import ReadmeFormat
 from howfairis.Readme import Readme
+from howfairis.ReadmeFormat import ReadmeFormat
 
 
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):

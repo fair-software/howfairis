@@ -4,8 +4,8 @@ from colorama import init as init_terminal_colors
 from howfairis import Checker
 from howfairis import __version__
 from howfairis.Config import Config
-from howfairis.ReadmeFormat import ReadmeFormat
 from howfairis.Readme import Readme
+from howfairis.ReadmeFormat import ReadmeFormat
 from howfairis.Repo import Repo
 
 
