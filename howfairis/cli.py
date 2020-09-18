@@ -56,7 +56,7 @@ def check_badge(compliance, readme=None):
 @click.option("-i", "--include-comments", default=None, type=click.Choice(["yes", "no"], case_sensitive=True),
               help="When looking for badges, include sections of the README that " +
               "have been commented out using <!-- and -->. Default: no")
-@click.option("-p", "--relpath", default=None, type=click.STRING,
+@click.option("-p", "--path", default=None, type=click.STRING,
               help="Relative path (on the remote). Use this if you want howfairis to look for a " +
                    "README in a subdirectory.")
 @click.option("-t", "--show-trace", default=None, type=click.Choice(["yes", "no"], case_sensitive=True),
@@ -65,7 +65,7 @@ def check_badge(compliance, readme=None):
               help="Show version and exit.")
 @click.argument("url", required=False)
 def cli(url=None, branch=None, config_file=None, include_comments=None,
-        relpath=None, show_trace=False, version=False, show_default_config=False):
+        path=None, show_trace=False, version=False, show_default_config=False):
     """Determine compliance with recommendations from fair-software.eu for the GitHub or GitLab repository at URL."""
 
     if version is True:
@@ -84,10 +84,10 @@ def cli(url=None, branch=None, config_file=None, include_comments=None,
         print("config_file: " + config_file)
     if branch is not None:
         print("branch: " + branch)
-    if relpath is not None:
-        print("path: " + relpath)
+    if path is not None:
+        print("path: " + path)
 
-    repo = Repo(url, branch, relpath)
+    repo = Repo(url, branch, path)
     config = Config(repo, config_file, include_comments)
 
     checker = Checker(config)
