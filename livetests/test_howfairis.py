@@ -4,6 +4,8 @@
 """Tests for the howfairis module.
 """
 import requests
+import time
+import random
 from howfairis import Checker
 from howfairis import Config
 from howfairis import Repo
@@ -24,11 +26,13 @@ def test_heavy_handed_livetest_rsd():
         for key, values in d["repositoryURLs"].items():
             urls.extend(values)
 
-    # just do a couple to avoid rate limiting of GitHub API
-    for url in urls[0:10]:
+    for url in random.shuffle(urls)[:25]:
         print(url)
         repo = Repo(url)
         config = Config(repo)
         checker = Checker(config).check_five_recommendations()
         for c in checker.compliance:
             assert isinstance(c, bool)
+
+        # sleep to avoid rate limiting of GitHub API
+        time.sleep(10)
