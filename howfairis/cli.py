@@ -49,18 +49,21 @@ def check_badge(compliance, readme=None):
 @click.option("-b", "--branch", default=None, type=click.STRING,
               help="Which git branch to use.")
 @click.option("-c", "--config-file", default=None, type=click.Path(),
-              help="Config file. Default: .howfairis.yml")
-@click.option("-i", "--include-comments", default=False, is_flag=True,
+              help="Name of the configuration file to control howfairis'es behavior. The configuration " +
+                   "file needs to be on the remote, and takes into account the value of " +
+                   "--branch and --path. Default: .howfairis.yml")
+@click.option("-i", "--include-comments", default=None, type=click.Choice(["yes", "no"], case_sensitive=True),
               help="When looking for badges, include sections of the README that " +
-              "have been commented out using <!-- and -->. Default: False")
+              "have been commented out using <!-- and -->. Default: no")
 @click.option("-p", "--path", default=None, type=click.STRING,
-              help="Relative path. Use this if you want howfairis to look for a README in a subdirectory.")
-@click.option("-s", "--show-trace", default=False, is_flag=True,
-              help="Show full traceback on errors. Default: False")
+              help="Relative path (on the remote). Use this if you want howfairis to look for a " +
+                   "README in a subdirectory.")
+@click.option("-t", "--show-trace", default=None, type=click.Choice(["yes", "no"], case_sensitive=True),
+              help="Show full traceback on errors. Default: no")
 @click.option("-v", "--version", default=False, is_flag=True,
-              help="Show version.")
+              help="Show version and exit.")
 @click.argument("url", required=False)
-def cli(url=None, branch=None, config_file=None, include_comments=False,
+def cli(url=None, branch=None, config_file=None, include_comments=None,
         path=None, show_trace=False, version=False):
     """Determine compliance with recommendations from fair-software.eu for the GitHub or GitLab repository at URL."""
 
@@ -68,7 +71,7 @@ def cli(url=None, branch=None, config_file=None, include_comments=False,
         print("version: {0}".format(__version__))
         return
 
-    if show_trace is False:
+    if show_trace == "no" or show_trace is None:
         sys.tracebacklimit = 0
 
     init_terminal_colors()
