@@ -1,6 +1,6 @@
 import os
 import requests
-import yaml
+from ruamel.yaml import YAML
 from howfairis.schema import validate_against_schema
 
 
@@ -8,7 +8,7 @@ class Config:
     def __init__(self, repo, config_filename=None, include_comments=None):
         self.repo = repo
         self.has_user_input = config_filename is not None
-        self.yaml = None
+        self.yamldata = None
 
         self._load_default_config()
         self._load_repo_config(config_filename)
@@ -21,7 +21,7 @@ class Config:
             d = dict(include_comments=False)
         else:
             d = dict()
-        self.yaml.update(d)
+        self.yamldata.update(d)
         return self
 
     def _load_default_config(self):
@@ -30,17 +30,20 @@ class Config:
         config_filename = os.path.join(pkg_root, "data", ".howfairis.yml")
         with open(config_filename, "rt") as f:
             text = f.read()
-        data = yaml.safe_load(text)
-        if data is None:
-            data = dict()
+        newdata = YAML(typ="safe").load(text)
+        if newdata is None:
+            newdata = dict()
         try:
-            validate_against_schema(data)
+            validate_against_schema(newdata)
         except Exception as e:
             raise Exception("Default configuration file should follow the schema.") from e
-        self.yaml = data
+        self.yamldata = newdata
         return self
 
     def _load_repo_config(self, config_filename):
+        if self.repo is None:
+            return self
+
         if config_filename is None:
             config_filename = ".howfairis.yml"
 
@@ -56,15 +59,15 @@ class Config:
             return self
 
         try:
-            data = yaml.safe_load(response.text)
+            newdata = YAML(typ="safe").load(response.text)
         except Exception as e:
             raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from e
 
         try:
-            validate_against_schema(data)
+            validate_against_schema(newdata)
         except Exception as e:
             raise Exception("Configuration file should follow the schema.") from e
 
-        self.yaml.update(data)
+        self.yamldata.update(newdata)
 
         return self
