@@ -4,7 +4,7 @@
 set -e
 
 # For character encoding on Windows
-PYTHONIOENCODING=UTF-8
+export PYTHONIOENCODING=UTF-8
 
 which howfairis
 howfairis --help
