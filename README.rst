@@ -257,8 +257,8 @@ Make sure the version is correct.
     git clone https://github.com/fair-software/howfairis.git .
     python3 -m virtualenv -p python3 venv3
     source venv3/bin/activate
-    pip install --no-cache-dir --editable .
-    pip install --no-cache-dir --editable .[publishing]
+    pip install --no-cache-dir .
+    pip install --no-cache-dir .[publishing]
     rm -rf howfairis.egg-info
     rm -rf dist
     python setup.py sdist
