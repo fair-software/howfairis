@@ -10,5 +10,5 @@ jobs:
       - uses: actions/checkout@v2
         name: Check out a copy of the repository
 
-      - uses: citation-file-format/cffconvert-github-action@checks-problem
+      - uses: citation-file-format/cffconvert-github-action@master
         name: Check whether the citation metadata from CITATION.cff is equivalent to that in .zenodo.json
