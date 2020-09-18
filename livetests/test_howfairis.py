@@ -26,7 +26,8 @@ def test_heavy_handed_livetest_rsd():
         for key, values in d["repositoryURLs"].items():
             urls.extend(values)
 
-    for url in random.shuffle(urls)[:25]:
+    random.shuffle(urls)
+    for url in urls[:25]:
         print(url)
         repo = Repo(url)
         config = Config(repo)
