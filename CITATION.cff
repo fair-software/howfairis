@@ -1,6 +1,6 @@
 # YAML 1.2
 ---
-abstract: "Python package to analyze compliance with fair-software.eu recommendations."
+abstract: "Command line tool to to analyze compliance with the five recommendations for FAIR software from https://fair-software.eu."
 authors: 
   -
     affiliation: "Netherlands eScience Center"
