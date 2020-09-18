@@ -14,10 +14,14 @@ class Config:
         self._load_repo_config(config_filename)
         self._load_cli_config(include_comments)
 
-    def _load_cli_config(self, include_comments=None):
-        if include_comments is not None:
-            d = dict(include_comments=include_comments)
-            self.yaml.update(d)
+    def _load_cli_config(self, include_comments):
+        if include_comments == "yes":
+            d = dict(include_comments=True)
+        elif include_comments == "no":
+            d = dict(include_comments=False)
+        else:
+            d = dict()
+        self.yaml.update(d)
         return self
 
     def _load_default_config(self):
