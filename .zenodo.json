@@ -35,7 +35,7 @@
             "orcid": "0000-0002-8459-7048"
         }
     ],
-    "description": "Python package to analyze compliance with fair-software.eu recommendations.",
+    "description": "Command line tool to to analyze compliance with the five recommendations for FAIR software from https://fair-software.eu.",
     "keywords": [
         "FAIR software"
     ],
