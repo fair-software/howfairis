@@ -43,5 +43,4 @@ jobs:
         shell: bash
         run: pytest livetests/
       - name: Run live cli tests
-        shell: bash
-        run: clitests/script.sh
+        run: bash ./clitests/script.sh
