@@ -1,7 +1,7 @@
+import os
 import sys
 import click
 from colorama import init as init_terminal_colors
-from ruamel.yaml import YAML
 from howfairis import Checker
 from howfairis import __version__
 from howfairis.Config import Config
@@ -76,10 +76,11 @@ def cli(url=None, branch=None, config_file=None, include_comments=None,
         return
 
     if show_default_config is True:
-        default_config = Config(repo=None)
-        yaml = YAML(typ="safe")
-        yaml.default_flow_style = False
-        yaml.dump(default_config.yamldata, sys.stdout)
+        pkg_root = os.path.dirname(__file__)
+        config_filename = os.path.join(pkg_root, "data", ".howfairis.yml")
+        with open(config_filename, "rt") as f:
+            text = f.read()
+        print(text)
         return
 
     if show_trace == "no" or show_trace is None:
