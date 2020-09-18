@@ -14,7 +14,7 @@ DURATION=10
 
 # github
 howfairis https://github.com/fair-software/badge-test && sleep $DURATION
-#howfairis https://github.com/fair-software/badge-test -p /force/00100 && sleep $DURATION
+howfairis https://github.com/fair-software/badge-test -p /force/00100 && sleep $DURATION
 #howfairis https://github.com/fair-software/badge-test -p /force/10110 && sleep $DURATION
 #howfairis https://github.com/fair-software/badge-test -p /force/11110 && sleep $DURATION
 #howfairis https://github.com/fair-software/badge-test -p /force/11111 && sleep $DURATION
