@@ -3,6 +3,9 @@
 # exit when any command fails
 set -e
 
+# For character encoding on Windows
+PYTHONIOENCODING=UTF-8
+
 which howfairis
 howfairis --help
 howfairis --version
