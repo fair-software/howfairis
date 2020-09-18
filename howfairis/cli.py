@@ -36,8 +36,9 @@ def check_badge(compliance, readme=None):
     if readme.text is None:
         sys.exit(1)
     elif readme.text.find(badge_url) == -1:
-        print("While searching through your {0}, I did not find the expected badge:\n{1}"
-              .format(readme.filename, badge))
+
+        print("It seems you have not yet added the fair-software.eu badge to\n" +
+              "your {0}. You can do so by pasting the following snippet:\n\n{1}".format(readme.filename, badge))
         sys.exit(1)
     else:
         print("Expected badge is equal to the actual badge. It's all good.\n")
