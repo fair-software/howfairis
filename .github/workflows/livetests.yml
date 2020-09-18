@@ -1,4 +1,4 @@
-name: Build
+name: livetests
 
 on:
   workflow_dispatch:
