@@ -12,7 +12,7 @@ setup(
     entry_points={
         "console_scripts": ["howfairis=howfairis.cli:cli"],
     },
-    version="0.10.0",
+    version="0.11.0",
     description="Python package to analyze compliance with fair-software.eu recommendations",
     long_description=readme + "\n\n",
     author="https://github.com/jspaaks",
