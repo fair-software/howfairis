@@ -7,23 +7,25 @@ which howfairis
 howfairis --help
 howfairis --version
 
+DURATION=10
+
 # github
-howfairis https://github.com/fair-software/badge-test
-howfairis https://github.com/fair-software/badge-test -p /force/00100
-howfairis https://github.com/fair-software/badge-test -p /force/10110
-howfairis https://github.com/fair-software/badge-test -p /force/11110
-howfairis https://github.com/fair-software/badge-test -p /force/11111
-howfairis https://github.com/fair-software/badge-test -p /force/uu1uu
-howfairis https://github.com/fair-software/badge-test -p /force/u
-howfairis https://github.com/fair-software/badge-test -p /include_comments
+howfairis https://github.com/fair-software/badge-test && sleep $DURATION
+howfairis https://github.com/fair-software/badge-test -p /force/00100 && sleep $DURATION
+howfairis https://github.com/fair-software/badge-test -p /force/10110 && sleep $DURATION
+howfairis https://github.com/fair-software/badge-test -p /force/11110 && sleep $DURATION
+howfairis https://github.com/fair-software/badge-test -p /force/11111 && sleep $DURATION
+howfairis https://github.com/fair-software/badge-test -p /force/uu1uu && sleep $DURATION
+howfairis https://github.com/fair-software/badge-test -p /force/u && sleep $DURATION
+howfairis https://github.com/fair-software/badge-test -p /include_comments && sleep $DURATION
 
 
 # gitlab
-howfairis https://gitlab.com/jspaaks/badge-test
-howfairis https://gitlab.com/jspaaks/badge-test -p /force/00100
-howfairis https://gitlab.com/jspaaks/badge-test -p /force/10110
-howfairis https://gitlab.com/jspaaks/badge-test -p /force/11110
-howfairis https://gitlab.com/jspaaks/badge-test -p /force/11111
-howfairis https://gitlab.com/jspaaks/badge-test -p /force/uu1uu
-howfairis https://gitlab.com/jspaaks/badge-test -p /force/u
-howfairis https://gitlab.com/jspaaks/badge-test -p /include_comments
+howfairis https://gitlab.com/jspaaks/badge-test && sleep $DURATION
+howfairis https://gitlab.com/jspaaks/badge-test -p /force/00100 && sleep $DURATION
+howfairis https://gitlab.com/jspaaks/badge-test -p /force/10110 && sleep $DURATION
+howfairis https://gitlab.com/jspaaks/badge-test -p /force/11110 && sleep $DURATION
+howfairis https://gitlab.com/jspaaks/badge-test -p /force/11111 && sleep $DURATION
+howfairis https://gitlab.com/jspaaks/badge-test -p /force/uu1uu && sleep $DURATION
+howfairis https://gitlab.com/jspaaks/badge-test -p /force/u && sleep $DURATION
+howfairis https://gitlab.com/jspaaks/badge-test -p /include_comments && sleep $DURATION
