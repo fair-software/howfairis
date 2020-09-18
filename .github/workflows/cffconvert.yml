@@ -1,4 +1,4 @@
-name: cffconvert
+name: metadata consistency
 
 on: push
 
