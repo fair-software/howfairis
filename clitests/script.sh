@@ -9,6 +9,7 @@ export PYTHONIOENCODING=UTF-8
 which howfairis
 howfairis --help
 howfairis --version
+howfairis --show-default-config
 
 DURATION=10
 
