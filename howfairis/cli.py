@@ -1,6 +1,7 @@
 import sys
 import click
 from colorama import init as init_terminal_colors
+from ruamel.yaml import YAML
 from howfairis import Checker
 from howfairis import __version__
 from howfairis.Config import Config
@@ -53,6 +54,8 @@ def check_badge(compliance, readme=None):
               help="Name of the configuration file to control howfairis'es behavior. The configuration " +
                    "file needs to be on the remote, and takes into account the value of " +
                    "--branch and --path. Default: .howfairis.yml")
+@click.option("-d", "--show-default-config", default=False, is_flag=True,
+              help="Show default configuration and exit.")
 @click.option("-i", "--include-comments", default=None, type=click.Choice(["yes", "no"], case_sensitive=True),
               help="When looking for badges, include sections of the README that " +
               "have been commented out using <!-- and -->. Default: no")
@@ -70,6 +73,13 @@ def cli(url=None, branch=None, config_file=None, include_comments=None,
 
     if version is True:
         print("version: {0}".format(__version__))
+        return
+
+    if show_default_config is True:
+        default_config = Config(repo=None)
+        yaml = YAML(typ="safe")
+        yaml.default_flow_style = False
+        yaml.dump(default_config.yamldata, sys.stdout)
         return
 
     if show_trace == "no" or show_trace is None:
