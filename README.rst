@@ -275,3 +275,10 @@ Don't forget to also make a release on GitHub.
 .. _fair-software.eu: https://fair-software.eu
 .. _voluptuous: https://pypi.org/project/voluptuous/
 .. _schema.py: https://github.com/fair-software/howfairis/blob/master/howfairis/schema.py
+
+
+Credits
+-------
+
+This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `NLeSC/python-template <https://github.com/NLeSC/python-template>`_.
+
