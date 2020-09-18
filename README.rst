@@ -10,11 +10,14 @@ fair-software.eu_ recommendations.
 .. image:: https://img.shields.io/pypi/v/howfairis.svg?colorB=blue
    :target: https://pypi.python.org/pypi/howfairis/
 
-.. image:: https://github.com/fair-software/howfairis/workflows/Build/badge.svg
-   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3ABuild
-
 .. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
    :target: https://fair-software.eu
+   
+.. image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg  
+   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
+   
+.. image:: https://github.com/fair-software/howfairis/workflows/livetests%20(triggered%20manually)/badge.svg
+   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22livetests+%28triggered+manually%29%22
 
 Install
 -------
