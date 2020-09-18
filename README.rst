@@ -43,19 +43,20 @@ looks something like this:
 .. code:: shell
 
     Checking compliance with fair-software.eu...
-    Running for https://github.com/fair-software/badge-test
+    url: https://github.com/fair-software/badge-test
     (1/5) repository
           ✓ has_open_repository
     (2/5) license
           ✓ has_license
     (3/5) registry
+          × has_ascl_badge
           × has_bintray_badge
           × has_conda_badge
           × has_cran_badge
           × has_crates_badge
           × has_maven_badge
           × has_npm_badge
-          × has_pypi_badge
+          ✓ has_pypi_badge
           × has_rsd_badge
           × is_on_github_marketplace
     (4/5) citation
@@ -83,7 +84,9 @@ you'll see output like this:
 
     Calculated compliance: ● ● ○ ○ ○
 
-    While searching through your README.md, I did not find the expected badge:
+    It seems you have not yet added the fair-software.eu badge to
+    your README.md. You can do so by pasting the following snippet:
+
     [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B-orange)](https://fair-software.eu)
 
 When you get this message, just copy-and-paste the suggested badge into your README.
@@ -138,18 +141,26 @@ Which then shows something like:
       GitHub or GitLab repository at URL.
 
     Options:
-      -b, --branch TEXT       Which git branch to use.
-      -c, --config-file PATH  Config file. Default: .howfairis.yml
-      -i, --include-comments  When looking for badges, include sections of the
-                              README that have been commented out using <!-- and
-                              -->. Default: False
+      -b, --branch TEXT               Which git branch to use.
+      -c, --config-file PATH          Name of the configuration file to control
+                                      howfairis'es behavior. The configuration
+                                      file needs to be on the remote, and takes
+                                      into account the value of --branch and
+                                      --path. Default: .howfairis.yml
 
-      -p, --path TEXT         Relative path. Use this if you want howfairis to
-                              look for a README in a subdirectory.
+      -d, --show-default-config       Show default configuration and exit.
+      -i, --include-comments [yes|no]
+                                      When looking for badges, include sections of
+                                      the README that have been commented out
+                                      using <!-- and -->. Default: no
 
-      -s, --show-trace        Show full traceback on errors. Default: False
-      -v, --version           Show version.
-      -h, --help              Show this message and exit.
+      -p, --path TEXT                 Relative path (on the remote). Use this if
+                                      you want howfairis to look for a README in a
+                                      subdirectory.
+
+      -t, --show-trace [yes|no]       Show full traceback on errors. Default: no
+      -v, --version                   Show version and exit.
+      -h, --help                      Show this message and exit.
 
 Configuration file
 ^^^^^^^^^^^^^^^^^^
@@ -161,14 +172,15 @@ The configuration file should follow the voluptuous_ schema laid out in schema.p
 
 .. code:: python
 
-    {
-        Optional("force"): {
-            Optional("repository"): bool,
-            Optional("license"): bool,
-            Optional("registry"): bool,
-            Optional("citation"): bool,
-            Optional("checklist"): bool,
-        }
+    schema = {
+        Optional("force"): Any({
+            Optional("repository"): Any(bool, None),
+            Optional("license"): Any(bool, None),
+            Optional("registry"): Any(bool, None),
+            Optional("citation"): Any(bool, None),
+            Optional("checklist"): Any(bool, None),
+        }, None),
+        Optional("include_comments"): Any(bool, None)
     }
 
 For example, the following is a valid configuration file document:
