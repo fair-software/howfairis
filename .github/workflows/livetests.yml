@@ -39,9 +39,9 @@ jobs:
       - name: Build
         shell: bash
         run: python setup.py build
-      - name: Run live tests
-        shell: bash
-        run: pytest livetests/
       - name: Run live cli tests
         shell: bash
         run: ./clitests/script.sh
+      - name: Run live tests
+        shell: bash
+        run: pytest livetests/
