@@ -1,4 +1,4 @@
-name: livetests
+name: livetests (triggered manually)
 
 on:
   workflow_dispatch:
@@ -39,6 +39,9 @@ jobs:
       - name: Build
         shell: bash
         run: python setup.py build
-      - name: Test
+      - name: Run live tests
         shell: bash
         run: pytest livetests/
+      - name: Run live cli tests
+        shell: bash
+        run: pytest clitests/script.sh
