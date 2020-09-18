@@ -6,7 +6,7 @@ from howfairis.Platform import Platform
 class LicenseMixin:
 
     def check_license(self):
-        force = self.config.yaml.get("force", dict())
+        force = self.config.yamldata.get("force", dict())
         if not isinstance(force, dict):
             force = dict()
         force_state = force.get("license")

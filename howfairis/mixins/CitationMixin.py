@@ -4,7 +4,7 @@ import requests
 class CitationMixin:
 
     def check_citation(self):
-        force = self.config.yaml.get("force", dict())
+        force = self.config.yamldata.get("force", dict())
         if not isinstance(force, dict):
             force = dict()
         force_state = force.get("citation")

@@ -5,7 +5,7 @@ from howfairis.Platform import Platform
 class RegistryMixin:
 
     def check_registry(self):
-        force = self.config.yaml.get("force", dict())
+        force = self.config.yamldata.get("force", dict())
         if not isinstance(force, dict):
             force = dict()
         force_state = force.get("registry")
