@@ -2,15 +2,16 @@ from .Platform import Platform
 
 
 class Repo:
-    def __init__(self, url, branch=None, path=None):
-        self.url = url
-        self.branch = "master" if branch is None else branch
-        self.path = "" if path is None else "/" + path.strip("/")
+    def __init__(self, url, branch=None, path=None, config_file=None):
         self.api = None
+        self.branch = "master" if branch is None else branch
+        self.config_file = config_file
         self.owner = None
+        self.path = "" if path is None else "/" + path.strip("/")
         self.platform = None
         self.raw_url_format_string = None
         self.repo = None
+        self.url = url
 
         self._deconstruct_url()
 
