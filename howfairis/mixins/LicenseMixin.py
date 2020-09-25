@@ -6,10 +6,7 @@ from howfairis.Platform import Platform
 class LicenseMixin:
 
     def check_license(self):
-        force = self.config.yamldata.get("force", dict())
-        if not isinstance(force, dict):
-            force = dict()
-        force_state = force.get("license")
+        force_state = self.config.merged.get("force_license")
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force.license.")
         if isinstance(force_state, bool):
@@ -23,8 +20,8 @@ class LicenseMixin:
 
         r = False
 
-        if self.config.repo.platform == Platform.GITHUB:
-            url = self.config.repo.api + "/license"
+        if self.repo.platform == Platform.GITHUB:
+            url = self.repo.api + "/license"
             try:
                 response = requests.get(url)
                 # If the response was successful, no Exception will be raised
@@ -34,8 +31,8 @@ class LicenseMixin:
                 return r
             r = True
 
-        if self.config.repo.platform == Platform.GITLAB:
-            url = "https://gitlab.com/{0}/{1}".format(self.config.repo.owner, self.config.repo.repo)
+        if self.repo.platform == Platform.GITLAB:
+            url = "https://gitlab.com/{0}/{1}".format(self.repo.owner, self.repo.repo)
 
             try:
                 response = requests.get(url)

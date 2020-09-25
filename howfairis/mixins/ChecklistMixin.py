@@ -1,10 +1,7 @@
 class ChecklistMixin:
 
     def check_checklist(self):
-        force = self.config.yamldata.get("force", dict())
-        if not isinstance(force, dict):
-            force = dict()
-        force_state = force.get("checklist")
+        force_state = self.config.merged.get("force_checklist")
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force.checklist.")
         if isinstance(force_state, bool):

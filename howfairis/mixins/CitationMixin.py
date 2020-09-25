@@ -4,10 +4,7 @@ import requests
 class CitationMixin:
 
     def check_citation(self):
-        force = self.config.yamldata.get("force", dict())
-        if not isinstance(force, dict):
-            force = dict()
-        force_state = force.get("citation")
+        force_state = self.config.merged.get("force_citation")
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force.citation.")
         if isinstance(force_state, bool):
@@ -24,7 +21,7 @@ class CitationMixin:
         return True in results
 
     def has_citation_file(self):
-        url = self.config.repo.raw_url_format_string.format("CITATION")
+        url = self.repo.raw_url_format_string.format("CITATION")
         try:
             response = requests.get(url)
             # If the response was successful, no Exception will be raised
@@ -36,7 +33,7 @@ class CitationMixin:
         return True
 
     def has_citationcff_file(self):
-        url = self.config.repo.raw_url_format_string.format("CITATION.cff")
+        url = self.repo.raw_url_format_string.format("CITATION.cff")
         try:
             response = requests.get(url)
             # If the response was successful, no Exception will be raised
@@ -48,7 +45,7 @@ class CitationMixin:
         return True
 
     def has_codemeta_file(self):
-        url = self.config.repo.raw_url_format_string.format("codemeta.json")
+        url = self.repo.raw_url_format_string.format("codemeta.json")
         try:
             response = requests.get(url)
             # If the response was successful, no Exception will be raised
@@ -65,7 +62,7 @@ class CitationMixin:
         return self._eval_regexes(regexes)
 
     def has_zenodo_metadata_file(self):
-        url = self.config.repo.raw_url_format_string.format(".zenodo.json")
+        url = self.repo.raw_url_format_string.format(".zenodo.json")
         try:
             response = requests.get(url)
             # If the response was successful, no Exception will be raised
