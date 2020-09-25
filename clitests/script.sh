@@ -11,7 +11,7 @@ howfairis --help
 howfairis --version
 howfairis --show-default-config
 
-DURATION=10
+DURATION=20
 
 # github
 howfairis https://github.com/fair-software/badge-test

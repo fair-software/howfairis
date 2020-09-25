@@ -36,4 +36,4 @@ def test_heavy_handed_livetest_rsd():
             assert isinstance(c, bool)
 
         # sleep to avoid rate limiting of GitHub API
-        time.sleep(10)
+        time.sleep(20)
