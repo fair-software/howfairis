@@ -52,23 +52,24 @@ def check_badge(compliance, readme=None):
               help="Which git branch to use.")
 @click.option("-c", "--config-file", default=None, type=click.Path(),
               help="Name of the configuration file to control howfairis'es behavior. The configuration " +
-                   "file needs to be on the remote, and takes into account the value of " +
-                   "--branch and --path. Default: .howfairis.yml")
+                   "file needs to be present on the local system and can include a relative path.")
 @click.option("-d", "--show-default-config", default=False, is_flag=True,
               help="Show default configuration and exit.")
-@click.option("-i", "--include-comments", default=None, type=click.Choice(["yes", "no"], case_sensitive=True),
-              help="When looking for badges, include sections of the README that " +
-              "have been commented out using <!-- and -->. Default: no")
 @click.option("-p", "--path", default=None, type=click.STRING,
               help="Relative path (on the remote). Use this if you want howfairis to look for a " +
-                   "README in a subdirectory.")
+                   "README and a configuration file in a subdirectory.")
+@click.option("-r", "--remote-config-file", default=None, type=click.STRING,
+              help="Name of the configuration file to control howfairis'es behavior. The configuration " +
+                   "file needs to be on the remote, and takes into account the value of " +
+                   "--branch and --path. Default: .howfairis.yml")
 @click.option("-t", "--show-trace", default=None, type=click.Choice(["yes", "no"], case_sensitive=True),
               help="Show full traceback on errors. Default: no")
 @click.option("-v", "--version", default=False, is_flag=True,
               help="Show version and exit.")
 @click.argument("url", required=False)
-def cli(url=None, branch=None, config_file=None, include_comments=None,
-        path=None, show_trace=False, version=False, show_default_config=False):
+def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=None,
+        show_trace=False, version=False, show_default_config=False):
+
     """Determine compliance with recommendations from fair-software.eu for the GitHub or GitLab repository at URL."""
 
     if version is True:
@@ -89,19 +90,26 @@ def cli(url=None, branch=None, config_file=None, include_comments=None,
     init_terminal_colors()
     assert url is not None, "Expected URL to not be emtpy."
     print("Checking compliance with fair-software.eu...")
+
     if url is not None:
         print("url: " + url)
-    if config_file is not None:
-        print("config_file: " + config_file)
+
     if branch is not None:
         print("branch: " + branch)
+
     if path is not None:
         print("path: " + path)
 
-    repo = Repo(url, branch, path)
-    config = Config(repo, config_file, include_comments)
+    if remote_config_file is not None:
+        print("remote_config_file: " + remote_config_file)
 
-    checker = Checker(config)
+    if config_file is not None:
+        print("config_file: " + config_file)
+
+    repo = Repo(url, branch, path, remote_config_file)
+    config = Config(repo, config_file)
+
+    checker = Checker(config, repo)
     checker.check_five_recommendations()
     check_badge(compliance=checker.compliance, readme=checker.readme)
 
