@@ -144,26 +144,26 @@ Which then shows something like:
       GitHub or GitLab repository at URL.
 
     Options:
-      -b, --branch TEXT               Which git branch to use.
-      -c, --config-file PATH          Name of the configuration file to control
-                                      howfairis'es behavior. The configuration
-                                      file needs to be on the remote, and takes
-                                      into account the value of --branch and
-                                      --path. Default: .howfairis.yml
+      -b, --branch TEXT              Which git branch to use.
+      -c, --config-file PATH         Name of the configuration file to control
+                                     howfairis'es behavior. The configuration file
+                                     needs to be present on the local system and
+                                     can include a relative path.
 
-      -d, --show-default-config       Show default configuration and exit.
-      -i, --include-comments [yes|no]
-                                      When looking for badges, include sections of
-                                      the README that have been commented out
-                                      using <!-- and -->. Default: no
+      -d, --show-default-config      Show default configuration and exit.
+      -p, --path TEXT                Relative path (on the remote). Use this if
+                                     you want howfairis to look for a README and a
+                                     configuration file in a subdirectory.
 
-      -p, --path TEXT                 Relative path (on the remote). Use this if
-                                      you want howfairis to look for a README in a
-                                      subdirectory.
+      -r, --remote-config-file TEXT  Name of the configuration file to control
+                                     howfairis'es behavior. The configuration file
+                                     needs to be on the remote, and takes into
+                                     account the value of --branch and --path.
+                                     Default: .howfairis.yml
 
-      -t, --show-trace [yes|no]       Show full traceback on errors. Default: no
-      -v, --version                   Show version and exit.
-      -h, --help                      Show this message and exit.
+      -t, --show-trace [yes|no]      Show full traceback on errors. Default: no
+      -v, --version                  Show version and exit.
+      -h, --help                     Show this message and exit.
 
 Configuration file
 ^^^^^^^^^^^^^^^^^^
@@ -176,13 +176,11 @@ The configuration file should follow the voluptuous_ schema laid out in schema.p
 .. code:: python
 
     schema = {
-        Optional("force"): Any({
-            Optional("repository"): Any(bool, None),
-            Optional("license"): Any(bool, None),
-            Optional("registry"): Any(bool, None),
-            Optional("citation"): Any(bool, None),
-            Optional("checklist"): Any(bool, None),
-        }, None),
+        Optional("force_repository"): Any(bool, None),
+        Optional("force_license"): Any(bool, None),
+        Optional("force_registry"): Any(bool, None),
+        Optional("force_citation"): Any(bool, None),
+        Optional("force_checklist"): Any(bool, None),
         Optional("include_comments"): Any(bool, None)
     }
 
@@ -190,9 +188,8 @@ For example, the following is a valid configuration file document:
 
 .. code:: yaml
 
-    force:
-      registry: true  # It is good practice to add an explanation
-                      # of why you chose to set the state manually
+    force_registry: true  # It is good practice to add an explanation
+                          # of why you chose to set the state manually
 
 The manual override will be reflected in the output, as follows:
 
