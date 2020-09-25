@@ -31,7 +31,7 @@ def test_heavy_handed_livetest_rsd():
         print(url)
         repo = Repo(url)
         config = Config(repo)
-        checker = Checker(config).check_five_recommendations()
+        checker = Checker(config, repo).check_five_recommendations()
         for c in checker.compliance:
             assert isinstance(c, bool)
 
