@@ -62,10 +62,10 @@ class Config:
     def _load_user_config(config_filename):
         if config_filename is None:
             return dict()
-        else:
-            p = os.path.join(os.getcwd(), config_filename)
-            if not os.path.exists(p):
-                raise FileNotFoundError("{0} doesn't exist.")
+
+        p = os.path.join(os.getcwd(), config_filename)
+        if not os.path.exists(p):
+            raise FileNotFoundError("{0} doesn't exist.")
 
         with open(p, "rt") as f:
             text = f.read()
