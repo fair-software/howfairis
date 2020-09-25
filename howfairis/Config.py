@@ -65,7 +65,7 @@ class Config:
 
         p = os.path.join(os.getcwd(), config_filename)
         if not os.path.exists(p):
-            raise FileNotFoundError("{0} doesn't exist.")
+            raise FileNotFoundError("{0} doesn't exist.".format(config_filename))
 
         with open(p, "rt") as f:
             text = f.read()
