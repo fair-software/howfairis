@@ -7,9 +7,9 @@ from howfairis.schema import validate_against_schema
 
 
 class Config:
-    def __init__(self, repo, config_filename=None):
+    def __init__(self, repo, config_filename=None, ignore_remote_config=False):
         self.default = Config._load_default_config()
-        self.repo = Config._load_repo_config(repo)
+        self.repo = Config._load_repo_config(repo, ignore_remote_config)
         self.user = Config._load_user_config(config_filename)
 
     @staticmethod
@@ -29,8 +29,11 @@ class Config:
         return default_config
 
     @staticmethod
-    def _load_repo_config(repo):
+    def _load_repo_config(repo, ignore_remote_config):
         if repo is None:
+            return dict()
+
+        if ignore_remote_config is True:
             return dict()
 
         if repo.config_file is None:

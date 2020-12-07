@@ -55,6 +55,8 @@ def check_badge(compliance, readme=None):
                    "file needs to be present on the local system and can include a relative path.")
 @click.option("-d", "--show-default-config", default=False, is_flag=True,
               help="Show default configuration and exit.")
+@click.option("-i", "--ignore-remote-config", default=False, is_flag=True,
+              help="Ignore any configuration files on the remote.")
 @click.option("-p", "--path", default=None, type=click.STRING,
               help="Relative path (on the remote). Use this if you want howfairis to look for a " +
                    "README and a configuration file in a subdirectory.")
@@ -68,7 +70,7 @@ def check_badge(compliance, readme=None):
               help="Show version and exit.")
 @click.argument("url", required=False)
 def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=None,
-        show_trace=False, version=False, show_default_config=False):
+        show_trace=False, version=False, ignore_remote_config=False, show_default_config=False):
 
     """Determine compliance with recommendations from fair-software.eu for the GitHub or GitLab repository at URL."""
 
@@ -100,14 +102,19 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
     if path is not None:
         print("path: " + path)
 
-    if remote_config_file is not None:
-        print("remote_config_file: " + remote_config_file)
+    if ignore_remote_config is True:
+        print("Ignoring any configuration files on the remote.")
+        assert remote_config_file is None, "When ignoring any configuration files on the remote, you" + \
+                                           " should not set a remote configuration filename."
+    else:
+        if remote_config_file is not None:
+            print("Remote configuration filename: " + remote_config_file)
 
     if config_file is not None:
-        print("config_file: " + config_file)
+        print("Local configuration file: " + config_file)
 
     repo = Repo(url, branch, path, remote_config_file)
-    config = Config(repo, config_file)
+    config = Config(repo, config_file, ignore_remote_config)
 
     checker = Checker(config, repo)
     checker.check_five_recommendations()
