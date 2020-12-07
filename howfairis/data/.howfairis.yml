@@ -1,7 +1,6 @@
-force:
-  repository: ~
-  license: ~
-  registry: ~
-  citation: ~
-  checklist: ~
+force_repository: ~
+force_license: ~
+force_registry: ~
+force_citation: ~
+force_checklist: ~
 include_comments: false

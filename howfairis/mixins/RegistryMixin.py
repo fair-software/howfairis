@@ -5,10 +5,7 @@ from howfairis.Platform import Platform
 class RegistryMixin:
 
     def check_registry(self):
-        force = self.config.yamldata.get("force", dict())
-        if not isinstance(force, dict):
-            force = dict()
-        force_state = force.get("registry")
+        force_state = self.config.merged.get("force_registry", dict())
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force.registry.")
         if isinstance(force_state, bool):
@@ -82,9 +79,9 @@ class RegistryMixin:
 
         r = False
 
-        if self.config.repo.platform == Platform.GITHUB:
+        if self.repo.platform == Platform.GITHUB:
             try:
-                response = requests.get(self.config.repo.url)
+                response = requests.get(self.repo.url)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
