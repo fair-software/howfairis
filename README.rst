@@ -151,6 +151,7 @@ Which then shows something like:
                                      can include a relative path.
 
       -d, --show-default-config      Show default configuration and exit.
+      -i, --ignore-remote-config     Ignore any configuration files on the remote.
       -p, --path TEXT                Relative path (on the remote). Use this if
                                      you want howfairis to look for a README and a
                                      configuration file in a subdirectory.
@@ -296,4 +297,3 @@ Credits
 -------
 
 This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `NLeSC/python-template <https://github.com/NLeSC/python-template>`_.
-
