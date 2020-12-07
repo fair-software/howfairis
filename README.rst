@@ -136,7 +136,7 @@ There are some command line options to the executable. You can see them using:
 
 Which then shows something like:
 
-.. code:: shell
+.. code:: text
 
     Usage: howfairis [OPTIONS] [URL]
 
