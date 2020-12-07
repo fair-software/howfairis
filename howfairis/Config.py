@@ -2,6 +2,7 @@ import os
 import requests
 from ruamel.yaml import YAML
 from howfairis.schema import validate_against_schema
+from voluptuous.error import MultipleInvalid, Invalid
 
 
 class Config:
@@ -21,8 +22,9 @@ class Config:
             default_config = dict()
         try:
             validate_against_schema(default_config)
-        except Exception as e:
-            raise Exception("Default configuration file should follow the schema.") from e
+        except (Invalid, MultipleInvalid):
+            print("Default configuration file should follow the schema for it to be considered.")
+            return dict()
         return default_config
 
     @staticmethod
@@ -53,8 +55,9 @@ class Config:
 
         try:
             validate_against_schema(repo_config)
-        except Exception as e:
-            raise Exception("Configuration file should follow the schema.") from e
+        except (Invalid, MultipleInvalid):
+            print("Repository's configuration file should follow the schema for it to be considered.")
+            return dict()
 
         return repo_config
 
