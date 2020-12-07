@@ -1,9 +1,9 @@
 import os
 import requests
 from ruamel.yaml import YAML
-from howfairis.schema import validate_against_schema
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
+from howfairis.schema import validate_against_schema
 
 
 class Config:
