@@ -86,15 +86,15 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
 
     if checker.readme.text is None:
         sys.exit(1)
-    elif checker.readme.text.find(checker.badge_url) == -1:
 
+    if checker.readme.text.find(checker.badge_url) == -1:
         print("It seems you have not yet added the fair-software.eu badge to\n" +
               "your {0}. You can do so by pasting the following snippet:\n\n{1}"
               .format(checker.readme.filename, checker.badge))
         sys.exit(1)
-    else:
-        print("Expected badge is equal to the actual badge. It's all good.\n")
-        sys.exit(0)
+
+    print("Expected badge is equal to the actual badge. It's all good.\n")
+    sys.exit(0)
 
 
 if __name__ == "__main__":
