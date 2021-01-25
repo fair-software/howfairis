@@ -19,7 +19,8 @@ class Repo:
 
         assert self.url.startswith("https://"), "url should start with https://"
         assert True in [self.url.startswith("https://github.com"),
-                        self.url.startswith("https://gitlab.com")], "Repository should be on GitHub or on GitLab."
+                        self.url.startswith("https://gitlab.com")], "Repository should be on github.com or on " + \
+                                                                    "gitlab.com"
 
         if self.url.startswith("https://github.com"):
             self.platform = Platform.GITHUB
