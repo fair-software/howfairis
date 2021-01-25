@@ -20,6 +20,8 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         self.config = config
         self.readme = None
         self.repo = repo
+        self.badge = None
+        self.badge_url = None
 
         self._get_readme()
 
@@ -75,10 +77,32 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         elif state is False:
             print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
 
+    def _calc_badge(self):
+        score = self.compliance.count(True)
+
+        if score in [0, 1]:
+            color_string = "red"
+        elif score in [2, 3]:
+            color_string = "orange"
+        elif score in [4]:
+            color_string = "yellow"
+        elif score == 5:
+            color_string = "green"
+
+        self.badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.compliance.urlencode(),
+                                                                                         color_string)
+        if self.readme.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
+            self.badge = ".. image:: {0}\n   :target: {1}".format(self.badge_url, "https://fair-software.eu")
+        if self.readme.fmt == ReadmeFormat.MARKDOWN:
+            self.badge = "[![fair-software.eu]({0})]({1})".format(self.badge_url, "https://fair-software.eu")
+
+        return self
+
     def check_five_recommendations(self):
         self.compliance = Compliance(repository=self.check_repository(),
                                      license_=self.check_license(),
                                      registry=self.check_registry(),
                                      citation=self.check_citation(),
                                      checklist=self.check_checklist())
+        self._calc_badge()
         return self

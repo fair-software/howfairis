@@ -5,45 +5,7 @@ from colorama import init as init_terminal_colors
 from howfairis import Checker
 from howfairis import __version__
 from howfairis.Config import Config
-from howfairis.Readme import Readme
-from howfairis.ReadmeFormat import ReadmeFormat
 from howfairis.Repo import Repo
-
-
-def check_badge(compliance, readme=None):
-
-    if readme is None:
-        readme = Readme(filename=None, text=None, fmt=None)
-
-    score = compliance.count(True)
-
-    if score in [0, 1]:
-        color_string = "red"
-    elif score in [2, 3]:
-        color_string = "orange"
-    elif score in [4]:
-        color_string = "yellow"
-    elif score == 5:
-        color_string = "green"
-
-    badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(compliance.urlencode(), color_string)
-    if readme.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
-        badge = ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
-    if readme.fmt == ReadmeFormat.MARKDOWN:
-        badge = "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
-
-    print("\nCalculated compliance: " + " ".join(compliance.as_unicode()) + "\n")
-
-    if readme.text is None:
-        sys.exit(1)
-    elif readme.text.find(badge_url) == -1:
-
-        print("It seems you have not yet added the fair-software.eu badge to\n" +
-              "your {0}. You can do so by pasting the following snippet:\n\n{1}".format(readme.filename, badge))
-        sys.exit(1)
-    else:
-        print("Expected badge is equal to the actual badge. It's all good.\n")
-        sys.exit(0)
 
 
 # pylint: disable=too-many-arguments
@@ -64,8 +26,8 @@ def check_badge(compliance, readme=None):
               help="Name of the configuration file to control howfairis'es behavior. The configuration " +
                    "file needs to be on the remote, and takes into account the value of " +
                    "--branch and --path. Default: .howfairis.yml")
-@click.option("-t", "--show-trace", default=None, type=click.Choice(["yes", "no"], case_sensitive=True),
-              help="Show full traceback on errors. Default: no")
+@click.option("-t", "--show-trace", default=False, is_flag=True,
+              help="Show full traceback on errors.")
 @click.option("-v", "--version", default=False, is_flag=True,
               help="Show version and exit.")
 @click.argument("url", required=False)
@@ -87,7 +49,7 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
         print(text)
         return
 
-    if show_trace == "no" or show_trace is None:
+    if show_trace is False:
         sys.tracebacklimit = 0
 
     init_terminal_colors()
@@ -119,7 +81,20 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
 
     checker = Checker(config, repo)
     checker.check_five_recommendations()
-    check_badge(compliance=checker.compliance, readme=checker.readme)
+
+    print("\nCalculated compliance: " + " ".join(checker.compliance.as_unicode()) + "\n")
+
+    if checker.readme.text is None:
+        sys.exit(1)
+
+    if checker.readme.text.find(checker.badge_url) == -1:
+        print("It seems you have not yet added the fair-software.eu badge to\n" +
+              "your {0}. You can do so by pasting the following snippet:\n\n{1}"
+              .format(checker.readme.filename, checker.badge))
+        sys.exit(1)
+
+    print("Expected badge is equal to the actual badge. It's all good.\n")
+    sys.exit(0)
 
 
 if __name__ == "__main__":
