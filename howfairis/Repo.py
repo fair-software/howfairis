@@ -1,4 +1,5 @@
 from .Platform import Platform
+import requests
 
 
 class Repo:
@@ -14,11 +15,10 @@ class Repo:
 
         # assign remaining members as needed
         self.platform = self._derive_platform()
-        self.default_branch = self._set_default_branch()
         self.owner, self.repo = self._derive_owner_and_repo()
-
-        # construct raw_url and api url
-        self.api, self.raw_url_format_string = self._construct_urls()
+        self.api = self._derive_api()
+        self.default_branch = self._set_default_branch()
+        self.raw_url_format_string = self._derive_raw_url_format_string()
 
     @staticmethod
     def _check_assertions(url):
@@ -45,11 +45,11 @@ class Repo:
         return owner, repo
 
     def _set_default_branch(self):
-        if self.platform == Platform.GITHUB:
-            return "master"
-        if self.platform == Platform.GITLAB:
-            return "master"
-        return None
+        # GitHub API and GitLab API work the same
+        response = requests.get(self.api)
+        # If the response was successful, the next line will not raise any Exception
+        response.raise_for_status()
+        return response.json().get("default_branch", None)
 
     def _derive_platform(self):
         if self.url.startswith("https://github.com"):
@@ -58,7 +58,15 @@ class Repo:
             return Platform.GITLAB
         return None
 
-    def _construct_urls(self):
+    def _derive_api(self):
+        if self.platform == Platform.GITHUB:
+            api = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
+        elif self.platform == Platform.GITLAB:
+            api = "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
+
+        return api
+
+    def _derive_raw_url_format_string(self):
         if self.branch is not None:
             # User specified a branch, use that regardless of whether it actually exists
             branch = self.branch
@@ -66,13 +74,11 @@ class Repo:
             branch = self.default_branch
 
         if self.platform == Platform.GITHUB:
-            api = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
             raw_url_format_string = "https://raw.githubusercontent.com/{0}/{1}/{2}{3}" \
                                     .format(self.owner, self.repo, branch, self.path) + "/{0}"
 
         elif self.platform == Platform.GITLAB:
-            api = "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
             raw_url_format_string = "https://gitlab.com/{0}/{1}/-/raw/{2}{3}" \
                                     .format(self.owner, self.repo, branch, self.path) + "/{0}"
 
-        return api, raw_url_format_string
+        return raw_url_format_string
