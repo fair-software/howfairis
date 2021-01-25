@@ -20,6 +20,7 @@ class Repo:
         # construct raw_url and api url
         self.api, self.raw_url_format_string = self._construct_urls()
 
+    @staticmethod
     def _check_assertions(url):
         assert url.startswith("https://"), "url should start with https://"
         assert True in [url.startswith("https://github.com"),
