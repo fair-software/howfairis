@@ -58,14 +58,20 @@ class Repo:
         return None
 
     def _construct_urls(self):
+        if self.branch is not None:
+            # User specified a branch, use that regardless of whether it actually exists
+            branch = self.branch
+        else:
+            branch = self.default_branch
+
         if self.platform == Platform.GITHUB:
             api = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
             raw_url_format_string = "https://raw.githubusercontent.com/{0}/{1}/{2}{3}" \
-                                    .format(self.owner, self.repo, self.branch, self.path) + "/{0}"
+                                    .format(self.owner, self.repo, branch, self.path) + "/{0}"
 
         elif self.platform == Platform.GITLAB:
             api = "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
             raw_url_format_string = "https://gitlab.com/{0}/{1}/-/raw/{2}{3}" \
-                                    .format(self.owner, self.repo, self.branch, self.path) + "/{0}"
+                                    .format(self.owner, self.repo, branch, self.path) + "/{0}"
 
         return api, raw_url_format_string
