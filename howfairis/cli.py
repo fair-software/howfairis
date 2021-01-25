@@ -64,8 +64,8 @@ def check_badge(compliance, readme=None):
               help="Name of the configuration file to control howfairis'es behavior. The configuration " +
                    "file needs to be on the remote, and takes into account the value of " +
                    "--branch and --path. Default: .howfairis.yml")
-@click.option("-t", "--show-trace", default=None, type=click.Choice(["yes", "no"], case_sensitive=True),
-              help="Show full traceback on errors. Default: no")
+@click.option("-t", "--show-trace", default=False, is_flag=True,
+              help="Show full traceback on errors.")
 @click.option("-v", "--version", default=False, is_flag=True,
               help="Show version and exit.")
 @click.argument("url", required=False)
@@ -87,7 +87,7 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
         print(text)
         return
 
-    if show_trace == "no" or show_trace is None:
+    if show_trace is False:
         sys.tracebacklimit = 0
 
     init_terminal_colors()
