@@ -1,5 +1,5 @@
-from .Platform import Platform
 import requests
+from .Platform import Platform
 
 
 class Repo:
