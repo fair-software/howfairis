@@ -17,7 +17,7 @@ class Repo:
         self.platform = self._derive_platform()
         self.owner, self.repo = self._derive_owner_and_repo()
         self.api = self._derive_api()
-        self.default_branch = self._set_default_branch()
+        self.default_branch = self._get_default_branch()
         self.raw_url_format_string = self._derive_raw_url_format_string()
 
     @staticmethod
@@ -44,7 +44,7 @@ class Repo:
 
         return owner, repo
 
-    def _set_default_branch(self):
+    def _get_default_branch(self):
         # GitHub API and GitLab API work the same
         response = requests.get(self.api)
         # If the response was successful, the next line will not raise any Exception
