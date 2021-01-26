@@ -102,7 +102,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         if len(badges) == 0:
             return(False)
         last_badge = badges[-1]
-        bracket_counts = { "[":0, "]":0 } 
+        bracket_counts = {"[": 0, "]": 0}
         for i, c in enumerate(last_badge):
             if last_badge[i] == "[" or last_badge[i] == "]":
                 bracket_counts[c] += 1
