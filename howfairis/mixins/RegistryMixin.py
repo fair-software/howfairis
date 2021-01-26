@@ -36,7 +36,7 @@ class RegistryMixin:
         return self._eval_regexes(regexes)
 
     def has_conda_badge(self):
-        regexes = [r"https://anaconda\.org/.*/.*/badges/installer/conda\.svg",
+        regexes = [r"https://anaconda\.org/.*",
                    r"https://img\.shields\.io/conda/.*"]
         return self._eval_regexes(regexes)
 
