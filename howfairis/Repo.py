@@ -26,6 +26,14 @@ class Repo:
         assert True in [url.startswith("https://github.com"),
                         url.startswith("https://gitlab.com")], "Repository should be on github.com or on gitlab.com."
 
+    def _derive_api(self):
+        if self.platform == Platform.GITHUB:
+            api = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
+        elif self.platform == Platform.GITLAB:
+            api = "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
+
+        return api
+
     def _derive_owner_and_repo(self):
         if self.platform == Platform.GITHUB:
             try:
@@ -44,27 +52,14 @@ class Repo:
 
         return owner, repo
 
-    def _get_default_branch(self):
-        # GitHub API and GitLab API work the same
-        response = requests.get(self.api)
-        # If the response was successful, the next line will not raise any Exception
-        response.raise_for_status()
-        return response.json().get("default_branch", None)
-
     def _derive_platform(self):
         if self.url.startswith("https://github.com"):
             return Platform.GITHUB
+
         if self.url.startswith("https://gitlab.com"):
             return Platform.GITLAB
+
         return None
-
-    def _derive_api(self):
-        if self.platform == Platform.GITHUB:
-            api = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
-        elif self.platform == Platform.GITLAB:
-            api = "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
-
-        return api
 
     def _derive_raw_url_format_string(self):
         if self.branch is not None:
@@ -82,3 +77,11 @@ class Repo:
                                     .format(self.owner, self.repo, branch, self.path) + "/{0}"
 
         return raw_url_format_string
+
+    def _get_default_branch(self):
+        # GitHub API and GitLab API work the same
+        response = requests.get(self.api)
+
+        # If the request was successful, the next line will not raise any Exception
+        response.raise_for_status()
+        return response.json().get("default_branch", None)
