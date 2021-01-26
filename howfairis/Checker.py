@@ -99,25 +99,22 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return self
 
     def has_open_brackets(self, badges):
-        if len(badges) == 0: 
+        if len(badges) == 0:
             return(False)
         else:
             last_badge = badges[-1]
             open_brackets = 0
             closing_brackets = 0
-            for i in range(0, len(last_badge)):
-                if last_badge[i] == "[":
+            for i, c in enumerate(last_badge):
+                if c == "[":
                     open_brackets += 1
-                if last_badge[i] == "]":
+                if c == "]":
                     closing_brackets += 1
-            if (open_brackets > closing_brackets or 
-                open_brackets == 0 and closing_brackets == 0):
-                return(True)
-            else:
-                return(False)
+            return(open_brackets > closing_brackets or
+                   (open_brackets == 0 and closing_brackets == 0))
 
     def finishes_with_image_tag(self, badges):
-        return(len(badges) > 0 and re.search("image::$", badges[-1])) 
+        return(len(badges) > 0 and re.search("image::$", badges[-1]))
 
     def get_badges_rst(self):
         badges = []
@@ -129,7 +126,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     def get_badges_md(self):
         badges = []
         for text_part in self.readme.text.split():
-            if re.search("!\[", text_part) or self.has_open_brackets(badges):
+            if re.search('![[]', text_part) or self.has_open_brackets(badges):
                 badges.append(text_part)
         return("\n".join(badges))
 
@@ -138,15 +135,14 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             return False
         if self.readme.fmt == ReadmeFormat.MARKDOWN:
             return(self.get_badges_md())
-        elif self.readme.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
+        if self.readme.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
             return(self.get_badges_rst())
-        else:
-            return(self)
+        return(self)
 
     def check_five_recommendations(self):
         badges = Checker(self.config, self.repo)
-        badges.readme = Readme(filename=self.readme.filename, 
-                               text=self.get_badges(), 
+        badges.readme = Readme(filename=self.readme.filename,
+                               text=self.get_badges(),
                                fmt=self.readme.fmt)
         self.compliance = Compliance(repository=badges.check_repository(),
                                      license_=badges.check_license(),
