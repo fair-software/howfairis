@@ -101,17 +101,13 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     def has_open_brackets(self, badges):
         if len(badges) == 0:
             return(False)
-        else:
-            last_badge = badges[-1]
-            open_brackets = 0
-            closing_brackets = 0
-            for i, c in enumerate(last_badge):
-                if c == "[":
-                    open_brackets += 1
-                if c == "]":
-                    closing_brackets += 1
-            return(open_brackets > closing_brackets or
-                   (open_brackets == 0 and closing_brackets == 0))
+        last_badge = badges[-1]
+        bracket_counts = { "[":0, "]":0 } 
+        for i, c in enumerate(last_badge):
+            if last_badge[i] == "[" or last_badge[i] == "]":
+                bracket_counts[c] += 1
+        return(bracket_counts["["] > bracket_counts["]"] or
+               (bracket_counts["["] == 0 and bracket_counts["]"] == 0))
 
     def finishes_with_image_tag(self, badges):
         return(len(badges) > 0 and re.search("image::$", badges[-1]))
