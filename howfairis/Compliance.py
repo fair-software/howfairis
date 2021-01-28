@@ -44,3 +44,13 @@ class Compliance:
 
     def urlencode(self):
         return "%20%20".join([requests.utils.quote(symbol) for symbol in self.as_unicode()])
+
+    def __eq__(self, other):
+        return \
+            self.repository == other.repository and \
+            self.license == other.license and \
+            self.registry == other.registry and \
+            self.citation == other.citation and \
+            self.checklist == other.checklist and \
+            self.compliant_symbol == other.compliant_symbol and \
+            self.noncompliant_symbol == other.noncompliant_symbol
