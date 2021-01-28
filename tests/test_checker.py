@@ -1,4 +1,5 @@
 import pytest
+import requests_mock
 
 from howfairis import Repo, Config, Checker
 from howfairis.Compliance import Compliance
@@ -10,8 +11,11 @@ def badghurl_checker():
     repo = Repo('https://github.com/fair-software/does-not-exist')
     config = Config(repo)
 
-    checker = Checker(config, repo)
-    return checker
+    with requests_mock.Mocker() as m:
+        m.get('https://raw.githubusercontent.com/fair-software/does-not-exist/master/README.md', status_code=404)
+        m.get('https://raw.githubusercontent.com/fair-software/does-not-exist/master/README.rst', status_code=404)
+        checker = Checker(config, repo)
+        return checker
 
 
 def test_checker_badghurl_emptyreadme(badghurl_checker: Checker):

@@ -54,7 +54,8 @@ setup(
             "pytest",
             "pytest-cov",
             "pycodestyle",
-            "pytest-runner"
+            "pytest-runner",
+            "requests_mock"
         ],
         "publishing": [
             "twine"
