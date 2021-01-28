@@ -8,12 +8,12 @@ from howfairis.Readme import Readme
 
 @pytest.fixture
 def badghurl_checker(requests_mock: Mocker):
-    requests_mock.get('https://github.com/fair-software/does-not-exist', status_code=404)
-    requests_mock.get('https://api.github.com/repos/fair-software/does-not-exist', status_code=404)
     requests_mock.get('https://raw.githubusercontent.com/fair-software/does-not-exist/master/.howfairis.yml', status_code=404)
     requests_mock.get('https://raw.githubusercontent.com/fair-software/does-not-exist/master/README.md', status_code=404)
     requests_mock.get('https://raw.githubusercontent.com/fair-software/does-not-exist/master/README.rst', status_code=404)
+    requests_mock.get('https://api.github.com/repos/fair-software/does-not-exist', status_code=404)
     requests_mock.get('https://api.github.com/repos/fair-software/does-not-exist/license', status_code=404)
+    requests_mock.get('https://github.com/fair-software/does-not-exist', status_code=404)
     requests_mock.get('https://raw.githubusercontent.com/fair-software/does-not-exist/master/CITATION', status_code=404)
     requests_mock.get('https://raw.githubusercontent.com/fair-software/does-not-exist/master/CITATION.cff', status_code=404)
     requests_mock.get('https://raw.githubusercontent.com/fair-software/does-not-exist/master/codemeta.json', status_code=404)

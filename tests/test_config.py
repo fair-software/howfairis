@@ -4,7 +4,6 @@ from howfairis import Config, Repo
 
 
 def test_default(requests_mock: Mocker):
-    requests_mock.get('https://github.com/fair-software/does-not-exist', status_code=404)
     requests_mock.get('https://raw.githubusercontent.com/fair-software/does-not-exist/master/.howfairis.yml', status_code=404)
     repo = Repo('https://github.com/fair-software/does-not-exist')
     config = Config(repo)
