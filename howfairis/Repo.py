@@ -1,4 +1,5 @@
 from .Platform import Platform
+import re
 
 
 class Repo:
@@ -21,6 +22,7 @@ class Repo:
         assert True in [self.url.startswith("https://github.com"),
                         self.url.startswith("https://gitlab.com")], "Repository should be on github.com or on " + \
                                                                     "gitlab.com"
+        assert re.search("^https://git(hub|lab).com/[^/]+/[^/]+", self.url), "url is not a repository"
 
         if self.url.startswith("https://github.com"):
             self.platform = Platform.GITHUB
