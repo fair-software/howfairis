@@ -43,13 +43,13 @@ class LicenseMixin:
                 return r
 
             r = response is not None and \
-               response.text is not None and  \
-               BeautifulSoup(response.text, "html.parser") is not None and \
-               BeautifulSoup(response.text, "html.parser") \
-               .find("div", class_="project-buttons") is not None and \
-               BeautifulSoup(response.text, "html.parser") \
-               .find("div", class_="project-buttons")\
-               .find(string="No license. All rights reserved") is None
+                response.text is not None and  \
+                BeautifulSoup(response.text, "html.parser") is not None and \
+                BeautifulSoup(response.text, "html.parser") \
+                .find("div", class_="project-buttons") is not None and \
+                BeautifulSoup(response.text, "html.parser") \
+                .find("div", class_="project-buttons")\
+                .find(string="No license. All rights reserved") is None
 
         self._print_state(check_name="has_license", state=r)
         return r
