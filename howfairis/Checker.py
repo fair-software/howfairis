@@ -23,6 +23,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         self.badge = None
         self.badge_url = None
 
+        self._check_url()
         self._get_readme()
 
     def _eval_regexes(self, regexes, check_name=None):
@@ -38,6 +39,12 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                 return True
         self._print_state(check_name=check_name, state=False)
         return False
+
+    def _check_url(self):
+        print("TEST", self.repo.api)
+        response = requests.get(self.repo.url)
+        assert response.status_code == 200, "url does not exist"
+        return True
 
     def _get_readme(self):
         def remove_comments(text):
@@ -67,7 +74,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             return self
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
-        self.readme = Readme(filename=None, text=None, fmt=None)
+        self.readme = Readme(filename=None, text="", fmt=None)
         return self
 
     @staticmethod

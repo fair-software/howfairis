@@ -27,3 +27,9 @@ def test_no_repository():
     expected_exception = "url is not a repository"
     assert str(result.exception) == expected_exception
 
+def test_non_existing_url():
+    runner = CliRunner()
+    result = runner.invoke(cli.cli, ["https://github.com/does_not_exist/does_not_exist"])
+    expected_exception = "url does not exist"
+    assert str(result.exception) == expected_exception
+
