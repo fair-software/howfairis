@@ -41,7 +41,6 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return False
 
     def _check_url(self):
-        print("TEST", self.repo.api)
         response = requests.get(self.repo.url)
         assert response.status_code == 200, "url does not exist"
         return True
@@ -74,7 +73,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             return self
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
-        self.readme = Readme(filename=None, text="", fmt=None)
+        self.readme = Readme(filename=None, text=None, fmt=None)
         return self
 
     @staticmethod
