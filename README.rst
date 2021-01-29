@@ -211,6 +211,11 @@ The manual override will be reflected in the output, as follows:
           × has_core_infrastructures_badge
           × has_sonarcloud_badge
 
+Contributing
+------------
+
+If you want to contribute to the development of howfairis, have a look at the `contribution guidelines <CONTRIBUTING.rst>`_.
+
 Development install
 -------------------
 
