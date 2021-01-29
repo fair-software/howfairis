@@ -13,12 +13,12 @@ fair-software.eu_ recommendations.
 .. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
    :target: https://fair-software.eu
 
-.. image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg  
+.. image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
-   
+
 .. image:: https://github.com/fair-software/howfairis/workflows/livetests%20(triggered%20manually)/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22livetests+%28triggered+manually%29%22
-   
+
 .. image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
 
@@ -70,7 +70,6 @@ looks something like this:
           × has_zenodo_metadata_file
     (5/5) checklist
           ✓ has_core_infrastructures_badge
-          × has_sonarcloud_badge
 
 If your README already has the fair-software badge, you'll see some output like this:
 
@@ -209,7 +208,11 @@ The manual override will be reflected in the output, as follows:
           × has_zenodo_metadata_file
     (5/5) checklist
           × has_core_infrastructures_badge
-          × has_sonarcloud_badge
+
+Contributing
+------------
+
+If you want to contribute to the development of howfairis, have a look at the `contribution guidelines <CONTRIBUTING.rst>`_.
 
 Development install
 -------------------
@@ -269,7 +272,7 @@ Make sure the version is correct.
 
     # In a new terminal, without an activated venv or a venv3 directory
     cd $(mktemp -d --tmpdir howfairis-test.XXXXXX)
-    
+
     # check you don't have an existing howfairis
     which howfairis
     python3 -m pip uninstall howfairis
