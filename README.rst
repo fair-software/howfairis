@@ -209,6 +209,11 @@ The manual override will be reflected in the output, as follows:
     (5/5) checklist
           × has_core_infrastructures_badge
 
+Contributing
+------------
+
+If you want to contribute to the development of howfairis, have a look at the `contribution guidelines <CONTRIBUTING.rst>`_.
+
 Development install
 -------------------
 
