@@ -3,3 +3,9 @@ class Readme:
         self.filename = filename
         self.text = text
         self.fmt = fmt
+
+    def __eq__(self, other):
+        return \
+            self.filename == other.filename and \
+            self.text == other.text and \
+            self.fmt == other.fmt
