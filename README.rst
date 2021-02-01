@@ -222,15 +222,15 @@ Development install
 .. code:: shell
 
     # Create a virtualenv, e.g. with
-    python3 -m virtualenv -p python3 venv3
+    python3 -m venv venv3
 
     # activate virtualenv
     source venv3/bin/activate
 
     # (from the project root directory)
     # install howfairis as an editable package
-    pip install --editable .
-    pip install --editable .[dev]
+    pip install --no-cache-dir --editable .
+    pip install --no-cache-dir --editable .[dev]
 
 Afterwards check that the install directory was added to the ``PATH``
 environment variable. You should then be able to call the executable,
@@ -261,7 +261,7 @@ Make sure the version is correct.
     # In a new terminal, without venv
     cd $(mktemp -d --tmpdir howfairis.XXXXXX)
     git clone https://github.com/fair-software/howfairis.git .
-    python3 -m virtualenv -p python3 venv3
+    python3 -m venv venv3
     source venv3/bin/activate
     pip install --no-cache-dir .
     pip install --no-cache-dir .[publishing]
