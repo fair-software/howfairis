@@ -6,22 +6,50 @@ If you're looking for developer documentation, go `here <README.dev.rst>`_.
 Python package to analyze a GitHub or GitLab repository's compliance with the
 fair-software.eu_ recommendations.
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
-   :target: https://doi.org/10.5281/zenodo.4017908
+Badges
+------
 
-.. image:: https://img.shields.io/pypi/v/howfairis.svg?colorB=blue
+====================================================== ==========================
+fair-software.nl recommendations
+====================================================== ==========================
+1/5 code repository                                    |github repo badge|
+2/5 license                                            |github license badge|
+3/5 community registry                                 |pypi badge|
+4/5 citation                                           |zenodo badge|
+5/5 checklist                                          -
+overall                                                |fair-software badge|
+====================================================== ==========================
+
+.. |github repo badge| image:: https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue
+   :target: https://github.com/fair-software/howfairis
+
+.. |github license badge| image:: https://img.shields.io/github/license/fair-software/howfairis
+   :target: https://github.com/fair-software/howfairis
+
+.. |pypi badge| image:: https://img.shields.io/pypi/v/howfairis.svg?colorB=blue
    :target: https://pypi.python.org/pypi/howfairis/
 
-.. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
+.. |zenodo badge| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
+   :target: https://doi.org/10.5281/zenodo.4017908
+
+.. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
    :target: https://fair-software.eu
 
-.. image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
+====================================================== ===========================
+GitHub Actions
+====================================================== ===========================
+Citation metadata consistency                          |workflow cffconvert badge|
+Unit tests                                             |workflow tests badge|
+Live tests (triggered manually)                        |workflow livetests badge|
+====================================================== ===========================
+
+.. |workflow tests badge| image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
 
-.. image:: https://github.com/fair-software/howfairis/workflows/livetests%20(triggered%20manually)/badge.svg
-   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22livetests+%28triggered+manually%29%22
+.. |workflow livetests badge| image:: https://github.com/fair-software/howfairis/workflows/livetests/badge.svg
+   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Alivetests
 
-.. image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
+.. |workflow cffconvert badge| image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
 
 Install
