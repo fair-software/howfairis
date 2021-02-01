@@ -3,6 +3,10 @@
 
 If you're looking for developer documentation, go `here <README.dev.rst>`_.
 
+|
+|
+|
+
 Python package to analyze a GitHub or GitLab repository's compliance with the
 fair-software.eu_ recommendations.
 
