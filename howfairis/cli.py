@@ -11,7 +11,7 @@ from howfairis.Repo import Repo
 # pylint: disable=too-many-arguments
 @click.command(context_settings=dict(help_option_names=["-h", "--help"]))
 @click.option("-b", "--branch", default=None, type=click.STRING,
-              help="Which git branch to use.")
+              help="Which git branch to use. Also accepts other git references like SHA or tag.")
 @click.option("-c", "--config-file", default=None, type=click.Path(),
               help="Name of the configuration file to control howfairis'es behavior. The configuration " +
                    "file needs to be present on the local system and can include a relative path.")
