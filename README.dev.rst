@@ -1,6 +1,8 @@
 ``howfairis`` developer documentation
 =====================================
 
+If you're looking for user documentation, go `here <README.rst>`_.
+
 Development install
 -------------------
 

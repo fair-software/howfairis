@@ -1,6 +1,8 @@
 ``howfairis`` user documentation
 ================================
 
+If you're looking for developer documentation, go `here <README.dev.rst>`_.
+
 Python package to analyze a GitHub or GitLab repository's compliance with the
 fair-software.eu_ recommendations.
 
@@ -217,7 +219,7 @@ If you want to contribute to the development of howfairis, have a look at the `c
 .. _fair-software.eu: https://fair-software.eu
 .. _voluptuous: https://pypi.org/project/voluptuous/
 .. _schema.py: https://github.com/fair-software/howfairis/blob/master/howfairis/schema.py
-
+.. _developer documentation: ./README.dev.rst
 
 Credits
 -------
