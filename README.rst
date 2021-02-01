@@ -247,7 +247,6 @@ If you want to contribute to the development of howfairis, have a look at the `c
 .. _fair-software.eu: https://fair-software.eu
 .. _voluptuous: https://pypi.org/project/voluptuous/
 .. _schema.py: https://github.com/fair-software/howfairis/blob/master/howfairis/schema.py
-.. _developer documentation: ./README.dev.rst
 
 Credits
 -------
