@@ -161,7 +161,7 @@ Which then shows something like:
                                      account the value of --branch and --path.
                                      Default: .howfairis.yml
 
-      -t, --show-trace [yes|no]      Show full traceback on errors. Default: no
+      -t, --show-trace               Show full traceback on errors.
       -v, --version                  Show version and exit.
       -h, --help                     Show this message and exit.
 
