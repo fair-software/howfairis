@@ -14,6 +14,19 @@ from howfairis.ReadmeFormat import ReadmeFormat
 
 
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
+    """Check the repo against the five FAIR software recommendations using supplied config.
+
+    Args:
+        config: Configuration to use
+        repo: Repository to check
+
+    Attributes:
+        readme: Retrieved READM from the repository.
+        compliance: The current compliance. Filled after :py:func:`Checker.check_five_recommendations` is called.
+        badge_url: URL of badge image for the current compliance. Filled after :py:func:`Checker.check_five_recommendations` is called.
+        badge: Badge image link for the current compliance. Formatted in format of README. Filled after :py:func:`Checker.check_five_recommendations` is called.
+
+    """
     def __init__(self, config, repo):
         super().__init__()
         self.compliance = None
@@ -99,9 +112,9 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return self
 
     def check_five_recommendations(self):
-        """Check the repo defined in self.repo against the five FAIR software recommendations
+        """Check the repo against the five FAIR software recommendations
 
-        After being called the self.compliance will be filled the the result of the check.
+        After being called the :py:attr:`.Checker.compliance` property will be filled the the result of the check.
         """
         self.compliance = Compliance(repository=self.check_repository(),
                                      license_=self.check_license(),

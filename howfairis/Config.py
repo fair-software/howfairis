@@ -7,6 +7,13 @@ from howfairis.schema import validate_against_schema
 
 
 class Config:
+    """Control the behavior of the howfairis package
+
+    Args:
+        repo: Repository which is used to fetch config from
+        config_filename: Default is ".howfairis.yml"
+        ignore_remote_config: If true then does not try to merge config from remote repository.
+    """
     def __init__(self, repo, config_filename=None, ignore_remote_config=False):
         self.default = Config._load_default_config()
         self.repo = Config._load_repo_config(repo, ignore_remote_config)
