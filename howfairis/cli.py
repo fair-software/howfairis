@@ -91,7 +91,7 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
     readme_badge_found, readme_badge_compliance = get_fair_software_badge(checker.readme.text)
 
     if not readme_badge_found:
-        print("It seems you have not yet added the fair-software.eu badge to\n" +
+        print("It seems you have not yet added the fair-software.eu badge to " +
               "your {0}. You can do so by pasting the following snippet:\n\n{1}"
               .format(checker.readme.filename, checker.badge))
         sys.exit(1)
@@ -101,10 +101,16 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
         sys.exit(0)
 
     if checker.compliance > readme_badge_compliance:
-        print("Congratulations! The compliance of your repository exceeds the current fair-software.eu badge in your {0}. You can replace it with the following snippet:\n\n{1}".format(checker.readme.filename, checker.badge))
+        print("Congratulations! The compliance of your repository exceeds " +
+              "the current fair-software.eu badge in your " +
+              "{0}. You can replace it with the following snippet:\n\n{1}"
+              .format(checker.readme.filename, checker.badge))
         sys.exit(1)
 
-    print("The compliance of your repository is different from the current fair-software.eu badge in your {0}. Please replace it with the following snippet:\n\n{1}".format(checker.readme.filename, checker.badge))
+    print("The compliance of your repository is different from the current " +
+          "fair-software.eu badge in your " +
+          "{0}. Please replace it with the following snippet:\n\n{1}"
+          .format(checker.readme.filename, checker.badge))
 
     sys.exit(1)
 
