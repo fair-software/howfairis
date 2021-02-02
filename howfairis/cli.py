@@ -3,15 +3,15 @@ import sys
 import click
 from colorama import init as init_terminal_colors
 from howfairis import Checker
+from howfairis import Config
+from howfairis import Repo
 from howfairis import __version__
-from howfairis.Config import Config
-from howfairis.Repo import Repo
 
 
 # pylint: disable=too-many-arguments
 @click.command(context_settings=dict(help_option_names=["-h", "--help"]))
 @click.option("-b", "--branch", default=None, type=click.STRING,
-              help="Which git branch to use.")
+              help="Which git branch to use. Also accepts other git references like SHA or tag.")
 @click.option("-c", "--config-file", default=None, type=click.Path(),
               help="Name of the configuration file to control howfairis'es behavior. The configuration " +
                    "file needs to be present on the local system and can include a relative path.")
