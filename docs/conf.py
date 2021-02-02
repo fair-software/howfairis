@@ -18,6 +18,7 @@
 #
 import os
 import sys
+from sphinx.ext import apidoc
 
 import howfairis
 
@@ -50,8 +51,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'howfairis'
-copyright = u'2021, '
 author = u"howfairis developers"
+project_copyright = u'2021, ' + author
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -99,15 +100,7 @@ def run_apidoc(_):
         src
     ] + ignore_paths
 
-    try:
-        # Sphinx 1.7+
-        from sphinx.ext import apidoc
-        apidoc.main(argv)
-    except ImportError:
-        # Sphinx 1.6 (and earlier)
-        from sphinx import apidoc
-        argv.insert(0, apidoc.__file__)
-        apidoc.main(argv)
+    apidoc.main(argv)
 
 
 def setup(app):
@@ -134,8 +127,8 @@ html_static_path = ['_static']
 html_context = {
     'css_files': [
         '_static/theme_overrides.css',  # override wide tables in RTD theme
-        ],
-     }
+    ],
+}
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
