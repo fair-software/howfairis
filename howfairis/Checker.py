@@ -21,7 +21,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         repo: Repository to check
 
     Attributes:
-        readme: Retrieved READM from the repository.
+        readme: Retrieved README from the repository.
         compliance: The current compliance. Filled after :py:func:`Checker.check_five_recommendations` is called.
         badge_url: URL of badge image for the current compliance. Filled after :py:func:`Checker.check_five_recommendations` is called.
         badge: Badge image link for the current compliance. Formatted in format of README. Filled after :py:func:`Checker.check_five_recommendations` is called.
