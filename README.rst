@@ -22,6 +22,10 @@ fair-software.eu_ recommendations.
 .. image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
 
+.. image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
+   :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
 Install
 -------
 
