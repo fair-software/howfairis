@@ -1,5 +1,4 @@
 import os
-#import requests
 import sys
 import click
 from colorama import init as init_terminal_colors
