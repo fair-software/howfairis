@@ -1,8 +1,10 @@
 import os
+#import requests
 import sys
 import click
 from colorama import init as init_terminal_colors
 from howfairis import Checker
+from howfairis import Compliance
 from howfairis import Config
 from howfairis import Repo
 from howfairis import __version__
@@ -87,14 +89,35 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
     if checker.readme.text is None:
         sys.exit(1)
 
-    if checker.readme.text.find(checker.badge_url) == -1:
+    readme_badge_found, readme_badge_compliance = get_fair_software_badge(checker.readme.text)
+
+    if not readme_badge_found:
         print("It seems you have not yet added the fair-software.eu badge to\n" +
               "your {0}. You can do so by pasting the following snippet:\n\n{1}"
               .format(checker.readme.filename, checker.badge))
         sys.exit(1)
 
-    print("Expected badge is equal to the actual badge. It's all good.\n")
-    sys.exit(0)
+    if checker.compliance == readme_badge_compliance:
+        print("Expected badge is equal to the actual badge. It's all good.\n")
+        sys.exit(0)
+
+    if checker.compliance > readme_badge_compliance:
+        print("Congratulations! The compliance of your repository exceeds its current fair-software.eu badge. You can replace it with the following snippet:\n\n{1}".format(checker.readme.filename, checker.badge))
+        sys.exit(1)
+
+    print("The compliance of your repository is different from its current fair-software.eu badge. Please replace it with the following snippet:\n\n{1}".format(checker.readme.filename, checker.badge))
+
+    sys.exit(1)
+
+
+def get_fair_software_badge(text):
+    compliance = Compliance.Compliance()
+    url = "https://img.shields.io/badge/fair--software.eu"
+    url_location = text.find(url)
+    if url_location < 0:
+        return(False, compliance)
+    start_id = url_location+len(url)+1
+    return(True, compliance.urldecode(text[start_id:start_id+69]))
 
 
 if __name__ == "__main__":

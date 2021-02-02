@@ -1,3 +1,4 @@
+import re
 import requests
 
 
@@ -45,6 +46,16 @@ class Compliance:
     def urlencode(self):
         return "%20%20".join([requests.utils.quote(symbol) for symbol in self.as_unicode()])
 
+    def urldecode(self, string):
+        compliance_symbols = re.sub(" ", "", requests.utils.unquote(string))
+        if len(compliance_symbols) == 5:
+            self.repository = (compliance_symbols[0] == self.compliant_symbol)
+            self.license = (compliance_symbols[1] == self.compliant_symbol)
+            self.registry = (compliance_symbols[2] == self.compliant_symbol)
+            self.citation = (compliance_symbols[3] == self.compliant_symbol)
+            self.checklist = (compliance_symbols[4] == self.compliant_symbol)
+        return(self)
+
     def __eq__(self, other):
         return \
             self.repository == other.repository and \
@@ -54,3 +65,12 @@ class Compliance:
             self.checklist == other.checklist and \
             self.compliant_symbol == other.compliant_symbol and \
             self.noncompliant_symbol == other.noncompliant_symbol
+
+    def __gt__(self, other):
+        return \
+            (self.repository and not other.repository) or \
+            (self.license and not other.license) or \
+            (self.registry and not other.registry) or \
+            (self.citation and not other.citation) or \
+            (self.checklist and not other.checklist)
+
