@@ -54,6 +54,7 @@ setup(
             "bumpversion",
             "pytest",
             "pytest-cov",
+            "pytype",
             "pycodestyle",
             "pytest-runner",
             "requests_mock"

@@ -1,5 +1,4 @@
 from urllib.parse import quote
-import requests
 
 
 # pylint: disable=too-many-arguments
