@@ -1,7 +1,6 @@
 import os
 from setuptools import setup
 
-
 here = os.path.abspath(os.path.dirname(__file__))
 
 with open("README.rst", "rt", encoding="UTF-8") as readme_file:
@@ -48,7 +47,7 @@ setup(
     tests_require=[
     ],
     extras_require={
-        "dev":  [
+        "dev": [
             "prospector[with_pyroma]",
             "yapf",
             "bumpversion",
@@ -57,7 +56,7 @@ setup(
             "pycodestyle",
             "pytest-runner",
             "requests_mock",
-	      "sphinx",
+            "sphinx",
             "sphinx_rtd_theme",
             "recommonmark",
         ],
