@@ -3,6 +3,9 @@ import re
 import requests
 from colorama import Fore
 from colorama import Style
+
+from .Config import Config
+from .Repo import Repo
 from howfairis.Compliance import Compliance
 from howfairis.mixins import ChecklistMixin
 from howfairis.mixins import CitationMixin
@@ -14,7 +17,7 @@ from howfairis.ReadmeFormat import ReadmeFormat
 
 
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
-    def __init__(self, config, repo):
+    def __init__(self, config: Config, repo: Repo):
         super().__init__()
         self.compliance = None
         self.config = config

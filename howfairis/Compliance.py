@@ -1,3 +1,4 @@
+from urllib.parse import quote
 import requests
 
 
@@ -43,7 +44,7 @@ class Compliance:
         return self._state.count(value)
 
     def urlencode(self):
-        return "%20%20".join([requests.utils.quote(symbol) for symbol in self.as_unicode()])
+        return "%20%20".join([quote(symbol) for symbol in self.as_unicode()])
 
     def __eq__(self, other):
         return \

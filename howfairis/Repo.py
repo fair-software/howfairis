@@ -3,7 +3,7 @@ from .Platform import Platform
 
 
 class Repo:
-    def __init__(self, url, branch=None, path=None, config_file=None):
+    def __init__(self, url: str, branch=None, path=None, config_file=None):
         # run assertions on user input
         Repo._check_assertions(url)
 
