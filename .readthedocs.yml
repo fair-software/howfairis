@@ -2,7 +2,6 @@ version: 2
 python:
   install:
     - method: pip
-      version: 3.8
       path: .
       extra_requirements:
         - dev
