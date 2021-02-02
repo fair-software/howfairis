@@ -73,4 +73,3 @@ class Compliance:
             (self.registry and not other.registry) or \
             (self.citation and not other.citation) or \
             (self.checklist and not other.checklist)
-

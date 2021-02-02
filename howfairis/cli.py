@@ -101,10 +101,10 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
         sys.exit(0)
 
     if checker.compliance > readme_badge_compliance:
-        print("Congratulations! The compliance of your repository exceeds its current fair-software.eu badge. You can replace it with the following snippet:\n\n{1}".format(checker.readme.filename, checker.badge))
+        print("Congratulations! The compliance of your repository exceeds the current fair-software.eu badge in your {0}. You can replace it with the following snippet:\n\n{1}".format(checker.readme.filename, checker.badge))
         sys.exit(1)
 
-    print("The compliance of your repository is different from its current fair-software.eu badge. Please replace it with the following snippet:\n\n{1}".format(checker.readme.filename, checker.badge))
+    print("The compliance of your repository is different from the current fair-software.eu badge in your {0}. Please replace it with the following snippet:\n\n{1}".format(checker.readme.filename, checker.badge))
 
     sys.exit(1)
 
