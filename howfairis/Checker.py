@@ -99,6 +99,10 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return self
 
     def check_five_recommendations(self):
+        """Check the repo defined in self.repo against the five FAIR software recommendations
+
+        After being called the self.compliance will be filled the the result of the check.
+        """
         self.compliance = Compliance(repository=self.check_repository(),
                                      license_=self.check_license(),
                                      registry=self.check_registry(),
