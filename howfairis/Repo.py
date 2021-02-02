@@ -26,13 +26,12 @@ class Repo:
         assert url.startswith("https://"), "url should start with https://"
         assert True in [url.startswith("https://github.com"),
                         url.startswith("https://gitlab.com")], "Repository should be on github.com or on gitlab.com."
-        assert self.url.startswith("https://"), "url should start with https://"
-        assert True in [self.url.startswith("https://github.com"),
-                        self.url.startswith("https://gitlab.com")], "Repository should be on github.com or on " + \
-                                                                    "gitlab.com"
-        assert re.search("^https://git(hub|lab).com/[^/]+/[^/]+", self.url), "url is not a repository"
-        return api
-      
+        assert url.startswith("https://"), "url should start with https://"
+        assert True in [url.startswith("https://github.com"),
+                        url.startswith("https://gitlab.com")], "Repository should be on github.com or on " + \
+                                                               "gitlab.com"
+        assert re.search("^https://git(hub|lab).com/[^/]+/[^/]+", url), "url is not a repository"
+
     def _derive_api(self):
         if self.platform == Platform.GITHUB:
             api = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
