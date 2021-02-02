@@ -94,6 +94,12 @@ class Config:
 
     @property
     def merged(self):
+        """Configuration dictionary based on merger of
+
+            * default config from this package
+            * config from repository
+            * config from local user
+        """
         m = dict()
         m.update(self.default)
         m.update(self.repo)

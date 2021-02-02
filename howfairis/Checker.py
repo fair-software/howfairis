@@ -22,9 +22,12 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
 
     Attributes:
         readme: Retrieved README from the repository.
-        compliance: The current compliance. Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge_url: URL of badge image for the current compliance. Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge: Badge image link for the current compliance. Formatted in format of README. Filled after :py:func:`Checker.check_five_recommendations` is called.
+        compliance: The current compliance.
+            Filled after :py:func:`Checker.check_five_recommendations` is called.
+        badge_url: URL of badge image for the current compliance.
+            Filled after :py:func:`Checker.check_five_recommendations` is called.
+        badge: Badge image link for the current compliance. Formatted in format of README.
+            Filled after :py:func:`Checker.check_five_recommendations` is called.
 
     """
     def __init__(self, config, repo):
