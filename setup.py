@@ -56,7 +56,10 @@ setup(
             "pytest-cov",
             "pycodestyle",
             "pytest-runner",
-            "requests_mock"
+            "requests_mock",
+	      "sphinx",
+            "sphinx_rtd_theme",
+            "recommonmark",
         ],
         "publishing": [
             "twine"

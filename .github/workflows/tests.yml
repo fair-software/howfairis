@@ -41,3 +41,7 @@ jobs:
       - name: Test
         shell: bash
         run: pytest tests/
+      - name: Build API docs
+        shell: bash
+        working-directory: docs
+        run: make html
