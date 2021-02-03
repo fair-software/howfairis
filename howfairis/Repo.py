@@ -1,9 +1,10 @@
+import re
 import requests
 from .Platform import Platform
 
 
 class Repo:
-    def __init__(self, url, branch=None, path=None, config_file=None):
+    def __init__(self, url: str, branch=None, path=None, config_file=None):
         # run assertions on user input
         Repo._check_assertions(url)
 
@@ -25,13 +26,13 @@ class Repo:
         assert url.startswith("https://"), "url should start with https://"
         assert True in [url.startswith("https://github.com"),
                         url.startswith("https://gitlab.com")], "Repository should be on github.com or on gitlab.com."
+        assert re.search("^https://git(hub|lab).com/[^/]+/[^/]+", url), "url is not a repository"
 
     def _derive_api(self):
         if self.platform == Platform.GITHUB:
             api = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
         elif self.platform == Platform.GITLAB:
             api = "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
-
         return api
 
     def _derive_owner_and_repo(self):

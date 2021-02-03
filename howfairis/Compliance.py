@@ -1,5 +1,6 @@
 import re
 import requests
+from urllib.parse import quote
 
 
 # pylint: disable=too-many-arguments
@@ -44,7 +45,7 @@ class Compliance:
         return self._state.count(value)
 
     def urlencode(self):
-        return "%20%20".join([requests.utils.quote(symbol) for symbol in self.as_unicode()])
+        return "%20%20".join([quote(symbol) for symbol in self.as_unicode()])
 
     @classmethod
     def urldecode(cls, string,
