@@ -177,7 +177,9 @@ Which then shows something like:
       GitHub or GitLab repository at URL.
 
     Options:
-      -b, --branch TEXT              Which git branch to use.
+      -b, --branch TEXT              Which git branch to use. Also accepts other
+                                     git references like SHA or tag.
+
       -c, --config-file PATH         Name of the configuration file to control
                                      howfairis'es behavior. The configuration file
                                      needs to be present on the local system and
@@ -195,7 +197,7 @@ Which then shows something like:
                                      account the value of --branch and --path.
                                      Default: .howfairis.yml
 
-      -t, --show-trace [yes|no]      Show full traceback on errors. Default: no
+      -t, --show-trace               Show full traceback on errors.
       -v, --version                  Show version and exit.
       -h, --help                     Show this message and exit.
 

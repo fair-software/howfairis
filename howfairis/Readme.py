@@ -1,5 +1,8 @@
+from typing import Optional
+
+
 class Readme:
-    def __init__(self, filename=None, text=None, fmt=None):
+    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, fmt: Optional[str] = None):
         self.filename = filename
         self.text = text
         self.fmt = fmt
