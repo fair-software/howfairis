@@ -59,6 +59,7 @@ setup(
             "sphinx",
             "sphinx_rtd_theme",
             "recommonmark",
+            "sphinx-click",
         ],
         "publishing": [
             "twine"
