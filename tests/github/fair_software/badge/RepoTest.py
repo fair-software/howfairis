@@ -1,13 +1,48 @@
 from tests.contracts.Repo import Contract
+from howfairis import Repo
 import unittest
 import requests_mock
-import requests
+from tests.github.fair_software.badge.mocks import get_mocked_responses
 
 
 class RepoTest(Contract, unittest.TestCase):
 
     @requests_mock.Mocker()
-    def test_url(self, m):
-        m.get('http://test.com', text='resp')
-        text = requests.get('http://test.com').text
-        assert text == 'resp', "Nope"
+    def test_api(self, mocker):
+
+        for args, kwargs in get_mocked_responses():
+            mocker.get(*args, **kwargs)
+
+        actual_repo = Repo("https://github.com/fair-software/badge")
+
+        assert actual_repo.api == "https://api.github.com/repos/fair-software/badge", "TODO"
+
+    @requests_mock.Mocker()
+    def test_branch(self, mocker):
+
+        for args, kwargs in get_mocked_responses():
+            mocker.get(*args, **kwargs)
+
+        actual_repo = Repo("https://github.com/fair-software/badge")
+
+        assert actual_repo.branch is None, "TODO"
+
+    @requests_mock.Mocker()
+    def test_default_branch(self, mocker):
+
+        for args, kwargs in get_mocked_responses():
+            mocker.get(*args, **kwargs)
+
+        actual_repo = Repo("https://github.com/fair-software/badge")
+
+        assert actual_repo.default_branch == "master", "TODO"
+
+    @requests_mock.Mocker()
+    def test_url(self, mocker):
+
+        for args, kwargs in get_mocked_responses():
+            mocker.get(*args, **kwargs)
+
+        actual_repo = Repo("https://github.com/fair-software/badge")
+
+        assert actual_repo.url == "https://github.com/fair-software/badge", "TODO"
