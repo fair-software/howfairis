@@ -18,7 +18,7 @@ def test_invalid_url():
 def test_no_github():
     runner = CliRunner()
     result = runner.invoke(cli.cli, ["https://www.esciencecenter.nl"])
-    expected_exception = "Repository should be on github.com or on gitlab.com"
+    expected_exception = "Repository should be on github.com or on gitlab.com."
     assert str(result.exception) == expected_exception
 
 def test_no_repository():
@@ -26,4 +26,3 @@ def test_no_repository():
     result = runner.invoke(cli.cli, ["https://github.com/fair-software"])
     expected_exception = "url is not a repository"
     assert str(result.exception) == expected_exception
-
