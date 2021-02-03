@@ -3,11 +3,12 @@ import requests
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
+from howfairis.Repo import Repo
 from howfairis.schema import validate_against_schema
 
 
 class Config:
-    def __init__(self, repo, config_filename=None, ignore_remote_config=False):
+    def __init__(self, repo: Repo, config_filename=None, ignore_remote_config=False):
         self.default = Config._load_default_config()
         self.repo = Config._load_repo_config(repo, ignore_remote_config)
         self.user = Config._load_user_config(config_filename)
