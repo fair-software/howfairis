@@ -17,6 +17,8 @@ jobs:
         run: prospector --zero-exit -o grouped -o pylint:pylint-report.txt
       - name: Run unit tests with coverage
         run: pytest --cov --cov-report term --cov-report xml --junitxml=xunit-result.xml tests/
+      - name: Correct coverage paths
+        run: sed -i "s+$PWD/++g" coverage.xml
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
