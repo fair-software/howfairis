@@ -1,7 +1,5 @@
-``howfairis`` user documentation
-================================
-
-If you're looking for developer documentation, go `here <README.dev.rst>`_.
+howfairis
+=========
 
 |
 |
@@ -249,6 +247,8 @@ Contributing
 ------------
 
 If you want to contribute to the development of howfairis, have a look at the `contribution guidelines <CONTRIBUTING.rst>`_.
+
+If you're looking for developer documentation, go `here <README.dev.rst>`_.
 
 .. _fair-software.eu: https://fair-software.eu
 .. _voluptuous: https://pypi.org/project/voluptuous/
