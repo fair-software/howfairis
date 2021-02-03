@@ -3,7 +3,7 @@ import sys
 import click
 from colorama import init as init_terminal_colors
 from howfairis import Checker
-from howfairis import Compliance
+from howfairis.Compliance import Compliance
 from howfairis import Config
 from howfairis import Repo
 from howfairis import __version__
@@ -116,13 +116,12 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
 
 
 def get_fair_software_badge(text):
-    compliance = Compliance.Compliance()
     url = "https://img.shields.io/badge/fair--software.eu"
     url_location = text.find(url)
     if url_location < 0:
-        return(False, compliance)
+        return(False, Compliance())
     start_id = url_location+len(url)+1
-    return(True, compliance.urldecode(text[start_id:start_id+69]))
+    return(True, Compliance.urldecode(text[start_id:start_id+69]))
 
 
 if __name__ == "__main__":

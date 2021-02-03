@@ -46,15 +46,18 @@ class Compliance:
     def urlencode(self):
         return "%20%20".join([requests.utils.quote(symbol) for symbol in self.as_unicode()])
 
-    def urldecode(self, string):
+    @classmethod
+    def urldecode(cls, string):
         compliance_symbols = re.sub(" ", "", requests.utils.unquote(string))
         if len(compliance_symbols) == 5:
-            self.repository = (compliance_symbols[0] == self.compliant_symbol)
-            self.license = (compliance_symbols[1] == self.compliant_symbol)
-            self.registry = (compliance_symbols[2] == self.compliant_symbol)
-            self.citation = (compliance_symbols[3] == self.compliant_symbol)
-            self.checklist = (compliance_symbols[4] == self.compliant_symbol)
-        return(self)
+            return  cls(
+              repository = (compliance_symbols[0] == self.compliant_symbol),
+              license = (compliance_symbols[1] == self.compliant_symbol),
+              registry = (compliance_symbols[2] == self.compliant_symbol),
+              citation = (compliance_symbols[3] == self.compliant_symbol),
+              checklist = (compliance_symbols[4] == self.compliant_symbol)
+            )
+        return cls()
 
     def __eq__(self, other):
         return \
