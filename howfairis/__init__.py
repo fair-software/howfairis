@@ -1,6 +1,7 @@
 from .__version__ import __version__
 from .Checker import Checker
 from .Config import Config
+from .Platform import Platform
 from .Repo import Repo
 
 
@@ -11,5 +12,6 @@ __all__ = [
     "__version__",
     "Checker",
     "Config",
+    "Platform",
     "Repo"
 ]
