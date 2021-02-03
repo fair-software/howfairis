@@ -26,6 +26,14 @@ fair-software.eu_ recommendations.
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=alert_status
+   :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
+   :alt: Quality Gate Status
+
+.. image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=coverage
+   :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
+   :alt: Coverage
+
 Install
 -------
 
