@@ -51,15 +51,14 @@ class Compliance:
                   compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
         compliance_symbols = re.sub(" ", "", requests.utils.unquote(string))
         if len(compliance_symbols) == 5:
-            return  cls(
-              repository = (compliance_symbols[0] == compliant_symbol),
-              license_ = (compliance_symbols[1] == compliant_symbol),
-              registry = (compliance_symbols[2] == compliant_symbol),
-              citation = (compliance_symbols[3] == compliant_symbol),
-              checklist = (compliance_symbols[4] == compliant_symbol),
-              compliant_symbol=compliant_symbol,
-              noncompliant_symbol=noncompliant_symbol
-            )
+            return cls(repository=(compliance_symbols[0] == compliant_symbol),
+                       license_=(compliance_symbols[1] == compliant_symbol),
+                       registry=(compliance_symbols[2] == compliant_symbol),
+                       citation=(compliance_symbols[3] == compliant_symbol),
+                       checklist=(compliance_symbols[4] == compliant_symbol),
+                       compliant_symbol=compliant_symbol,
+                       noncompliant_symbol=noncompliant_symbol
+                       )
         return cls(compliant_symbol=compliant_symbol,
                    noncompliant_symbol=noncompliant_symbol)
 
