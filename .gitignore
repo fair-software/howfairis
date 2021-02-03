@@ -7,4 +7,5 @@
 /coverage.xml
 /htmlcov/
 
-
+docs/_build
+docs/apidocs

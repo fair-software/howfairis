@@ -5,6 +5,18 @@ import requests
 
 # pylint: disable=too-many-arguments
 class Compliance:
+    """Compliance of a repo against the 5 FAIR software recommendations
+
+    Attributes:
+        repository: Whether repository is publicly accessible with version control
+        license: Whether repository has a license
+        registry: Whether code is in a registry
+        citation: Whether software is citable
+        checklist: Whether a software quality checklist is used
+        compliant_symbol: Unicode symbol used in badge when compliant
+        noncompliant_symbol: Unicode symbol used in badge when non-compliant
+    """
+
     def __init__(self, repository=None, license_=None, registry=None, citation=None, checklist=None,
                  compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
         self._index = 0
@@ -33,6 +45,11 @@ class Compliance:
                 self.citation, self.checklist]
 
     def as_unicode(self):
+        """String representation of each 5 recommendations.
+        Where a full dot means compliant with the recommendation and a open dot means not-compliant.
+
+        Returns: A string
+        """
         compliance_unicode = [None] * 5
         for i, c in enumerate(self._state):
             if c is True:
