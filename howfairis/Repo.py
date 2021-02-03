@@ -4,6 +4,16 @@ from .Platform import Platform
 
 
 class Repo:
+    """Publicly accessible repository with version control
+
+    Args:
+        url: URL of repository. For example https://github.com/fair-software/howfairis
+        branch: Branch to checkout. Defaults to default branch of the repository platform.
+            Can also be a commit SHA-1 hash or tag.
+        path: Path inside repository. Defaults to root.
+        config_file: Name of the configuration file to control the behavior of the howfairis package.
+
+    """
     def __init__(self, url: str, branch=None, path=None, config_file=None):
         # run assertions on user input
         Repo._check_assertions(url)
