@@ -7,42 +7,30 @@ from tests.github.fair_software.badge.mocks import get_mocked_responses
 
 class RepoTest(Contract, unittest.TestCase):
 
-    @requests_mock.Mocker()
-    def test_api(self, mocker):
+    def test_api(self):
+        with requests_mock.Mocker() as mocker:
+            for args, kwargs in get_mocked_responses():
+                mocker.get(*args, **kwargs)
+            actual_repo = Repo("https://github.com/fair-software/badge")
+            assert actual_repo.api == "https://api.github.com/repos/fair-software/badge", "TODO"
 
-        for args, kwargs in get_mocked_responses():
-            mocker.get(*args, **kwargs)
+    def test_branch(self):
+        with requests_mock.Mocker() as mocker:
+            for args, kwargs in get_mocked_responses():
+                mocker.get(*args, **kwargs)
+            actual_repo = Repo("https://github.com/fair-software/badge")
+            assert actual_repo.branch is None, "TODO"
 
-        actual_repo = Repo("https://github.com/fair-software/badge")
+    def test_default_branch(self):
+        with requests_mock.Mocker() as mocker:
+            for args, kwargs in get_mocked_responses():
+                mocker.get(*args, **kwargs)
+            actual_repo = Repo("https://github.com/fair-software/badge")
+            assert actual_repo.default_branch == "master", "TODO"
 
-        assert actual_repo.api == "https://api.github.com/repos/fair-software/badge", "TODO"
-
-    @requests_mock.Mocker()
-    def test_branch(self, mocker):
-
-        for args, kwargs in get_mocked_responses():
-            mocker.get(*args, **kwargs)
-
-        actual_repo = Repo("https://github.com/fair-software/badge")
-
-        assert actual_repo.branch is None, "TODO"
-
-    @requests_mock.Mocker()
-    def test_default_branch(self, mocker):
-
-        for args, kwargs in get_mocked_responses():
-            mocker.get(*args, **kwargs)
-
-        actual_repo = Repo("https://github.com/fair-software/badge")
-
-        assert actual_repo.default_branch == "master", "TODO"
-
-    @requests_mock.Mocker()
-    def test_url(self, mocker):
-
-        for args, kwargs in get_mocked_responses():
-            mocker.get(*args, **kwargs)
-
-        actual_repo = Repo("https://github.com/fair-software/badge")
-
-        assert actual_repo.url == "https://github.com/fair-software/badge", "TODO"
+    def test_url(self):
+        with requests_mock.Mocker() as mocker:
+            for args, kwargs in get_mocked_responses():
+                mocker.get(*args, **kwargs)
+            actual_repo = Repo("https://github.com/fair-software/badge")
+            assert actual_repo.url == "https://github.com/fair-software/badge", "TODO"
