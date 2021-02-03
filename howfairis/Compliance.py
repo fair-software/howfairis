@@ -1,3 +1,5 @@
+import re
+from urllib.parse import quote
 import requests
 
 
@@ -60,7 +62,23 @@ class Compliance:
         return self._state.count(value)
 
     def urlencode(self):
-        return "%20%20".join([requests.utils.quote(symbol) for symbol in self.as_unicode()])
+        return "%20%20".join([quote(symbol) for symbol in self.as_unicode()])
+
+    @classmethod
+    def urldecode(cls, string,
+                  compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
+        compliance_symbols = re.sub(" ", "", requests.utils.unquote(string))
+        if len(compliance_symbols) == 5:
+            return cls(repository=(compliance_symbols[0] == compliant_symbol),
+                       license_=(compliance_symbols[1] == compliant_symbol),
+                       registry=(compliance_symbols[2] == compliant_symbol),
+                       citation=(compliance_symbols[3] == compliant_symbol),
+                       checklist=(compliance_symbols[4] == compliant_symbol),
+                       compliant_symbol=compliant_symbol,
+                       noncompliant_symbol=noncompliant_symbol
+                       )
+        return cls(compliant_symbol=compliant_symbol,
+                   noncompliant_symbol=noncompliant_symbol)
 
     def __eq__(self, other):
         return \
@@ -71,3 +89,6 @@ class Compliance:
             self.checklist == other.checklist and \
             self.compliant_symbol == other.compliant_symbol and \
             self.noncompliant_symbol == other.noncompliant_symbol
+
+    def __gt__(self, other):
+        return self.count(True) > other.count(True)

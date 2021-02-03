@@ -4,6 +4,7 @@ import requests
 from colorama import Fore
 from colorama import Style
 from howfairis.Compliance import Compliance
+from howfairis.Config import Config
 from howfairis.mixins import ChecklistMixin
 from howfairis.mixins import CitationMixin
 from howfairis.mixins import LicenseMixin
@@ -11,6 +12,7 @@ from howfairis.mixins import RegistryMixin
 from howfairis.mixins import RepositoryMixin
 from howfairis.Readme import Readme
 from howfairis.ReadmeFormat import ReadmeFormat
+from howfairis.Repo import Repo
 
 
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
@@ -30,7 +32,8 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             Filled after :py:func:`Checker.check_five_recommendations` is called.
 
     """
-    def __init__(self, config, repo):
+
+    def __init__(self, config: Config, repo: Repo):
         super().__init__()
         self.compliance = None
         self.config = config
@@ -79,19 +82,23 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                 text = response.text
             else:
                 text = remove_comments(response.text)
-            self.readme = Readme(filename=readme_filename, text=text, fmt=readme_fmt)
+            self.readme = Readme(filename=readme_filename,
+                                 text=text, fmt=readme_fmt)
             return self
 
-        print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
+        print("Did not find a README[.md|.rst] file at " +
+              raw_url.replace(readme_filename, ""))
         self.readme = Readme(filename=None, text=None, fmt=None)
         return self
 
     @staticmethod
     def _print_state(check_name="", state=None, indent=6):
         if state is True:
-            print(" " * indent + Style.BRIGHT + Fore.GREEN + "\u2713 " + Style.RESET_ALL + check_name)
+            print(" " * indent + Style.BRIGHT + Fore.GREEN +
+                  "\u2713 " + Style.RESET_ALL + check_name)
         elif state is False:
-            print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
+            print(" " * indent + Style.BRIGHT + Fore.RED +
+                  "\u00D7 " + Style.RESET_ALL + check_name)
 
     def _calc_badge(self):
         score = self.compliance.count(True)
@@ -108,9 +115,11 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         self.badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.compliance.urlencode(),
                                                                                          color_string)
         if self.readme.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
-            self.badge = ".. image:: {0}\n   :target: {1}".format(self.badge_url, "https://fair-software.eu")
+            self.badge = ".. image:: {0}\n   :target: {1}".format(
+                self.badge_url, "https://fair-software.eu")
         if self.readme.fmt == ReadmeFormat.MARKDOWN:
-            self.badge = "[![fair-software.eu]({0})]({1})".format(self.badge_url, "https://fair-software.eu")
+            self.badge = "[![fair-software.eu]({0})]({1})".format(
+                self.badge_url, "https://fair-software.eu")
 
         return self
 

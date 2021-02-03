@@ -3,6 +3,7 @@ import requests
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
+from howfairis.Repo import Repo
 from howfairis.schema import validate_against_schema
 
 
@@ -14,7 +15,8 @@ class Config:
         config_filename: Default is ".howfairis.yml"
         ignore_remote_config: If true then does not try to merge config from remote repository.
     """
-    def __init__(self, repo, config_filename=None, ignore_remote_config=False):
+
+    def __init__(self, repo: Repo, config_filename=None, ignore_remote_config=False):
         self.default = Config._load_default_config()
         self.repo = Config._load_repo_config(repo, ignore_remote_config)
         self.user = Config._load_user_config(config_filename)
@@ -31,7 +33,8 @@ class Config:
         try:
             validate_against_schema(default_config)
         except (Invalid, MultipleInvalid):
-            print("Default configuration file should follow the schema for it to be considered.")
+            print(
+                "Default configuration file should follow the schema for it to be considered.")
             return dict()
         return default_config
 
@@ -56,18 +59,21 @@ class Config:
             print("Using the configuration file {0}".format(raw_url))
         except requests.HTTPError as e:
             if repo.config_file is not None:
-                raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
+                raise Exception(
+                    "Could not find the configuration file {0}".format(raw_url)) from e
             return dict()
 
         try:
             repo_config = YAML(typ="safe").load(response.text)
         except Exception as e:
-            raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from e
+            raise Exception(
+                "Problem loading YAML configuration from file {0}".format(raw_url)) from e
 
         try:
             validate_against_schema(repo_config)
         except (Invalid, MultipleInvalid):
-            print("Repository's configuration file should follow the schema for it to be considered.")
+            print(
+                "Repository's configuration file should follow the schema for it to be considered.")
             return dict()
 
         return repo_config
@@ -79,7 +85,8 @@ class Config:
 
         p = os.path.join(os.getcwd(), config_filename)
         if not os.path.exists(p):
-            raise FileNotFoundError("{0} doesn't exist.".format(config_filename))
+            raise FileNotFoundError(
+                "{0} doesn't exist.".format(config_filename))
 
         with open(p, "rt") as f:
             text = f.read()
@@ -89,7 +96,8 @@ class Config:
         try:
             validate_against_schema(user_config)
         except Exception as e:
-            raise Exception("User configuration file should follow the schema.") from e
+            raise Exception(
+                "User configuration file should follow the schema.") from e
         return user_config
 
     @property
