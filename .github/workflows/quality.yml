@@ -3,7 +3,7 @@ name: quality
 on: [push, pull_request]
 
 jobs:
-  build:
+  sonarcloud:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
