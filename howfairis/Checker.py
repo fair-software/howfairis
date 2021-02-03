@@ -1,5 +1,6 @@
 import inspect
 import re
+from typing import Optional
 import requests
 from colorama import Fore
 from colorama import Style
@@ -23,12 +24,12 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         repo: Repository to check
 
     Attributes:
-        readme: Retrieved README from the repository.
-        compliance: The current compliance.
+        readme (Readme): Retrieved README from the repository.
+        compliance (Optional[Compliance]): The current compliance.
             Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge_url: URL of badge image for the current compliance.
+        badge_url (Optional[str]): URL of badge image for the current compliance.
             Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge: Badge image link for the current compliance. Formatted in format of README.
+        badge (Optional[str]): Badge image link for the current compliance. Formatted in format of README.
             Filled after :py:func:`Checker.check_five_recommendations` is called.
 
     """
