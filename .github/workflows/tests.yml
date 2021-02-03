@@ -3,8 +3,7 @@ name: tests
 on: [push, pull_request]
 
 jobs:
-
-  build:
+  sonarcloud:
     name: Build for (${{ matrix.python-version }}, ${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
