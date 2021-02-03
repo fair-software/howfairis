@@ -11,7 +11,10 @@ class Compliance:
         registry: Whether code is in a registry
         citation: Whether software is citable
         checklist: Whether a software quality checklist is used
+        compliant_symbol: Unicode symbol used in badge when compliant
+        noncompliant_symbol: Unicode symbol used in badge when non-compliant
     """
+
     def __init__(self, repository=None, license_=None, registry=None, citation=None, checklist=None,
                  compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
         self._index = 0
