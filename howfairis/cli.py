@@ -1,12 +1,18 @@
+from datetime import datetime
 import os
+import requests
 import sys
 import click
+from bs4 import BeautifulSoup
 from colorama import init as init_terminal_colors
+from pytz import timezone
+from dateutil import tz
 from howfairis import Checker
 from howfairis import Config
 from howfairis import Repo
 from howfairis import __version__
 from howfairis.Compliance import Compliance
+from howfairis import Platform
 
 
 # pylint: disable=too-many-arguments
@@ -89,11 +95,12 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
         sys.exit(1)
 
     readme_badge_found, readme_badge_compliance = get_fair_software_badge(checker.readme.text)
+    readme_time = get_readme_time(url, checker.readme.filename, checker.repo.platform, branch)
 
     if not readme_badge_found:
         print("It seems you have not yet added the fair-software.eu badge to " +
-              "your {0}. You can do so by pasting the following snippet:\n\n{1}"
-              .format(checker.readme.filename, checker.badge))
+              "your {0} of {1}. You can do so by pasting the following snippet:\n\n{2}"
+              .format(checker.readme.filename, readme_time, checker.badge))
         sys.exit(1)
 
     if checker.compliance == readme_badge_compliance:
@@ -103,14 +110,14 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
     if checker.compliance > readme_badge_compliance:
         print("Congratulations! The compliance of your repository exceeds " +
               "the current fair-software.eu badge in your " +
-              "{0}. You can replace it with the following snippet:\n\n{1}"
-              .format(checker.readme.filename, checker.badge))
+              "{0} of {1}. You can replace it with the following snippet:\n\n{2}"
+              .format(checker.readme.filename, readme_time, checker.badge))
         sys.exit(1)
 
     print("The compliance of your repository is different from the current " +
           "fair-software.eu badge in your " +
-          "{0}. Please replace it with the following snippet:\n\n{1}"
-          .format(checker.readme.filename, checker.badge))
+          "{0} of {1}. Please replace it with the following snippet:\n\n{2}"
+          .format(checker.readme.filename, readme_time, checker.badge))
 
     sys.exit(1)
 
@@ -122,6 +129,25 @@ def get_fair_software_badge(text):
         return(False, Compliance())
     start_id = url_location+len(url)+1
     return(True, Compliance.urldecode(text[start_id:start_id+69]))
+
+
+def get_readme_time(url, filename, platform, branch):
+    if platform != Platform.Platform.GITHUB:
+        return("(unknown date)")
+    if branch is None:
+        branch = "master"
+    try:
+        response = requests.get(url+"/blob/"+branch+"/"+filename)
+        date_string = BeautifulSoup(response.text, "html.parser").select("relative-time")[0]["datetime"]
+    except:
+        try:
+            response = requests.get(url+"/contributors/"+branch+"/"+filename)
+            date_string = BeautifulSoup(response.text, "html.parser").select("relative-time")[0]["datetime"]
+        except:
+            return("(unknown date)")
+    date_object_utc = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=tz.tzutc())
+    date_string_local = date_object_utc.astimezone(tz.tzlocal()).strftime("%-d %B %Y, %H:%M:%S")
+    return(date_string_local)
 
 
 if __name__ == "__main__":
