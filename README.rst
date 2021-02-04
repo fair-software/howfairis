@@ -41,6 +41,14 @@ you should be able to call the executable, like so:
     howfairis https://github.com/owner/repo      # Linux | Mac
     howfairis.exe https://github.com/owner/repo  # Windows
 
+Docker
+---------------
+You can run howfairis Docker image using the command below.
+
+.. code:: shell
+
+    docker run --rm howfairis --help
+
 Expected output
 ---------------
 
