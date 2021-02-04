@@ -1,8 +1,8 @@
 from .__version__ import __version__
-from .Checker import Checker
-from .Config import Config
-from .Platform import Platform
-from .Repo import Repo
+from .checker import Checker
+from .config import Config
+from .platform import Platform
+from .repo import Repo
 
 
 __author__ = "https://github.com/jspaaks"

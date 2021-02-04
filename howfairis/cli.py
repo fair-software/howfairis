@@ -6,7 +6,7 @@ from howfairis import Checker
 from howfairis import Config
 from howfairis import Repo
 from howfairis import __version__
-from howfairis.Compliance import Compliance
+from howfairis.compliance import Compliance
 
 
 # pylint: disable=too-many-arguments
