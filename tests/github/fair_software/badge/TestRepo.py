@@ -1,11 +1,18 @@
 from tests.contracts.Repo import Contract
 import unittest
 import pytest
-from tests.github.fair_software.badge.mocks import mocked_repo
+from tests.github.fair_software.badge.mocks import mocker
 from howfairis import Platform
+from howfairis import Repo
 
 
-class RepoTest(Contract, unittest.TestCase):
+@pytest.fixture
+def mocked_repo(mocker):
+    with mocker:
+        return Repo("https://github.com/fair-software/badge")
+
+
+class TestRepo(Contract, unittest.TestCase):
 
     @pytest.fixture(autouse=True)
     def __inject_fixtures(self, mocked_repo):
