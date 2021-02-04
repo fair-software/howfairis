@@ -12,7 +12,7 @@ def mocked_repo(mocker):
         return Repo("https://github.com/fair-software/badge")
 
 
-class TestRepo(Contract, unittest.TestCase):
+class TestRepoWithPath(Contract, unittest.TestCase):
 
     @pytest.fixture(autouse=True)
     def __inject_fixtures(self, mocked_repo):
