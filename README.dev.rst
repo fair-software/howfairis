@@ -1,0 +1,87 @@
+``howfairis`` developer documentation
+=====================================
+
+If you're looking for user documentation, go `here <README.rst>`_.
+
+|
+|
+|
+
+Development install
+-------------------
+
+.. code:: shell
+
+    # Create a virtualenv, e.g. with
+    python3 -m venv venv3
+
+    # activate virtualenv
+    source venv3/bin/activate
+
+    # (from the project root directory)
+    # install howfairis as an editable package with its development dependencies
+    pip install --editable .[dev]
+
+Afterwards check that the install directory was added to the ``PATH``
+environment variable. You should then be able to call the executable,
+like so:
+
+.. code:: shell
+
+    howfairis https://github.com/owner/repo      # Linux | Mac
+    howfairis.exe https://github.com/owner/repo  # Windows
+
+For maintainers
+---------------
+
+Bumping the version across all files is done with bump2version, e.g.
+
+.. code:: shell
+
+    bump2version minor
+
+
+Making a release
+^^^^^^^^^^^^^^^^
+
+Make sure the version is correct.
+
+.. code:: shell
+
+    # In a new terminal, without venv
+    cd $(mktemp -d --tmpdir howfairis.XXXXXX)
+    git clone https://github.com/fair-software/howfairis.git .
+    python3 -m venv venv3
+    source venv3/bin/activate
+    pip install --no-cache-dir .[publishing]
+    rm -rf howfairis.egg-info
+    rm -rf dist
+    python setup.py sdist
+
+    # upload to test pypi instance
+    twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+    # In a new terminal, without an activated venv or a venv3 directory
+    cd $(mktemp -d --tmpdir howfairis-test.XXXXXX)
+
+    # check you don't have an existing howfairis
+    which howfairis
+    python3 -m pip uninstall howfairis
+
+    # install in user space from test pypi instance:
+    python3 -m pip -v install --user --no-cache-dir \
+    --index-url https://test.pypi.org/simple/ \
+    --extra-index-url https://pypi.org/simple howfairis
+
+    # check that the package works as it should when installed from pypitest
+
+    # Back to the first terminal,
+    # FINAL STEP: upload to PyPI
+    twine upload dist/*
+
+Don't forget to also make a release on GitHub.
+
+Credits
+-------
+
+This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `NLeSC/python-template <https://github.com/NLeSC/python-template>`_.

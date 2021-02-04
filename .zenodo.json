@@ -33,6 +33,21 @@
             "affiliation": "University of Cambridge",
             "name": "Holding, Andrew",
             "orcid": "0000-0002-8459-7048"
+        },
+        {
+            "affiliation": "Netherlands eScience Center",
+            "name": "Tjong Kim Sang, Erik",
+            "orcid": "0000-0002-8431-081X"
+        },
+        {
+            "affiliation": "Netherlands eScience Center",
+            "name": "Diblen, Faruk",
+            "orcid": "0000-0002-0989-929X"
+        },
+        {
+            "affiliation": "Netherlands eScience Center",
+            "name": "Verhoeven, Stefan",
+            "orcid": "0000-0002-5821-2060"
         }
     ],
     "description": "Command line tool to to analyze compliance with the five recommendations for FAIR software from https://fair-software.eu.",
