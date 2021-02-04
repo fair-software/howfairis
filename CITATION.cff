@@ -1,7 +1,7 @@
 # YAML 1.2
 ---
 abstract: "Command line tool to to analyze compliance with the five recommendations for FAIR software from https://fair-software.eu."
-authors: 
+authors:
   -
     affiliation: "Netherlands eScience Center"
     family-names: Spaaks
@@ -37,8 +37,23 @@ authors:
     family-names: Holding
     given-names: Andrew
     orcid: "https://orcid.org/0000-0002-8459-7048"
+  -
+    affiliation: "Netherlands eScience Center"
+    family-names: Tjong Kim Sang
+    given-names:  Erik
+    orcid: "https://orcid.org/0000-0002-8431-081X"
+  -
+    affiliation: "Netherlands eScience Center"
+    family-names: Diblen
+    given-names: Faruk
+    orcid: "https://orcid.org/0000-0002-0989-929X"
+  -
+    affiliation: "Netherlands eScience Center"
+    family-names: Verhoeven
+    given-names: Stefan
+    orcid: "https://orcid.org/0000-0002-5821-2060"
 cff-version: "1.1.0"
-keywords: 
+keywords:
   - "FAIR software"
 license: "Apache-2.0"
 message: "If you use this software, please cite it using these metadata."
