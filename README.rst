@@ -18,7 +18,7 @@ fair-software.nl recommendations
 2/5 license                                            |github license badge|
 3/5 community registry                                 |pypi badge|
 4/5 citation                                           |zenodo badge|
-5/5 checklist                                          
+5/5 checklist
 overall                                                |fair-software badge|
 ====================================================== ==========================
 
