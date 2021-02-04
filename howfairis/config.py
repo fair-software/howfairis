@@ -3,7 +3,7 @@ import requests
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
-from howfairis.Repo import Repo
+from howfairis.repo import Repo
 from howfairis.schema import validate_against_schema
 
 
