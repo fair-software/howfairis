@@ -14,9 +14,7 @@ Hello
         readme = Readme('README.rst', text, ReadmeFormat.RESTRUCTUREDTEXT)
         readme.remove_comments()
 
-        expected = Readme('README.rst', text, ReadmeFormat.RESTRUCTUREDTEXT)
-
-        assert readme == expected
+        assert readme.text == text
 
     def test_rstwithcommenteachline_commentgone(self):
         text = '''

@@ -42,6 +42,7 @@ setup(
         "requests>=2",
         "voluptuous>=0.11",
         "docutils>=0.16",
+        "sphinxcontrib-restbuilder>=0.2",
     ],
     setup_requires=[
     ],

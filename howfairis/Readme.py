@@ -1,10 +1,24 @@
+import re
 from typing import Optional
 
 from docutils.core import publish_string
 from docutils.nodes import SkipNode
-from docutils.writers.html5_polyglot import Writer, HTMLTranslator
+from sphinx.application import Sphinx
+from sphinx.builders.dummy import DummyBuilder
+from sphinx.builders.text import TextBuilder
+from sphinxcontrib.builders.rst import RstBuilder
+from sphinxcontrib.writers.rst import RstWriter, RstTranslator
 
 from .ReadmeFormat import ReadmeFormat
+
+
+def _remove_comments_from_rst(rst):
+    app = None
+    return publish_string(source=rst, writer=RstWriter(DummyBuilder(app)))
+
+
+def _remove_comments_from_md(md):
+    return re.sub(r"<!--.*?-->", "", md, flags=re.DOTALL)
 
 
 class Readme:
@@ -19,17 +33,10 @@ class Readme:
             self.text == other.text and \
             self.fmt == other.fmt
 
-    def to_html(self, remove_comments=False):
-        class CommentIgnorer(HTMLTranslator):
-            def visit_comment(self, node):
-                raise SkipNode
-
-        class CommentlessHtmlWriter(Writer):
-            def __init__(self):
-                super().__init__()
-                self.translator_class = CommentIgnorer
-
-        if self.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
-            if remove_comments:
-                return publish_string(source=self.text, writer=CommentlessHtmlWriter())
-            return publish_string(source=self.text, writer=Writer())
+    def remove_comments(self):
+        if self.fmt == ReadmeFormat.MARKDOWN:
+            self.text = _remove_comments_from_md(self.text)
+        elif self.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
+            self.text = _remove_comments_from_rst(self.text)
+        else:
+            raise Exception('Unable remove comments unknown format for Readme')
