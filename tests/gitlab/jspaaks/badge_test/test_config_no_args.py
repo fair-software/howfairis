@@ -1,4 +1,4 @@
-from tests.contracts.Config import Contract
+from tests.contracts.config import Contract
 import pytest
 from . import mocker
 from howfairis import Config

@@ -1,4 +1,4 @@
-from tests.contracts.Repo import Contract
+from tests.contracts.repo import Contract
 import pytest
 from . import mocker
 from howfairis import Platform
