@@ -1,5 +1,5 @@
 import requests
-from howfairis.Platform import Platform
+from howfairis.platform import Platform
 
 
 class RegistryMixin:
