@@ -1,6 +1,6 @@
 from tests.contracts.Config import Contract
 import pytest
-from tests.github.fair_software.badge.mocker import mocker
+from . import mocker
 from howfairis import Config
 from howfairis import Repo
 
