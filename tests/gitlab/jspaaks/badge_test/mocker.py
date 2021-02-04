@@ -1,5 +1,5 @@
-import requests_mock
 import pytest
+import requests_mock
 
 
 @pytest.fixture
@@ -11,5 +11,3 @@ def mocker():
         mocker.get("https://gitlab.com/api/v4/projects/jspaaks%2Fbadge-test", json=dict(default_branch="master"))
         mocker.get("https://gitlab.com/jspaaks/badge-test/-/raw/master/.howfairis.yml", status_code=404)
         return mocker
-
-

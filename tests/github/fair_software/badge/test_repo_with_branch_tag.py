@@ -1,8 +1,8 @@
-from tests.contracts.repo import Contract
 import pytest
-from . import mocker
 from howfairis import Platform
 from howfairis import Repo
+from tests.contracts.repo import Contract
+from . import mocker
 
 
 @pytest.fixture
