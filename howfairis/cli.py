@@ -1,17 +1,17 @@
-from datetime import datetime
 import os
-import requests
 import sys
+from datetime import datetime
 import click
+import requests
 from bs4 import BeautifulSoup
 from colorama import init as init_terminal_colors
 from dateutil import tz
 from howfairis import Checker
 from howfairis import Config
+from howfairis import Platform
 from howfairis import Repo
 from howfairis import __version__
 from howfairis.Compliance import Compliance
-from howfairis import Platform
 
 
 # pylint: disable=too-many-arguments
