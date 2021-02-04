@@ -1,6 +1,6 @@
 import re
 import requests
-from .Platform import Platform
+from .platform import Platform
 
 
 class Repo:
