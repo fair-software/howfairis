@@ -5,7 +5,6 @@ import sys
 import click
 from bs4 import BeautifulSoup
 from colorama import init as init_terminal_colors
-from pytz import timezone
 from dateutil import tz
 from howfairis import Checker
 from howfairis import Config
@@ -139,11 +138,11 @@ def get_readme_time(url, filename, platform, branch):
     try:
         response = requests.get(url+"/blob/"+branch+"/"+filename)
         date_string = BeautifulSoup(response.text, "html.parser").select("relative-time")[0]["datetime"]
-    except:
+    except IndexError:
         try:
             response = requests.get(url+"/contributors/"+branch+"/"+filename)
             date_string = BeautifulSoup(response.text, "html.parser").select("relative-time")[0]["datetime"]
-        except:
+        except IndexError:
             return("(unknown date)")
     date_object_utc = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=tz.tzutc())
     date_string_local = date_object_utc.astimezone(tz.tzlocal()).strftime("%-d %B %Y, %H:%M:%S")
