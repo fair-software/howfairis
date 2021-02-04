@@ -8,9 +8,7 @@ from docutils.utils import new_document
 from rstfmt.rst_extras import register
 from rstfmt.rstfmt import format_node, Formatters
 
-from .ReadmeFormat import ReadmeFormat
-
-_register_completed = False
+from .readme_format import ReadmeFormat
 
 
 @lru_cache(maxsize=None)

@@ -1,9 +1,9 @@
-from howfairis.Readme import Readme
-from howfairis.ReadmeFormat import ReadmeFormat
+from howfairis.readme import Readme
+from howfairis.readme_format import ReadmeFormat
 
 
 class TestRemoveCommentsFromRst:
-    def test_rstwithoutcomment_unchanged(self):
+    def test_withoutcomment_unchanged(self):
         text = '''
 Hello
 -----
@@ -16,7 +16,7 @@ Hello
 
         assert 'zenodo.org/badge/DOI/10.5281/zenodo.4017908' in readme.text
 
-    def test_rstwithcommenteachline_commentgone(self):
+    def test_withcommenteachline_commentgone(self):
         text = '''
 Hello
 -----
