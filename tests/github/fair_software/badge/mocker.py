@@ -1,6 +1,5 @@
 import requests_mock
 import pytest
-from howfairis import Repo
 
 
 @pytest.fixture
@@ -10,6 +9,7 @@ def mocker():
     with requests_mock.Mocker() as mocker:
         mocker.get("http://github.com/fair-software/badge")
         mocker.get("https://api.github.com/repos/fair-software/badge", json=dict(default_branch="master"))
+        mocker.get("https://raw.githubusercontent.com/fair-software/badge/master/.howfairis.yml", status_code=404)
         return mocker
 
 

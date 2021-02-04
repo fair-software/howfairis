@@ -1,7 +1,6 @@
 from tests.contracts.Repo import Contract
-import unittest
 import pytest
-from tests.github.fair_software.badge.mocks import mocker
+from tests.github.fair_software.badge.mocker import mocker
 from howfairis import Platform
 from howfairis import Repo
 
@@ -12,39 +11,35 @@ def mocked_repo(mocker):
         return Repo("https://github.com/fair-software/badge", config_file=".howfairis-custom-config.yml")
 
 
-class TestRepoWithConfig(Contract, unittest.TestCase):
+class TestRepoWithConfig(Contract):
 
-    @pytest.fixture(autouse=True)
-    def __inject_fixtures(self, mocked_repo):
-        self.mocked_repo = mocked_repo
+    def test_api(self, mocked_repo):
+        assert mocked_repo.api == "https://api.github.com/repos/fair-software/badge"
 
-    def test_api(self):
-        assert self.mocked_repo.api == "https://api.github.com/repos/fair-software/badge"
+    def test_branch(self, mocked_repo):
+        assert mocked_repo.branch is None
 
-    def test_branch(self):
-        assert self.mocked_repo.branch is None
+    def test_config_file(self, mocked_repo):
+        assert mocked_repo.config_file == ".howfairis-custom-config.yml"
 
-    def test_config_file(self):
-        assert self.mocked_repo.config_file == ".howfairis-custom-config.yml"
+    def test_default_branch(self, mocked_repo):
+        assert mocked_repo.default_branch == "master"
 
-    def test_default_branch(self):
-        assert self.mocked_repo.default_branch == "master"
+    def test_owner(self, mocked_repo):
+        assert mocked_repo.owner == "fair-software"
 
-    def test_owner(self):
-        assert self.mocked_repo.owner == "fair-software"
+    def test_path(self, mocked_repo):
+        assert mocked_repo.path == ""
 
-    def test_path(self):
-        assert self.mocked_repo.path == ""
+    def test_platform(self, mocked_repo):
+        assert mocked_repo.platform == Platform.GITHUB
 
-    def test_platform(self):
-        assert self.mocked_repo.platform == Platform.GITHUB
-
-    def test_raw_url_format_string(self):
-        assert self.mocked_repo.raw_url_format_string == "https://raw.githubusercontent.com/fair-software" + \
+    def test_raw_url_format_string(self, mocked_repo):
+        assert mocked_repo.raw_url_format_string == "https://raw.githubusercontent.com/fair-software" + \
                                                          "/badge/master/{0}"
 
-    def test_repo(self):
-        assert self.mocked_repo.repo == "badge"
+    def test_repo(self, mocked_repo):
+        assert mocked_repo.repo == "badge"
 
-    def test_url(self):
-        assert self.mocked_repo.url == "https://github.com/fair-software/badge"
+    def test_url(self, mocked_repo):
+        assert mocked_repo.url == "https://github.com/fair-software/badge"
