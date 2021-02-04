@@ -43,11 +43,18 @@ you should be able to call the executable, like so:
 
 Docker
 ---------------
+
 You can run howfairis Docker image using the command below.
 
 .. code:: shell
 
-    docker run --rm howfairis --help
+    docker pull fairsoftware/howfairis
+
+You can run howfairis Docker image using the command below.
+
+.. code:: shell
+
+    docker run --rm fairsoftware/howfairis --help
 
 See developer documentation to learn how to modify the Docker image.
 
