@@ -1,30 +1,70 @@
-``howfairis``
-=============
+howfairis
+=========
+
+|
+|
+|
 
 Python package to analyze a GitHub or GitLab repository's compliance with the
 fair-software.eu_ recommendations.
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
-   :target: https://doi.org/10.5281/zenodo.4017908
+Badges
+------
 
-.. image:: https://img.shields.io/pypi/v/howfairis.svg?colorB=blue
+====================================================== ==========================
+fair-software.nl recommendations
+====================================================== ==========================
+1/5 code repository                                    |github repo badge|
+2/5 license                                            |github license badge|
+3/5 community registry                                 |pypi badge|
+4/5 citation                                           |zenodo badge|
+5/5 checklist                                          
+overall                                                |fair-software badge|
+====================================================== ==========================
+
+.. |github repo badge| image:: https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue
+   :target: https://github.com/fair-software/howfairis
+
+.. |github license badge| image:: https://img.shields.io/github/license/fair-software/howfairis
+   :target: https://github.com/fair-software/howfairis
+
+.. |pypi badge| image:: https://img.shields.io/pypi/v/howfairis.svg?colorB=blue
    :target: https://pypi.python.org/pypi/howfairis/
 
-.. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
+.. |zenodo badge| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
+   :target: https://doi.org/10.5281/zenodo.4017908
+
+.. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
    :target: https://fair-software.eu
 
-.. image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
-   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
+====================================================== ==========================
+Code quality checks
+====================================================== ==========================
+Documentation                                          |ReadTheDocs Badge|
+====================================================== ==========================
 
-.. image:: https://github.com/fair-software/howfairis/workflows/livetests%20(triggered%20manually)/badge.svg
-   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22livetests+%28triggered+manually%29%22
-
-.. image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
-   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
-
-.. image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
+.. |ReadTheDocs Badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
+
+====================================================== ===========================
+GitHub Actions
+====================================================== ===========================
+Citation metadata consistency                          |workflow cffconvert badge|
+Unit tests                                             |workflow tests badge|
+Live tests (triggered manually)                        |workflow livetests badge|
+====================================================== ===========================
+
+.. |workflow tests badge| image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
+   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
+
+.. |workflow livetests badge| image:: https://github.com/fair-software/howfairis/workflows/livetests/badge.svg
+   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Alivetests
+
+.. |workflow cffconvert badge| image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
+   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
+
+
 
 Install
 -------
@@ -220,87 +260,11 @@ Contributing
 
 If you want to contribute to the development of howfairis, have a look at the `contribution guidelines <CONTRIBUTING.rst>`_.
 
-Development install
--------------------
-
-.. code:: shell
-
-    # Create a virtualenv, e.g. with
-    python3 -m virtualenv -p python3 venv3
-
-    # activate virtualenv
-    source venv3/bin/activate
-
-    # (from the project root directory)
-    # install howfairis as an editable package
-    pip install --editable .
-    pip install --editable .[dev]
-
-Afterwards check that the install directory was added to the ``PATH``
-environment variable. You should then be able to call the executable,
-like so:
-
-.. code:: shell
-
-    howfairis https://github.com/owner/repo      # Linux | Mac
-    howfairis.exe https://github.com/owner/repo  # Windows
-
-For maintainers
----------------
-
-Bumping the version across all files is done with bump2version, e.g.
-
-.. code:: shell
-
-    bump2version minor
-
-
-Making a release
-^^^^^^^^^^^^^^^^
-
-Make sure the version is correct.
-
-.. code:: shell
-
-    # In a new terminal, without venv
-    cd $(mktemp -d --tmpdir howfairis.XXXXXX)
-    git clone https://github.com/fair-software/howfairis.git .
-    python3 -m virtualenv -p python3 venv3
-    source venv3/bin/activate
-    pip install --no-cache-dir .
-    pip install --no-cache-dir .[publishing]
-    rm -rf howfairis.egg-info
-    rm -rf dist
-    python setup.py sdist
-
-    # upload to test pypi instance
-    twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-
-    # In a new terminal, without an activated venv or a venv3 directory
-    cd $(mktemp -d --tmpdir howfairis-test.XXXXXX)
-
-    # check you don't have an existing howfairis
-    which howfairis
-    python3 -m pip uninstall howfairis
-
-    # install in user space from test pypi instance:
-    python3 -m pip -v install --user --no-cache-dir \
-    --index-url https://test.pypi.org/simple/ \
-    --extra-index-url https://pypi.org/simple howfairis
-
-    # check that the package works as it should when installed from pypitest
-
-    # Back to the first terminal,
-    # FINAL STEP: upload to PyPI
-    twine upload dist/*
-
-Don't forget to also make a release on GitHub.
-
+If you're looking for developer documentation, go `here <README.dev.rst>`_.
 
 .. _fair-software.eu: https://fair-software.eu
 .. _voluptuous: https://pypi.org/project/voluptuous/
 .. _schema.py: https://github.com/fair-software/howfairis/blob/master/howfairis/schema.py
-
 
 Credits
 -------
