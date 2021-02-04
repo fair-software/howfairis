@@ -37,8 +37,9 @@ overall                                                |fair-software badge|
 .. |core infrastructures badge| image:: https://bestpractices.coreinfrastructure.org/projects/4630/badge
    :target: https://bestpractices.coreinfrastructure.org/projects/4630
 
-.. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
+.. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
    :target: https://fair-software.eu
+
 
 ====================================================== ==========================
 Code quality checks
