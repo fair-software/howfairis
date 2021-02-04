@@ -38,6 +38,7 @@ setup(
         "beautifulsoup4>=4",
         "click>=7",
         "colorama>=0",
+        "python-dateutil>=0",
         "ruamel.yaml>=0.16",
         "requests>=2",
         "voluptuous>=0.11"
