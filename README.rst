@@ -26,6 +26,10 @@ fair-software.eu_ recommendations.
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
+.. image:: https://img.shields.io/docker/build/fairsoftware/howfairis
+   :target: https://hub.docker.com/repository/docker/fairsoftware/howfairis
+   :alt: Docker Build Status
+
 Install
 -------
 
