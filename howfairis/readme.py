@@ -1,13 +1,12 @@
 import re
 from functools import lru_cache
 from typing import Optional
-
 from docutils.frontend import OptionParser
 from docutils.parsers.rst import Parser
 from docutils.utils import new_document
 from rstfmt.rst_extras import register
-from rstfmt.rstfmt import format_node, Formatters
-
+from rstfmt.rstfmt import Formatters
+from rstfmt.rstfmt import format_node
 from .readme_format import ReadmeFormat
 
 
