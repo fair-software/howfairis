@@ -19,8 +19,10 @@ Development install
     source venv3/bin/activate
 
     # (from the project root directory)
-    # install howfairis as an editable package with its development dependencies
-    pip install --editable .[dev]
+    # install howfairis as an editable package
+    pip install --no-cache-dir --editable .
+    # install development dependencies
+    pip install --no-cache-dir --editable .[dev]
 
 Afterwards check that the install directory was added to the ``PATH``
 environment variable. You should then be able to call the executable,
@@ -53,6 +55,7 @@ Make sure the version is correct.
     git clone https://github.com/fair-software/howfairis.git .
     python3 -m venv venv3
     source venv3/bin/activate
+    pip install --no-cache-dir .
     pip install --no-cache-dir .[publishing]
     rm -rf howfairis.egg-info
     rm -rf dist
