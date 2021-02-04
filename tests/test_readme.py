@@ -14,7 +14,7 @@ Hello
         readme = Readme('README.rst', text, ReadmeFormat.RESTRUCTUREDTEXT)
         readme.remove_comments()
 
-        assert readme.text == text
+        assert 'zenodo.org/badge/DOI/10.5281/zenodo.4017908' in readme.text
 
     def test_rstwithcommenteachline_commentgone(self):
         text = '''
@@ -27,9 +27,5 @@ Hello
         readme = Readme('README.rst', text, ReadmeFormat.RESTRUCTUREDTEXT)
         readme.remove_comments()
 
-        commentless_text = '''
-Hello
------
+        assert 'zenodo.org/badge/DOI/10.5281/zenodo.4017908' not in readme.text
 
-'''
-        assert readme.text == commentless_text

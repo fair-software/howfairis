@@ -1,20 +1,44 @@
 import re
+from functools import lru_cache
 from typing import Optional
 
-from docutils.core import publish_string
-from docutils.nodes import SkipNode
-from sphinx.application import Sphinx
-from sphinx.builders.dummy import DummyBuilder
-from sphinx.builders.text import TextBuilder
-from sphinxcontrib.builders.rst import RstBuilder
-from sphinxcontrib.writers.rst import RstWriter, RstTranslator
+from docutils.frontend import OptionParser
+from docutils.parsers.rst import Parser
+from docutils.utils import new_document
+from rstfmt.rst_extras import register
+from rstfmt.rstfmt import format_node, Formatters
 
 from .ReadmeFormat import ReadmeFormat
 
+_register_completed = False
+
+
+@lru_cache(maxsize=None)
+def _register_docutils():
+    register()
+
 
 def _remove_comments_from_rst(rst):
-    app = None
-    return publish_string(source=rst, writer=RstWriter(DummyBuilder(app)))
+    _register_docutils()
+    parser = Parser()
+    settings = OptionParser(
+        components=[Parser]
+    ).get_default_values()
+    doc = new_document("", settings=settings)
+    parser.parse(rst, doc)
+
+    # Formatter of rstfmt retains comment, temporary disable that
+    orig_comment = Formatters.comment
+
+    def comment(_node, _ctx):
+        return []
+
+    Formatters.comment = comment
+
+    commentless_rst = format_node(None, doc)
+
+    Formatters.comment = orig_comment
+    return commentless_rst
 
 
 def _remove_comments_from_md(md):
