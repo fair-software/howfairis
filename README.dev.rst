@@ -56,7 +56,7 @@ Make sure the version is correct.
     pip install --no-cache-dir .[publishing]
     rm -rf howfairis.egg-info
     rm -rf dist
-    python setup.py sdist
+    python setup.py sdist bdist_wheel
 
     # upload to test pypi instance
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
