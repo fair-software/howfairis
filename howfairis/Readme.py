@@ -30,10 +30,14 @@ def _remove_comments_from_rst(rst):
     # Formatter of rstfmt retains comment, temporary disable that
     orig_comment = Formatters.comment
 
-    def comment(_node, _ctx):
+    def swallow(_node, _ctx):
         return []
 
-    Formatters.comment = comment
+    Formatters.comment = swallow
+    # rstfmt does not understand system_message or figure
+    # supply formatters which return nothing
+    Formatters.system_message = swallow
+    Formatters.figure = swallow
 
     commentless_rst = format_node(None, doc)
 
