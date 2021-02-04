@@ -40,7 +40,8 @@ setup(
         "colorama>=0",
         "ruamel.yaml>=0.16",
         "requests>=2",
-        "voluptuous>=0.11"
+        "voluptuous>=0.11",
+        "docutils>=0.16",
     ],
     setup_requires=[
     ],

@@ -7,3 +7,4 @@ from enum import unique
 class ReadmeFormat(Enum):
     MARKDOWN = auto()
     RESTRUCTUREDTEXT = auto()
+    HTML = auto()
