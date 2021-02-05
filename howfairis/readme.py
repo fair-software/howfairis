@@ -20,18 +20,18 @@ class Readme:
         s = r"(?P<skip>^.*)" \
             "(?P<base>https://img.shields.io/badge/fair--software.eu)" \
             "-" \
-            "(?P<repository>(%E2%97%8F|%E2%97%8B))" \
-            "(?:%20%20)" \
-            "(?P<license>(%E2%97%8F|%E2%97%8B))" \
-            "(?:%20%20)" \
-            "(?P<registry>(%E2%97%8F|%E2%97%8B))" \
-            "(?:%20%20)" \
-            "(?P<citation>(%E2%97%8F|%E2%97%8B))" \
-            "(?:%20%20)" \
-            "(?P<checklist>(%E2%97%8F|%E2%97%8B))" \
+            "(?P<repository>(" + compliant + "|" + noncompliant + "))" \
+            "(?:" + separator + ")" \
+            "(?P<license>(" + compliant + "|" + noncompliant + "))" \
+            "(?:" + separator + ")" \
+            "(?P<registry>(" + compliant + "|" + noncompliant + "))" \
+            "(?:" + separator + ")" \
+            "(?P<citation>(" + compliant + "|" + noncompliant + "))" \
+            "(?:" + separator + ")" \
+            "(?P<checklist>(" + compliant + "|" + noncompliant + "))" \
             "-" \
             "(?P<color>red|orange|yellow|green)"
-        regex = re.compile(s, re.MULTILINE|re.DOTALL)
+        regex = re.compile(s, re.MULTILINE | re.DOTALL)
         matched = re.match(regex, self.text)
 
         if matched is None:
