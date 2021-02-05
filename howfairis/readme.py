@@ -17,22 +17,23 @@ class Readme:
 
     def get_compliance(self, compliant="%E2%97%8F", noncompliant="%E2%97%8B", separator="%20%20"):
 
-        regex = r"(?P<skip>.*)" \
-                "(?P<base>https://img.shields.io/badge/fair--software.eu)" + \
-                "-" + \
-                "(?P<repository>(" + compliant + "|" + noncompliant + "))" + \
-                "(?:" + separator + ")" + \
-                "(?P<license>(" + compliant + "|" + noncompliant + "))" + \
-                "(?:" + separator + ")" + \
-                "(?P<registry>(" + compliant + "|" + noncompliant + "))" + \
-                "(?:" + separator + ")" + \
-                "(?P<citation>(" + compliant + "|" + noncompliant + "))" + \
-                "(?:" + separator + ")" + \
-                "(?P<checklist>(" + compliant + "|" + noncompliant + "))" + \
-                "-" + \
-                "(?P<color>red|orange|yellow|green)"
-
+        s = r"(?P<skip>^.*)" \
+            "(?P<base>https://img.shields.io/badge/fair--software.eu)" \
+            "-" \
+            "(?P<repository>(%E2%97%8F|%E2%97%8B))" \
+            "(?:%20%20)" \
+            "(?P<license>(%E2%97%8F|%E2%97%8B))" \
+            "(?:%20%20)" \
+            "(?P<registry>(%E2%97%8F|%E2%97%8B))" \
+            "(?:%20%20)" \
+            "(?P<citation>(%E2%97%8F|%E2%97%8B))" \
+            "(?:%20%20)" \
+            "(?P<checklist>(%E2%97%8F|%E2%97%8B))" \
+            "-" \
+            "(?P<color>red|orange|yellow|green)"
+        regex = re.compile(s, re.MULTILINE|re.DOTALL)
         matched = re.match(regex, self.text)
+
         if matched is None:
             return None
 
