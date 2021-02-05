@@ -20,6 +20,10 @@ class LicenseMixin:
 
         r = False
 
+        if self.repo.platform == Platform.BITBUCKET:
+            # I haven't found a good way to determine the license on BitBucket yet
+            r = False
+
         if self.repo.platform == Platform.GITHUB:
             url = self.repo.api + "/license"
             try:

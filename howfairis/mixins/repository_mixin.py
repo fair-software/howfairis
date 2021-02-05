@@ -17,10 +17,14 @@ class RepositoryMixin:
 
     def has_open_repository(self):
 
-        if self.repo.platform == Platform.GITHUB:
+        if self.repo.platform == Platform.BITBUCKET:
+            url = self.repo.api
+        elif self.repo.platform == Platform.GITHUB:
             url = self.repo.api
         elif self.repo.platform == Platform.GITLAB:
             url = self.repo.api + "/repository/tree"
+        else:
+            url = ""
 
         try:
             response = requests.get(url)
