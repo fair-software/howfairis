@@ -3,6 +3,7 @@ from .checker import Checker
 from .compliance import Compliance
 from .config import Config
 from .repo import Repo
+from .vcs_platform import Platform
 
 
 __author__ = "https://github.com/jspaaks"
@@ -13,5 +14,6 @@ __all__ = [
     "Checker",
     "Compliance",
     "Config",
+    "Platform",
     "Repo"
 ]

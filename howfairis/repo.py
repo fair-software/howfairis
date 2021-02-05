@@ -1,6 +1,6 @@
 import re
 import requests
-from .vcs_platform import Platform
+from howfairis.vcs_platform import Platform
 
 
 class Repo:
@@ -34,25 +34,36 @@ class Repo:
     @staticmethod
     def _check_assertions(url):
         assert url.startswith("https://"), "url should start with https://"
-        assert True in [url.startswith("https://github.com"),
-                        url.startswith("https://gitlab.com")], "Repository should be on github.com or on gitlab.com."
-        assert re.search("^https://git(hub|lab).com/[^/]+/[^/]+", url), "url is not a repository"
+        assert True in [url.startswith("https://bitbucket.org"),
+                        url.startswith("https://github.com"),
+                        url.startswith("https://gitlab.com")], "Repository should be on bitbucket.org, " \
+                                                               "github.com, or gitlab.com."
+        assert re.search(r"^https://(github\.com|gitlab\.com|bitbucket\.org)/[^/]+/[^/]+", url), \
+            "url is not a repository"
 
     def _derive_api(self):
+        if self.platform == Platform.BITBUCKET:
+            return "https://api.bitbucket.org/2.0/repositories/{0}/{1}".format(self.owner, self.repo)
         if self.platform == Platform.GITHUB:
-            api = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
-        elif self.platform == Platform.GITLAB:
-            api = "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
-        return api
+            return "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
+        if self.platform == Platform.GITLAB:
+            return "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
+        return None
 
     def _derive_owner_and_repo(self):
+        if self.platform == Platform.BITBUCKET:
+            try:
+                owner, repo = self.url.replace("https://bitbucket.org", "").strip("/").split("/")[:2]
+            except ValueError as e:
+                raise ValueError("Bad value for input argument URL.") from e
+
         if self.platform == Platform.GITHUB:
             try:
                 owner, repo = self.url.replace("https://github.com", "").strip("/").split("/")[:2]
             except ValueError as e:
                 raise ValueError("Bad value for input argument URL.") from e
 
-        elif self.platform == Platform.GITLAB:
+        if self.platform == Platform.GITLAB:
             try:
                 owner, repo = self.url.replace("https://gitlab.com", "").strip("/").split("/")[:2]
             except ValueError as e:
@@ -64,6 +75,9 @@ class Repo:
         return owner, repo
 
     def _derive_platform(self):
+        if self.url.startswith("https://bitbucket.org"):
+            return Platform.BITBUCKET
+
         if self.url.startswith("https://github.com"):
             return Platform.GITHUB
 
@@ -79,19 +93,22 @@ class Repo:
         else:
             branch = self.default_branch
 
+        if self.platform == Platform.BITBUCKET:
+            return "https://bitbucket.org/{0}/{1}/raw/{2}{3}" \
+                   .format(self.owner, self.repo, branch, self.path) + "/{0}"
+
         if self.platform == Platform.GITHUB:
-            raw_url_format_string = "https://raw.githubusercontent.com/{0}/{1}/{2}{3}" \
-                                    .format(self.owner, self.repo, branch, self.path) + "/{0}"
+            return "https://raw.githubusercontent.com/{0}/{1}/{2}{3}" \
+                   .format(self.owner, self.repo, branch, self.path) + "/{0}"
 
-        elif self.platform == Platform.GITLAB:
-            raw_url_format_string = "https://gitlab.com/{0}/{1}/-/raw/{2}{3}" \
-                                    .format(self.owner, self.repo, branch, self.path) + "/{0}"
+        if self.platform == Platform.GITLAB:
+            return "https://gitlab.com/{0}/{1}/-/raw/{2}{3}" \
+                   .format(self.owner, self.repo, branch, self.path) + "/{0}"
 
-        return raw_url_format_string
+        return None
 
     def _get_default_branch(self):
-        fallback_branch = 'main'
-        # GitHub API and GitLab API work the same
+        fallback_branch = "main"
         response = requests.get(self.api)
 
         # If the request was successful, the next line will not raise any Exception
@@ -99,4 +116,9 @@ class Repo:
             response.raise_for_status()
         except requests.HTTPError:
             return fallback_branch
-        return response.json().get("default_branch", fallback_branch)
+
+        if self.platform == Platform.BITBUCKET:
+            return response.json().get("mainbranch").get("name")
+
+        if self.platform in [Platform.GITLAB, Platform.GITHUB]:
+            return response.json().get("default_branch", fallback_branch)
