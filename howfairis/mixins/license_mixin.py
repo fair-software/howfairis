@@ -6,9 +6,9 @@ from howfairis.vcs_platform import Platform
 class LicenseMixin:
 
     def check_license(self):
-        force_state = self.config.merged.get("force_license")
+        force_state = self.config.force_license
         if force_state not in [True, False, None]:
-            raise ValueError("Unexpected configuration value for force.license.")
+            raise ValueError("Unexpected configuration value for force_license.")
         if isinstance(force_state, bool):
             print("(2/5) license: force {0}".format(force_state))
             return force_state
