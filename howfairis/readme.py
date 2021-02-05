@@ -17,7 +17,8 @@ class Readme:
 
     def get_compliance(self, compliant="%E2%97%8F", noncompliant="%E2%97%8B", separator="%20%20"):
 
-        regex = r"(?P<base>https://img.shields.io/badge/fair--software.eu)" + \
+        regex = r"(?P<skip>.*)" \
+                "(?P<base>https://img.shields.io/badge/fair--software.eu)" + \
                 "-" + \
                 "(?P<repository>(" + compliant + "|" + noncompliant + "))" + \
                 "(?:" + separator + ")" + \
