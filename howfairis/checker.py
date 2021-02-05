@@ -5,7 +5,6 @@ from colorama import Fore
 from colorama import Style
 from howfairis.compliance import Compliance
 from howfairis.config import Config
-from howfairis.repo import Repo
 from howfairis.mixins import ChecklistMixin
 from howfairis.mixins import CitationMixin
 from howfairis.mixins import LicenseMixin
@@ -13,6 +12,7 @@ from howfairis.mixins import RegistryMixin
 from howfairis.mixins import RepositoryMixin
 from howfairis.readme import Readme
 from howfairis.readme_format import ReadmeFormat
+from howfairis.repo import Repo
 
 
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
