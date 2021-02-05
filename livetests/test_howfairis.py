@@ -27,12 +27,13 @@ def test_heavy_handed_livetest_rsd():
             urls.extend(values)
 
     random.shuffle(urls)
-    for url in urls[:25]:
+    for url in urls[:5]:
         print(url)
         repo = Repo(url)
         config = Config(repo)
-        checker = Checker(config, repo).check_five_recommendations()
-        for c in checker.compliance:
+        checker = Checker(config, repo)
+        compliance = checker.check_five_recommendations()
+        for c in compliance:
             assert isinstance(c, bool)
 
         # sleep to avoid rate limiting of GitHub API
