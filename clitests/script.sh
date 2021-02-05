@@ -44,4 +44,4 @@ sleep $DURATION
 howfairis https://gitlab.com/jspaaks/badge-test -p force/uu1uu
 sleep $DURATION
 howfairis https://gitlab.com/jspaaks/badge-test -p include_comments
-sleep $DURATION
+

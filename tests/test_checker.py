@@ -1,8 +1,9 @@
 import pytest
 from requests_mock import Mocker
-
-from howfairis import Repo, Config, Checker
-from howfairis.compliance import Compliance
+from howfairis import Checker
+from howfairis import Compliance
+from howfairis import Config
+from howfairis import Repo
 from howfairis.readme import Readme
 
 
@@ -34,7 +35,7 @@ def test_checker_badghurl_emptyreadme(badghurl_checker: Checker):
 
 
 def test_checker_check_five_recommendations(badghurl_checker: Checker):
-    compliance = badghurl_checker.check_five_recommendations().compliance
+    compliance = badghurl_checker.check_five_recommendations()
 
     expected = Compliance(repository=False, license_=False, registry=False, citation=False, checklist=False)
     assert compliance == expected
