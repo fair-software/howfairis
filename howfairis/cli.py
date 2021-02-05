@@ -81,6 +81,7 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
 
     checker = Checker(config, repo)
     current_compliance = checker.check_five_recommendations()
+    badge = current_compliance.calc_badge(checker.readme.fmt)
 
     print("\nCalculated compliance: " + " ".join(current_compliance.as_unicode()) + "\n")
 
@@ -92,7 +93,7 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
     if previous_compliance is None:
         print("It seems you have not yet added the fair-software.eu badge to " +
               "your {0}. You can do so by pasting the following snippet:\n\n{1}"
-              .format(checker.readme.filename, current_compliance.badge))
+              .format(checker.readme.filename, badge))
         sys.exit(1)
 
     if current_compliance == previous_compliance:
@@ -103,13 +104,13 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
         print("Congratulations! The compliance of your repository exceeds " +
               "the current fair-software.eu badge in your " +
               "{0}. You can replace it with the following snippet:\n\n{1}"
-              .format(checker.readme.filename, current_compliance.badge))
+              .format(checker.readme.filename, badge))
         sys.exit(1)
 
     print("The compliance of your repository is different from the current " +
           "fair-software.eu badge in your " +
           "{0}. Please replace it with the following snippet:\n\n{1}"
-          .format(checker.readme.filename, current_compliance.badge))
+          .format(checker.readme.filename, badge))
 
     sys.exit(1)
 

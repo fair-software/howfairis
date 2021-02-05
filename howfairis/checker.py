@@ -105,4 +105,4 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                           license_=self.check_license(),
                           registry=self.check_registry(),
                           citation=self.check_citation(),
-                          checklist=self.check_checklist()).calc_badge(self.readme)
+                          checklist=self.check_checklist())

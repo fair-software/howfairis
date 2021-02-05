@@ -19,7 +19,6 @@ class Compliance:
     def __init__(self, repository=False, license_=False, registry=False, citation=False, checklist=False,
                  compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
         self._index = 0
-        self.badge = None
         self.checklist = checklist
         self.citation = citation
         self.compliant_symbol = compliant_symbol
@@ -73,7 +72,7 @@ class Compliance:
                 compliance_unicode[i] = self.noncompliant_symbol
         return compliance_unicode
 
-    def calc_badge(self, readme):
+    def calc_badge(self, fmt):
         score = self.count(True)
 
         if score in [0, 1]:
@@ -86,12 +85,12 @@ class Compliance:
             color_string = "green"
 
         badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.urlencode(), color_string)
-        if readme.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
-            self.badge = ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
-        if readme.fmt == ReadmeFormat.MARKDOWN:
-            self.badge = "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
+        if fmt == ReadmeFormat.RESTRUCTUREDTEXT:
+            return ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
+        if fmt == ReadmeFormat.MARKDOWN:
+            return "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
 
-        return self
+        return None
 
     def count(self, value):
         return self._state.count(value)
