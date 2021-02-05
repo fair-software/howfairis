@@ -122,3 +122,5 @@ class Repo:
 
         if self.platform in [Platform.GITLAB, Platform.GITHUB]:
             return response.json().get("default_branch", fallback_branch)
+
+        return None
