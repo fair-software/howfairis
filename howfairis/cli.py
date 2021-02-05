@@ -6,7 +6,6 @@ from howfairis import Checker
 from howfairis import Config
 from howfairis import Repo
 from howfairis import __version__
-from howfairis.compliance import Compliance
 
 
 # pylint: disable=too-many-arguments
@@ -81,47 +80,38 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
     config = Config(repo, config_file, ignore_remote_config)
 
     checker = Checker(config, repo)
-    checker.check_five_recommendations()
+    current_compliance = checker.check_five_recommendations()
 
-    print("\nCalculated compliance: " + " ".join(checker.compliance.as_unicode()) + "\n")
+    print("\nCalculated compliance: " + " ".join(current_compliance.as_unicode()) + "\n")
 
     if checker.readme.text is None:
         sys.exit(1)
 
-    readme_badge_found, readme_badge_compliance = get_fair_software_badge(checker.readme.text)
+    previous_compliance = checker.readme.get_compliance()
 
-    if not readme_badge_found:
+    if previous_compliance is None:
         print("It seems you have not yet added the fair-software.eu badge to " +
               "your {0}. You can do so by pasting the following snippet:\n\n{1}"
-              .format(checker.readme.filename, checker.badge))
+              .format(checker.readme.filename, current_compliance.badge))
         sys.exit(1)
 
-    if checker.compliance == readme_badge_compliance:
+    if current_compliance == previous_compliance:
         print("Expected badge is equal to the actual badge. It's all good.\n")
         sys.exit(0)
 
-    if checker.compliance > readme_badge_compliance:
+    if current_compliance > previous_compliance:
         print("Congratulations! The compliance of your repository exceeds " +
               "the current fair-software.eu badge in your " +
               "{0}. You can replace it with the following snippet:\n\n{1}"
-              .format(checker.readme.filename, checker.badge))
+              .format(checker.readme.filename, current_compliance.badge))
         sys.exit(1)
 
     print("The compliance of your repository is different from the current " +
           "fair-software.eu badge in your " +
           "{0}. Please replace it with the following snippet:\n\n{1}"
-          .format(checker.readme.filename, checker.badge))
+          .format(checker.readme.filename, current_compliance.badge))
 
     sys.exit(1)
-
-
-def get_fair_software_badge(text):
-    url = "https://img.shields.io/badge/fair--software.eu"
-    url_location = text.find(url)
-    if url_location < 0:
-        return(False, Compliance())
-    start_id = url_location+len(url)+1
-    return(True, Compliance.urldecode(text[start_id:start_id+69]))
 
 
 if __name__ == "__main__":
