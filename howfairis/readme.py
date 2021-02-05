@@ -1,6 +1,6 @@
 from typing import Optional
 import re
-from howfairis import Compliance
+from howfairis.compliance import Compliance
 
 
 class Readme:

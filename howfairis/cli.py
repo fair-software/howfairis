@@ -2,10 +2,10 @@ import os
 import sys
 import click
 from colorama import init as init_terminal_colors
-from howfairis import Checker
-from howfairis import Config
-from howfairis import Repo
-from howfairis import __version__
+from howfairis.checker import Checker
+from howfairis.config import Config
+from howfairis.repo import Repo
+from howfairis.__version__ import __version__
 
 
 # pylint: disable=too-many-arguments

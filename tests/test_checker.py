@@ -1,8 +1,9 @@
 import pytest
 from requests_mock import Mocker
-
-from howfairis import Repo, Config, Checker
+from howfairis import Checker
 from howfairis import Compliance
+from howfairis import Config
+from howfairis import Repo
 from howfairis.readme import Readme
 
 

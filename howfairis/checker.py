@@ -3,9 +3,9 @@ import re
 import requests
 from colorama import Fore
 from colorama import Style
-from howfairis import Compliance
-from howfairis import Config
-from howfairis import Repo
+from howfairis.compliance import Compliance
+from howfairis.config import Config
+from howfairis.repo import Repo
 from howfairis.mixins import ChecklistMixin
 from howfairis.mixins import CitationMixin
 from howfairis.mixins import LicenseMixin
