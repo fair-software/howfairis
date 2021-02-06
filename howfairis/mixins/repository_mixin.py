@@ -23,6 +23,8 @@ class RepositoryMixin:
             url = self.repo.api
         elif self.repo.platform == Platform.GITLAB:
             url = self.repo.api + "/repository/tree"
+        elif self.repo.platform == Platform.HEPTAPOD:
+            url = self.repo.api + "/repository/tree"
         else:
             url = ""
 

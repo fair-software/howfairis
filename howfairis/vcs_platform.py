@@ -8,3 +8,4 @@ class Platform(Enum):
     BITBUCKET = auto()
     GITHUB = auto()
     GITLAB = auto()
+    HEPTAPOD = auto()
