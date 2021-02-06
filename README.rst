@@ -38,14 +38,18 @@ overall                                                |fair-software badge|
    :target: https://fair-software.eu
 
 ====================================================== ==========================
-Code quality checks
+Other best practices
 ====================================================== ==========================
 Documentation                                          |ReadTheDocs Badge|
+Supported Python versions                              |python versions badge| 
 ====================================================== ==========================
 
 .. |ReadTheDocs Badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
+   
+.. |python versions badge| image:: https://img.shields.io/pypi/pyversions/howfairis.svg
+   :target: https://pypi.python.org/pypi/howfairis   
 
 ====================================================== ===========================
 GitHub Actions
