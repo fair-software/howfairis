@@ -41,15 +41,25 @@ overall                                                |fair-software badge|
    :target: https://fair-software.eu
 
 
-====================================================== ==========================
+====================================================== ============================
 Code quality checks
-====================================================== ==========================
+====================================================== ============================
 Documentation                                          |ReadTheDocs Badge|
-====================================================== ==========================
+Code quality                                           |Sonarcloud quality badge|
+Code coverage of unit tests                            |Sonarcloud coverage badge|
+====================================================== ============================
 
 .. |ReadTheDocs Badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
+
+.. |Sonarcloud quality badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=alert_status
+   :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
+   :alt: Quality Gate Status
+
+.. |Sonarcloud coverage badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=coverage
+   :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
+   :alt: Coverage
 
 ====================================================== ===========================
 GitHub Actions
@@ -67,8 +77,6 @@ Live tests (triggered manually)                        |workflow livetests badge
 
 .. |workflow cffconvert badge| image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
-
-
 
 Install
 -------
