@@ -2,7 +2,7 @@ import pytest
 from howfairis import Platform
 from howfairis import Repo
 from tests.contracts.repo import Contract
-from . import mocker
+from .mocker import mocker
 
 
 @pytest.fixture

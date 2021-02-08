@@ -2,7 +2,7 @@ import pytest
 from howfairis import Config
 from howfairis import Repo
 from tests.contracts.config import Contract
-from . import mocker
+from .mocker import mocker
 
 
 @pytest.fixture
@@ -14,12 +14,20 @@ def mocked_config(mocker):
 
 class TestConfigNoArgs(Contract):
 
-    def test_default(self, mocked_config):
-        assert mocked_config.default == dict(force_repository=None, force_license=None, force_registry=None,
-                                             force_citation=None, force_checklist=None, include_comments=False)
+    def test_force_checklist(self, mocked_config):
+        assert mocked_config.force_checklist is None
 
-    def test_repo(self, mocked_config):
-        assert mocked_config.repo == dict()
+    def test_force_citation(self, mocked_config):
+        assert mocked_config.force_citation is None
 
-    def test_user(self, mocked_config):
-        assert mocked_config.user == dict()
+    def test_force_license(self, mocked_config):
+        assert mocked_config.force_license is None
+
+    def test_force_registry(self, mocked_config):
+        assert mocked_config.force_registry is None
+
+    def test_force_repository(self, mocked_config):
+        assert mocked_config.force_repository is None
+
+    def test_include_comments(self, mocked_config):
+        assert mocked_config.include_comments is False
