@@ -90,8 +90,7 @@ you should be able to call the executable, like so:
 
 .. code:: shell
 
-    howfairis https://github.com/owner/repo      # Linux | Mac
-    howfairis.exe https://github.com/owner/repo  # Windows
+    howfairis https://github.com/<owner>/<repo>
 
 Expected output
 ---------------
