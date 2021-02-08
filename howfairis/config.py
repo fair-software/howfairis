@@ -101,7 +101,6 @@ class Config:
                 "User configuration file should follow the schema.") from e
         return user_config
 
-    @property
     def _merged(self):
         """Configuration dictionary based on merger of
 
