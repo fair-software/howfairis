@@ -24,7 +24,11 @@ def _remove_comments_from_rst(rst):
             pass
 
         def visit_comment(self, node):
-            lines_with_comments.add(node.line - 1)
+            stop_line = node.line
+            nr_lines = len(node.rawsource.splitlines())
+            start_line = stop_line - nr_lines
+            lines = set(range(start_line, stop_line))
+            lines_with_comments.update(lines)
 
     visitor = CommentLineVisitor(doc)
     doc.walkabout(visitor)
