@@ -17,9 +17,10 @@ class Config:
     """
 
     def __init__(self, repo: Repo, config_filename=None, ignore_remote_config=False):
-        self.default = Config._load_default_config()
-        self.repo = Config._load_repo_config(repo, ignore_remote_config)
-        self.user = Config._load_user_config(config_filename)
+        self._default = Config._load_default_config()
+        self._repo = Config._load_repo_config(repo, ignore_remote_config)
+        self._user = Config._load_user_config(config_filename)
+        self._merged = self._merge_configurations()
 
     @staticmethod
     def _load_default_config():
@@ -100,8 +101,7 @@ class Config:
                 "User configuration file should follow the schema.") from e
         return user_config
 
-    @property
-    def merged(self):
+    def _merge_configurations(self):
         """Configuration dictionary based on merger of
 
             * default config from this package
@@ -109,7 +109,31 @@ class Config:
             * config from local user
         """
         m = dict()
-        m.update(self.default)
-        m.update(self.repo)
-        m.update(self.user)
+        m.update(self._default)
+        m.update(self._repo)
+        m.update(self._user)
         return m
+
+    @property
+    def force_repository(self):
+        return self._merged.get("force_repository")
+
+    @property
+    def force_license(self):
+        return self._merged.get("force_license")
+
+    @property
+    def force_registry(self):
+        return self._merged.get("force_registry")
+
+    @property
+    def force_citation(self):
+        return self._merged.get("force_citation")
+
+    @property
+    def force_checklist(self):
+        return self._merged.get("force_checklist")
+
+    @property
+    def include_comments(self):
+        return self._merged.get("include_comments")

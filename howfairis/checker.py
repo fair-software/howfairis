@@ -78,7 +78,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             else:
                 readme_fmt = None
 
-            if self.config.merged.get("include_comments") is True:
+            if self.config.include_comments is True:
                 text = response.text
             else:
                 text = remove_comments(response.text)
