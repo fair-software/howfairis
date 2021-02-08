@@ -42,7 +42,6 @@ setup(
         "requests>=2",
         "voluptuous>=0.11",
         "docutils>=0.16",
-        "rstfmt>=0.0.7",
     ],
     setup_requires=[
     ],
