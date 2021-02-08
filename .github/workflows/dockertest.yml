@@ -1,0 +1,18 @@
+name: metadata consistency
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  docker:
+    name: "build"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Check out a copy of the repository
+
+      - name: Build image
+        run: docker build . --file Dockerfile
+
