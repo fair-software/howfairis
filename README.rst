@@ -18,7 +18,7 @@ fair-software.nl recommendations
 2/5 license                                            |github license badge|
 3/5 community registry                                 |pypi badge|
 4/5 citation                                           |zenodo badge|
-5/5 checklist
+5/5 checklist                                          |core infrastructures badge|
 overall                                                |fair-software badge|
 ====================================================== ==========================
 
@@ -33,9 +33,13 @@ overall                                                |fair-software badge|
 
 .. |zenodo badge| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
    :target: https://doi.org/10.5281/zenodo.4017908
+   
+.. |core infrastructures badge| image:: https://bestpractices.coreinfrastructure.org/projects/4630/badge
+   :target: https://bestpractices.coreinfrastructure.org/projects/4630
 
-.. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
+.. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
    :target: https://fair-software.eu
+
 
 ====================================================== ============================
 Code quality checks
