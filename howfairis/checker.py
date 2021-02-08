@@ -39,8 +39,6 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         self.config = config
         self.readme = None
         self.repo = repo
-        self.badge = None
-        self.badge_url = None
 
         self._get_readme()
 
@@ -94,44 +92,17 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     @staticmethod
     def _print_state(check_name="", state=None, indent=6):
         if state is True:
-            print(" " * indent + Style.BRIGHT + Fore.GREEN +
-                  "\u2713 " + Style.RESET_ALL + check_name)
+            print(" " * indent + Style.BRIGHT + Fore.GREEN + "\u2713 " + Style.RESET_ALL + check_name)
         elif state is False:
-            print(" " * indent + Style.BRIGHT + Fore.RED +
-                  "\u00D7 " + Style.RESET_ALL + check_name)
-
-    def _calc_badge(self):
-        score = self.compliance.count(True)
-
-        if score in [0, 1]:
-            color_string = "red"
-        elif score in [2, 3]:
-            color_string = "orange"
-        elif score in [4]:
-            color_string = "yellow"
-        elif score == 5:
-            color_string = "green"
-
-        self.badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.compliance.urlencode(),
-                                                                                         color_string)
-        if self.readme.fmt == ReadmeFormat.RESTRUCTUREDTEXT:
-            self.badge = ".. image:: {0}\n   :target: {1}".format(
-                self.badge_url, "https://fair-software.eu")
-        if self.readme.fmt == ReadmeFormat.MARKDOWN:
-            self.badge = "[![fair-software.eu]({0})]({1})".format(
-                self.badge_url, "https://fair-software.eu")
-
-        return self
+            print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
 
     def check_five_recommendations(self):
         """Check the repo against the five FAIR software recommendations
 
         After being called the :py:attr:`.Checker.compliance` property will be filled the the result of the check.
         """
-        self.compliance = Compliance(repository=self.check_repository(),
-                                     license_=self.check_license(),
-                                     registry=self.check_registry(),
-                                     citation=self.check_citation(),
-                                     checklist=self.check_checklist())
-        self._calc_badge()
-        return self
+        return Compliance(repository=self.check_repository(),
+                          license_=self.check_license(),
+                          registry=self.check_registry(),
+                          citation=self.check_citation(),
+                          checklist=self.check_checklist())

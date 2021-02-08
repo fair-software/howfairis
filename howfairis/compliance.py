@@ -1,6 +1,5 @@
-import re
 from urllib.parse import quote
-import requests
+from howfairis.readme_format import ReadmeFormat
 
 
 # pylint: disable=too-many-arguments
@@ -17,16 +16,31 @@ class Compliance:
         noncompliant_symbol: Unicode symbol used in badge when non-compliant
     """
 
-    def __init__(self, repository=None, license_=None, registry=None, citation=None, checklist=None,
+    def __init__(self, repository=False, license_=False, registry=False, citation=False, checklist=False,
                  compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
         self._index = 0
-        self.repository = repository
-        self.license = license_
-        self.registry = registry
-        self.citation = citation
         self.checklist = checklist
+        self.citation = citation
         self.compliant_symbol = compliant_symbol
+        self.license = license_
         self.noncompliant_symbol = noncompliant_symbol
+        self.registry = registry
+        self.repository = repository
+
+    def __eq__(self, other):
+        return self.count(True) == other.count(True)
+
+    def __ge__(self, other):
+        return self.count(True) >= other.count(True)
+
+    def __gt__(self, other):
+        return self.count(True) > other.count(True)
+
+    def __le__(self, other):
+        return self.count(True) <= other.count(True)
+
+    def __ne__(self, other):
+        return self.count(True) != other.count(True)
 
     def __iter__(self):
         return self
@@ -58,37 +72,28 @@ class Compliance:
                 compliance_unicode[i] = self.noncompliant_symbol
         return compliance_unicode
 
+    def calc_badge(self, fmt):
+        score = self.count(True)
+
+        if score in [0, 1]:
+            color_string = "red"
+        elif score in [2, 3]:
+            color_string = "orange"
+        elif score in [4]:
+            color_string = "yellow"
+        elif score == 5:
+            color_string = "green"
+
+        badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.urlencode(), color_string)
+        if fmt == ReadmeFormat.RESTRUCTUREDTEXT:
+            return ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
+        if fmt == ReadmeFormat.MARKDOWN:
+            return "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
+
+        return None
+
     def count(self, value):
         return self._state.count(value)
 
-    def urlencode(self):
-        return "%20%20".join([quote(symbol) for symbol in self.as_unicode()])
-
-    @classmethod
-    def urldecode(cls, string,
-                  compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
-        compliance_symbols = re.sub(" ", "", requests.utils.unquote(string))
-        if len(compliance_symbols) == 5:
-            return cls(repository=(compliance_symbols[0] == compliant_symbol),
-                       license_=(compliance_symbols[1] == compliant_symbol),
-                       registry=(compliance_symbols[2] == compliant_symbol),
-                       citation=(compliance_symbols[3] == compliant_symbol),
-                       checklist=(compliance_symbols[4] == compliant_symbol),
-                       compliant_symbol=compliant_symbol,
-                       noncompliant_symbol=noncompliant_symbol
-                       )
-        return cls(compliant_symbol=compliant_symbol,
-                   noncompliant_symbol=noncompliant_symbol)
-
-    def __eq__(self, other):
-        return \
-            self.repository == other.repository and \
-            self.license == other.license and \
-            self.registry == other.registry and \
-            self.citation == other.citation and \
-            self.checklist == other.checklist and \
-            self.compliant_symbol == other.compliant_symbol and \
-            self.noncompliant_symbol == other.noncompliant_symbol
-
-    def __gt__(self, other):
-        return self.count(True) > other.count(True)
+    def urlencode(self, separator="%20%20"):
+        return separator.join([quote(symbol) for symbol in self.as_unicode()])
