@@ -1,5 +1,6 @@
 import re
 from typing import Optional
+from docutils.frontend import OptionParser
 from docutils.nodes import GenericNodeVisitor
 from docutils.parsers.rst import Parser
 from docutils.utils import new_document
@@ -8,9 +9,12 @@ from .readme_format import ReadmeFormat
 
 def _remove_comments_from_rst(rst):
     parser = Parser()
-    doc = new_document("")
+    settings = OptionParser(
+        components=[Parser]
+    ).get_default_values()
+    doc = new_document("", settings=settings)
     parser.parse(rst, doc)
-    commented_lines = set()
+    lines_with_comments = set()
 
     class CommentLineVisitor(GenericNodeVisitor):
         def default_visit(self, node):
@@ -20,16 +24,16 @@ def _remove_comments_from_rst(rst):
             pass
 
         def visit_comment(self, node):
-            commented_lines.add(node.line - 1)
+            lines_with_comments.add(node.line - 1)
 
     visitor = CommentLineVisitor(doc)
     doc.walkabout(visitor)
 
-    if not commented_lines:
+    if not lines_with_comments:
         # No comments found, return as is
         return rst
     # Remove lines which are comments
-    return ''.join([l for i, l in enumerate(rst.splitlines(keepends=True)) if i not in commented_lines])
+    return ''.join([l for i, l in enumerate(rst.splitlines(keepends=True)) if i not in lines_with_comments])
 
 
 def _remove_comments_from_md(md):
