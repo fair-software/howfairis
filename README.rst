@@ -102,9 +102,6 @@ You can run howfairis Docker image using the command below.
 
 See developer documentation to learn how to modify the Docker image.
 
-docker build -t fairsoftware/howfairis:0.12.0 .
-docker push fairsoftware/howfairis:0.12.0
-
 Expected output
 ---------------
 

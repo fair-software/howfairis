@@ -33,6 +33,14 @@ like so:
     howfairis https://github.com/owner/repo      # Linux | Mac
     howfairis.exe https://github.com/owner/repo  # Windows
 
+Docker
+---------------
+To build the image run:
+docker build -t fairsoftware/howfairis:VERSION .
+
+To push the image to DockerHub run:
+docker push fairsoftware/howfairis:VERSION
+
 For maintainers
 ---------------
 
