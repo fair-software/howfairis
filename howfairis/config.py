@@ -20,6 +20,7 @@ class Config:
         self._default = Config._load_default_config()
         self._repo = Config._load_repo_config(repo, ignore_remote_config)
         self._user = Config._load_user_config(config_filename)
+        self._merged = self._merge_configurations()
 
     @staticmethod
     def _load_default_config():
@@ -100,8 +101,7 @@ class Config:
                 "User configuration file should follow the schema.") from e
         return user_config
 
-    @property
-    def _merged(self):
+    def _merge_configurations(self):
         """Configuration dictionary based on merger of
 
             * default config from this package

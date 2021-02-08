@@ -38,6 +38,9 @@ class RegistryMixin:
     def has_conda_badge(self):
         regexes = [r"https://anaconda\.org/.*/.*/badges/downloads\.svg",
                    r"https://anaconda\.org/.*/.*/badges/installer/conda\.svg",
+                   r"https://anaconda\.org/.*/.*/badges/latest_release_date\.svg",
+                   r"https://anaconda\.org/.*/.*/badges/latest_release_relative_date\.svg",
+                   r"https://anaconda\.org/.*/.*/badges/platforms\.svg",
                    r"https://anaconda\.org/.*/.*/badges/version\.svg",
                    r"https://img\.shields\.io/conda/.*"]
         return self._eval_regexes(regexes)
