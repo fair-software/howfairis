@@ -1,45 +1,35 @@
 import re
-from functools import lru_cache
 from typing import Optional
-from docutils.frontend import OptionParser
+from docutils.nodes import GenericNodeVisitor
 from docutils.parsers.rst import Parser
 from docutils.utils import new_document
-from rstfmt.rst_extras import register
-from rstfmt.rstfmt import Formatters
-from rstfmt.rstfmt import format_node
 from .readme_format import ReadmeFormat
 
 
-@lru_cache(maxsize=None)
-def _register_docutils():
-    register()
-
-
 def _remove_comments_from_rst(rst):
-    _register_docutils()
     parser = Parser()
-    settings = OptionParser(
-        components=[Parser]
-    ).get_default_values()
-    doc = new_document("", settings=settings)
+    doc = new_document("")
     parser.parse(rst, doc)
+    commented_lines = set()
 
-    # Formatter of rstfmt retains comment, temporary disable that
-    orig_comment = Formatters.comment
+    class CommentLineVisitor(GenericNodeVisitor):
+        def default_visit(self, node):
+            pass
 
-    def swallow(_node, _ctx):
-        return []
+        def default_departure(self, node):
+            pass
 
-    Formatters.comment = swallow
-    # rstfmt does not understand system_message or figure
-    # supply formatters which return nothing
-    Formatters.system_message = swallow
-    Formatters.figure = swallow
+        def visit_comment(self, node):
+            commented_lines.add(node.line - 1)
 
-    commentless_rst = format_node(None, doc)
+    visitor = CommentLineVisitor(doc)
+    doc.walkabout(visitor)
 
-    Formatters.comment = orig_comment
-    return commentless_rst
+    if not commented_lines:
+        # No comments found, return as is
+        return rst
+    # Remove text without the lines which are comments
+    return ''.join([l for i, l in enumerate(rst.splitlines(keepends=True)) if i not in commented_lines])
 
 
 def _remove_comments_from_md(md):
