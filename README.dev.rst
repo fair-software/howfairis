@@ -30,8 +30,7 @@ like so:
 
 .. code:: shell
 
-    howfairis https://github.com/owner/repo      # Linux | Mac
-    howfairis.exe https://github.com/owner/repo  # Windows
+    howfairis https://github.com/<owner>/<repo>
 
 For maintainers
 ---------------
@@ -59,7 +58,7 @@ Make sure the version is correct.
     pip install --no-cache-dir .[publishing]
     rm -rf howfairis.egg-info
     rm -rf dist
-    python setup.py sdist
+    python setup.py sdist bdist_wheel
 
     # upload to test pypi instance
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*

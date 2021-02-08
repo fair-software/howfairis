@@ -62,7 +62,8 @@ setup(
             "sphinx-click",
         ],
         "publishing": [
-            "twine"
+            "twine",
+            "wheel",
         ]
     },
     data_files=[]
