@@ -9,10 +9,10 @@ def test_config_withoutrepoconfig_shouldusedefault(requests_mock: Mocker):
     repo = Repo('https://github.com/fair-software/howfairis')
     config = Config(repo)
 
-    expected = {'force_checklist': None,
-                'force_citation': None,
-                'force_license': None,
-                'force_registry': None,
-                'force_repository': None,
-                'include_comments': False}
-    assert config.merged == expected, 'config not same as `howfairis/data/.howfairis.yml`'
+    assert config.force_checklist is None, "config not same as `howfairis/data/.howfairis.yml`"
+    assert config.force_citation is None, "config not same as `howfairis/data/.howfairis.yml`"
+    assert config.force_license is None, "config not same as `howfairis/data/.howfairis.yml`"
+    assert config.force_registry is None, "config not same as `howfairis/data/.howfairis.yml`"
+    assert config.force_citation is None, "config not same as `howfairis/data/.howfairis.yml`"
+    assert config.force_checklist is None, "config not same as `howfairis/data/.howfairis.yml`"
+    assert config.include_comments is False, "config not same as `howfairis/data/.howfairis.yml`"

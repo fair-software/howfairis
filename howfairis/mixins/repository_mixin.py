@@ -1,13 +1,13 @@
 import requests
-from howfairis.Platform import Platform
+from howfairis.vcs_platform import Platform
 
 
 class RepositoryMixin:
 
     def check_repository(self):
-        force_state = self.config.merged.get("force_repository")
+        force_state = self.config.force_repository
         if force_state not in [True, False, None]:
-            raise ValueError("Unexpected configuration value for force.repository.")
+            raise ValueError("Unexpected configuration value for force_repository.")
         if isinstance(force_state, bool):
             print("(1/5) repository: force {0}".format(force_state))
             return force_state

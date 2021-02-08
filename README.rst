@@ -11,16 +11,26 @@ fair-software.eu_ recommendations.
 Badges
 ------
 
-====================================================== ==========================
+
+====================================================== ============================
 fair-software.nl recommendations
-====================================================== ==========================
-1/5 code repository                                    |github repo badge|
-2/5 license                                            |github license badge|
-3/5 community registry                                 |pypi badge|
-4/5 citation                                           |zenodo badge|
-5/5 checklist
+====================================================== ============================
+(1/5) code repository                                  |github repo badge|
+(2/5) license                                          |github license badge|
+(3/5) community registry                               |pypi badge|
+(4/5) citation                                         |zenodo badge|
+(5/5) checklist                                        |core infrastructures badge|
 overall                                                |fair-software badge|
-====================================================== ==========================
+**Other best practices**
+Documentation                                          |ReadTheDocs Badge|
+Supported Python versions                              |python versions badge| 
+Code quality                                           |Sonarcloud quality badge|
+Code coverage of unit tests                            |Sonarcloud coverage badge|
+**GitHub Actions**
+Citation metadata consistency                          |workflow cffconvert badge|
+Unit tests                                             |workflow tests badge|
+Live tests (triggered manually)                        |workflow livetests badge|
+====================================================== ============================
 
 .. |github repo badge| image:: https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue
    :target: https://github.com/fair-software/howfairis
@@ -33,27 +43,27 @@ overall                                                |fair-software badge|
 
 .. |zenodo badge| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
    :target: https://doi.org/10.5281/zenodo.4017908
+   
+.. |core infrastructures badge| image:: https://bestpractices.coreinfrastructure.org/projects/4630/badge
+   :target: https://bestpractices.coreinfrastructure.org/projects/4630
 
-.. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow
+.. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
    :target: https://fair-software.eu
-
-====================================================== ==========================
-Code quality checks
-====================================================== ==========================
-Documentation                                          |ReadTheDocs Badge|
-====================================================== ==========================
-
+   
 .. |ReadTheDocs Badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
+   
+.. |python versions badge| image:: https://img.shields.io/pypi/pyversions/howfairis.svg
+   :target: https://pypi.python.org/pypi/howfairis   
 
-====================================================== ===========================
-GitHub Actions
-====================================================== ===========================
-Citation metadata consistency                          |workflow cffconvert badge|
-Unit tests                                             |workflow tests badge|
-Live tests (triggered manually)                        |workflow livetests badge|
-====================================================== ===========================
+.. |Sonarcloud quality badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=alert_status
+   :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
+   :alt: Quality Gate Status
+
+.. |Sonarcloud coverage badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=coverage
+   :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
+   :alt: Coverage
 
 .. |workflow tests badge| image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
@@ -63,8 +73,6 @@ Live tests (triggered manually)                        |workflow livetests badge
 
 .. |workflow cffconvert badge| image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
-
-
 
 .. image:: https://img.shields.io/docker/build/fairsoftware/howfairis
    :target: https://hub.docker.com/repository/docker/fairsoftware/howfairis
@@ -82,8 +90,7 @@ you should be able to call the executable, like so:
 
 .. code:: shell
 
-    howfairis https://github.com/owner/repo      # Linux | Mac
-    howfairis.exe https://github.com/owner/repo  # Windows
+    howfairis https://github.com/<owner>/<repo>
 
 Docker
 ---------------
