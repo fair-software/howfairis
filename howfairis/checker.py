@@ -1,6 +1,5 @@
 import inspect
 import re
-
 import requests
 from colorama import Fore
 from colorama import Style
