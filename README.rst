@@ -107,6 +107,8 @@ You can run howfairis Docker image using the command below.
 
     docker run --rm fairsoftware/howfairis --help
 
+`--rm` argument will remove Docker container after execution.
+
 See developer documentation to learn how to modify the Docker image.
 
 Expected output
