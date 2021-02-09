@@ -28,14 +28,14 @@ def badghurl_checker(requests_mock: Mocker):
 
 
 def test_checker_badghurl_emptyreadme(badghurl_checker: Checker):
-    readme = badghurl_checker.readme
+    actual_readme = badghurl_checker.readme
 
-    expected = Readme(filename=None, text=None, fmt=None)
-    assert readme == expected
+    expected_readme = Readme(filename=None, text=None, fmt=None)
+    assert actual_readme == expected_readme
 
 
 def test_checker_check_five_recommendations(badghurl_checker: Checker):
-    compliance = badghurl_checker.check_five_recommendations()
+    actual_compliance = badghurl_checker.check_five_recommendations()
 
-    expected = Compliance(repository=False, license_=False, registry=False, citation=False, checklist=False)
-    assert compliance == expected
+    expected_compliance = Compliance(repository=False, license_=False, registry=False, citation=False, checklist=False)
+    assert actual_compliance == expected_compliance
