@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Lint Code Base
-        uses: github/super-linter@v3
+      - name: lint
+        uses: docker://github/super-linter:v3
         env:
           VALIDATE_ALL_CODEBASE: true
