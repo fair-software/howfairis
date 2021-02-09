@@ -9,7 +9,6 @@ from colorama import init as init_terminal_colors
 from dateutil import tz
 from howfairis.__version__ import __version__
 from howfairis.checker import Checker
-from howfairis.compliance import Compliance
 from howfairis.config import Config
 from howfairis.repo import Repo
 from howfairis.vcs_platform import Platform
