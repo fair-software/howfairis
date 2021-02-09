@@ -221,15 +221,15 @@ Which then shows something like:
 Configuration file
 ^^^^^^^^^^^^^^^^^^
 
-If your repository has a different compliance then `howfairis` reports, you can use a configuration file to force compliance.
-For example your software has a license that is not detected by `howfairis`, but you want to show a FAIR software badge which is compliant with the license recommendation.
-By forcing compliance, the `howfairis` tool will not execute any checks and report the compliance as configured.
+If your repository has a different compliance then ``howfairis`` reports, you can use a configuration file to force compliance.
+For example your software has a license that is not detected by ``howfairis``, but you want to show a FAIR software badge which is compliant with the license recommendation.
+By forcing compliance, the ``howfairis`` tool will not execute any checks and report the compliance as configured.
 
-A configuration file called `.howfairis.yml` can be added to the root of your software repository.
+A configuration file called ``.howfairis.yml`` can be added to the root of your software repository.
 The location of the configuration file can be altered by using `howfairis` command line arguments as described above.
 The `default configuration file <https://github.com/fair-software/howfairis/blob/master/howfairis/data/.howfairis.yml>`_ can be used as a starting point.
 
-For example, to force your software to be compliant with the license recommendation.
+For example, to force your software to be compliant with the registry recommendation.
 Create a `.howfairis.yml` file in the root of your software repository with the following content:
 
 .. code:: yaml
