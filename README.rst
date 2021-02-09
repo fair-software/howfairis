@@ -74,6 +74,9 @@ Live tests (triggered manually)                        |workflow livetests badge
 .. |workflow cffconvert badge| image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
 
+.. |workflow linter badge| image:: https://github.com/fair-software/howfairis/workflows/linter/badge.svg
+   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Alinter
+
 Install
 -------
 
