@@ -1,7 +1,36 @@
 import os
 from setuptools import setup
+import sys
 
 here = os.path.abspath(os.path.dirname(__file__))
+
+if sys.version_info < (3, 6) or sys.version_info > (3, 9):
+    pip_message = 'This may be due to an out of date pip. Make sure you have pip >= 9.0.1.'
+    try:
+        import pip
+        pip_version = tuple([int(x) for x in pip.__version__.split('.')[:3]])
+        if pip_version < (9, 0, 1) :
+            pip_message = 'Your pip version is out of date, please install pip >= 9.0.1. '\
+                          'pip {} detected.'.format(pip.__version__)
+        else:
+            # pip is new enough - it must be something else
+            pip_message = ''
+    except Exception:
+        pass
+    error = """
+howfairis supports Python 3.6 and above.
+
+See howfairis `README.rst` file for more information:
+
+https://github.com/fair-software/howfairis/blob/master/README.rst
+
+Python {py} detected.
+
+{pip}
+    """.format(py=sys.version_info, pip=pip_message)
+
+    print(error, file=sys.stderr)
+    sys.exit(1)
 
 with open("README.rst", "rt", encoding="UTF-8") as readme_file:
     readme = readme_file.read()
