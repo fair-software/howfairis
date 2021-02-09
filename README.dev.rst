@@ -38,7 +38,8 @@ To build the image run:
 docker build -t fairsoftware/howfairis .
 
 To push the image to DockerHub run:
-docker push fairsoftware/howfairis:VERSION
+
+   docker push fairsoftware/howfairis:VERSION
 
 For maintainers
 ---------------
