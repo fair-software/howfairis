@@ -230,7 +230,7 @@ The location of the configuration file can be altered by using ``howfairis`` com
 The `default configuration file <https://github.com/fair-software/howfairis/blob/master/howfairis/data/.howfairis.yml>`_ can be used as a starting point.
 
 For example, to force your software to be compliant with the registry recommendation.
-Create a `.howfairis.yml` file in the root of your software repository with the following content:
+Create a ``.howfairis.yml`` file in the root of your software repository with the following content:
 
 .. code:: yaml
 
