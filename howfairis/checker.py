@@ -80,8 +80,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                 text = response.text
             else:
                 text = remove_comments(response.text)
-            self.readme = Readme(filename=readme_filename,
-                                 text=text, fmt=readme_fmt)
+            self.readme = Readme(filename=readme_filename, text=text, fmt=readme_fmt)
             return self
 
         print("Did not find a README[.md|.rst] file at " +
