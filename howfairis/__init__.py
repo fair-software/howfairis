@@ -3,7 +3,7 @@ from .checker import Checker
 from .compliance import Compliance
 from .config import Config
 from .repo import Repo
-from .vcs_platform import Platform
+from .code_repository_platforms import Platform
 
 
 __author__ = "https://github.com/jspaaks"
