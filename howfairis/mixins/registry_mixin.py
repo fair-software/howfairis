@@ -1,13 +1,13 @@
 import requests
-from howfairis.Platform import Platform
+from howfairis.vcs_platform import Platform
 
 
 class RegistryMixin:
 
     def check_registry(self):
-        force_state = self.config.merged.get("force_registry", dict())
+        force_state = self.config.force_registry
         if force_state not in [True, False, None]:
-            raise ValueError("Unexpected configuration value for force.registry.")
+            raise ValueError("Unexpected configuration value for force_registry.")
         if isinstance(force_state, bool):
             print("(3/5) registry: force {0}".format(force_state))
             return force_state
@@ -38,6 +38,9 @@ class RegistryMixin:
     def has_conda_badge(self):
         regexes = [r"https://anaconda\.org/.*/.*/badges/downloads\.svg",
                    r"https://anaconda\.org/.*/.*/badges/installer/conda\.svg",
+                   r"https://anaconda\.org/.*/.*/badges/latest_release_date\.svg",
+                   r"https://anaconda\.org/.*/.*/badges/latest_release_relative_date\.svg",
+                   r"https://anaconda\.org/.*/.*/badges/platforms\.svg",
                    r"https://anaconda\.org/.*/.*/badges/version\.svg",
                    r"https://img\.shields\.io/conda/.*"]
         return self._eval_regexes(regexes)

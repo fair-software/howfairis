@@ -13,6 +13,7 @@ from howfairis import Platform
 from howfairis import Repo
 from howfairis import __version__
 from howfairis.Compliance import Compliance
+from howfairis.__version__ import __version__
 
 
 # pylint: disable=too-many-arguments
@@ -87,39 +88,40 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
     config = Config(repo, config_file, ignore_remote_config)
 
     checker = Checker(config, repo)
-    checker.check_five_recommendations()
+    current_compliance = checker.check_five_recommendations()
+    badge = current_compliance.calc_badge(checker.readme.fmt)
 
-    print("\nCalculated compliance: " + " ".join(checker.compliance.as_unicode()) + "\n")
+    print("\nCalculated compliance: " + " ".join(current_compliance.as_unicode()) + "\n")
 
     if checker.readme.text is None:
         sys.exit(1)
 
-    readme_badge_found, readme_badge_compliance = get_fair_software_badge(checker.readme.text)
+    previous_compliance = checker.readme.get_compliance()
 
-    if not readme_badge_found:
+    if previous_compliance is None:
         print("It seems you have not yet added the fair-software.eu badge to " +
               "your {0}. You can do so by pasting the following snippet:\n\n{1}"
-              .format(checker.readme.filename, checker.badge))
+              .format(checker.readme.filename, badge))
         github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
         sys.exit(1)
 
-    if checker.compliance == readme_badge_compliance:
+    if current_compliance == previous_compliance:
         print("Expected badge is equal to the actual badge. It's all good.\n")
         github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
         sys.exit(0)
 
-    if checker.compliance > readme_badge_compliance:
+    if current_compliance > previous_compliance:
         print("Congratulations! The compliance of your repository exceeds " +
               "the current fair-software.eu badge in your " +
               "{0}. You can replace it with the following snippet:\n\n{1}"
-              .format(checker.readme.filename, checker.badge))
+              .format(checker.readme.filename, badge))
         github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
         sys.exit(1)
 
     print("The compliance of your repository is different from the current " +
           "fair-software.eu badge in your " +
           "{0}. Please replace it with the following snippet:\n\n{1}"
-          .format(checker.readme.filename, checker.badge))
+          .format(checker.readme.filename, badge))
     github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
     sys.exit(1)
 
