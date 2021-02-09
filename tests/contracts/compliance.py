@@ -32,6 +32,30 @@ class Contract(ABC):
         pass
 
     @abstractmethod
+    def test_equality_eq(self, compliance_fixture):
+        pass
+
+    @abstractmethod
+    def test_equality_ge(self, compliance_fixture):
+        pass
+
+    @abstractmethod
+    def test_equality_gt(self, compliance_fixture):
+        pass
+
+    @abstractmethod
+    def test_equality_le(self, compliance_fixture):
+        pass
+
+    @abstractmethod
+    def test_equality_lt(self, compliance_fixture):
+        pass
+
+    @abstractmethod
+    def test_equality_ne(self, compliance_fixture):
+        pass
+
+    @abstractmethod
     def test_license(self, compliance_fixture):
         pass
 
