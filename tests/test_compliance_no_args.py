@@ -36,6 +36,34 @@ class TestComplianceNoArgs(Contract):
     def test_count(self, compliance_fixture):
         assert compliance_fixture.count() == 0
 
+    def test_equality_eq(self, compliance_fixture):
+        expected_compliance = Compliance(False, False, False, False, False)
+        assert expected_compliance == compliance_fixture
+
+    def test_equality_ge(self, compliance_fixture):
+        expected_compliances = [Compliance(False, False, False, False, False),
+                                Compliance(True, False, False, False, False)]
+        for expected_compliance in expected_compliances:
+            assert expected_compliance >= compliance_fixture
+
+    def test_equality_gt(self, compliance_fixture):
+        expected_compliance = Compliance(True, False, False, False, False)
+        assert expected_compliance > compliance_fixture
+
+    def test_equality_le(self, compliance_fixture):
+        expected_compliance = Compliance(False, False, False, False, False)
+        assert expected_compliance <= compliance_fixture
+
+    def test_equality_lt(self, compliance_fixture):
+        # doesn't apply; fixture's compliance is already 0
+        pass
+
+    def test_equality_ne(self, compliance_fixture):
+        expected_compliances = [Compliance(True, False, False, False, False),
+                                Compliance(True, True, True, True, True)]
+        for expected_compliance in expected_compliances:
+            assert expected_compliance != compliance_fixture
+
     def test_license(self, compliance_fixture):
         assert compliance_fixture.license is False
 
