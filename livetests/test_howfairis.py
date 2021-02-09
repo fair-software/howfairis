@@ -3,9 +3,9 @@
 
 """Tests for the howfairis module.
 """
-import requests
-import time
 import random
+import time
+import requests
 from howfairis import Checker
 from howfairis import Config
 from howfairis import Repo

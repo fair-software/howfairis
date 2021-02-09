@@ -1,5 +1,4 @@
 from requests_mock import Mocker
-
 from howfairis import Repo
 from howfairis.vcs_platform import Platform
 

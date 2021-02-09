@@ -19,8 +19,8 @@
 import os
 import sys
 from sphinx.ext import apidoc
-
 import howfairis
+
 
 here = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath(os.path.join(here, '..')))

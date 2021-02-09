@@ -1,6 +1,6 @@
 from requests_mock import Mocker
-
-from howfairis import Config, Repo
+from howfairis import Config
+from howfairis import Repo
 
 
 def test_config_withoutrepoconfig_shouldusedefault(requests_mock: Mocker):
