@@ -27,7 +27,7 @@ https://github.com/fair-software/howfairis/blob/master/README.rst
 Python {py} detected.
 
 {pip}
-    """.format(py=sys.version_info, pip=pip_message)
+    """.format(py='.'.join([str(v) for v in sys.version_info[:3]]), pip=pip_message)
 
     print(error, file=sys.stderr)
     sys.exit(1)
