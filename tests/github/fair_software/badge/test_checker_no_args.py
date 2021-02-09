@@ -1,7 +1,9 @@
 import pytest
 from howfairis import Checker
+from howfairis import Compliance
 from howfairis import Config
 from howfairis import Repo
+from howfairis.readme import Readme
 from tests.contracts.checker import Contract
 from .mocker import mocker
 
@@ -16,110 +18,85 @@ def mocked_checker(mocker):
 
 class TestCheckerNoArgs(Contract):
 
-    @pytest.mark.skip
     def test_check_checklist(self, mocked_checker):
-        pass
+        assert mocked_checker.check_checklist() is False
 
-    @pytest.mark.skip
     def test_check_citation(self, mocked_checker):
-        pass
+        assert mocked_checker.check_citation() is True
 
-    @pytest.mark.skip
     def test_check_license(self, mocked_checker):
-        pass
+        assert mocked_checker.check_license() is True
 
-    @pytest.mark.skip
     def test_check_registry(self, mocked_checker):
-        pass
+        assert mocked_checker.check_registry() is True
 
-    @pytest.mark.skip
     def test_check_repository(self, mocked_checker):
-        pass
+        assert mocked_checker.check_repository() is True
 
-    @pytest.mark.skip
     def test_compliance(self, mocked_checker):
-        pass
+        actual_compliance = mocked_checker.check_five_recommendations()
+        expected_compliance = Compliance(True, True, True, True, False)
+        assert actual_compliance == expected_compliance
 
-    @pytest.mark.skip
     def test_config(self, mocked_checker):
-        pass
+        assert isinstance(mocked_checker.config, Config)
 
-    @pytest.mark.skip
     def test_has_ascl_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_ascl_badge() is False
 
-    @pytest.mark.skip
     def test_has_bintray_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_bintray_badge() is False
 
-    @pytest.mark.skip
     def test_has_citation_file(self, mocked_checker):
-        pass
+        assert mocked_checker.has_citation_file() is False
 
-    @pytest.mark.skip
     def test_has_citationcff_file(self, mocked_checker):
-        pass
+        assert mocked_checker.has_citationcff_file() is True
 
-    @pytest.mark.skip
     def test_has_codemeta_file(self, mocked_checker):
-        pass
+        assert mocked_checker.has_codemeta_file() is False
 
-    @pytest.mark.skip
     def test_has_conda_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_conda_badge() is False
 
-    @pytest.mark.skip
     def test_has_core_infrastructures_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_core_infrastructures_badge() is False
 
-    @pytest.mark.skip
     def test_has_cran_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_cran_badge() is False
 
-    @pytest.mark.skip
     def test_has_crates_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_crates_badge() is False
 
-    @pytest.mark.skip
     def test_has_license(self, mocked_checker):
-        pass
+        assert mocked_checker.has_license() is True
 
-    @pytest.mark.skip
     def test_has_maven_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_maven_badge() is False
 
-    @pytest.mark.skip
     def test_has_npm_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_npm_badge() is False
 
-    @pytest.mark.skip
     def test_has_open_repository(self, mocked_checker):
-        pass
+        assert mocked_checker.has_open_repository() is True
 
-    @pytest.mark.skip
     def test_has_pypi_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_pypi_badge() is False
 
-    @pytest.mark.skip
     def test_has_rsd_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_rsd_badge() is False
 
-    @pytest.mark.skip
     def test_has_zenodo_badge(self, mocked_checker):
-        pass
+        assert mocked_checker.has_zenodo_badge() is False
 
-    @pytest.mark.skip
     def test_has_zenodo_metadata_file(self, mocked_checker):
-        pass
+        assert mocked_checker.has_zenodo_metadata_file() is True
 
-    @pytest.mark.skip
     def test_is_on_github_marketplace(self, mocked_checker):
-        pass
+        assert mocked_checker.is_on_github_marketplace() is True
 
-    @pytest.mark.skip
     def test_readme(self, mocked_checker):
-        pass
+        assert isinstance(mocked_checker.readme, Readme)
 
-    @pytest.mark.skip
     def test_repo(self, mocked_checker):
-        pass
+        assert isinstance(mocked_checker.repo, Repo)
