@@ -4,7 +4,7 @@ import sys
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-if sys.version_info < (3, 6) or sys.version_info > (3, 9):
+if sys.version_info < (3, 6) or sys.version_info >= (3, 10):
     pip_message = 'This may be due to an out of date pip. Make sure you have pip >= 9.0.1.'
     try:
         import pip
