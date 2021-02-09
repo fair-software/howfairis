@@ -34,12 +34,17 @@ like so:
 
 Docker
 ---------------
-To build the image run:
-docker build -t fairsoftware/howfairis .
+To build the image, run:
 
-To push the image to DockerHub run:
+.. code:: shell
 
-   docker push fairsoftware/howfairis:VERSION
+   docker build -t fairsoftware/howfairis .
+
+To push the image to DockerHub, run:
+
+.. code:: shell
+
+   docker push fairsoftware/howfairis
 
 For maintainers
 ---------------
