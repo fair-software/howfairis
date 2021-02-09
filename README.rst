@@ -221,30 +221,24 @@ Which then shows something like:
 Configuration file
 ^^^^^^^^^^^^^^^^^^
 
-The state of each check can be forced using a configuration file. This file needs to be present at ``URL``, taking into
-account the values passed with ``--path`` and with ``--config-file``.
+If your repository has a different compliance then `howfairis` reports, you can use a configuration file to force compliance.
+For example your software has a license that is not detected by `howfairis`, but you want to show a FAIR software badge which is compliant with the license recommendation.
+By forcing compliance, the `howfairis` tool will not execute any checks and report the compliance as configured.
 
-The configuration file should follow the voluptuous_ schema laid out in schema.py_:
+A configuration file called `.howfairis.yml` can be added to the root of your software repository.
+The location of the configuration file can be altered by using `howfairis` command line arguments as described above.
+The `default configuration file <https://github.com/fair-software/howfairis/blob/master/howfairis/data/.howfairis.yml>`_ can be used as a starting point.
 
-.. code:: python
-
-    schema = {
-        Optional("force_repository"): Any(bool, None),
-        Optional("force_license"): Any(bool, None),
-        Optional("force_registry"): Any(bool, None),
-        Optional("force_citation"): Any(bool, None),
-        Optional("force_checklist"): Any(bool, None),
-        Optional("include_comments"): Any(bool, None)
-    }
-
-For example, the following is a valid configuration file document:
+For example, to force your software to be compliant with the license recommendation.
+Create a `.howfairis.yml` file in the root of your software repository with the following content:
 
 .. code:: yaml
 
     force_registry: true  # It is good practice to add an explanation
                           # of why you chose to set the state manually
 
-The manual override will be reflected in the output, as follows:
+
+The addition of the config file will be reflected in the output, as follows:
 
 .. code:: shell
 
@@ -261,6 +255,7 @@ The manual override will be reflected in the output, as follows:
           × has_zenodo_metadata_file
     (5/5) checklist
           × has_core_infrastructures_badge
+
 
 Contributing
 ------------
