@@ -1,13 +1,29 @@
+import re
 import pytest
 import requests_mock
-
+from tests.helpers import load_file_from_local_data
+from tests.helpers import get_urls
+from howfairis.vcs_platform import Platform
 
 @pytest.fixture
 def mocker():
+
     """This mock aims to reflect the state of the repository at
     https://github.com/fair-software/badge/tree/b3f90ec9c2b1be604f482c2d9e46a9aeca3ee45a"""
+
+    readme_text = load_file_from_local_data("README.md", __file__)
+    cff_text = load_file_from_local_data("CITATION.cff", __file__)
+    default_branch_response = {"default_branch": "master"}
+
     with requests_mock.Mocker() as m:
-        m.get("http://github.com/fair-software/badge")
-        m.get("https://api.github.com/repos/fair-software/badge", json=dict(default_branch="master"))
-        m.get("https://raw.githubusercontent.com/fair-software/badge/master/.howfairis.yml", status_code=404)
+        repo_url, raw_url, api_url = get_urls(Platform.GITHUB, "fair-software", "badge")
+        m.get(repo_url, status_code=200)
+        m.get(api_url + "/license", status_code=200)
+        m.get(api_url, status_code=200, json=default_branch_response)
+        m.get(raw_url + "/master/.howfairis.yml", status_code=404)
+        m.get(raw_url + "/master/README.rst", status_code=404)
+        m.get(raw_url + "/master/README.md", status_code=200, text=readme_text)
+        m.get(raw_url + "/master/CITATION", status_code=404)
+        m.get(raw_url + "/master/CITATION.cff", status_code=200, text=cff_text)
+        m.get(raw_url + "/master/.zenodo.json", status_code=404)
         return m
