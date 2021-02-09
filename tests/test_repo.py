@@ -1,5 +1,4 @@
 from requests_mock import Mocker
-
 from howfairis import Repo
 from howfairis.code_repository_platforms import Platform
 
