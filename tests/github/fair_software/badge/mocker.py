@@ -16,7 +16,7 @@ def mocker():
     default_branch_response = {"default_branch": "master"}
 
     with requests_mock.Mocker() as m:
-        repo_url, raw_url, api_url = get_urls(Platform.GITHUB, "fair-software", "badge")
+        repo_url, raw_url, api_url = get_urls(Platform.GITHUB, owner="fair-software", repo="badge")
         m.get(repo_url, status_code=200)
         m.get(api_url + "/license", status_code=200)
         m.get(api_url, status_code=200, json=default_branch_response)
