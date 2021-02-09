@@ -23,7 +23,7 @@ fair-software.nl recommendations
 overall                                                |fair-software badge|
 **Other best practices**
 Documentation                                          |ReadTheDocs Badge|
-Supported Python versions                              |python versions badge| 
+Supported Python versions                              |python versions badge|
 Code quality                                           |Sonarcloud quality badge|
 Code coverage of unit tests                            |Sonarcloud coverage badge|
 **GitHub Actions**
@@ -43,19 +43,19 @@ Live tests (triggered manually)                        |workflow livetests badge
 
 .. |zenodo badge| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
    :target: https://doi.org/10.5281/zenodo.4017908
-   
+
 .. |core infrastructures badge| image:: https://bestpractices.coreinfrastructure.org/projects/4630/badge
    :target: https://bestpractices.coreinfrastructure.org/projects/4630
 
 .. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
    :target: https://fair-software.eu
-   
+
 .. |ReadTheDocs Badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
-   
+
 .. |python versions badge| image:: https://img.shields.io/pypi/pyversions/howfairis.svg
-   :target: https://pypi.python.org/pypi/howfairis   
+   :target: https://pypi.python.org/pypi/howfairis
 
 .. |Sonarcloud quality badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=alert_status
    :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
@@ -255,7 +255,6 @@ The addition of the config file will be reflected in the output, as follows:
           × has_zenodo_metadata_file
     (5/5) checklist
           × has_core_infrastructures_badge
-
 
 Contributing
 ------------
