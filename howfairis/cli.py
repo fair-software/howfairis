@@ -125,18 +125,9 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
     sys.exit(1)
 
 
-def get_fair_software_badge(text):
-    url = "https://img.shields.io/badge/fair--software.eu"
-    url_location = text.find(url)
-    if url_location < 0:
-        return(False, Compliance())
-    start_id = url_location+len(url)+1
-    return(True, Compliance.urldecode(text[start_id:start_id+69]))
-
-
 def github_readme_creation_check(url, filename, platform, branch):
     if platform != Platform.GITHUB:
-        return()
+        return(0)
     if branch is None:
         branch = "master"
     try:
@@ -147,14 +138,15 @@ def github_readme_creation_check(url, filename, platform, branch):
             response = requests.get(url+"/contributors/"+branch+"/"+filename)
             date_string = BeautifulSoup(response.text, "html.parser").select("relative-time")[0]["datetime"]
         except IndexError:
-            return()
+            return(0)
     date_object_utc = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=tz.tzutc())
     date_local = date_object_utc.astimezone(tz.tzlocal())
     date_now = datetime.now().astimezone(tz.tzlocal())
     time_delta = date_now-date_local
     if time_delta < timedelta(minutes=5):
         print(f"Warning: Your {filename} was updated less than 5 minutes ago. The effects of this update are not visible yet in the calculated compliance.")
-    return()
+        return(1)
+    return(0)
 
 
 if __name__ == "__main__":
