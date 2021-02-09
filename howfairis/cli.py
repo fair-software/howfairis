@@ -1,6 +1,6 @@
 import os
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 import click
 import requests
 from bs4 import BeautifulSoup
@@ -94,30 +94,32 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
         sys.exit(1)
 
     readme_badge_found, readme_badge_compliance = get_fair_software_badge(checker.readme.text)
-    readme_time = get_readme_time(url, checker.readme.filename, checker.repo.platform, branch)
 
     if not readme_badge_found:
         print("It seems you have not yet added the fair-software.eu badge to " +
-              "your {0} of {1}. You can do so by pasting the following snippet:\n\n{2}"
-              .format(checker.readme.filename, readme_time, checker.badge))
+              "your {0}. You can do so by pasting the following snippet:\n\n{1}"
+              .format(checker.readme.filename, checker.badge))
+        github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
         sys.exit(1)
 
     if checker.compliance == readme_badge_compliance:
         print("Expected badge is equal to the actual badge. It's all good.\n")
+        github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
         sys.exit(0)
 
     if checker.compliance > readme_badge_compliance:
         print("Congratulations! The compliance of your repository exceeds " +
               "the current fair-software.eu badge in your " +
-              "{0} of {1}. You can replace it with the following snippet:\n\n{2}"
-              .format(checker.readme.filename, readme_time, checker.badge))
+              "{0}. You can replace it with the following snippet:\n\n{1}"
+              .format(checker.readme.filename, checker.badge))
+        github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
         sys.exit(1)
 
     print("The compliance of your repository is different from the current " +
           "fair-software.eu badge in your " +
-          "{0} of {1}. Please replace it with the following snippet:\n\n{2}"
-          .format(checker.readme.filename, readme_time, checker.badge))
-
+          "{0}. Please replace it with the following snippet:\n\n{1}"
+          .format(checker.readme.filename, checker.badge))
+    github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
     sys.exit(1)
 
 
@@ -130,9 +132,9 @@ def get_fair_software_badge(text):
     return(True, Compliance.urldecode(text[start_id:start_id+69]))
 
 
-def get_readme_time(url, filename, platform, branch):
+def github_readme_creation_check(url, filename, platform, branch):
     if platform != Platform.Platform.GITHUB:
-        return("(unknown date)")
+        return()
     if branch is None:
         branch = "master"
     try:
@@ -143,10 +145,14 @@ def get_readme_time(url, filename, platform, branch):
             response = requests.get(url+"/contributors/"+branch+"/"+filename)
             date_string = BeautifulSoup(response.text, "html.parser").select("relative-time")[0]["datetime"]
         except IndexError:
-            return("(unknown date)")
+            return()
     date_object_utc = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=tz.tzutc())
-    date_string_local = date_object_utc.astimezone(tz.tzlocal()).strftime("%-d %B %Y, %H:%M:%S")
-    return(date_string_local)
+    date_local = date_object_utc.astimezone(tz.tzlocal())
+    date_now = datetime.now().astimezone(tz.tzlocal())
+    time_delta = date_now-date_local
+    if time_delta < timedelta(minutes=5):
+        print(f"Warning: Your {filename} was updated less than 5 minutes ago. The effects of this update are not visible yet in the calculated compliance.")
+    return()
 
 
 if __name__ == "__main__":
