@@ -1,5 +1,4 @@
 from urllib.parse import quote
-
 from howfairis.readme_format import ReadmeFormat
 
 

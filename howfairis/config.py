@@ -1,6 +1,5 @@
 import os
 from typing import Optional
-
 import requests
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
