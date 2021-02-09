@@ -16,5 +16,31 @@ jobs:
       - name: lint
         uses: docker://github/super-linter:v3
         env:
-          VALIDATE_ALL_CODEBASE: true
           FILTER_REGEX_EXCLUDE: /github/workspace/docs/.*
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_BASH: true
+          VALIDATE_BASH_EXEC: true
+          VALIDATE_SHELL_SHFMT: true
+
+          VALIDATE_DOCKERFILE: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+
+          VALIDATE_EDITORCONFIG: true
+
+          VALIDATE_ENV: true
+
+          VALIDATE_JSON: true
+
+          VALIDATE_MARKDOWN: true
+          VALIDATE_YAML: true
+          YAML_CONFIG_FILE: true
+
+          VALIDATE_PYTHON: true
+          VALIDATE_PYTHON_BLACK: false
+          PYTHON_BLACK_CONFIG_FILE: .python-black
+          VALIDATE_PYTHON_FLAKE8: false
+          PYTHON_FLAKE8_CONFIG_FILE: .flake8
+          VALIDATE_PYTHON_ISORT: false
+          PYTHON_ISORT_CONFIG_FILE: .isort.cfg
+          VALIDATE_PYTHON_PYLINT: false
+          PYTHON_PYLINT_CONFIG_FILE: .python-lint
