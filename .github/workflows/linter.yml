@@ -2,7 +2,9 @@
 
 name: Lint Code Base
 
-on: [push, pull_request]
+#on: [push, pull_request]
+on:
+  workflow_dispatch:
 
 jobs:
   linter:
