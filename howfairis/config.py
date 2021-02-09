@@ -1,4 +1,6 @@
 import os
+from typing import Optional
+
 import requests
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
@@ -16,7 +18,7 @@ class Config:
         ignore_remote_config: If true then does not try to merge config from remote repository.
     """
 
-    def __init__(self, repo: Repo, config_filename=None, ignore_remote_config=False):
+    def __init__(self, repo: Repo, config_filename: Optional[str] = None, ignore_remote_config: bool = False):
         self._default = Config._load_default_config()
         self._repo = Config._load_repo_config(repo, ignore_remote_config)
         self._user = Config._load_user_config(config_filename)
@@ -116,24 +118,35 @@ class Config:
 
     @property
     def force_repository(self):
+        """Forces recommendation to be compliant or non-compliant.
+        If set to True/False then checks for that recommendation are bypassed and not executed."""
         return self._merged.get("force_repository")
 
     @property
     def force_license(self):
+        """Forces recommendation to be compliant or non-compliant.
+        If set to True/False then checks for that recommendation are bypassed and not executed."""
         return self._merged.get("force_license")
 
     @property
     def force_registry(self):
+        """Forces recommendation to be compliant or non-compliant.
+        If set to True/False then checks for that recommendation are bypassed and not executed."""
         return self._merged.get("force_registry")
 
     @property
     def force_citation(self):
+        """Forces recommendation to be compliant or non-compliant.
+        If set to True/False then checks for that recommendation are bypassed and not executed."""
         return self._merged.get("force_citation")
 
     @property
     def force_checklist(self):
+        """Forces recommendation to be compliant or non-compliant.
+        If set to True/False then checks for that recommendation are bypassed and not executed."""
         return self._merged.get("force_checklist")
 
     @property
     def include_comments(self):
+        """Whether while reading the README of a repository the comments in it should be included."""
         return self._merged.get("include_comments")

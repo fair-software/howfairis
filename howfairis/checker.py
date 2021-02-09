@@ -1,5 +1,6 @@
 import inspect
 import re
+
 import requests
 from colorama import Fore
 from colorama import Style
@@ -24,18 +25,10 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
 
     Attributes:
         readme (Readme): Retrieved README from the repository.
-        compliance (Optional[Compliance]): The current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge_url (Optional[str]): URL of badge image for the current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge (Optional[str]): Badge image link for the current compliance. Formatted in format of README.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-
     """
 
     def __init__(self, config: Config, repo: Repo):
         super().__init__()
-        self.compliance = None
         self.config = config
         self.readme = None
         self.repo = repo
@@ -96,10 +89,11 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         elif state is False:
             print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
 
-    def check_five_recommendations(self):
+    def check_five_recommendations(self) -> Compliance:
         """Check the repo against the five FAIR software recommendations
 
-        After being called the :py:attr:`.Checker.compliance` property will be filled the the result of the check.
+        Returns: compliance result
+
         """
         return Compliance(repository=self.check_repository(),
                           license_=self.check_license(),

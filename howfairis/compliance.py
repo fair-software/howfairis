@@ -1,4 +1,5 @@
 from urllib.parse import quote
+
 from howfairis.readme_format import ReadmeFormat
 
 
@@ -7,17 +8,18 @@ class Compliance:
     """Compliance of a repo against the 5 FAIR software recommendations
 
     Attributes:
-        repository: Whether repository is publicly accessible with version control
-        license: Whether repository has a license
-        registry: Whether code is in a registry
-        citation: Whether software is citable
-        checklist: Whether a software quality checklist is used
-        compliant_symbol: Unicode symbol used in badge when compliant
-        noncompliant_symbol: Unicode symbol used in badge when non-compliant
+        repository (bool): Whether repository is publicly accessible with version control
+        license (bool): Whether repository has a license
+        registry (bool): Whether code is in a registry
+        citation (bool): Whether software is citable
+        checklist (bool): Whether a software quality checklist is used
+        compliant_symbol (str): Unicode symbol used in badge when compliant
+        noncompliant_symbol (str): Unicode symbol used in badge when non-compliant
     """
 
-    def __init__(self, repository=False, license_=False, registry=False, citation=False, checklist=False,
-                 compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
+    def __init__(self, repository: bool = False, license_: bool = False, registry: bool = False,
+                 citation: bool = False, checklist: bool = False,
+                 compliant_symbol: str = "\u25CF", noncompliant_symbol: str = "\u25CB"):
         self._index = 0
         self.checklist = checklist
         self.citation = citation
@@ -62,7 +64,7 @@ class Compliance:
         """String representation of each 5 recommendations.
         Where a full dot means compliant with the recommendation and a open dot means not-compliant.
 
-        Returns: A string
+        Returns: A list of string
         """
         compliance_unicode = [None] * 5
         for i, c in enumerate(self._state):
@@ -72,7 +74,18 @@ class Compliance:
                 compliance_unicode[i] = self.noncompliant_symbol
         return compliance_unicode
 
-    def calc_badge(self, fmt):
+    def calc_badge(self, fmt: ReadmeFormat) -> str:
+        """Compute FAIR software badge image URL and URL in format of README.
+
+        Args:
+            fmt: Format of README
+
+        Returns:
+            Badge image link
+
+        Raises:
+            ValueError: If fmt is unknown
+        """
         score = self.count(True)
 
         if score in [0, 1]:
@@ -89,10 +102,17 @@ class Compliance:
             return ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
         if fmt == ReadmeFormat.MARKDOWN:
             return "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
+        raise ValueError('Unable to calculate badge: unknown format')
 
-        return None
+    def count(self, value: bool) -> int:
+        """Number of recommendations that have given value
 
-    def count(self, value):
+        Args:
+            value: If True then returns number of recommendations that are compliant
+
+        Returns:
+            Number of recommendations that have given value
+        """
         return self._state.count(value)
 
     def urlencode(self, separator="%20%20"):
