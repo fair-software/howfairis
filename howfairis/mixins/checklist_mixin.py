@@ -1,7 +1,7 @@
 class ChecklistMixin:
 
     def check_checklist(self):
-        force_state = self.config.force_checklist
+        force_state = self.force_checklist
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_checklist.")
         if isinstance(force_state, bool):
