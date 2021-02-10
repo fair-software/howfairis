@@ -34,8 +34,16 @@ from howfairis.repo import Repo
 def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=None,
         show_trace=False, version=False, ignore_remote_config=False, show_default_config=False):
     # pylint: disable=too-many-locals
+    """Determine compliance with recommendations from fair-software.eu for the repository
+    at URL. Supported code repository platforms are:
 
-    """Determine compliance with recommendations from fair-software.eu for the GitHub or GitLab repository at URL."""
+    1. https://bitbucket.org
+
+    2. https://github.com
+
+    3. https://gitlab.com (not including self-hosted instances)
+
+    4. https://foss.heptapod.net (not including self-hosted instances)"""
 
     if version is True:
         print("version: {0}".format(__version__))
