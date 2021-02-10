@@ -51,7 +51,7 @@ class Repo:
             return "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
         if self.platform == Platform.HEPTAPOD:
             return "https://foss.heptapod.net/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
-        return raise ValueError('Unsupported URL: URL does not match any of the supported source control platforms')
+        raise ValueError("Unsupported URL: URL does not match any of the supported source control platforms")
 
     def _derive_owner_and_repo(self):
         if self.platform == Platform.BITBUCKET:
@@ -121,7 +121,7 @@ class Repo:
             return "https://foss.heptapod.net/{0}/{1}/-/raw/{2}{3}" \
                    .format(self.owner, self.repo, branch, self.path) + "/{0}"
 
-        return raise ValueError('Unsupported URL: URL does not match any of the supported source control platforms')
+        raise ValueError("Unsupported URL: URL does not match any of the supported source control platforms")
 
     def _get_default_branch(self):
         fallback_branch = "main"
