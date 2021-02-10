@@ -26,7 +26,7 @@ class RepositoryMixin:
         elif self.repo.platform == Platform.HEPTAPOD:
             url = self.repo.api + "/repository/tree"
         else:
-            raise ValueError('Unsupported URL: URL does not match any of the supported source control platforms')
+            raise ValueError("Unsupported URL: URL does not match any of the supported source control platforms")
 
         try:
             response = requests.get(url)
