@@ -14,7 +14,7 @@ class Repo:
         config_file: Name of the configuration file to control the behavior of the howfairis package.
 
     """
-    def __init__(self, url: str, branch=None, path=None, repo_config_filename=None):
+    def __init__(self, url: str, branch=None, path=None):
         # run assertions on user input
         Repo._check_assertions(url)
 
@@ -22,7 +22,6 @@ class Repo:
         self.url = url
         self.branch = branch
         self.path = "" if path is None else "/" + path.strip("/")
-        self.repo_config_filename = repo_config_filename
 
         # assign remaining members as needed
         self.platform = self._derive_platform()
