@@ -74,6 +74,10 @@ Live tests (triggered manually)                        |workflow livetests badge
 .. |workflow cffconvert badge| image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
 
+.. image:: https://img.shields.io/docker/build/fairsoftware/howfairis
+   :target: https://hub.docker.com/repository/docker/fairsoftware/howfairis
+   :alt: Docker Build Status
+
 Install
 -------
 
@@ -87,6 +91,25 @@ you should be able to call the executable, like so:
 .. code:: shell
 
     howfairis https://github.com/<owner>/<repo>
+
+Docker
+---------------
+
+You can run howfairis Docker image using the command below.
+
+.. code:: shell
+
+    docker pull fairsoftware/howfairis
+
+You can run howfairis Docker image using the command below.
+
+.. code:: shell
+
+    docker run --rm fairsoftware/howfairis --help
+
+`--rm` argument will remove Docker container after execution.
+
+See developer documentation to learn how to modify the Docker image.
 
 Expected output
 ---------------

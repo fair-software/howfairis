@@ -1,6 +1,6 @@
 import re
 import requests
-from howfairis.vcs_platform import Platform
+from howfairis.code_repository_platforms import Platform
 
 
 class Repo:
