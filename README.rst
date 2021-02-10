@@ -221,7 +221,7 @@ Which then shows something like:
 Configuration file
 ^^^^^^^^^^^^^^^^^^
 
-If your repository has a different compliance then ``howfairis`` reports, you can use a configuration file to force compliance.
+If your repository has a different compliance than ``howfairis`` reports, you can use a configuration file to force compliance.
 For example your software has a license that is not detected by ``howfairis``, but you want to show a FAIR software badge which is compliant with the license recommendation.
 By forcing compliance, the ``howfairis`` tool will not execute any checks and report the compliance as configured.
 
