@@ -20,6 +20,3 @@ def mocker():
         m.get("https://bitbucket.org/jspaaks/badge-test/raw/master/.howfairis-custom-config.yml", status_code=404)
 
         return m
-
-
-
