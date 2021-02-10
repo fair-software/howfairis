@@ -2,7 +2,6 @@ import pytest
 from requests_mock import Mocker
 from howfairis import Checker
 from howfairis import Compliance
-from howfairis import Config
 from howfairis import Repo
 from howfairis.readme import Readme
 
@@ -22,8 +21,7 @@ def badghurl_checker(requests_mock: Mocker):
     requests_mock.get("https://raw.githubusercontent.com/fair-software/does-not-exist/main/.zenodo.json", status_code=404)
 
     repo = Repo("https://github.com/fair-software/does-not-exist")
-    config = Config(repo)
-    checker = Checker(config, repo)
+    checker = Checker(repo)
     return checker
 
 
