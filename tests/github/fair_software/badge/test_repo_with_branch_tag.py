@@ -7,7 +7,7 @@ def get_mocked_repo():
     return Repo("https://github.com/fair-software/badge", branch="0.1.0")
 
 
-class TestRepoNoArgs(Contract):
+class TestRepoWithBranchTag(Contract):
 
     def test_api(self, mocker):
         with mocker:

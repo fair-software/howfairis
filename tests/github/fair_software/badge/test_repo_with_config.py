@@ -7,7 +7,7 @@ def get_mocked_repo():
     return Repo("https://github.com/fair-software/badge", config_file=".howfairis-custom.yml")
 
 
-class TestRepoNoArgs(Contract):
+class TestRepoWithConfig(Contract):
 
     def test_api(self, mocker):
         with mocker:

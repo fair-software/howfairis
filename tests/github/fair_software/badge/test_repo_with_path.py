@@ -7,7 +7,7 @@ def get_mocked_repo():
     return Repo("https://github.com/fair-software/badge", path="mypath")
 
 
-class TestRepoNoArgs(Contract):
+class TestRepoWithPath(Contract):
 
     def test_api(self, mocker):
         with mocker:
