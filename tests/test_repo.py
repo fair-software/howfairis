@@ -1,7 +1,6 @@
 from requests_mock import Mocker
-
 from howfairis import Repo
-from howfairis.vcs_platform import Platform
+from howfairis.code_repository_platforms import Platform
 
 
 def test_notfound_url(requests_mock: Mocker):
