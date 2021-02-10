@@ -44,7 +44,7 @@ def test_github_readme_creation_check_no_times_available(requests_mock: Mocker):
     url = "https://github.com/fair-software/howfairis"
     filename = "README.rst"
     platform = Platform.GITHUB
-    branch = None
+    branch = "master"
     requests_mock.get(url+"/blob/master/"+filename, text="there is no time here")
     requests_mock.get(url+"/contributors/master/"+filename, text="there is no time here")
     actual_return_code = github_readme_creation_check(url, filename, platform, branch)
