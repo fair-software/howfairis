@@ -37,10 +37,8 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         super().__init__()
         self.compliance = None
         self.config = config
-        self.readme = None
         self.repo = repo
-
-        self._get_readme()
+        self.readme = self._get_readme()
 
     def _eval_regexes(self, regexes, check_name=None):
         if check_name is None:
@@ -80,13 +78,12 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                 text = response.text
             else:
                 text = remove_comments(response.text)
-            self.readme = Readme(filename=readme_filename, text=text, fmt=readme_fmt)
-            return self
 
-        print("Did not find a README[.md|.rst] file at " +
-              raw_url.replace(readme_filename, ""))
-        self.readme = Readme(filename=None, text=None, fmt=None)
-        return self
+            return Readme(filename=readme_filename, text=text, fmt=readme_fmt)
+
+        print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
+
+        return Readme(filename=None, text=None, fmt=None)
 
     @staticmethod
     def _print_state(check_name="", state=None, indent=6):

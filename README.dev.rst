@@ -32,6 +32,20 @@ like so:
 
     howfairis https://github.com/<owner>/<repo>
 
+Docker
+---------------
+To build the image, run:
+
+.. code:: shell
+
+   docker build -t fairsoftware/howfairis .
+
+To push the image to DockerHub, run:
+
+.. code:: shell
+
+   docker push fairsoftware/howfairis
+
 For maintainers
 ---------------
 
@@ -77,11 +91,15 @@ Make sure the version is correct.
 
     # check that the package works as it should when installed from pypitest
 
+
+Don't forget to also make a release on GitHub.
+
+.. code:: shell
+
     # Back to the first terminal,
     # FINAL STEP: upload to PyPI
     twine upload dist/*
 
-Don't forget to also make a release on GitHub.
 
 Credits
 -------

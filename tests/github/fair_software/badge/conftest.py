@@ -1,7 +1,7 @@
 import pytest
 from tests.helpers import load_file_from_local_data
 from tests.helpers import get_urls
-from howfairis.vcs_platform import Platform
+from howfairis.code_repository_platforms import Platform
 import requests_mock
 from requests_mock.mocker import Mocker
 
