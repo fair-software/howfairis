@@ -36,10 +36,6 @@ class Contract(ABC):
         pass
 
     @abstractmethod
-    def test_repo_config_filename(self, mocked_repo):
-        pass
-
-    @abstractmethod
     def test_url(self, mocked_repo):
         pass
 
