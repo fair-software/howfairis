@@ -28,19 +28,7 @@ class Compliance:
         self.repository = repository
 
     def __eq__(self, other):
-        return self.count(True) == other.count(True)
-
-    def __ge__(self, other):
-        return self.count(True) >= other.count(True)
-
-    def __gt__(self, other):
-        return self.count(True) > other.count(True)
-
-    def __le__(self, other):
-        return self.count(True) <= other.count(True)
-
-    def __ne__(self, other):
-        return self.count(True) != other.count(True)
+        return [s is o for s, o in zip(self._state, other._state)] == [True] * 5
 
     def __iter__(self):
         return self
@@ -92,7 +80,7 @@ class Compliance:
 
         return None
 
-    def count(self, value):
+    def count(self, value=True):
         return self._state.count(value)
 
     def urlencode(self, separator="%20%20"):
