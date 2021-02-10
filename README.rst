@@ -227,7 +227,7 @@ By forcing compliance, the ``howfairis`` tool will not execute any checks and re
 
 A configuration file called ``.howfairis.yml`` can be added to the root of your software repository.
 The location of the configuration file can be altered by using ``howfairis`` command line arguments as described above.
-The `default configuration file <https://github.com/fair-software/howfairis/blob/master/howfairis/data/.howfairis.yml>`_ can be used as a starting point.
+The output of ``howfairis --show-default-config`` can be used as a starting point.
 
 For example, to force your software to be compliant with the registry recommendation.
 Create a ``.howfairis.yml`` file in the root of your software repository with the following content:
