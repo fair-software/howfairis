@@ -92,7 +92,7 @@ class Compliance:
 
         return None
 
-    def count(self, value=True):
+    def count(self, value):
         return self._state.count(value)
 
     def urlencode(self, separator="%20%20"):

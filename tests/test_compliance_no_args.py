@@ -34,7 +34,7 @@ class TestComplianceNoArgs(Contract):
         assert compliance_fixture.compliant_symbol == "\u25CF"
 
     def test_count(self, compliance_fixture):
-        assert compliance_fixture.count() == 0
+        assert compliance_fixture.count(True) == 0
 
     def test_equality_eq(self, compliance_fixture):
         expected_compliance = Compliance(False, False, False, False, False)
