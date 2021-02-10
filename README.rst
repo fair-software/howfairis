@@ -22,10 +22,11 @@ fair-software.nl recommendations
 (5/5) checklist                                        |core infrastructures badge|
 overall                                                |fair-software badge|
 **Other best practices**
-Documentation                                          |ReadTheDocs Badge|
+Documentation                                          |readthedocs badge|
 Supported Python versions                              |python versions badge| 
-Code quality                                           |Sonarcloud quality badge|
-Code coverage of unit tests                            |Sonarcloud coverage badge|
+Code quality                                           |sonarcloud quality badge|
+Code coverage of unit tests                            |sonarcloud coverage badge|
+DockerHub                                              |dockerhub badge|
 **GitHub Actions**
 Citation metadata consistency                          |workflow cffconvert badge|
 Unit tests                                             |workflow tests badge|
@@ -50,20 +51,24 @@ Live tests (triggered manually)                        |workflow livetests badge
 .. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
    :target: https://fair-software.eu
    
-.. |ReadTheDocs Badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
+.. |readthedocs badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
    
 .. |python versions badge| image:: https://img.shields.io/pypi/pyversions/howfairis.svg
    :target: https://pypi.python.org/pypi/howfairis   
 
-.. |Sonarcloud quality badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=alert_status
+.. |sonarcloud quality badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=alert_status
    :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
    :alt: Quality Gate Status
 
-.. |Sonarcloud coverage badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=coverage
+.. |sonarcloud coverage badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=coverage
    :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
    :alt: Coverage
+
+.. |dockerhub badge| image:: https://img.shields.io/docker/build/fairsoftware/howfairis
+   :target: https://hub.docker.com/repository/docker/fairsoftware/howfairis
+   :alt: Docker Build Status
 
 .. |workflow tests badge| image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
@@ -73,10 +78,6 @@ Live tests (triggered manually)                        |workflow livetests badge
 
 .. |workflow cffconvert badge| image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
-
-.. image:: https://img.shields.io/docker/build/fairsoftware/howfairis
-   :target: https://hub.docker.com/repository/docker/fairsoftware/howfairis
-   :alt: Docker Build Status
 
 Install
 -------
