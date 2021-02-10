@@ -214,7 +214,15 @@ Which then shows something like:
     Usage: howfairis [OPTIONS] [URL]
 
       Determine compliance with recommendations from fair-software.eu for the
-      GitHub or GitLab repository at URL.
+      repository at URL. Supported code repository platforms are:
+
+      1. https://bitbucket.org
+
+      2. https://github.com
+
+      3. https://gitlab.com (not including self-hosted instances)
+
+      4. https://foss.heptapod.net (not including self-hosted instances)
 
     Options:
       -b, --branch TEXT              Which git branch to use. Also accepts other
