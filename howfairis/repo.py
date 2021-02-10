@@ -121,7 +121,7 @@ class Repo:
             return "https://foss.heptapod.net/{0}/{1}/-/raw/{2}{3}" \
                    .format(self.owner, self.repo, branch, self.path) + "/{0}"
 
-        return None
+        return raise ValueError('Unsupported URL: URL does not match any of the supported source control platforms')
 
     def _get_default_branch(self):
         fallback_branch = "main"
