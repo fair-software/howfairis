@@ -134,7 +134,7 @@ class Repo:
             return fallback_branch
 
         if self.platform == Platform.BITBUCKET:
-            return response.json().get("mainbranch").get("name")
+            return response.json().get("mainbranch", {"name": fallback_branch}).get("name")
 
         if self.platform in [Platform.GITLAB, Platform.GITHUB, Platform.HEPTAPOD]:
             return response.json().get("default_branch", fallback_branch)
