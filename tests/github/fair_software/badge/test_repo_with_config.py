@@ -8,7 +8,7 @@ from .mocker import mocker
 @pytest.fixture
 def mocked_repo(mocker):
     with mocker:
-        return Repo("https://github.com/fair-software/badge", config_file=".howfairis-custom-config.yml")
+        return Repo("https://github.com/fair-software/badge", repo_config_filename=".howfairis.custom.yml")
 
 
 class TestRepoWithConfig(Contract):
@@ -18,9 +18,6 @@ class TestRepoWithConfig(Contract):
 
     def test_branch(self, mocked_repo):
         assert mocked_repo.branch is None
-
-    def test_config_file(self, mocked_repo):
-        assert mocked_repo.config_file == ".howfairis-custom-config.yml"
 
     def test_default_branch(self, mocked_repo):
         assert mocked_repo.default_branch == "master"
@@ -40,6 +37,9 @@ class TestRepoWithConfig(Contract):
 
     def test_repo(self, mocked_repo):
         assert mocked_repo.repo == "badge"
+
+    def test_repo_config_filename(self, mocked_repo):
+        assert mocked_repo.repo_config_filename == ".howfairis.custom.yml"
 
     def test_url(self, mocked_repo):
         assert mocked_repo.url == "https://github.com/fair-software/badge"
