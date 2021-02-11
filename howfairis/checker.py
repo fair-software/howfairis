@@ -1,10 +1,13 @@
 import inspect
+import os
 import re
 import requests
 from colorama import Fore
 from colorama import Style
+from ruamel.yaml import YAML
+from voluptuous.error import Invalid
+from voluptuous.error import MultipleInvalid
 from howfairis.compliance import Compliance
-from howfairis.config import Config
 from howfairis.mixins import ChecklistMixin
 from howfairis.mixins import CitationMixin
 from howfairis.mixins import LicenseMixin
@@ -13,6 +16,7 @@ from howfairis.mixins import RepositoryMixin
 from howfairis.readme import Readme
 from howfairis.readme_format import ReadmeFormat
 from howfairis.repo import Repo
+from howfairis.schema import validate_against_schema
 
 
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
@@ -33,11 +37,14 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
 
     """
 
-    def __init__(self, config: Config, repo: Repo):
+    def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None, ignore_repo_config=False):
         super().__init__()
         self.compliance = None
-        self.config = config
         self.repo = repo
+        self._default_config = Checker._load_default_config()
+        self._repo_config = Checker._load_repo_config(repo, repo_config_filename, ignore_repo_config)
+        self._user_config = Checker._load_user_config(user_config_filename)
+        self._merged_config = self._merge_configurations()
         self.readme = self._get_readme()
 
     def _eval_regexes(self, regexes, check_name=None):
@@ -74,7 +81,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             else:
                 readme_file_format = None
 
-            if self.config.include_comments is True:
+            if self.include_comments is True:
                 text = response.text
             else:
                 text = remove_comments(response.text)
@@ -84,6 +91,91 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
 
         return Readme(filename=None, text=None, file_format=None)
+
+    @staticmethod
+    def _load_default_config():
+        pkg_root = os.path.dirname(__file__)
+        default_config_filename = os.path.join(pkg_root, "data", ".howfairis.yml")
+        with open(default_config_filename, "rt") as f:
+            text = f.read()
+        default_config = YAML(typ="safe").load(text)
+        if default_config is None:
+            default_config = dict()
+        try:
+            validate_against_schema(default_config)
+        except (Invalid, MultipleInvalid):
+            print("Default configuration file should follow the schema for it to be considered.")
+            return dict()
+        return default_config
+
+    @staticmethod
+    def _load_repo_config(repo, repo_config_filename, ignore_remote_config):
+        if repo is None:
+            return dict()
+
+        if ignore_remote_config is True:
+            return dict()
+
+        if repo_config_filename is None:
+            raw_url = repo.raw_url_format_string.format(".howfairis.yml")
+        else:
+            raw_url = repo.raw_url_format_string.format(repo_config_filename)
+
+        try:
+            response = requests.get(raw_url)
+            # If the response was successful, no Exception will be raised
+            response.raise_for_status()
+            print("Using the configuration file {0}".format(raw_url))
+        except requests.HTTPError as e:
+            if repo_config_filename is not None:
+                raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
+            return dict()
+
+        try:
+            repo_config = YAML(typ="safe").load(response.text)
+        except Exception as e:
+            raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from e
+
+        try:
+            validate_against_schema(repo_config)
+        except (Invalid, MultipleInvalid):
+            print("Repository's configuration file should follow the schema for it to be considered.")
+            return dict()
+
+        return repo_config
+
+    @staticmethod
+    def _load_user_config(user_config_filename):
+        if user_config_filename is None:
+            return dict()
+
+        p = os.path.join(os.getcwd(), user_config_filename)
+        if not os.path.exists(p):
+            raise FileNotFoundError("{0} doesn't exist.".format(user_config_filename))
+
+        with open(p, "rt") as f:
+            text = f.read()
+        user_config = YAML(typ="safe").load(text)
+        if user_config is None:
+            user_config = dict()
+        try:
+            validate_against_schema(user_config)
+        except Exception as e:
+            raise Exception("User configuration file should follow the schema.") from e
+        return user_config
+
+    def _merge_configurations(self):
+        """Configuration dictionary based on merger of
+
+            * default config from this package
+            * config from repository
+            * config from local user
+        """
+        m = dict()
+        m.update(self._default_config)
+        m.update(self._repo_config)
+        m.update(self._user_config)
+        return m
 
     @staticmethod
     def _print_state(check_name="", state=None, indent=6):
@@ -102,3 +194,27 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                           registry=self.check_registry(),
                           citation=self.check_citation(),
                           checklist=self.check_checklist())
+
+    @property
+    def force_repository(self):
+        return self._merged_config.get("force_repository")
+
+    @property
+    def force_license(self):
+        return self._merged_config.get("force_license")
+
+    @property
+    def force_registry(self):
+        return self._merged_config.get("force_registry")
+
+    @property
+    def force_citation(self):
+        return self._merged_config.get("force_citation")
+
+    @property
+    def force_checklist(self):
+        return self._merged_config.get("force_checklist")
+
+    @property
+    def include_comments(self):
+        return self._merged_config.get("include_comments")
