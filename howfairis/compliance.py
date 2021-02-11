@@ -16,14 +16,14 @@ class Compliance:
         noncompliant_symbol: Unicode symbol used in badge when non-compliant
     """
 
-    def __init__(self, repository=False, license_=False, registry=False, citation=False, checklist=False,
-                 compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
+    COMPLIANT_SYMBOL = "\u25CF"
+    NONCOMPLIANT_SYMBOL = "\u25CB"
+
+    def __init__(self, repository=False, license_=False, registry=False, citation=False, checklist=False):
         self._index = 0
         self.checklist = checklist
         self.citation = citation
-        self.compliant_symbol = compliant_symbol
         self.license = license_
-        self.noncompliant_symbol = noncompliant_symbol
         self.registry = registry
         self.repository = repository
 
@@ -55,9 +55,9 @@ class Compliance:
         compliance_unicode = [None] * 5
         for i, c in enumerate(self._state):
             if c is True:
-                compliance_unicode[i] = self.compliant_symbol
+                compliance_unicode[i] = Compliance.COMPLIANT_SYMBOL
             else:
-                compliance_unicode[i] = self.noncompliant_symbol
+                compliance_unicode[i] = Compliance.NONCOMPLIANT_SYMBOL
         return compliance_unicode
 
     def calc_badge(self, fmt):

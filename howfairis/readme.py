@@ -4,6 +4,11 @@ from howfairis.compliance import Compliance
 
 
 class Readme:
+
+    COMPLIANT_SYMBOL = "%E2%97%8F"
+    NONCOMPLIANT_SYMBOL = "%E2%97%8B"
+    SEPARATOR = "%20%20"
+
     def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, fmt: Optional[str] = None):
         self.filename = filename
         self.text = text
@@ -15,20 +20,20 @@ class Readme:
             self.text == other.text and \
             self.fmt == other.fmt
 
-    def get_compliance(self, compliant="%E2%97%8F", noncompliant="%E2%97%8B", separator="%20%20"):
+    def get_compliance(self):
 
         s = r"(?P<skip>^.*)" \
             "(?P<base>https://img.shields.io/badge/fair--software.eu)" \
             "-" \
-            "(?P<repository>(" + compliant + "|" + noncompliant + "))" \
-            "(?:" + separator + ")" \
-            "(?P<license>(" + compliant + "|" + noncompliant + "))" \
-            "(?:" + separator + ")" \
-            "(?P<registry>(" + compliant + "|" + noncompliant + "))" \
-            "(?:" + separator + ")" \
-            "(?P<citation>(" + compliant + "|" + noncompliant + "))" \
-            "(?:" + separator + ")" \
-            "(?P<checklist>(" + compliant + "|" + noncompliant + "))" \
+            "(?P<repository>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
+            "(?:" + Readme.SEPARATOR + ")" \
+            "(?P<license>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
+            "(?:" + Readme.SEPARATOR + ")" \
+            "(?P<registry>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
+            "(?:" + Readme.SEPARATOR + ")" \
+            "(?P<citation>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
+            "(?:" + Readme.SEPARATOR + ")" \
+            "(?P<checklist>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
             "-" \
             "(?P<color>red|orange|yellow|green)"
         regex = re.compile(s, re.MULTILINE | re.DOTALL)
@@ -39,10 +44,8 @@ class Readme:
 
         groupdict = matched.groupdict()
 
-        return Compliance(repository=groupdict.get("repository") == compliant,
-                          license_=groupdict.get("license") == compliant,
-                          registry=groupdict.get("registry") == compliant,
-                          citation=groupdict.get("citation") == compliant,
-                          checklist=groupdict.get("checklist") == compliant,
-                          compliant_symbol=compliant,
-                          noncompliant_symbol=noncompliant)
+        return Compliance(repository=groupdict.get("repository") == Readme.COMPLIANT_SYMBOL,
+                          license_=groupdict.get("license") == Readme.COMPLIANT_SYMBOL,
+                          registry=groupdict.get("registry") == Readme.COMPLIANT_SYMBOL,
+                          citation=groupdict.get("citation") == Readme.COMPLIANT_SYMBOL,
+                          checklist=groupdict.get("checklist") == Readme.COMPLIANT_SYMBOL)
