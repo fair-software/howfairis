@@ -100,7 +100,7 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
         print("Expected badge is equal to the actual badge. It's all good.\n")
         sys.exit(0)
 
-    if current_compliance > previous_compliance:
+    if current_compliance.count() > previous_compliance.count():
         print("Congratulations! The compliance of your repository exceeds " +
               "the current fair-software.eu badge in your " +
               "{0}. You can replace it with the following snippet:\n\n{1}"
