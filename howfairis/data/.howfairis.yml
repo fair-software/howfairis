@@ -1,6 +1,6 @@
-force_repository: ~
-force_license: ~
-force_registry: ~
-force_citation: ~
-force_checklist: ~
+skip_repository_checks_reason: ~
+skip_license_checks_reason: ~
+skip_registry_checks_reason: ~
+skip_citation_checks_reason: ~
+skip_checklist_checks_reason: ~
 include_comments: false

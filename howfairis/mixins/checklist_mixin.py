@@ -1,16 +1,16 @@
 class ChecklistMixin:
 
     def check_checklist(self):
-        force_state = self.force_checklist
-        if force_state not in [True, False, None]:
-            raise ValueError("Unexpected configuration value for force_checklist.")
-        if isinstance(force_state, bool):
-            print("(5/5) checklist: force {0}".format(force_state))
-            return force_state
-        print("(5/5) checklist")
-        results = [
-            self.has_core_infrastructures_badge(),
-        ]
+        print("(5/5) checklist:")
+        reason = self.skip_checklist_checks_reason
+        if isinstance(reason, str):
+            if reason == "":
+                self._print_state(check_name="skipped without reason", state=True)
+            else:
+                self._print_state(check_name="skipped with reason: {0}".format(reason), state=True)
+            results = [True]
+        if reason is None:
+            results = [self.has_core_infrastructures_badge()]
         return True in results
 
     def has_core_infrastructures_badge(self):
