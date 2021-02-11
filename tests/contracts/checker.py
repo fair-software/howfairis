@@ -29,10 +29,6 @@ class Contract(ABC):
         pass
 
     @abstractmethod
-    def test_config(self, mocked_context: Mocker):
-        pass
-
-    @abstractmethod
     def test_has_ascl_badge(self, mocked_context: Mocker):
         pass
 

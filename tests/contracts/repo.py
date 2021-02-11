@@ -13,10 +13,6 @@ class Contract(ABC):
         pass
 
     @abstractmethod
-    def test_config_file(self, mocked_context: Mocker):
-        pass
-
-    @abstractmethod
     def test_default_branch(self, mocked_context: Mocker):
         pass
 

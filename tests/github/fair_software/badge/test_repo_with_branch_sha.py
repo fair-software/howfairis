@@ -19,11 +19,6 @@ class TestRepoWithBranchSHA(Contract):
             mocked_repo = get_mocked_repo()
             assert mocked_repo.branch == "b3f90ec9c2b1be604f482c2d9e46a9aeca3ee45a"
 
-    def test_config_file(self, mocker):
-        with mocker:
-            mocked_repo = get_mocked_repo()
-            assert mocked_repo.config_file is None
-
     def test_default_branch(self, mocker):
         with mocker:
             mocked_repo = get_mocked_repo()

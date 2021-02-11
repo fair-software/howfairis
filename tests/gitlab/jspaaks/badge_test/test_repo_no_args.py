@@ -19,11 +19,6 @@ class TestRepoNoArgs(Contract):
             mocked_repo = get_mocked_repo()
             assert mocked_repo.branch is None
 
-    def test_config_file(self, mocker):
-        with mocker:
-            mocked_repo = get_mocked_repo()
-            assert mocked_repo.config_file is None
-
     def test_default_branch(self, mocker):
         with mocker:
             mocked_repo = get_mocked_repo()

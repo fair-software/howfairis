@@ -16,31 +16,19 @@ class Compliance:
         noncompliant_symbol: Unicode symbol used in badge when non-compliant
     """
 
-    def __init__(self, repository=False, license_=False, registry=False, citation=False, checklist=False,
-                 compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
+    COMPLIANT_SYMBOL = "\u25CF"
+    NONCOMPLIANT_SYMBOL = "\u25CB"
+
+    def __init__(self, repository=False, license_=False, registry=False, citation=False, checklist=False):
         self._index = 0
         self.checklist = checklist
         self.citation = citation
-        self.compliant_symbol = compliant_symbol
         self.license = license_
-        self.noncompliant_symbol = noncompliant_symbol
         self.registry = registry
         self.repository = repository
 
     def __eq__(self, other):
-        return self.count(True) == other.count(True)
-
-    def __ge__(self, other):
-        return self.count(True) >= other.count(True)
-
-    def __gt__(self, other):
-        return self.count(True) > other.count(True)
-
-    def __le__(self, other):
-        return self.count(True) <= other.count(True)
-
-    def __ne__(self, other):
-        return self.count(True) != other.count(True)
+        return isinstance(other, Compliance) and [s is o for s, o in zip(self._state, other._state)] == [True] * 5
 
     def __iter__(self):
         return self
@@ -67,12 +55,12 @@ class Compliance:
         compliance_unicode = [None] * 5
         for i, c in enumerate(self._state):
             if c is True:
-                compliance_unicode[i] = self.compliant_symbol
+                compliance_unicode[i] = Compliance.COMPLIANT_SYMBOL
             else:
-                compliance_unicode[i] = self.noncompliant_symbol
+                compliance_unicode[i] = Compliance.NONCOMPLIANT_SYMBOL
         return compliance_unicode
 
-    def calc_badge(self, fmt):
+    def calc_badge(self, readme_file_format):
         score = self.count(True)
 
         if score in [0, 1]:
@@ -85,14 +73,14 @@ class Compliance:
             color_string = "green"
 
         badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.urlencode(), color_string)
-        if fmt == ReadmeFormat.RESTRUCTUREDTEXT:
+        if readme_file_format == ReadmeFormat.RESTRUCTUREDTEXT:
             return ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
-        if fmt == ReadmeFormat.MARKDOWN:
+        if readme_file_format == ReadmeFormat.MARKDOWN:
             return "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
 
         return None
 
-    def count(self, value):
+    def count(self, value=True):
         return self._state.count(value)
 
     def urlencode(self, separator="%20%20"):

@@ -1,6 +1,5 @@
 from howfairis import Checker
 from howfairis import Compliance
-from howfairis import Config
 from howfairis import Repo
 from howfairis.readme import Readme
 from tests.contracts.checker import Contract
@@ -8,8 +7,7 @@ from tests.contracts.checker import Contract
 
 def get_mocked_checker():
     repo = Repo("https://gitlab.com/jspaaks/badge-test")
-    config = Config(repo)
-    return Checker(config, repo)
+    return Checker(repo)
 
 
 class TestCheckerNoArgs(Contract):
@@ -45,11 +43,6 @@ class TestCheckerNoArgs(Contract):
             actual_compliance = mocked_checker.check_five_recommendations()
             expected_compliance = Compliance(True, True, True, True, True)
             assert actual_compliance == expected_compliance
-
-    def test_config(self, mocker):
-        with mocker:
-            mocked_checker = get_mocked_checker()
-            assert isinstance(mocked_checker.config, Config)
 
     def test_has_ascl_badge(self, mocker):
         with mocker:
