@@ -93,6 +93,12 @@ you should be able to call the executable, like so:
 
     howfairis https://github.com/<owner>/<repo>
 
+
+``howfairis`` supports URLs from the following code repository platforms:
+
+1. ``https://github.com``
+2. ``https://gitlab.com`` (not including self-hosted instances)
+
 Docker
 ---------------
 
@@ -215,7 +221,11 @@ Which then shows something like:
     Usage: howfairis [OPTIONS] [URL]
 
       Determine compliance with recommendations from fair-software.eu for the
-      GitHub or GitLab repository at URL.
+      repository at URL. The following code repository platforms are supported:
+
+      * https://github.com
+
+      * https://gitlab.com (not including any self-hosted instances)
 
     Options:
       -b, --branch TEXT              Which git branch to use. Also accepts other
