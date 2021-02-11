@@ -12,10 +12,6 @@ class Contract(ABC):
         pass
 
     @abstractmethod
-    def test_config_file(self, mocked_repo):
-        pass
-
-    @abstractmethod
     def test_default_branch(self, mocked_repo):
         pass
 
@@ -37,6 +33,10 @@ class Contract(ABC):
 
     @abstractmethod
     def test_repo(self, mocked_repo):
+        pass
+
+    @abstractmethod
+    def test_repo_config_filename(self, mocked_repo):
         pass
 
     @abstractmethod
