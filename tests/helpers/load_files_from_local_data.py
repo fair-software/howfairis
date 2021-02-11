@@ -10,7 +10,7 @@ def load_files_from_local_data(who_is_asking_file):
     for root, _, filenames in os.walk(data_dir):
         for filename in filenames:
             fullpath = os.path.join(root, filename)
-            key = fullpath.replace(data_dir, "")
+            key = "/".join(fullpath.replace(data_dir, "").split(os.sep))
             with open(fullpath, "rt") as fid:
                 files_dict[key] = fid.read()
 
