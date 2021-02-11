@@ -68,22 +68,22 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                 continue
 
             if readme_filename == "README.md":
-                readme_fmt = ReadmeFormat.MARKDOWN
+                readme_file_format = ReadmeFormat.MARKDOWN
             elif readme_filename == "README.rst":
-                readme_fmt = ReadmeFormat.RESTRUCTUREDTEXT
+                readme_file_format = ReadmeFormat.RESTRUCTUREDTEXT
             else:
-                readme_fmt = None
+                readme_file_format = None
 
             if self.config.include_comments is True:
                 text = response.text
             else:
                 text = remove_comments(response.text)
 
-            return Readme(filename=readme_filename, text=text, fmt=readme_fmt)
+            return Readme(filename=readme_filename, text=text, file_format=readme_file_format)
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
 
-        return Readme(filename=None, text=None, fmt=None)
+        return Readme(filename=None, text=None, file_format=None)
 
     @staticmethod
     def _print_state(check_name="", state=None, indent=6):

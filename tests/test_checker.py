@@ -30,7 +30,7 @@ def badghurl_checker(requests_mock: Mocker):
 def test_checker_badghurl_emptyreadme(badghurl_checker: Checker):
     actual_readme = badghurl_checker.readme
 
-    expected_readme = Readme(filename=None, text=None, fmt=None)
+    expected_readme = Readme(filename=None, text=None, file_format=None)
     assert actual_readme == expected_readme
 
 

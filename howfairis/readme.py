@@ -4,16 +4,16 @@ from howfairis.compliance import Compliance
 
 
 class Readme:
-    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, fmt: Optional[str] = None):
+    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, file_format: Optional[str] = None):
         self.filename = filename
         self.text = text
-        self.fmt = fmt
+        self.file_format = file_format
 
     def __eq__(self, other):
         return \
             self.filename == other.filename and \
             self.text == other.text and \
-            self.fmt == other.fmt
+            self.file_format == other.file_format
 
     def get_compliance(self, compliant="%E2%97%8F", noncompliant="%E2%97%8B", separator="%20%20"):
 

@@ -72,7 +72,7 @@ class Compliance:
                 compliance_unicode[i] = self.noncompliant_symbol
         return compliance_unicode
 
-    def calc_badge(self, fmt):
+    def calc_badge(self, readme_file_format):
         score = self.count(True)
 
         if score in [0, 1]:
@@ -85,9 +85,9 @@ class Compliance:
             color_string = "green"
 
         badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.urlencode(), color_string)
-        if fmt == ReadmeFormat.RESTRUCTUREDTEXT:
+        if readme_file_format == ReadmeFormat.RESTRUCTUREDTEXT:
             return ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
-        if fmt == ReadmeFormat.MARKDOWN:
+        if readme_file_format == ReadmeFormat.MARKDOWN:
             return "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
 
         return None

@@ -81,7 +81,7 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
 
     checker = Checker(config, repo)
     current_compliance = checker.check_five_recommendations()
-    badge = current_compliance.calc_badge(checker.readme.fmt)
+    badge = current_compliance.calc_badge(checker.readme.file_format)
 
     print("\nCalculated compliance: " + " ".join(current_compliance.as_unicode()) + "\n")
 
