@@ -1,17 +1,16 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 """Tests for the howfairis module.
 """
+import pytest
 import requests
 import time
-import random
 from howfairis import Checker
-from howfairis import Config
 from howfairis import Repo
+from howfairis import Compliance
 
 
-def test_heavy_handed_livetest_rsd():
+def get_urls(n=None):
     software_api_url = "https://www.research-software.nl/api/software?isPublished=true"
     try:
         response = requests.get(software_api_url)
@@ -25,16 +24,21 @@ def test_heavy_handed_livetest_rsd():
     for d in response.json():
         for key, values in d["repositoryURLs"].items():
             urls.extend(values)
+    if n is None:
+        return urls
+    else:
+        return urls[:n]
 
-    random.shuffle(urls)
-    for url in urls[:5]:
-        print(url)
-        repo = Repo(url)
-        config = Config(repo)
-        checker = Checker(config, repo)
-        compliance = checker.check_five_recommendations()
-        for c in compliance:
-            assert isinstance(c, bool)
 
-        # sleep to avoid rate limiting of GitHub API
-        time.sleep(20)
+@pytest.fixture(params=get_urls(2))
+def url_fixture(request):
+    return request.param
+
+
+def test_heavy_handed_testing_of_rsd_urls(url_fixture):
+    print(url_fixture)
+    repo = Repo(url_fixture)
+    checker = Checker(repo)
+    compliance = checker.check_five_recommendations()
+    assert isinstance(compliance, Compliance)
+    time.sleep(20)
