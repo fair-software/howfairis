@@ -38,8 +38,5 @@ class TestRepoNoArgs(Contract):
     def test_repo(self, mocked_repo):
         assert mocked_repo.repo == "badge"
 
-    def test_repo_config_filename(self, mocked_repo):
-        assert mocked_repo.repo_config_filename is None
-
     def test_url(self, mocked_repo):
         assert mocked_repo.url == "https://github.com/fair-software/badge"
