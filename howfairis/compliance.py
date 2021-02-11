@@ -28,7 +28,7 @@ class Compliance:
         self.repository = repository
 
     def __eq__(self, other):
-        return [s is o for s, o in zip(self._state, other._state)] == [True] * 5
+        return isinstance(other, Compliance) and [s is o for s, o in zip(self._state, other._state)] == [True] * 5
 
     def __iter__(self):
         return self
