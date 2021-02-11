@@ -89,13 +89,9 @@ class Repo:
         return raw_url_format_string
 
     def _get_default_branch(self):
-        fallback_branch = 'main'
         # GitHub API and GitLab API work the same
         response = requests.get(self.api)
 
         # If the request was successful, the next line will not raise any Exception
-        try:
-            response.raise_for_status()
-        except requests.HTTPError:
-            return fallback_branch
-        return response.json().get("default_branch", fallback_branch)
+        response.raise_for_status()
+        return response.json().get("default_branch")
