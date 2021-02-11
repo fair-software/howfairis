@@ -6,7 +6,8 @@ def test_valid_url():
     runner = CliRunner()
     result = runner.invoke(cli.cli, ["https://github.com/fair-software/howfairis"])
     expected_exit_code = str(0)
-    assert str(result.exit_code) == expected_exit_code
+    actual_exit_code = str(result.exit_code)
+    assert actual_exit_code == expected_exit_code
 
 
 def test_invalid_url():

@@ -2,6 +2,7 @@
 
 """Tests for the howfairis module.
 """
+import random
 import pytest
 import requests
 import time
@@ -25,12 +26,13 @@ def get_urls(n=None):
         for key, values in d["repositoryURLs"].items():
             urls.extend(values)
     if n is None:
-        return urls
+        return random.shuffle(urls)
     else:
+        random.shuffle(urls)
         return urls[:n]
 
 
-@pytest.fixture(params=get_urls(2))
+@pytest.fixture(params=get_urls(10))
 def url_fixture(request):
     return request.param
 
