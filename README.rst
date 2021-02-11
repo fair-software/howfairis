@@ -67,7 +67,7 @@ Live tests (triggered manually)                        |workflow livetests badge
    :alt: Coverage
 
 .. |dockerhub badge| image:: https://img.shields.io/docker/build/fairsoftware/howfairis
-   :target: https://hub.docker.com/repository/docker/fairsoftware/howfairis
+   :target: https://hub.docker.com/r/fairsoftware/howfairis
    :alt: Docker Build Status
 
 .. |workflow tests badge| image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
