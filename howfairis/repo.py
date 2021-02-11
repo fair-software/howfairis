@@ -93,5 +93,8 @@ class Repo:
         response = requests.get(self.api)
 
         # If the request was successful, the next line will not raise any Exception
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except requests.HTTPError as e:
+            raise Exception("Something went wrong asking the repo for its default branch.") from e
         return response.json().get("default_branch")
