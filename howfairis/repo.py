@@ -14,6 +14,12 @@ class Repo:
         config_file: Name of the configuration file to control the behavior of the howfairis package.
 
     """
+
+    HTTPS_BITBUCKET_ORG = "https://bitbucket.org"
+    HTTPS_GITHUB_COM = "https://github.com"
+    HTTPS_GITLAB_COM = "https://gitlab.com"
+    HTTPS_FOSS_HEPTAPOD_NET = "https://foss.heptapod.net"
+
     def __init__(self, url: str, branch=None, path=None):
         # run assertions on user input
         Repo._check_assertions(url)
@@ -33,11 +39,11 @@ class Repo:
     @staticmethod
     def _check_assertions(url):
         assert url.startswith("https://"), "url should start with https://"
-        assert True in [url.startswith("https://bitbucket.org"),
-                        url.startswith("https://github.com"),
-                        url.startswith("https://gitlab.com"),
-                        url.startswith("https://foss.heptapod.net")], "Repository should be on bitbucket.org, " \
-                                                                      "github.com, gitlab.com, or foss.heptapod.net."
+        assert True in [url.startswith(Repo.HTTPS_BITBUCKET_ORG),
+                        url.startswith(Repo.HTTPS_FOSS_HEPTAPOD_NET),
+                        url.startswith(Repo.HTTPS_GITHUB_COM),
+                        url.startswith(Repo.HTTPS_GITLAB_COM)], "Repository should be on bitbucket.org, " \
+                                                                "foss.heptapod.net, github.com, or gitlab.com."
         assert re.search(r"^https://(github\.com|gitlab\.com|bitbucket\.org|foss\.heptapod\.net)/[^/]+/[^/]+", url), \
             "url is not a repository"
 
@@ -55,25 +61,25 @@ class Repo:
     def _derive_owner_and_repo(self):
         if self.platform == Platform.BITBUCKET:
             try:
-                owner, repo = self.url.replace("https://bitbucket.org", "").strip("/").split("/")[:2]
+                owner, repo = self.url.replace(Repo.HTTPS_BITBUCKET_ORG, "").strip("/").split("/")[:2]
             except ValueError as e:
                 raise ValueError("Bad value for input argument URL.") from e
 
         if self.platform == Platform.GITHUB:
             try:
-                owner, repo = self.url.replace("https://github.com", "").strip("/").split("/")[:2]
+                owner, repo = self.url.replace(Repo.HTTPS_GITHUB_COM, "").strip("/").split("/")[:2]
             except ValueError as e:
                 raise ValueError("Bad value for input argument URL.") from e
 
         if self.platform == Platform.GITLAB:
             try:
-                owner, repo = self.url.replace("https://gitlab.com", "").strip("/").split("/")[:2]
+                owner, repo = self.url.replace(Repo.HTTPS_GITLAB_COM, "").strip("/").split("/")[:2]
             except ValueError as e:
                 raise ValueError("Bad value for input argument URL.") from e
 
         if self.platform == Platform.HEPTAPOD:
             try:
-                owner, repo = self.url.replace("https://foss.heptapod.net", "").strip("/").split("/")[:2]
+                owner, repo = self.url.replace(Repo.HTTPS_FOSS_HEPTAPOD_NET, "").strip("/").split("/")[:2]
             except ValueError as e:
                 raise ValueError("Bad value for input argument URL.") from e
 
@@ -83,16 +89,16 @@ class Repo:
         return owner, repo
 
     def _derive_platform(self):
-        if self.url.startswith("https://bitbucket.org"):
+        if self.url.startswith(Repo.HTTPS_BITBUCKET_ORG):
             return Platform.BITBUCKET
 
-        if self.url.startswith("https://github.com"):
+        if self.url.startswith(Repo.HTTPS_GITHUB_COM):
             return Platform.GITHUB
 
-        if self.url.startswith("https://gitlab.com"):
+        if self.url.startswith(Repo.HTTPS_GITLAB_COM):
             return Platform.GITLAB
 
-        if self.url.startswith("https://foss.heptapod.net"):
+        if self.url.startswith(Repo.HTTPS_FOSS_HEPTAPOD_NET):
             return Platform.HEPTAPOD
 
         return None
