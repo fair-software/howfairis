@@ -38,4 +38,3 @@ class Contract(ABC):
     @abstractmethod
     def test_url(self, mocked_repo):
         pass
-

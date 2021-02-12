@@ -89,17 +89,15 @@ class Repo:
 
     def _get_default_branch(self):
 
-        if self.branch is None:
-            # GitHub API and GitLab API work the same
-            response = requests.get(self.api)
-
-            # If the request was successful, the next line will not raise any Exception
-            try:
-                response.raise_for_status()
-            except requests.HTTPError as e:
-                raise Exception("Something went wrong asking the repo for its default branch.") from e
-            return response.json().get("default_branch")
-        else:
+        if self.branch is not None:
             # user has specified a branch, use that regardless of whether it actually exists
             return None
 
+        # GitHub API and GitLab API work the same
+        response = requests.get(self.api)
+        # If the request was successful, the next line will not raise any Exception
+        try:
+            response.raise_for_status()
+        except requests.HTTPError as e:
+            raise Exception("Something went wrong asking the repo for its default branch.") from e
+        return response.json().get("default_branch")
