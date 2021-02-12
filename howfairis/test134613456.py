@@ -1,3 +1,2 @@
 class MYCLASS:
     pass
-
