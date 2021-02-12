@@ -13,8 +13,8 @@ __all__ = [
     "__version__",
     "Checker",
     "Compliance",
-    "GetDefaultBranchException"
+    "GetDefaultBranchException",
     "HowfairisException",
     "Platform",
-    "Repo",
+    "Repo"
 ]
