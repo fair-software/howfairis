@@ -197,23 +197,23 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
 
     @property
     def skip_repository_checks_reason(self):
-        return self._merged_config.get("skip_repository_checks_reason")
+        return self._merged_config.get("skip_repository_checks_reason", None)
 
     @property
     def skip_license_checks_reason(self):
-        return self._merged_config.get("skip_license_checks_reason")
+        return self._merged_config.get("skip_license_checks_reason", None)
 
     @property
     def skip_registry_checks_reason(self):
-        return self._merged_config.get("skip_registry_checks_reason")
+        return self._merged_config.get("skip_registry_checks_reason", None)
 
     @property
     def skip_citation_checks_reason(self):
-        return self._merged_config.get("skip_citation_checks_reason")
+        return self._merged_config.get("skip_citation_checks_reason", None)
 
     @property
     def skip_checklist_checks_reason(self):
-        return self._merged_config.get("skip_checklist_checks_reason")
+        return self._merged_config.get("skip_checklist_checks_reason", None)
 
     @property
     def include_comments(self):
