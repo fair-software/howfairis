@@ -23,7 +23,7 @@ from sphinx.ext import apidoc
 here = os.path.dirname(__file__)
 sys.path.insert(0, os.path.abspath(os.path.join(here, '..')))
 
-
+# pylint: disable=wrong-import-position
 import howfairis
 
 # -- General configuration ------------------------------------------------
