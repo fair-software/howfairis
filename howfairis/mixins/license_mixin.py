@@ -10,9 +10,11 @@ class LicenseMixin:
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_license.")
         if isinstance(force_state, bool):
-            print("(2/5) license: force {0}".format(force_state))
+            if not self.is_quiet:
+                print("(2/5) license: force {0}".format(force_state))
             return force_state
-        print("(2/5) license")
+        if not self.is_quiet:
+            print("(2/5) license")
         results = [self.has_license()]
         return True in results
 

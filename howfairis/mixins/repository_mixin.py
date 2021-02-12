@@ -9,9 +9,11 @@ class RepositoryMixin:
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_repository.")
         if isinstance(force_state, bool):
-            print("(1/5) repository: force {0}".format(force_state))
+            if not self.is_quiet:
+                print("(1/5) repository: force {0}".format(force_state))
             return force_state
-        print("(1/5) repository")
+        if not self.is_quiet:
+            print("(1/5) repository")
         results = [self.has_open_repository()]
         return True in results
 

@@ -9,9 +9,12 @@ class RegistryMixin:
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_registry.")
         if isinstance(force_state, bool):
-            print("(3/5) registry: force {0}".format(force_state))
+            if not self.is_quiet:
+                print("(3/5) registry: force {0}".format(force_state))
             return force_state
-        print("(3/5) registry")
+        if not self.is_quiet:
+            print("(3/5) registry")
+
         results = [
             self.has_ascl_badge(),
             self.has_bintray_badge(),

@@ -8,9 +8,12 @@ class CitationMixin:
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_citation.")
         if isinstance(force_state, bool):
-            print("(4/5) citation: force {0}".format(force_state))
+            if not self.is_quiet:
+                print("(4/5) citation: force {0}".format(force_state))
             return force_state
-        print("(4/5) citation")
+        if not self.is_quiet:
+            print("(4/5) citation")
+
         results = [
             self.has_citation_file(),
             self.has_citationcff_file(),

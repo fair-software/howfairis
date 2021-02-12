@@ -5,9 +5,11 @@ class ChecklistMixin:
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_checklist.")
         if isinstance(force_state, bool):
-            print("(5/5) checklist: force {0}".format(force_state))
+            if not self.is_quiet:
+                print("(5/5) checklist: force {0}".format(force_state))
             return force_state
-        print("(5/5) checklist")
+        if not self.is_quiet:
+            print("(5/5) checklist")
         results = [
             self.has_core_infrastructures_badge(),
         ]
