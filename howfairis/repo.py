@@ -1,6 +1,7 @@
 import re
 import requests
 from howfairis.code_repository_platforms import Platform
+from howfairis.exceptions import GetDefaultBranchException
 
 
 class Repo:
@@ -99,5 +100,5 @@ class Repo:
         try:
             response.raise_for_status()
         except requests.HTTPError as e:
-            raise Exception("Something went wrong asking the repo for its default branch.") from e
+            raise GetDefaultBranchException("Something went wrong asking the repo for its default branch.") from e
         return response.json().get("default_branch")
