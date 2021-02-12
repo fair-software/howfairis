@@ -33,7 +33,7 @@ like so:
     howfairis https://github.com/<owner>/<repo>
 
 Docker
----------------
+------
 To build the image, run:
 
 .. code:: shell
@@ -45,6 +45,14 @@ To push the image to DockerHub, run:
 .. code:: shell
 
    docker push fairsoftware/howfairis
+
+
+Running linters locally
+-----------------------
+
+.. code:: shell
+
+    prospector && isort --recursive --check-only howfairis
 
 For maintainers
 ---------------
