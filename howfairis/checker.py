@@ -23,23 +23,15 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     """Check the repo against the five FAIR software recommendations using supplied config.
 
     Args:
-        config: Configuration to use
         repo: Repository to check
 
     Attributes:
-        readme (Readme): Retrieved README from the repository.
-        compliance (Optional[Compliance]): The current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge_url (Optional[str]): URL of badge image for the current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge (Optional[str]): Badge image link for the current compliance. Formatted in format of README.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-
+        readme (howfairis.readme.Readme): Retrieved README from the repository.
+        repo (howfairis.repo.Repo): Object describing the properties of the target repository
     """
 
     def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None, ignore_repo_config=False):
         super().__init__()
-        self.compliance = None
         self.repo = repo
         self._default_config = Checker._load_default_config()
         self._repo_config = Checker._load_repo_config(repo, repo_config_filename, ignore_repo_config)
