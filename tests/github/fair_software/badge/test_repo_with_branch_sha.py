@@ -20,7 +20,7 @@ class TestRepoWithBranchSHA(Contract):
         assert mocked_repo.branch == "b3f90ec9c2b1be604f482c2d9e46a9aeca3ee45a"
 
     def test_default_branch(self, mocked_repo):
-        assert mocked_repo.default_branch == "master"
+        assert mocked_repo.default_branch is None
 
     def test_owner(self, mocked_repo):
         assert mocked_repo.owner == "fair-software"
