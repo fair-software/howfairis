@@ -84,6 +84,14 @@ todo_include_todos = False
 
 # -- Run apidoc plug-in manually, as readthedocs doesn't support it -------
 # See https://github.com/rtfd/readthedocs.org/issues/1139
+
+apidoc_module_dir = "../howfairis"
+apidoc_output_dir = "./apidocs"
+#apidoc_excluded_paths = ["tests", "readthedocs"]
+apidoc_separate_modules = True
+apidoc_module_first = True
+
+
 def run_apidoc(_):
     here = os.path.dirname(__file__)
     out = os.path.abspath(os.path.join(here, 'apidocs'))

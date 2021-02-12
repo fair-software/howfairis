@@ -1,7 +1,3 @@
-sphinx:
-  builder: html
-  configuration: readthedocs/conf.py
-
 version: 2
 python:
   install:
