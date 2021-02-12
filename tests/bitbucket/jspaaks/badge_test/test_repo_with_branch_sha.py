@@ -19,9 +19,6 @@ class TestRepoWithBranchSHA(Contract):
     def test_branch(self, mocked_repo):
         assert mocked_repo.branch == "e87814ff014115bb07dbd84e44daee104132113e"
 
-    def test_config_file(self, mocked_repo):
-        assert mocked_repo.config_file is None
-
     def test_default_branch(self, mocked_repo):
         assert mocked_repo.default_branch == "master"
 

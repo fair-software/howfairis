@@ -19,9 +19,6 @@ class TestRepoWithBranchTag(Contract):
     def test_branch(self, mocked_repo):
         assert mocked_repo.branch == "0.1.0"
 
-    def test_config_file(self, mocked_repo):
-        assert mocked_repo.config_file is None
-
     def test_default_branch(self, mocked_repo):
         assert mocked_repo.default_branch == "master"
 
