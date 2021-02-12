@@ -1,5 +1,5 @@
-from .GetDefaultBranchException import GetDefaultBranchException
-from .HowfairisException import HowfairisException
+from .get_default_branch_exception import GetDefaultBranchException
+from .howfairis_exception import HowfairisException
 
 
 __all__ = [
