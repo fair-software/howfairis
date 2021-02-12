@@ -43,12 +43,6 @@ def _exit_with_call_to_action(previous_compliance, current_compliance, readme, i
     sys.exit(1)
 
 
-def _exit_with_version(version, is_quiet=False):
-    if not is_quiet:
-        print("version: {0}".format(version))
-    sys.exit(0)
-
-
 def _exit_with_default_config(is_quiet=False):
     if not is_quiet:
         pkg_root = os.path.dirname(__file__)
@@ -56,6 +50,12 @@ def _exit_with_default_config(is_quiet=False):
         with open(default_config_filename, "rt") as f:
             text = f.read()
         print(text)
+    sys.exit(0)
+
+
+def _exit_with_version(version, is_quiet=False):
+    if not is_quiet:
+        print("version: {0}".format(version))
     sys.exit(0)
 
 
