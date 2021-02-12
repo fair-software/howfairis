@@ -50,9 +50,28 @@ To push the image to DockerHub, run:
 Running linters locally
 -----------------------
 
+Running the linters requires an activated virtualenv with the development tools installed.
+
 .. code:: shell
 
+    # linter
+    prospector
+
+    # recursively check import style for the howfairis module only
+    isort --recursive --check-only howfairis
+
+    # recursively check import style for the howfairis module only and show
+    # any proposed changes as a diff
+    isort --recursive --check-only --diff howfairis
+
+    # recursively fix  import style for the howfairis module only
+    isort --recursive howfairis
+
+.. code:: shell
+
+    # requires activated virtualenv with development tools
     prospector && isort --recursive --check-only howfairis
+
 
 For maintainers
 ---------------
