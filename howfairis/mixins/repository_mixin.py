@@ -9,9 +9,9 @@ class RepositoryMixin:
         reason = self.skip_repository_checks_reason
         if isinstance(reason, str):
             if reason == "":
-                self._print_state(check_name="skipped without reason", state=True)
+                self._print_state(check_name="skipped (no reason provided)", state=True)
             else:
-                self._print_state(check_name="skipped with reason: {0}".format(reason), state=True)
+                self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
             results = [True]
         if reason is None:
             results = [self.has_open_repository()]
