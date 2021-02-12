@@ -1,5 +1,5 @@
 import requests
-from howfairis.code_repository_platforms import Platform
+from ..code_repository_platforms import Platform
 
 
 class RepositoryMixin:

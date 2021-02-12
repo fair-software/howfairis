@@ -1,7 +1,7 @@
 import re
 import requests
-from howfairis.code_repository_platforms import Platform
-from howfairis.exceptions.get_default_branch_exception import GetDefaultBranchException
+from .code_repository_platforms import Platform
+from .exceptions.get_default_branch_exception import GetDefaultBranchException
 
 
 class Repo:

@@ -1,4 +1,4 @@
-from howfairis.exceptions.howfairis_exception import HowfairisException
+from .howfairis_exception import HowfairisException
 
 
 class GetDefaultBranchException(HowfairisException):
