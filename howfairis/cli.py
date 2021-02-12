@@ -4,7 +4,6 @@ import click
 from colorama import init as init_terminal_colors
 from howfairis.__version__ import __version__
 from howfairis.checker import Checker
-from howfairis.config import Config
 from howfairis.repo import Repo
 
 
@@ -12,17 +11,17 @@ from howfairis.repo import Repo
 @click.command(context_settings=dict(help_option_names=["-h", "--help"]))
 @click.option("-b", "--branch", default=None, type=click.STRING,
               help="Which git branch to use. Also accepts other git references like SHA or tag.")
-@click.option("-c", "--config-file", default=None, type=click.Path(),
+@click.option("-c", "--user-config-filename", default=None, type=click.Path(),
               help="Name of the configuration file to control howfairis'es behavior. The configuration " +
                    "file needs to be present on the local system and can include a relative path.")
 @click.option("-d", "--show-default-config", default=False, is_flag=True,
               help="Show default configuration and exit.")
-@click.option("-i", "--ignore-remote-config", default=False, is_flag=True,
+@click.option("-i", "--ignore-repo-config", default=False, is_flag=True,
               help="Ignore any configuration files on the remote.")
 @click.option("-p", "--path", default=None, type=click.STRING,
               help="Relative path (on the remote). Use this if you want howfairis to look for a " +
                    "README and a configuration file in a subdirectory.")
-@click.option("-r", "--remote-config-file", default=None, type=click.STRING,
+@click.option("-r", "--repo-config-filename", default=None, type=click.STRING,
               help="Name of the configuration file to control howfairis'es behavior. The configuration " +
                    "file needs to be on the remote, and takes into account the value of " +
                    "--branch and --path. Default: .howfairis.yml")
@@ -31,8 +30,8 @@ from howfairis.repo import Repo
 @click.option("-v", "--version", default=False, is_flag=True,
               help="Show version and exit.")
 @click.argument("url", required=False)
-def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=None,
-        show_trace=False, version=False, ignore_remote_config=False, show_default_config=False):
+def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=None, path=None,
+        show_trace=False, version=False, ignore_repo_config=False, show_default_config=False):
     # pylint: disable=too-many-locals
     """Determine compliance with recommendations from fair-software.eu for the repository
     at URL. Supported code repository platforms are:
@@ -51,8 +50,8 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
 
     if show_default_config is True:
         pkg_root = os.path.dirname(__file__)
-        config_filename = os.path.join(pkg_root, "data", ".howfairis.yml")
-        with open(config_filename, "rt") as f:
+        default_config_filename = os.path.join(pkg_root, "data", ".howfairis.yml")
+        with open(default_config_filename, "rt") as f:
             text = f.read()
         print(text)
         return
@@ -73,23 +72,22 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
     if path is not None:
         print("path: " + path)
 
-    if ignore_remote_config is True:
+    if ignore_repo_config is True:
         print("Ignoring any configuration files on the remote.")
-        assert remote_config_file is None, "When ignoring any configuration files on the remote, you" + \
-                                           " should not set a remote configuration filename."
+        assert repo_config_filename is None, "When ignoring any configuration files on the remote, you" + \
+                                             " should not set a remote configuration filename."
     else:
-        if remote_config_file is not None:
-            print("Remote configuration filename: " + remote_config_file)
+        if repo_config_filename is not None:
+            print("Remote configuration filename: " + repo_config_filename)
 
-    if config_file is not None:
-        print("Local configuration file: " + config_file)
+    if user_config_filename is not None:
+        print("Local configuration file: " + user_config_filename)
 
-    repo = Repo(url, branch, path, remote_config_file)
-    config = Config(repo, config_file, ignore_remote_config)
+    repo = Repo(url, branch, path)
 
-    checker = Checker(config, repo)
+    checker = Checker(repo, user_config_filename, repo_config_filename, ignore_repo_config)
     current_compliance = checker.check_five_recommendations()
-    badge = current_compliance.calc_badge(checker.readme.fmt)
+    badge = current_compliance.calc_badge(checker.readme.file_format)
 
     print("\nCalculated compliance: " + " ".join(current_compliance.as_unicode()) + "\n")
 
@@ -108,7 +106,7 @@ def cli(url=None, branch=None, config_file=None, remote_config_file=None, path=N
         print("Expected badge is equal to the actual badge. It's all good.\n")
         sys.exit(0)
 
-    if current_compliance > previous_compliance:
+    if current_compliance.count() > previous_compliance.count():
         print("Congratulations! The compliance of your repository exceeds " +
               "the current fair-software.eu badge in your " +
               "{0}. You can replace it with the following snippet:\n\n{1}"
