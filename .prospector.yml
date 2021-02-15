@@ -10,6 +10,8 @@ test-warnings: true
 member-warnings: false
 
 ignore-paths:
+  - docs/conf.py
+  - docs\conf.py
   - tests
   - livetests
 

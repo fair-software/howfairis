@@ -7,39 +7,31 @@ from colorama import Style
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
-from howfairis.compliance import Compliance
-from howfairis.mixins import ChecklistMixin
-from howfairis.mixins import CitationMixin
-from howfairis.mixins import LicenseMixin
-from howfairis.mixins import RegistryMixin
-from howfairis.mixins import RepositoryMixin
-from howfairis.readme import Readme
-from howfairis.readme_format import ReadmeFormat
-from howfairis.repo import Repo
-from howfairis.schema import validate_against_schema
+from .compliance import Compliance
+from .mixins import ChecklistMixin
+from .mixins import CitationMixin
+from .mixins import LicenseMixin
+from .mixins import RegistryMixin
+from .mixins import RepositoryMixin
+from .readme import Readme
+from .readme_format import ReadmeFormat
+from .repo import Repo
+from .schema import validate_against_schema
 
 
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
     """Check the repo against the five FAIR software recommendations using supplied config.
 
     Args:
-        config: Configuration to use
         repo: Repository to check
 
     Attributes:
         readme (Readme): Retrieved README from the repository.
-        compliance (Optional[Compliance]): The current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge_url (Optional[str]): URL of badge image for the current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge (Optional[str]): Badge image link for the current compliance. Formatted in format of README.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-
+        repo (howfairis.repo.Repo): Object describing the properties of the target repository
     """
 
     def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None, ignore_repo_config=False):
         super().__init__()
-        self.compliance = None
         self.repo = repo
         self._default_config = Checker._load_default_config()
         self._repo_config = Checker._load_repo_config(repo, repo_config_filename, ignore_repo_config)
@@ -196,24 +188,24 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                           checklist=self.check_checklist())
 
     @property
-    def force_repository(self):
-        return self._merged_config.get("force_repository")
+    def skip_repository_checks_reason(self):
+        return self._merged_config.get("skip_repository_checks_reason", None)
 
     @property
-    def force_license(self):
-        return self._merged_config.get("force_license")
+    def skip_license_checks_reason(self):
+        return self._merged_config.get("skip_license_checks_reason", None)
 
     @property
-    def force_registry(self):
-        return self._merged_config.get("force_registry")
+    def skip_registry_checks_reason(self):
+        return self._merged_config.get("skip_registry_checks_reason", None)
 
     @property
-    def force_citation(self):
-        return self._merged_config.get("force_citation")
+    def skip_citation_checks_reason(self):
+        return self._merged_config.get("skip_citation_checks_reason", None)
 
     @property
-    def force_checklist(self):
-        return self._merged_config.get("force_checklist")
+    def skip_checklist_checks_reason(self):
+        return self._merged_config.get("skip_checklist_checks_reason", None)
 
     @property
     def include_comments(self):

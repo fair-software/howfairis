@@ -2,9 +2,9 @@ import os
 import sys
 import click
 from colorama import init as init_terminal_colors
-from howfairis.__version__ import __version__
-from howfairis.checker import Checker
-from howfairis.repo import Repo
+from .__version__ import __version__
+from .checker import Checker
+from .repo import Repo
 
 
 # pylint: disable=too-many-arguments
@@ -34,7 +34,13 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
         show_trace=False, version=False, ignore_repo_config=False, show_default_config=False):
     # pylint: disable=too-many-locals
 
-    """Determine compliance with recommendations from fair-software.eu for the GitHub or GitLab repository at URL."""
+    """Determine compliance with recommendations from fair-software.eu for the repository at URL. The following
+    code repository platforms are supported:
+
+    * https://github.com
+
+    * https://gitlab.com (not including any self-hosted instances)
+    """
 
     if version is True:
         print("version: {0}".format(__version__))

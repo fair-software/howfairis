@@ -82,29 +82,35 @@ Live tests (triggered manually)                        |workflow livetests badge
 Install
 -------
 
-.. code:: shell
+.. code:: console
 
     pip3 install --user howfairis
 
 Verify that the install directory is on the ``PATH`` environment variable. If so,
 you should be able to call the executable, like so:
 
-.. code:: shell
+.. code:: console
 
     howfairis https://github.com/<owner>/<repo>
+
+
+``howfairis`` supports URLs from the following code repository platforms:
+
+1. ``https://github.com``
+2. ``https://gitlab.com`` (not including self-hosted instances)
 
 Docker
 ---------------
 
 You can run howfairis Docker image using the command below.
 
-.. code:: shell
+.. code:: console
 
     docker pull fairsoftware/howfairis
 
 You can run howfairis Docker image using the command below.
 
-.. code:: shell
+.. code:: console
 
     docker run --rm fairsoftware/howfairis --help
 
@@ -118,7 +124,7 @@ Expected output
 Depending on which repository you are doing the analysis for, the output
 looks something like this:
 
-.. code:: shell
+.. code:: console
 
     Checking compliance with fair-software.eu...
     url: https://github.com/fair-software/badge-test
@@ -148,7 +154,7 @@ looks something like this:
 
 If your README already has the fair-software badge, you'll see some output like this:
 
-.. code:: shell
+.. code:: console
 
     Calculated compliance: ● ● ○ ● ●
 
@@ -157,7 +163,7 @@ If your README already has the fair-software badge, you'll see some output like 
 If your README doesn't have the fair-software badge yet, or its compliance is different from what's been calculated,
 you'll see output like this:
 
-.. code:: shell
+.. code:: console
 
     Calculated compliance: ● ● ○ ○ ○
 
@@ -204,18 +210,22 @@ More options
 
 There are some command line options to the executable. You can see them using:
 
-.. code:: shell
+.. code:: console
 
     howfairis --help
 
 Which then shows something like:
 
-.. code:: text
+.. code:: console
 
     Usage: howfairis [OPTIONS] [URL]
 
       Determine compliance with recommendations from fair-software.eu for the
-      GitHub or GitLab repository at URL.
+      repository at URL. The following code repository platforms are supported:
+
+      * https://github.com
+
+      * https://gitlab.com (not including any self-hosted instances)
 
     Options:
       -b, --branch TEXT              Which git branch to use. Also accepts other
@@ -253,11 +263,11 @@ The configuration file should follow the voluptuous_ schema laid out in schema.p
 .. code:: python
 
     schema = {
-        Optional("force_repository"): Any(bool, None),
-        Optional("force_license"): Any(bool, None),
-        Optional("force_registry"): Any(bool, None),
-        Optional("force_citation"): Any(bool, None),
-        Optional("force_checklist"): Any(bool, None),
+        Optional("skip_repository_checks_reason"): Any(str, None),
+        Optional("skip_license_checks_reason"): Any(str, None),
+        Optional("skip_registry_checks_reason"): Any(str, None),
+        Optional("skip_citation_checks_reason"): Any(str, None),
+        Optional("skip_checklist_checks_reason"): Any(str, None),
         Optional("include_comments"): Any(bool, None)
     }
 
@@ -265,26 +275,44 @@ For example, the following is a valid configuration file document:
 
 .. code:: yaml
 
-    force_registry: true  # It is good practice to add an explanation
-                          # of why you chose to set the state manually
+    ## Uncomment a line if you want to skip a given category of checks
+
+    #skip_repository_checks_reason: <reason for skipping goes here>
+    #skip_license_checks_reason: <reason for skipping goes here>
+    #skip_registry_checks_reason: <reason for skipping goes here>
+    #skip_citation_checks_reason: <reason for skipping goes here>
+    skip_checklist_checks_reason: "I'm using the Codacy dashboard to guide my development"
+
+    include_comments: false
+
 
 The manual override will be reflected in the output, as follows:
 
-.. code:: shell
+.. code:: console
 
-    (1/5) repository
+    (1/5) repository:
           ✓ has_open_repository
-    (2/5) license
+    (2/5) license:
           ✓ has_license
-    (3/5) registry: force True
-    (4/5) citation
+    (3/5) registry:
+          × has_ascl_badge
+          × has_bintray_badge
+          × has_conda_badge
+          × has_cran_badge
+          × has_crates_badge
+          × has_maven_badge
+          × has_npm_badge
+          ✓ has_pypi_badge
+          × has_rsd_badge
+          × is_on_github_marketplace
+    (4/5) citation:
           × has_citation_file
-          × has_citationcff_file
+          ✓ has_citationcff_file
           × has_codemeta_file
-          × has_zenodo_badge
-          × has_zenodo_metadata_file
-    (5/5) checklist
-          × has_core_infrastructures_badge
+          ✓ has_zenodo_badge
+          ✓ has_zenodo_metadata_file
+    (5/5) checklist:
+          ✓ skipped (reason: I'm using the Codacy dashboard to guide my development)
 
 Contributing
 ------------

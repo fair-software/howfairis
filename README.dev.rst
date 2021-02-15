@@ -33,7 +33,7 @@ like so:
     howfairis https://github.com/<owner>/<repo>
 
 Docker
----------------
+------
 To build the image, run:
 
 .. code:: shell
@@ -45,6 +45,33 @@ To push the image to DockerHub, run:
 .. code:: shell
 
    docker push fairsoftware/howfairis
+
+
+Running linters locally
+-----------------------
+
+Running the linters requires an activated virtualenv with the development tools installed.
+
+.. code:: shell
+
+    # linter
+    prospector
+
+    # recursively check import style for the howfairis module only
+    isort --recursive --check-only howfairis
+
+    # recursively check import style for the howfairis module only and show
+    # any proposed changes as a diff
+    isort --recursive --check-only --diff howfairis
+
+    # recursively fix  import style for the howfairis module only
+    isort --recursive howfairis
+
+.. code:: shell
+
+    # requires activated virtualenv with development tools
+    prospector && isort --recursive --check-only howfairis
+
 
 For maintainers
 ---------------
