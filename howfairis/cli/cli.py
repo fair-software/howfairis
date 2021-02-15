@@ -32,14 +32,21 @@ from howfairis.repo import Repo
                    "file needs to be on the remote, and takes into account the value of " +
                    "--branch and --path. Default: .howfairis.yml")
 @click.option("-t", "--show-trace", default=False, is_flag=True,
-              help="Use this flag to show the full traceback when errors occur.")
+              help="Show full traceback on errors.")
 @click.option("-v", "--version", default=False, is_flag=True,
-              help="Use this flag to print howfairis'es version and exit.")
+              help="Show version and exit.")
 @click.argument("url", required=False)
 def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=None, path=None,
         show_trace=False, version=False, ignore_repo_config=False, show_default_config=False, quiet=False):
 
-    """Determine compliance with recommendations from fair-software.eu for the GitHub or GitLab repository at URL."""
+    """Determine compliance with recommendations from fair-software.eu for the repository at URL. The following
+    code repository platforms are supported:
+
+    * https://github.com
+
+    * https://gitlab.com (not including any self-hosted instances)
+    """
+
     if show_trace is False:
         sys.tracebacklimit = 0
 
@@ -65,3 +72,4 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
 
 if __name__ == "__main__":
     cli()
+
