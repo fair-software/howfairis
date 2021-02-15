@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from howfairis.code_repository_platforms import Platform
+from ..code_repository_platforms import Platform
 
 
 class LicenseMixin:

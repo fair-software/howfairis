@@ -22,7 +22,7 @@ class TestRepoWithBranchDevelop(Contract):
     def test_default_branch(self, mocker):
         with mocker:
             mocked_repo = get_mocked_repo()
-            assert mocked_repo.default_branch == "master"
+            assert mocked_repo.default_branch is None
 
     def test_owner(self, mocker):
         with mocker:

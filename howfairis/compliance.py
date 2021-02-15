@@ -1,5 +1,5 @@
 from urllib.parse import quote
-from howfairis.readme_format import ReadmeFormat
+from .readme_format import ReadmeFormat
 
 
 # pylint: disable=too-many-arguments

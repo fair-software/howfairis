@@ -7,16 +7,16 @@ from colorama import Style
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
-from howfairis.compliance import Compliance
-from howfairis.mixins import ChecklistMixin
-from howfairis.mixins import CitationMixin
-from howfairis.mixins import LicenseMixin
-from howfairis.mixins import RegistryMixin
-from howfairis.mixins import RepositoryMixin
-from howfairis.readme import Readme
-from howfairis.readme_format import ReadmeFormat
-from howfairis.repo import Repo
-from howfairis.schema import validate_against_schema
+from .compliance import Compliance
+from .mixins import ChecklistMixin
+from .mixins import CitationMixin
+from .mixins import LicenseMixin
+from .mixins import RegistryMixin
+from .mixins import RepositoryMixin
+from .readme import Readme
+from .readme_format import ReadmeFormat
+from .repo import Repo
+from .schema import validate_against_schema
 
 
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
@@ -27,14 +27,11 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
 
     Attributes:
         readme (Readme): Retrieved README from the repository.
-        compliance (Optional[howfairis.compliance.Compliance]): The current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-
+        repo (howfairis.repo.Repo): Object describing the properties of the target repository
     """
 
     def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None, ignore_repo_config=False):
         super().__init__()
-        self.compliance = None
         self.repo = repo
         self._default_config = Checker._load_default_config()
         self._repo_config = Checker._load_repo_config(repo, repo_config_filename, ignore_repo_config)
