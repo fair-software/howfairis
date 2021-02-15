@@ -13,4 +13,3 @@ def pytest_collection_modifyitems(items):
             item.add_marker(pytest.mark.checker)
         if item.nodeid.split("::")[1].startswith("TestCompliance"):
             item.add_marker(pytest.mark.compliance)
-
