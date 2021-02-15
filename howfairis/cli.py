@@ -9,8 +9,8 @@ from colorama import init as init_terminal_colors
 from dateutil import tz
 from howfairis.__version__ import __version__
 from howfairis.checker import Checker
+from howfairis.code_repository_platforms import Platform
 from howfairis.repo import Repo
-from howfairis.vcs_platform import Platform
 
 
 # pylint: disable=too-many-arguments
