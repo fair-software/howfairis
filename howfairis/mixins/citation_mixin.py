@@ -4,7 +4,7 @@ import requests
 class CitationMixin:
 
     def check_citation(self):
-        force_state = self.config.force_citation
+        force_state = self.force_citation
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_citation.")
         if isinstance(force_state, bool):

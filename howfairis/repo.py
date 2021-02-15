@@ -1,6 +1,6 @@
 import re
 import requests
-from howfairis.vcs_platform import Platform
+from howfairis.code_repository_platforms import Platform
 
 
 class Repo:
@@ -14,7 +14,7 @@ class Repo:
         config_file: Name of the configuration file to control the behavior of the howfairis package.
 
     """
-    def __init__(self, url: str, branch=None, path=None, config_file=None):
+    def __init__(self, url: str, branch=None, path=None):
         # run assertions on user input
         Repo._check_assertions(url)
 
@@ -22,7 +22,6 @@ class Repo:
         self.url = url
         self.branch = branch
         self.path = "" if path is None else "/" + path.strip("/")
-        self.config_file = config_file
 
         # assign remaining members as needed
         self.platform = self._derive_platform()

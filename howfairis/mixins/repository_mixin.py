@@ -1,11 +1,11 @@
 import requests
-from howfairis.vcs_platform import Platform
+from howfairis.code_repository_platforms import Platform
 
 
 class RepositoryMixin:
 
     def check_repository(self):
-        force_state = self.config.force_repository
+        force_state = self.force_repository
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_repository.")
         if isinstance(force_state, bool):

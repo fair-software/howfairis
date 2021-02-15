@@ -1,11 +1,11 @@
 import requests
-from howfairis.vcs_platform import Platform
+from howfairis.code_repository_platforms import Platform
 
 
 class RegistryMixin:
 
     def check_registry(self):
-        force_state = self.config.force_registry
+        force_state = self.force_registry
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_registry.")
         if isinstance(force_state, bool):

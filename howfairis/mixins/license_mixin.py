@@ -1,12 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
-from howfairis.vcs_platform import Platform
+from howfairis.code_repository_platforms import Platform
 
 
 class LicenseMixin:
 
     def check_license(self):
-        force_state = self.config.force_license
+        force_state = self.force_license
         if force_state not in [True, False, None]:
             raise ValueError("Unexpected configuration value for force_license.")
         if isinstance(force_state, bool):
