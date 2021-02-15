@@ -1,7 +1,4 @@
-import sys
-
-
-def exit_with_call_to_action(previous_compliance, current_compliance, readme, is_quiet=False):
+def print_call_to_action(previous_compliance, current_compliance, readme, is_quiet=False):
 
     badge = current_compliance.calc_badge(readme.file_format)
 
@@ -13,12 +10,12 @@ def exit_with_call_to_action(previous_compliance, current_compliance, readme, is
             print("It seems you have not yet added the fair-software.eu badge to " +
                   "your {0}. You can do so by pasting the following snippet:\n\n{1}"
                   .format(readme.filename, badge))
-        sys.exit(1)
+        return 1
 
     if current_compliance == previous_compliance:
         if not is_quiet:
             print("Expected badge is equal to the actual badge. It's all good.\n")
-        sys.exit(0)
+        return 0
 
     if current_compliance.count() > previous_compliance.count():
         if not is_quiet:
@@ -26,7 +23,7 @@ def exit_with_call_to_action(previous_compliance, current_compliance, readme, is
                   "the current fair-software.eu badge in your " +
                   "{0}. You can replace it with the following snippet:\n\n{1}"
                   .format(readme.filename, badge))
-        sys.exit(1)
+        return 1
 
     if not is_quiet:
         print("The compliance of your repository is different from the current " +
@@ -34,4 +31,4 @@ def exit_with_call_to_action(previous_compliance, current_compliance, readme, is
               "{0}. Please replace it with the following snippet:\n\n{1}"
               .format(readme.filename, badge))
 
-    sys.exit(1)
+    return 1

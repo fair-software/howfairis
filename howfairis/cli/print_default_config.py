@@ -1,8 +1,7 @@
 import os
-import sys
 
 
-def exit_with_default_config(is_quiet=False):
+def print_default_config(is_quiet=False):
     if not is_quiet:
         parent_dir = os.path.dirname(__file__)
         pkg_root = os.path.join(parent_dir, "..")
@@ -10,4 +9,4 @@ def exit_with_default_config(is_quiet=False):
         with open(default_config_filename, "rt") as f:
             text = f.read()
         print(text)
-    sys.exit(0)
+    return 0

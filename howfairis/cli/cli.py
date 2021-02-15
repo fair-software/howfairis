@@ -3,11 +3,11 @@ import click
 from colorama import init as init_terminal_colors
 from howfairis.__version__ import __version__
 from howfairis.checker import Checker
-from howfairis.cli.exit_with_call_to_action import exit_with_call_to_action
-from howfairis.cli.exit_with_default_config import exit_with_default_config
-from howfairis.cli.exit_with_version import exit_with_version
+from howfairis.cli.print_call_to_action import print_call_to_action
+from howfairis.cli.print_default_config import print_default_config
 from howfairis.cli.print_feedback_about_config_args import print_feedback_about_config_args
 from howfairis.cli.print_feedback_about_repo_args import print_feedback_about_repo_args
+from howfairis.cli.print_version import print_version
 from howfairis.repo import Repo
 
 
@@ -51,10 +51,10 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
         sys.tracebacklimit = 0
 
     if version is True:
-        exit_with_version(__version__, is_quiet=quiet)
+        sys.exit(print_version(__version__, is_quiet=quiet))
 
     if show_default_config is True:
-        exit_with_default_config(is_quiet=quiet)
+        sys.exit(print_default_config(is_quiet=quiet))
 
     print_feedback_about_repo_args(url, branch, path, is_quiet=quiet)
     print_feedback_about_config_args(ignore_repo_config, repo_config_filename, user_config_filename, is_quiet=quiet)
@@ -67,7 +67,7 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
     previous_compliance = checker.readme.get_compliance()
     current_compliance = checker.check_five_recommendations()
 
-    exit_with_call_to_action(previous_compliance, current_compliance, checker.readme, is_quiet=quiet)
+    sys.exit(print_call_to_action(previous_compliance, current_compliance, checker.readme, is_quiet=quiet))
 
 
 if __name__ == "__main__":
