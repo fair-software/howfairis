@@ -75,9 +75,8 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
         print("Ignoring any configuration files on the remote.")
         assert repo_config_filename is None, "When ignoring any configuration files on the remote, you" + \
                                              " should not set a remote configuration filename."
-    else:
-        if repo_config_filename is not None:
-            print("Remote configuration filename: " + repo_config_filename)
+    elif repo_config_filename is not None:
+        print("Remote configuration filename: " + repo_config_filename)
 
     if user_config_filename is not None:
         print("Local configuration file: " + user_config_filename)
