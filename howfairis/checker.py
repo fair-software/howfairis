@@ -23,16 +23,11 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     """Check the repo against the five FAIR software recommendations using supplied config.
 
     Args:
-        config: Configuration to use
         repo: Repository to check
 
     Attributes:
         readme (Readme): Retrieved README from the repository.
-        compliance (Optional[Compliance]): The current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge_url (Optional[str]): URL of badge image for the current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge (Optional[str]): Badge image link for the current compliance. Formatted in format of README.
+        compliance (Optional[howfairis.compliance.Compliance]): The current compliance.
             Filled after :py:func:`Checker.check_five_recommendations` is called.
 
     """
@@ -196,24 +191,24 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                           checklist=self.check_checklist())
 
     @property
-    def force_repository(self):
-        return self._merged_config.get("force_repository")
+    def skip_repository_checks_reason(self):
+        return self._merged_config.get("skip_repository_checks_reason", None)
 
     @property
-    def force_license(self):
-        return self._merged_config.get("force_license")
+    def skip_license_checks_reason(self):
+        return self._merged_config.get("skip_license_checks_reason", None)
 
     @property
-    def force_registry(self):
-        return self._merged_config.get("force_registry")
+    def skip_registry_checks_reason(self):
+        return self._merged_config.get("skip_registry_checks_reason", None)
 
     @property
-    def force_citation(self):
-        return self._merged_config.get("force_citation")
+    def skip_citation_checks_reason(self):
+        return self._merged_config.get("skip_citation_checks_reason", None)
 
     @property
-    def force_checklist(self):
-        return self._merged_config.get("force_checklist")
+    def skip_checklist_checks_reason(self):
+        return self._merged_config.get("skip_checklist_checks_reason", None)
 
     @property
     def include_comments(self):
