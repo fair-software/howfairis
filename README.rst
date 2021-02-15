@@ -228,35 +228,42 @@ Which then shows something like:
       * https://gitlab.com (not including any self-hosted instances)
 
     Options:
-      -b, --branch TEXT              Which git branch to use. Also accepts other
-                                     git references like SHA or tag.
+      -b, --branch TEXT               Which git branch to use. Also accepts other
+                                      git references like SHA or tag.
 
-      -c, --config-file PATH         Name of the configuration file to control
-                                     howfairis'es behavior. The configuration file
-                                     needs to be present on the local system and
-                                     can include a relative path.
+      -u, --user-config-filename PATH
+                                      Name of the configuration file to control
+                                      howfairis'es behavior. The configuration
+                                      file needs to be present on the local system
+                                      and can include a relative path.
 
-      -d, --show-default-config      Show default configuration and exit.
-      -i, --ignore-remote-config     Ignore any configuration files on the remote.
-      -p, --path TEXT                Relative path (on the remote). Use this if
-                                     you want howfairis to look for a README and a
-                                     configuration file in a subdirectory.
+      -d, --show-default-config       Show default configuration and exit.
+      -i, --ignore-repo-config        Ignore any configuration files on the
+                                      remote.
 
-      -r, --remote-config-file TEXT  Name of the configuration file to control
-                                     howfairis'es behavior. The configuration file
-                                     needs to be on the remote, and takes into
-                                     account the value of --branch and --path.
-                                     Default: .howfairis.yml
+      -p, --path TEXT                 Relative path (on the remote). Use this if
+                                      you want howfairis to look for a README and
+                                      a configuration file in a subdirectory.
 
-      -t, --show-trace               Show full traceback on errors.
-      -v, --version                  Show version and exit.
-      -h, --help                     Show this message and exit.
+      -q, --quiet                     Use this flag to disable all printing except
+                                      errors.
+
+      -r, --repo-config-filename TEXT
+                                      Name of the configuration file to control
+                                      howfairis'es behavior. The configuration
+                                      file needs to be on the remote, and takes
+                                      into account the value of --branch and
+                                      --path. Default: .howfairis.yml
+
+      -t, --show-trace                Show full traceback on errors.
+      -v, --version                   Show version and exit.
+      -h, --help                      Show this message and exit.
 
 Configuration file
 ^^^^^^^^^^^^^^^^^^
 
-The state of each check can be forced using a configuration file. This file needs to be present at ``URL``, taking into
-account the values passed with ``--path`` and with ``--config-file``.
+Each category of checks can be skipped using a configuration file. This file needs to be present at ``URL``, taking into
+account the values passed with ``--path`` and with ``--repo-config-filename``.
 
 The configuration file should follow the voluptuous_ schema laid out in schema.py_:
 
