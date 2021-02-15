@@ -13,5 +13,3 @@ def print_feedback_about_config_args(ignore_repo_config, repo_config_filename, u
     if ignore_repo_config is True:
         assert repo_config_filename is None, "When ignoring any configuration files on the remote, you" + \
                                              " should not set a remote configuration filename."
-
-                        
