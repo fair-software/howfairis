@@ -82,14 +82,14 @@ Live tests (triggered manually)                        |workflow livetests badge
 Install
 -------
 
-.. code:: shell
+.. code:: console
 
     pip3 install --user howfairis
 
 Verify that the install directory is on the ``PATH`` environment variable. If so,
 you should be able to call the executable, like so:
 
-.. code:: shell
+.. code:: console
 
     howfairis https://github.com/<owner>/<repo>
 
@@ -104,13 +104,13 @@ Docker
 
 You can run howfairis Docker image using the command below.
 
-.. code:: shell
+.. code:: console
 
     docker pull fairsoftware/howfairis
 
 You can run howfairis Docker image using the command below.
 
-.. code:: shell
+.. code:: console
 
     docker run --rm fairsoftware/howfairis --help
 
@@ -124,7 +124,7 @@ Expected output
 Depending on which repository you are doing the analysis for, the output
 looks something like this:
 
-.. code:: shell
+.. code:: console
 
     Checking compliance with fair-software.eu...
     url: https://github.com/fair-software/badge-test
@@ -154,7 +154,7 @@ looks something like this:
 
 If your README already has the fair-software badge, you'll see some output like this:
 
-.. code:: shell
+.. code:: console
 
     Calculated compliance: ● ● ○ ● ●
 
@@ -163,7 +163,7 @@ If your README already has the fair-software badge, you'll see some output like 
 If your README doesn't have the fair-software badge yet, or its compliance is different from what's been calculated,
 you'll see output like this:
 
-.. code:: shell
+.. code:: console
 
     Calculated compliance: ● ● ○ ○ ○
 
@@ -210,13 +210,13 @@ More options
 
 There are some command line options to the executable. You can see them using:
 
-.. code:: shell
+.. code:: console
 
     howfairis --help
 
 Which then shows something like:
 
-.. code:: text
+.. code:: console
 
     Usage: howfairis [OPTIONS] [URL]
 
@@ -288,7 +288,7 @@ For example, the following is a valid configuration file document:
 
 The manual override will be reflected in the output, as follows:
 
-.. code:: shell
+.. code:: console
 
     (1/5) repository:
           ✓ has_open_repository
