@@ -4,11 +4,11 @@ from voluptuous import Schema
 
 
 schema = {
-    Optional("force_repository"): Any(bool, None),
-    Optional("force_license"): Any(bool, None),
-    Optional("force_registry"): Any(bool, None),
-    Optional("force_citation"): Any(bool, None),
-    Optional("force_checklist"): Any(bool, None),
+    Optional("skip_repository_checks_reason"): Any(str, None),
+    Optional("skip_license_checks_reason"): Any(str, None),
+    Optional("skip_registry_checks_reason"): Any(str, None),
+    Optional("skip_citation_checks_reason"): Any(str, None),
+    Optional("skip_checklist_checks_reason"): Any(str, None),
     Optional("include_comments"): Any(bool, None)
 }
 

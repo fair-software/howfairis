@@ -4,24 +4,23 @@ import requests
 class CitationMixin:
 
     def check_citation(self):
-        force_state = self.force_citation
-        if force_state not in [True, False, None]:
-            raise ValueError("Unexpected configuration value for force_citation.")
-        if isinstance(force_state, bool):
-            if not self.is_quiet:
-                print("(4/5) citation: force {0}".format(force_state))
-            return force_state
         if not self.is_quiet:
-            print("(4/5) citation")
-
-        results = [
-            self.has_citation_file(),
-            self.has_citationcff_file(),
-            self.has_codemeta_file(),
-            self.has_zenodo_badge(),
-            self.has_zenodo_metadata_file()
-        ]
-        return True in results
+            print("(4/5) citation:")
+        reason = self.skip_citation_checks_reason
+        if reason is None:
+            results = [
+                self.has_citation_file(),
+                self.has_citationcff_file(),
+                self.has_codemeta_file(),
+                self.has_zenodo_badge(),
+                self.has_zenodo_metadata_file()
+            ]
+            return True in results
+        if reason == "":
+            self._print_state(check_name="skipped (no reason provided)", state=True)
+            return True
+        self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        return True
 
     def has_citation_file(self):
         url = self.repo.raw_url_format_string.format("CITATION")

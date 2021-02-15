@@ -1,33 +1,34 @@
 import requests
-from howfairis.code_repository_platforms import Platform
+from ..code_repository_platforms import Platform
 
 
 class RegistryMixin:
 
     def check_registry(self):
-        force_state = self.force_registry
-        if force_state not in [True, False, None]:
-            raise ValueError("Unexpected configuration value for force_registry.")
-        if isinstance(force_state, bool):
-            if not self.is_quiet:
-                print("(3/5) registry: force {0}".format(force_state))
-            return force_state
         if not self.is_quiet:
             print("(3/5) registry")
-
-        results = [
-            self.has_ascl_badge(),
-            self.has_bintray_badge(),
-            self.has_conda_badge(),
-            self.has_cran_badge(),
-            self.has_crates_badge(),
-            self.has_maven_badge(),
-            self.has_npm_badge(),
-            self.has_pypi_badge(),
-            self.has_rsd_badge(),
-            self.is_on_github_marketplace()
-        ]
-        return True in results
+        reason = self.skip_registry_checks_reason
+        if reason is None:
+            results = [
+                self.has_ascl_badge(),
+                self.has_bintray_badge(),
+                self.has_conda_badge(),
+                self.has_cran_badge(),
+                self.has_crates_badge(),
+                self.has_maven_badge(),
+                self.has_npm_badge(),
+                self.has_pypi_badge(),
+                self.has_rsd_badge(),
+                self.is_on_github_marketplace()
+            ]
+            return True in results
+        if reason == "":
+            if not self.is_quiet:
+                self._print_state(check_name="skipped (no reason provided)", state=True)
+            return True
+        if not self.is_quiet:
+            self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        return True
 
     def has_ascl_badge(self):
         regexes = [r"https://img\.shields\.io/badge/ascl.*"]

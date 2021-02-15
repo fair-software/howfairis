@@ -17,7 +17,12 @@ setup(
     author="https://github.com/jspaaks",
     author_email="j.spaaks@esciencecenter.nl",
     url="https://github.com/fair-software/howfairis",
-    packages=["howfairis", "howfairis.cli", "howfairis.mixins"],
+    packages=[
+        "howfairis",
+        "howfairis.cli",
+        "howfairis.exceptions",
+        "howfairis.mixins"
+    ],
     include_package_data=True,
     license="Apache Software License 2.0",
     zip_safe=False,
