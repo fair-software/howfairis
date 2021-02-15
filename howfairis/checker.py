@@ -27,7 +27,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
 
     Attributes:
         readme (Readme): Retrieved README from the repository.
-        repo (Repo): Object describing the properties of the target repository
+        repo (howfairis.repo.Repo): Object describing the properties of the target repository
     """
 
     def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None, ignore_repo_config=False):
