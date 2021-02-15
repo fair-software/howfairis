@@ -5,15 +5,16 @@ from ..code_repository_platforms import Platform
 class RepositoryMixin:
 
     def check_repository(self):
-        force_state = self.force_repository
-        if force_state not in [True, False, None]:
-            raise ValueError("Unexpected configuration value for force_repository.")
-        if isinstance(force_state, bool):
-            print("(1/5) repository: force {0}".format(force_state))
-            return force_state
-        print("(1/5) repository")
-        results = [self.has_open_repository()]
-        return True in results
+        print("(1/5) repository:")
+        reason = self.skip_repository_checks_reason
+        if reason is None:
+            results = [self.has_open_repository()]
+            return True in results
+        if reason == "":
+            self._print_state(check_name="skipped (no reason provided)", state=True)
+            return True
+        self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        return True
 
     def has_open_repository(self):
 

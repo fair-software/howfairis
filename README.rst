@@ -263,11 +263,11 @@ The configuration file should follow the voluptuous_ schema laid out in schema.p
 .. code:: python
 
     schema = {
-        Optional("force_repository"): Any(bool, None),
-        Optional("force_license"): Any(bool, None),
-        Optional("force_registry"): Any(bool, None),
-        Optional("force_citation"): Any(bool, None),
-        Optional("force_checklist"): Any(bool, None),
+        Optional("skip_repository_checks_reason"): Any(str, None),
+        Optional("skip_license_checks_reason"): Any(str, None),
+        Optional("skip_registry_checks_reason"): Any(str, None),
+        Optional("skip_citation_checks_reason"): Any(str, None),
+        Optional("skip_checklist_checks_reason"): Any(str, None),
         Optional("include_comments"): Any(bool, None)
     }
 
@@ -275,26 +275,44 @@ For example, the following is a valid configuration file document:
 
 .. code:: yaml
 
-    force_registry: true  # It is good practice to add an explanation
-                          # of why you chose to set the state manually
+    ## Uncomment a line if you want to skip a given category of checks
+
+    #skip_repository_checks_reason: <reason for skipping goes here>
+    #skip_license_checks_reason: <reason for skipping goes here>
+    #skip_registry_checks_reason: <reason for skipping goes here>
+    #skip_citation_checks_reason: <reason for skipping goes here>
+    skip_checklist_checks_reason: "I'm using the Codacy dashboard to guide my development"
+
+    include_comments: false
+
 
 The manual override will be reflected in the output, as follows:
 
 .. code:: shell
 
-    (1/5) repository
+    (1/5) repository:
           ✓ has_open_repository
-    (2/5) license
+    (2/5) license:
           ✓ has_license
-    (3/5) registry: force True
-    (4/5) citation
+    (3/5) registry:
+          × has_ascl_badge
+          × has_bintray_badge
+          × has_conda_badge
+          × has_cran_badge
+          × has_crates_badge
+          × has_maven_badge
+          × has_npm_badge
+          ✓ has_pypi_badge
+          × has_rsd_badge
+          × is_on_github_marketplace
+    (4/5) citation:
           × has_citation_file
-          × has_citationcff_file
+          ✓ has_citationcff_file
           × has_codemeta_file
-          × has_zenodo_badge
-          × has_zenodo_metadata_file
-    (5/5) checklist
-          × has_core_infrastructures_badge
+          ✓ has_zenodo_badge
+          ✓ has_zenodo_metadata_file
+    (5/5) checklist:
+          ✓ skipped (reason: I'm using the Codacy dashboard to guide my development)
 
 Contributing
 ------------
