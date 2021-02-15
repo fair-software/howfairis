@@ -5,13 +5,7 @@ class CitationMixin:
 
     def check_citation(self):
         print("(4/5) citation:")
-        reason = self.skip_citation_checks_reason
-        if isinstance(reason, str):
-            if reason == "":
-                self._print_state(check_name="skipped (no reason provided)", state=True)
-            else:
-                self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
-            results = [True]
+        reason = self.skip_citation_checks_reason.strip(" \t")
         if reason is None:
             results = [
                 self.has_citation_file(),
@@ -20,7 +14,12 @@ class CitationMixin:
                 self.has_zenodo_badge(),
                 self.has_zenodo_metadata_file()
             ]
-        return True in results
+            return True in results
+        if reason == "":
+            self._print_state(check_name="skipped (no reason provided)", state=True)
+            return True
+        self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        return True
 
     def has_citation_file(self):
         url = self.repo.raw_url_format_string.format("CITATION")

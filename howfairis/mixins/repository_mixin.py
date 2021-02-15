@@ -6,16 +6,15 @@ class RepositoryMixin:
 
     def check_repository(self):
         print("(1/5) repository:")
-        reason = self.skip_repository_checks_reason
-        if isinstance(reason, str):
-            if reason == "":
-                self._print_state(check_name="skipped (no reason provided)", state=True)
-            else:
-                self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
-            results = [True]
+        reason = self.skip_repository_checks_reason.strip(" \t")
         if reason is None:
             results = [self.has_open_repository()]
-        return True in results
+            return True in results
+        if reason == "":
+            self._print_state(check_name="skipped (no reason provided)", state=True)
+            return True
+        self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        return True
 
     def has_open_repository(self):
 

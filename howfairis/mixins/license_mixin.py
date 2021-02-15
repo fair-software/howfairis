@@ -7,16 +7,15 @@ class LicenseMixin:
 
     def check_license(self):
         print("(2/5) license:")
-        reason = self.skip_license_checks_reason
-        if isinstance(reason, str):
-            if reason == "":
-                self._print_state(check_name="skipped (no reason provided)", state=True)
-            else:
-                self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
-            results = [True]
+        reason = self.skip_license_checks_reason.strip(" \t")
         if reason is None:
             results = [self.has_license()]
-        return True in results
+            return True in results
+        if reason == "":
+            self._print_state(check_name="skipped (no reason provided)", state=True)
+            return True
+        self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        return True
 
     def has_license(self):
 
