@@ -1,12 +1,7 @@
 import os
 import sys
-from datetime import datetime
-from datetime import timedelta
 import click
-import requests
-from bs4 import BeautifulSoup
 from colorama import init as init_terminal_colors
-from dateutil import tz
 from howfairis.__version__ import __version__
 from howfairis.checker import Checker
 from howfairis.code_repository_platforms import Platform
@@ -100,56 +95,32 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
 
     previous_compliance = checker.readme.get_compliance()
 
+    sys_exit_code = 1
     if previous_compliance is None:
         print("It seems you have not yet added the fair-software.eu badge to " +
               "your {0}. You can do so by pasting the following snippet:\n\n{1}"
               .format(checker.readme.filename, badge))
-        github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
-        sys.exit(1)
 
-    if current_compliance == previous_compliance:
+    elif current_compliance == previous_compliance:
         print("Expected badge is equal to the actual badge. It's all good.\n")
-        github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
-        sys.exit(0)
+        sys_exit_code = 0
 
-    if current_compliance.count() > previous_compliance.count():
+    elif current_compliance.count() > previous_compliance.count():
         print("Congratulations! The compliance of your repository exceeds " +
               "the current fair-software.eu badge in your " +
               "{0}. You can replace it with the following snippet:\n\n{1}"
               .format(checker.readme.filename, badge))
-        github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
-        sys.exit(1)
 
-    print("The compliance of your repository is different from the current " +
-          "fair-software.eu badge in your " +
-          "{0}. Please replace it with the following snippet:\n\n{1}"
-          .format(checker.readme.filename, badge))
-    github_readme_creation_check(url, checker.readme.filename, checker.repo.platform, branch)
-    sys.exit(1)
+    else:
+        print("The compliance of your repository is different from the current " +
+              "fair-software.eu badge in your " +
+              "{0}. Please replace it with the following snippet:\n\n{1}"
+              .format(checker.readme.filename, badge))
 
+    if checker.repo.platform == Platform.GITHUB:
+        checker.github_readme_creation_check()
 
-def github_readme_creation_check(url, filename, platform, branch):
-    if platform != Platform.GITHUB:
-        return(0)
-    if branch is None:
-        branch = "master"
-    try:
-        response = requests.get(url+"/blob/"+branch+"/"+filename)
-        date_string = BeautifulSoup(response.text, "html.parser").select("relative-time")[0]["datetime"]
-    except IndexError:
-        try:
-            response = requests.get(url+"/contributors/"+branch+"/"+filename)
-            date_string = BeautifulSoup(response.text, "html.parser").select("relative-time")[0]["datetime"]
-        except IndexError:
-            return(0)
-    date_object_utc = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=tz.tzutc())
-    date_local = date_object_utc.astimezone(tz.tzlocal())
-    date_now = datetime.now().astimezone(tz.tzlocal())
-    time_delta = date_now-date_local
-    if time_delta < timedelta(minutes=5):
-        print(f"Warning: Your {filename} was updated less than 5 minutes ago. The effects of this update are not visible yet in the calculated compliance.")
-        return(1)
-    return(0)
+    sys.exit(sys_exit_code)
 
 
 if __name__ == "__main__":

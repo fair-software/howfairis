@@ -1,4 +1,7 @@
+from datetime import datetime
+from datetime import timedelta
 import pytest
+from dateutil import tz
 from requests_mock import Mocker
 from howfairis import Checker
 from howfairis import Compliance
@@ -37,3 +40,68 @@ def test_checker_check_five_recommendations(badghurl_checker: Checker):
 
     expected_compliance = Compliance(repository=False, license_=False, registry=False, citation=False, checklist=False)
     assert actual_compliance == expected_compliance
+
+
+def test_github_readme_creation_check_critical_time(requests_mock: Mocker, capsys):
+    owner = "fair-software"
+    repo_string = "howfairis"
+    filename = "README.rst"
+    url = f"https://github.com/{owner}/{repo_string}"
+    date_now = datetime.now().astimezone(tz.tzutc())
+    date_now_string = date_now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    requests_mock.get(f"https://api.github.com/repos/{owner}/{repo_string}",
+                      json={"created_at": date_now_string}, status_code=200)
+    requests_mock.get(f"https://raw.githubusercontent.com/{owner}/{repo_string}/main/{filename}",
+                      json={}, status_code=200)
+    requests_mock.get(f"https://raw.githubusercontent.com/{owner}/{repo_string}/main/.howfairis.yml",
+                      json={}, status_code=200)
+    repo = Repo(url)
+    checker = Checker(repo)
+    capsys.readouterr()
+    checker.github_readme_creation_check()
+    actual_out_err = capsys.readouterr()
+    expected_out = (f"Warning: Your {filename} was updated less than 5 minutes ago. " +
+                    "The effects of this update are not visible yet in the calculated compliance.\n")
+    assert actual_out_err[0] == expected_out
+
+
+def test_github_readme_creation_check_fine_time(requests_mock: Mocker, capsys):
+    owner = "fair-software"
+    repo_string = "howfairis"
+    filename = "README.rst"
+    url = f"https://github.com/{owner}/{repo_string}"
+    date_now = datetime.now().astimezone(tz.tzutc())
+    date_past_string = (date_now-timedelta(minutes=10)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    requests_mock.get(f"https://api.github.com/repos/{owner}/{repo_string}",
+                      json={"created_at": date_past_string}, status_code=200)
+    requests_mock.get(f"https://raw.githubusercontent.com/{owner}/{repo_string}/main/{filename}",
+                      json={}, status_code=200)
+    requests_mock.get(f"https://raw.githubusercontent.com/{owner}/{repo_string}/main/.howfairis.yml",
+                      json={}, status_code=200)
+    repo = Repo(url)
+    checker = Checker(repo)
+    capsys.readouterr()
+    checker.github_readme_creation_check()
+    actual_out_err = capsys.readouterr()
+    expected_out = ""
+    assert actual_out_err[0] == expected_out
+
+
+def test_github_readme_creation_check_no_time(requests_mock: Mocker, capsys):
+    owner = "fair-software"
+    repo_string = "howfairis"
+    filename = "README.rst"
+    url = f"https://github.com/{owner}/{repo_string}"
+    requests_mock.get(f"https://api.github.com/repos/{owner}/{repo_string}",
+                      json={}, status_code=200)
+    requests_mock.get(f"https://raw.githubusercontent.com/{owner}/{repo_string}/main/{filename}",
+                      json={}, status_code=200)
+    requests_mock.get(f"https://raw.githubusercontent.com/{owner}/{repo_string}/main/.howfairis.yml",
+                      json={}, status_code=200)
+    repo = Repo(url)
+    checker = Checker(repo)
+    capsys.readouterr()
+    checker.github_readme_creation_check()
+    actual_out_err = capsys.readouterr()
+    expected_out = ""
+    assert actual_out_err[0] == expected_out

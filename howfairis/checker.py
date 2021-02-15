@@ -1,9 +1,12 @@
 import inspect
 import os
 import re
+from datetime import datetime
+from datetime import timedelta
 import requests
 from colorama import Fore
 from colorama import Style
+from dateutil import tz
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
@@ -194,6 +197,22 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                           registry=self.check_registry(),
                           citation=self.check_citation(),
                           checklist=self.check_checklist())
+
+    def github_readme_creation_check(self):
+        try:
+            response = requests.get(self.repo.api)
+            date_created_string = response.json().get("created_at")
+            date_created_utc = datetime.strptime(date_created_string, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=tz.tzutc())
+            date_created_local = date_created_utc.astimezone(tz.tzlocal())
+            date_now_local = datetime.now().astimezone(tz.tzlocal())
+            time_delta = date_now_local - date_created_local
+            if time_delta < timedelta(minutes=5):
+                print(f"Warning: Your {self.readme.filename} was updated " +
+                      "less than 5 minutes ago. The effects of this update " +
+                      "are not visible yet in the calculated compliance.")
+            return
+        except TypeError:
+            return
 
     @property
     def force_repository(self):
