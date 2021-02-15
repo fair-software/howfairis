@@ -46,7 +46,7 @@ Live tests (triggered manually)                        |workflow livetests badge
    :target: https://doi.org/10.5281/zenodo.4017908
    
 .. |core infrastructures badge| image:: https://bestpractices.coreinfrastructure.org/projects/4630/badge
-   :target: https://bestpractices.coreinfrastructure.org/projects/4630
+   :target: https://bestpractices.coreinfrastructure.org/en/projects/4630
 
 .. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
    :target: https://fair-software.eu
@@ -66,9 +66,9 @@ Live tests (triggered manually)                        |workflow livetests badge
    :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
    :alt: Coverage
 
-.. |dockerhub badge| image:: https://img.shields.io/docker/build/fairsoftware/howfairis
+.. |dockerhub badge| image:: https://img.shields.io/docker/pulls/fairsoftware/howfairis
    :target: https://hub.docker.com/r/fairsoftware/howfairis
-   :alt: Docker Build Status
+   :alt: Docker Pulls
 
 .. |workflow tests badge| image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
@@ -92,6 +92,12 @@ you should be able to call the executable, like so:
 .. code:: shell
 
     howfairis https://github.com/<owner>/<repo>
+
+
+``howfairis`` supports URLs from the following code repository platforms:
+
+1. ``https://github.com``
+2. ``https://gitlab.com`` (not including self-hosted instances)
 
 Docker
 ---------------
@@ -215,7 +221,11 @@ Which then shows something like:
     Usage: howfairis [OPTIONS] [URL]
 
       Determine compliance with recommendations from fair-software.eu for the
-      GitHub or GitLab repository at URL.
+      repository at URL. The following code repository platforms are supported:
+
+      * https://github.com
+
+      * https://gitlab.com (not including any self-hosted instances)
 
     Options:
       -b, --branch TEXT              Which git branch to use. Also accepts other
