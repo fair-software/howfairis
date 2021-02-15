@@ -72,4 +72,3 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
 
 if __name__ == "__main__":
     cli()
-
