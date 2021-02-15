@@ -3,7 +3,7 @@ from datetime import timedelta
 from dateutil import tz
 from requests_mock import Mocker
 from howfairis.cli import github_readme_creation_check
-from howfairis.vcs_platform import Platform
+from howfairis.code_repository_platforms import Platform
 
 
 def test_github_readme_creation_check_platform():
