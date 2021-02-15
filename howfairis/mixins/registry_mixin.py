@@ -6,7 +6,7 @@ class RegistryMixin:
 
     def check_registry(self):
         print("(3/5) registry:")
-        reason = self.skip_registry_checks_reason.strip(" \t")
+        reason = self.skip_registry_checks_reason
         if reason is None:
             results = [
                 self.has_ascl_badge(),

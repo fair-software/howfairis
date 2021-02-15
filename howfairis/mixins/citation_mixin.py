@@ -5,7 +5,7 @@ class CitationMixin:
 
     def check_citation(self):
         print("(4/5) citation:")
-        reason = self.skip_citation_checks_reason.strip(" \t")
+        reason = self.skip_citation_checks_reason
         if reason is None:
             results = [
                 self.has_citation_file(),

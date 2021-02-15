@@ -6,7 +6,7 @@ class RepositoryMixin:
 
     def check_repository(self):
         print("(1/5) repository:")
-        reason = self.skip_repository_checks_reason.strip(" \t")
+        reason = self.skip_repository_checks_reason
         if reason is None:
             results = [self.has_open_repository()]
             return True in results
