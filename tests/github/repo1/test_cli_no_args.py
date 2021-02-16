@@ -27,7 +27,7 @@ class TestCli(Contract):
         result = invoke_cli("--version")
         assert __version__ in result.stdout
 
-    def test_with_an_url(self, invoke_cli):
+    def test_with_a_url(self, invoke_cli):
         result = invoke_cli("https://github.com/fair-software/badge")
         expected = load_files_from_local_data(__file__, "output")['/cli_no_args.txt']
         assert result.exit_code == 1

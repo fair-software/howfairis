@@ -12,5 +12,5 @@ class Contract(ABC):
         pass
 
     @abstractmethod
-    def test_with_an_url(self, invoke_cli):
+    def test_with_a_url(self, invoke_cli):
         pass
