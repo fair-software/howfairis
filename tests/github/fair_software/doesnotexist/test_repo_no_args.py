@@ -21,9 +21,10 @@ class TestRepoNoArgs(Contract):
     def test_branch(self, mocker: Mocker):
         pass
 
-    @skip_unreachable
     def test_default_branch(self, mocker: Mocker):
-        pass
+        with mocker, pytest.raises(GetDefaultBranchException) as exc_info:
+            get_mocked_repo()
+        assert str(exc_info.value) == "Something went wrong asking the repo for its default branch."
 
     @skip_unreachable
     def test_owner(self, mocker: Mocker):
@@ -41,10 +42,9 @@ class TestRepoNoArgs(Contract):
     def test_raw_url_format_string(self, mocker: Mocker):
         pass
 
+    @skip_unreachable
     def test_repo(self, mocker: Mocker):
-        with mocker, pytest.raises(GetDefaultBranchException) as exc_info:
-            get_mocked_repo()
-        assert str(exc_info.value) == "Something went wrong asking the repo for its default branch."
+        pass
 
     @skip_unreachable
     def test_url(self, mocker: Mocker):

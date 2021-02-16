@@ -13,51 +13,51 @@ def get_mocked_checker(user_config_filename):
 @pytest.fixture
 def user_config(tmp_path):
     config = tmp_path / "howfairis.yml"
-    text = """skip_repository_checks_reason: dunno1
-skip_license_checks_reason: dunno2
-skip_registry_checks_reason: dunno3
-skip_citation_checks_reason: dunno4
-skip_checklist_checks_reason: dunno5    
+    text = """skip_repository_checks_reason: ""
+skip_license_checks_reason: ""
+skip_registry_checks_reason: ""
+skip_citation_checks_reason: ""
+skip_checklist_checks_reason: ""
 """
     config.write_text(text)
     yield config
 
 
-class TestCheckerWithUserConfig(Contract):
+class TestCheckerWithReasonableUserConfig(Contract):
     def test_check_checklist(self, mocker: Mocker, user_config, capsys):
         with mocker:
             checker = get_mocked_checker(user_config)
             assert checker.check_checklist() is True
             captured = capsys.readouterr()
-            assert "dunno5" in captured.out
+            assert "no reason provided" in captured.out
 
     def test_check_citation(self, mocker: Mocker, user_config, capsys):
         with mocker:
             checker = get_mocked_checker(user_config)
             assert checker.check_citation() is True
             captured = capsys.readouterr()
-            assert "dunno4" in captured.out
+            assert "no reason provided" in captured.out
 
     def test_check_license(self, mocker: Mocker, user_config, capsys):
         with mocker:
             checker = get_mocked_checker(user_config)
             assert checker.check_license() is True
             captured = capsys.readouterr()
-            assert "dunno2" in captured.out
+            assert "no reason provided" in captured.out
 
     def test_check_registry(self, mocker: Mocker, user_config, capsys):
         with mocker:
             checker = get_mocked_checker(user_config)
             assert checker.check_registry() is True
             captured = capsys.readouterr()
-            assert "dunno3" in captured.out
+            assert "no reason provided" in captured.out
 
     def test_check_repository(self, mocker: Mocker, user_config, capsys):
         with mocker:
             checker = get_mocked_checker(user_config)
             assert checker.check_repository() is True
             captured = capsys.readouterr()
-            assert "dunno1" in captured.out
+            assert "no reason provided" in captured.out
 
     def test_compliance(self, mocker: Mocker):
         pass
