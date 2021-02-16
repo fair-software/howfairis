@@ -5,7 +5,7 @@ from howfairis.exceptions import GetDefaultBranchException
 from tests.contracts.repo import Contract
 
 
-def get_mocked_repo():
+def get_repo():
     return Repo("https://github.com/fair-software/doesnotexist")
 
 
@@ -23,7 +23,7 @@ class TestRepoNoArgs(Contract):
 
     def test_default_branch(self, mocker: Mocker):
         with mocker, pytest.raises(GetDefaultBranchException) as exc_info:
-            get_mocked_repo()
+            get_repo()
         assert str(exc_info.value) == "Something went wrong asking the repo for its default branch."
 
     @skip_unreachable

@@ -6,7 +6,7 @@ from tests.contracts.checker import Contract
 from tests.helpers.load_files_from_local_data import list_files_from_local_data
 
 
-def get_mocked_checker(user_config_filename):
+def get_checker(user_config_filename):
     repo = Repo("https://github.com/fair-software/badge")
     return Checker(repo, user_config_filename=user_config_filename)
 
@@ -20,35 +20,35 @@ def user_config():
 class TestCheckerWithReasonableUserConfig(Contract):
     def test_check_checklist(self, mocker: Mocker, user_config, capsys):
         with mocker:
-            checker = get_mocked_checker(user_config)
+            checker = get_checker(user_config)
             assert checker.check_checklist() is True
             captured = capsys.readouterr()
             assert "dunno5" in captured.out
 
     def test_check_citation(self, mocker: Mocker, user_config, capsys):
         with mocker:
-            checker = get_mocked_checker(user_config)
+            checker = get_checker(user_config)
             assert checker.check_citation() is True
             captured = capsys.readouterr()
             assert "dunno4" in captured.out
 
     def test_check_license(self, mocker: Mocker, user_config, capsys):
         with mocker:
-            checker = get_mocked_checker(user_config)
+            checker = get_checker(user_config)
             assert checker.check_license() is True
             captured = capsys.readouterr()
             assert "dunno2" in captured.out
 
     def test_check_registry(self, mocker: Mocker, user_config, capsys):
         with mocker:
-            checker = get_mocked_checker(user_config)
+            checker = get_checker(user_config)
             assert checker.check_registry() is True
             captured = capsys.readouterr()
             assert "dunno3" in captured.out
 
     def test_check_repository(self, mocker: Mocker, user_config, capsys):
         with mocker:
-            checker = get_mocked_checker(user_config)
+            checker = get_checker(user_config)
             assert checker.check_repository() is True
             captured = capsys.readouterr()
             assert "dunno1" in captured.out
