@@ -15,5 +15,5 @@ def github_caching_check(checker):
                   "less than 5 minutes ago. The effects of this update " +
                   "are not visible yet in the calculated compliance.")
         return
-    except TypeError:
+    except ValueError:
         return

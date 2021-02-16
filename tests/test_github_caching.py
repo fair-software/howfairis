@@ -53,7 +53,7 @@ def test_github_readme_update_check_no_readme(requests_mock: Mocker, capsys):
 
     requests_mock.get(f"{checker.repo.api}/commits?page=0&per_page=1&" +
                       "path={checker.readme.filename}&since=" + date_critical_utc_string,
-                      json=[], status_code=404)
+                      json=None, status_code=404)
     github_caching_check(checker)
     actual_out_err = capsys.readouterr()
     expected_out = ""
