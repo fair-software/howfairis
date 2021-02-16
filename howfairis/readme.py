@@ -2,7 +2,7 @@ import re
 from typing import Optional
 from .compliance import Compliance
 from .readme_format import ReadmeFormat
-from .workarounds import remove_comments_rst
+from .workarounds import remove_comments_rst as remove_comments_with_workaround
 
 
 class Readme:
@@ -31,7 +31,7 @@ class Readme:
         if self.file_format == ReadmeFormat.MARKDOWN:
             self.text = re.sub(r"<!--.*?-->", "", self.text, flags=re.DOTALL)
         if self.file_format == ReadmeFormat.RESTRUCTUREDTEXT:
-            self.text = remove_comments_rst(self.text)
+            self.text = remove_comments_with_workaround(self.text, self.filename)
         return self
 
     def get_compliance(self):
