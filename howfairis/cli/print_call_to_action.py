@@ -1,5 +1,6 @@
 from howfairis.workarounds.github_caching import github_caching_check
 
+
 def print_call_to_action(previous_compliance, current_compliance, checker, is_quiet=False):
 
     badge = current_compliance.calc_badge(checker.readme.file_format)

@@ -1,10 +1,10 @@
-from requests_mock import Mocker
-from howfairis.workarounds.github_caching import github_caching_check
 from datetime import datetime
 from datetime import timedelta
 from dateutil import tz
-from howfairis.repo import Repo
+from requests_mock import Mocker
 from howfairis.checker import Checker
+from howfairis.repo import Repo
+from howfairis.workarounds.github_caching import github_caching_check
 
 
 def test_github_readme_creation_check_critical_time(requests_mock: Mocker, capsys):
