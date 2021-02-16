@@ -12,13 +12,13 @@ class Readme:
     SEPARATOR = "%20%20"
 
     def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, file_format: Optional[str] = None,
-                 ignore_commented=True):
+                 ignore_commented_badges=True):
 
         self.filename = filename
         self.text = text
         self.file_format = file_format
 
-        if ignore_commented is True:
+        if ignore_commented_badges is True:
             self._remove_comments()
 
     def __eq__(self, other):

@@ -1,4 +1,5 @@
 from . import exceptions
+from . import workarounds
 from .__version__ import __version__
 from .checker import Checker
 from .code_repository_platforms import Platform
@@ -15,6 +16,6 @@ __all__ = [
     "Checker",
     "Compliance",
     "Platform",
-    "Repo"
-
+    "Repo",
+    "workarounds"
 ]

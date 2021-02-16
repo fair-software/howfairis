@@ -71,7 +71,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                 readme_file_format = None
 
             return Readme(filename=readme_filename, text=response.text, file_format=readme_file_format,
-                          ignore_commented=not self.include_comments)
+                          ignore_commented_badges=not self.ignore_commented_badges)
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
 
@@ -201,5 +201,5 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return self._merged_config.get("skip_checklist_checks_reason", None)
 
     @property
-    def include_comments(self):
-        return self._merged_config.get("include_comments")
+    def ignore_commented_badges(self):
+        return self._merged_config.get("ignore_commented_badges")
