@@ -2,5 +2,5 @@ import warnings
 
 
 def remove_comments_rst(text, fname):
-    warnings.warn("Using workaround to remove comments from {0}.".format(fname))
+    warnings.warn("Unable to ignore comments in RestructuredText format of {0}, checks will also see comments".format(fname))
     return text
