@@ -1,6 +1,6 @@
 import re
 from typing import Optional
-from howfairis.compliance import Compliance
+from .compliance import Compliance
 
 
 class Readme:

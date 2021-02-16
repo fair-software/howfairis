@@ -1,0 +1,28 @@
+20210204 run local linter
+
+prospector file.py
+isort file.py
+
+
+20210129 upgrade package
+
+pip install --upgrade package
+
+
+20210129 merging branch with master
+
+git checkout master
+git pull
+git checkout branch
+git merge origin/master
+git push
+
+
+20210122 install
+
+pip install --editable .
+pip install --editable .[dev]
+
+run: 
+
+/home/erikt/anaconda3/envs/python37/bin/howfairis https://github.com/xtensor-stack/xtensor-fftw
