@@ -18,6 +18,5 @@ __all__ = [
     "cli",
     "Compliance",
     "Platform",
-    "Repo",
-    "workarounds"
+    "Repo"
 ]
