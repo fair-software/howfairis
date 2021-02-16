@@ -9,8 +9,4 @@
 
 docs/_build
 docs/apidocs
-Makefile
-000README
-tmp/
-howfairis/OldFiles
 tests/OldFiles
