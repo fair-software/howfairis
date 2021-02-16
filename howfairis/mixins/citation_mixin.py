@@ -4,7 +4,8 @@ import requests
 class CitationMixin:
 
     def check_citation(self):
-        print("(4/5) citation:")
+        if not self.is_quiet:
+            print("(4/5) citation:")
         reason = self.skip_citation_checks_reason
         if reason is None:
             results = [
