@@ -75,7 +75,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                 readme_file_format = None
 
             return Readme(filename=readme_filename, text=response.text, file_format=readme_file_format,
-                          ignore_commented_badges=not self.ignore_commented_badges)
+                          ignore_commented_badges=self.ignore_commented_badges)
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
 
