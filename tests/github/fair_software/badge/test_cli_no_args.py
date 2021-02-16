@@ -41,11 +41,11 @@ include_comments: false
         result = invoke_cli("https://github.com/fair-software/badge")
         expected = """Checking compliance with fair-software.eu...
 url: https://github.com/fair-software/badge
-(1/5) repository:
+(1/5) repository
       ✓ has_open_repository
 (2/5) license:
       ✓ has_license
-(3/5) registry:
+(3/5) registry
       × has_ascl_badge
       × has_bintray_badge
       × has_conda_badge
