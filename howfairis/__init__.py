@@ -11,11 +11,11 @@ __author__ = "https://github.com/jspaaks"
 __email__ = 'j.spaaks@esciencecenter.nl'
 
 __all__ = [
-    "exceptions",
     "__version__",
     "Checker",
     "cli",
     "Compliance",
+    "exceptions",
     "Platform",
     "Repo"
 ]
