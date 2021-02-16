@@ -32,6 +32,8 @@ def print_call_to_action(previous_compliance, current_compliance, checker, is_qu
               "fair-software.eu badge in your " +
               "{0}. Please replace it with the following snippet:\n\n{1}"
               .format(checker.readme.filename, badge))
+
+    if not is_quiet:
         github_caching_check(checker)
 
     return sys_exit_code
