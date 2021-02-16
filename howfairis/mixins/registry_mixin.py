@@ -5,7 +5,8 @@ from ..code_repository_platforms import Platform
 class RegistryMixin:
 
     def check_registry(self):
-        print("(3/5) registry:")
+        if not self.is_quiet:
+            print("(3/5) registry")
         reason = self.skip_registry_checks_reason
         if reason is None:
             results = [
@@ -22,9 +23,11 @@ class RegistryMixin:
             ]
             return True in results
         if reason == "":
-            self._print_state(check_name="skipped (no reason provided)", state=True)
+            if not self.is_quiet:
+                self._print_state(check_name="skipped (no reason provided)", state=True)
             return True
-        self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        if not self.is_quiet:
+            self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
         return True
 
     def has_ascl_badge(self):

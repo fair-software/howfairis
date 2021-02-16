@@ -1,3 +1,4 @@
+from . import cli
 from . import exceptions
 from . import workarounds
 from .__version__ import __version__
@@ -14,6 +15,7 @@ __all__ = [
     "exceptions",
     "__version__",
     "Checker",
+    "cli",
     "Compliance",
     "Platform",
     "Repo",

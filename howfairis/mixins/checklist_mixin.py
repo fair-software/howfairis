@@ -1,7 +1,8 @@
 class ChecklistMixin:
 
     def check_checklist(self):
-        print("(5/5) checklist:")
+        if not self.is_quiet:
+            print("(5/5) checklist:")
         reason = self.skip_checklist_checks_reason
         if reason is None:
             results = [self.has_core_infrastructures_badge()]

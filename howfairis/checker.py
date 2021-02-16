@@ -30,9 +30,13 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         repo (howfairis.repo.Repo): Object describing the properties of the target repository
     """
 
-    def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None, ignore_repo_config=False):
+    # pylint: disable=too-many-arguments
+    def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None,
+                 ignore_repo_config=False, is_quiet=False):
+
         super().__init__()
         self.repo = repo
+        self.is_quiet = is_quiet
         self._default_config = Checker._load_default_config()
         self._repo_config = Checker._load_repo_config(repo, repo_config_filename, ignore_repo_config)
         self._user_config = Checker._load_user_config(user_config_filename)
@@ -162,12 +166,12 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         m.update(self._user_config)
         return m
 
-    @staticmethod
-    def _print_state(check_name="", state=None, indent=6):
-        if state is True:
-            print(" " * indent + Style.BRIGHT + Fore.GREEN + "\u2713 " + Style.RESET_ALL + check_name)
-        elif state is False:
-            print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
+    def _print_state(self, check_name="", state=None, indent=6):
+        if not self.is_quiet:
+            if state is True:
+                print(" " * indent + Style.BRIGHT + Fore.GREEN + "\u2713 " + Style.RESET_ALL + check_name)
+            elif state is False:
+                print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
 
     def check_five_recommendations(self):
         """Check the repo against the five FAIR software recommendations

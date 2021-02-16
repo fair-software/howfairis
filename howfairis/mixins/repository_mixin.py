@@ -5,15 +5,18 @@ from ..code_repository_platforms import Platform
 class RepositoryMixin:
 
     def check_repository(self):
-        print("(1/5) repository:")
+        if not self.is_quiet:
+            print("(1/5) repository")
         reason = self.skip_repository_checks_reason
         if reason is None:
             results = [self.has_open_repository()]
             return True in results
         if reason == "":
-            self._print_state(check_name="skipped (no reason provided)", state=True)
+            if not self.is_quiet:
+                self._print_state(check_name="skipped (no reason provided)", state=True)
             return True
-        self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        if not self.is_quiet:
+            self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
         return True
 
     def has_open_repository(self):
