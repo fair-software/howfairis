@@ -2,6 +2,7 @@ import os
 import sys
 import click
 from colorama import init as init_terminal_colors
+from howfairis.workarounds.github_caching import github_caching_check
 from .__version__ import __version__
 from .checker import Checker
 from .code_repository_platforms import Platform
@@ -117,7 +118,7 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
               .format(checker.readme.filename, badge))
 
     if checker.repo.platform == Platform.GITHUB:
-        checker.github_readme_creation_check()
+        github_caching_check(checker)
 
     sys.exit(sys_exit_code)
 
