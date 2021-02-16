@@ -54,9 +54,6 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return False
 
     def _get_readme(self):
-        def remove_comments(text):
-            return re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
-
         for readme_filename in ["README.rst", "README.md"]:
             raw_url = self.repo.raw_url_format_string.format(readme_filename)
             try:
@@ -73,12 +70,8 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             else:
                 readme_file_format = None
 
-            if self.include_comments is True:
-                text = response.text
-            else:
-                text = remove_comments(response.text)
-
-            return Readme(filename=readme_filename, text=text, file_format=readme_file_format)
+            return Readme(filename=readme_filename, text=response.text, file_format=readme_file_format,
+                          ignore_commented=not self.include_comments)
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
 
