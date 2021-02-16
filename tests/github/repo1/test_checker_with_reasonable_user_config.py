@@ -3,6 +3,7 @@ from requests_mock import Mocker
 from howfairis import Checker
 from howfairis import Repo
 from tests.contracts.checker import Contract
+from tests.helpers.load_files_from_local_data import list_files_from_local_data
 
 
 def get_mocked_checker(user_config_filename):
@@ -11,16 +12,9 @@ def get_mocked_checker(user_config_filename):
 
 
 @pytest.fixture
-def user_config(tmp_path):
-    config = tmp_path / "howfairis.yml"
-    text = """skip_repository_checks_reason: dunno1
-skip_license_checks_reason: dunno2
-skip_registry_checks_reason: dunno3
-skip_citation_checks_reason: dunno4
-skip_checklist_checks_reason: dunno5
-"""
-    config.write_text(text)
-    yield config
+def user_config():
+    files = list_files_from_local_data(__file__, dir_type="user")
+    return files["/howfairis.dunnoreasons.yml"]
 
 
 class TestCheckerWithReasonableUserConfig(Contract):
