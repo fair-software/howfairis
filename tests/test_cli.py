@@ -1,5 +1,5 @@
 from click.testing import CliRunner
-from howfairis.cli import cli
+from howfairis.cli.cli import cli
 
 
 runner = CliRunner()
