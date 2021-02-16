@@ -6,13 +6,11 @@ from dateutil import tz
 
 def github_caching_check(checker):
     try:
-        response = requests.get(checker.repo.api)
-        date_created_string = response.json().get("created_at")
-        date_created_utc = datetime.strptime(date_created_string, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=tz.tzutc())
-        date_created_local = date_created_utc.astimezone(tz.tzlocal())
-        date_now_local = datetime.now().astimezone(tz.tzlocal())
-        time_delta = date_now_local - date_created_local
-        if time_delta < timedelta(minutes=5):
+        date_critical_utc = datetime.now().astimezone(tz.tzutc()) - timedelta(minutes=5)
+        date_critical_utc_string = date_critical_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+        response = requests.get(f"{checker.repo.api}/commits?page=0&per_page=1&" +
+                                "path={checker.readme.filename}&since=" + date_critical_utc_string)
+        if len(response.json()) > 0:
             print(f"Warning: Your {checker.readme.filename} was updated " +
                   "less than 5 minutes ago. The effects of this update " +
                   "are not visible yet in the calculated compliance.")
