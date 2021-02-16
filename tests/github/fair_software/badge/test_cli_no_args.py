@@ -1,6 +1,5 @@
 import pytest
 from click.testing import CliRunner
-
 from howfairis import __version__
 from howfairis.cli import cli
 from tests.contracts.cli import Contract
