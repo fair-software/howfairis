@@ -1,7 +1,7 @@
 import pytest
 from requests_mock import Mocker
 from howfairis import Repo
-from howfairis.exceptions import GetDefaultBranchException
+from howfairis.exceptions.get_default_branch_exception import GetDefaultBranchException
 from tests.contracts.repo import Contract
 
 
