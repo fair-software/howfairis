@@ -58,9 +58,6 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return False
 
     def _get_readme(self):
-        def remove_comments(text):
-            return re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
-
         for readme_filename in ["README.rst", "README.md"]:
             raw_url = self.repo.raw_url_format_string.format(readme_filename)
             try:
@@ -77,12 +74,8 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             else:
                 readme_file_format = None
 
-            if self.include_comments is True:
-                text = response.text
-            else:
-                text = remove_comments(response.text)
-
-            return Readme(filename=readme_filename, text=text, file_format=readme_file_format)
+            return Readme(filename=readme_filename, text=response.text, file_format=readme_file_format,
+                          ignore_commented_badges=self.ignore_commented_badges)
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
 
@@ -212,5 +205,5 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return self._merged_config.get("skip_checklist_checks_reason", None)
 
     @property
-    def include_comments(self):
-        return self._merged_config.get("include_comments")
+    def ignore_commented_badges(self):
+        return self._merged_config.get("ignore_commented_badges")

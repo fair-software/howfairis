@@ -21,7 +21,8 @@ setup(
         "howfairis",
         "howfairis.cli",
         "howfairis.exceptions",
-        "howfairis.mixins"
+        "howfairis.mixins",
+        "howfairis.workarounds"
     ],
     include_package_data=True,
     license="Apache Software License 2.0",
