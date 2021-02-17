@@ -114,7 +114,8 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             response = requests.get(raw_url)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
-            print("Using the configuration file {0}".format(raw_url))
+            if non_default_repo_config_filename:
+                print("Using the configuration file {0}".format(raw_url))
         except requests.HTTPError as e:
             if repo_config_filename != DEFAULT_CONFIG_FILENAME:
                 raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
