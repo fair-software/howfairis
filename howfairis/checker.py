@@ -8,11 +8,11 @@ from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
 from .compliance import Compliance
-from .mixins import ChecklistMixin
-from .mixins import CitationMixin
-from .mixins import LicenseMixin
-from .mixins import RegistryMixin
-from .mixins import RepositoryMixin
+from .mixins.checklist_mixin import ChecklistMixin
+from .mixins.citation_mixin import CitationMixin
+from .mixins.license_mixin import LicenseMixin
+from .mixins.registry_mixin import RegistryMixin
+from .mixins.repository_mixin import RepositoryMixin
 from .readme import Readme
 from .readme_format import ReadmeFormat
 from .repo import Repo

@@ -2,7 +2,7 @@ import re
 from typing import Optional
 from .compliance import Compliance
 from .readme_format import ReadmeFormat
-from .workarounds import remove_comments_rst as remove_comments_with_workaround
+from .workarounds.remove_comments_rst import remove_comments_rst as remove_comments_with_workaround
 
 
 class Readme:

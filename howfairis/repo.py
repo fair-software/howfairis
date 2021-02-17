@@ -1,4 +1,5 @@
 import re
+from typing import Optional
 import requests
 from .code_repository_platforms import Platform
 from .exceptions.get_default_branch_exception import GetDefaultBranchException
@@ -13,8 +14,20 @@ class Repo:
             Can also be a commit SHA-1 hash or tag.
         path: Path inside repository. Defaults to root.
 
+    Attributes:
+        url (str): URL of a code repository,
+        branch (str, None): Branch to checkout. If None then :attr:`Repo.default_branch` will be used.
+        path (str): Path inside repository.
+        platform (.code_repository_platforms.Platform): Detected code repository platform of repo.
+        owner (str): Owner of the repo.
+        repo (str): Name of repo. Normally the last part of the url.
+        api (str): API endpoint of code repository platform where info about repo can be fetched.
+        default_branch (str, None): The default branch of the repo on the code repository platform.
+        raw_url_format_string (str): URL where a file from repo can be downloaded.
+            URL has single placeholder for filename.
+
     """
-    def __init__(self, url: str, branch=None, path=None):
+    def __init__(self, url: str, branch: Optional[str] = None, path: Optional[str] = None):
         # run assertions on user input
         Repo._check_assertions(url)
 
