@@ -8,11 +8,11 @@ class Compliance:
     """Compliance of a repo against the 5 FAIR software recommendations
 
     Args:
-        repository (bool): Whether repository is publicly accessible with version control
-        license_ (bool): Whether repository has a license
-        registry (bool): Whether code is in a registry
-        citation (bool): Whether software is citable
-        checklist (bool): Whether a software quality checklist is used
+        repository: Whether repository is publicly accessible with version control
+        license_: Whether repository has a license
+        registry: Whether code is in a registry
+        citation: Whether software is citable
+        checklist: Whether a software quality checklist is used
 
     Attributes:
         repository (bool): Whether repository is publicly accessible with version control
