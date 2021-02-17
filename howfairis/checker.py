@@ -19,6 +19,9 @@ from .repo import Repo
 from .schema import validate_against_schema
 
 
+DEFAULT_CONFIG_FILENAME = ".howfairis.yml"
+
+
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
     """Check the repo against the five FAIR software recommendations using supplied config.
 
@@ -31,7 +34,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     """
 
     # pylint: disable=too-many-arguments
-    def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None,
+    def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=DEFAULT_CONFIG_FILENAME,
                  ignore_repo_config=False, is_quiet=False):
 
         super().__init__()
@@ -105,18 +108,17 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         if ignore_remote_config is True:
             return dict()
 
-        if repo_config_filename is None:
-            raw_url = repo.raw_url_format_string.format(".howfairis.yml")
-        else:
-            raw_url = repo.raw_url_format_string.format(repo_config_filename)
+        raw_url = repo.raw_url_format_string.format(repo_config_filename)
+        non_default_repo_config_filename = repo_config_filename != DEFAULT_CONFIG_FILENAME
 
         try:
             response = requests.get(raw_url)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
-            print("Using the configuration file {0}".format(raw_url))
+            if non_default_repo_config_filename:
+                print("Using the configuration file {0}".format(raw_url))
         except requests.HTTPError as e:
-            if repo_config_filename is not None:
+            if non_default_repo_config_filename:
                 raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
             return dict()
 
