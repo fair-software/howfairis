@@ -27,7 +27,7 @@ def initialize(requests_mock: Mocker, capsys):
 def test_github_readme_update_check_critical_time(requests_mock: Mocker, capsys):
     checker, date_critical_utc_string = initialize(requests_mock, capsys)
     requests_mock.get(f"{checker.repo.api}/commits?page=0&per_page=1&" +
-                      "path={checker.readme.filename}&since=" + date_critical_utc_string,
+                      f"path={checker.readme.filename}&since=" + date_critical_utc_string,
                       json=[0], status_code=200)
     github_caching_check(checker)
     actual_out_err = capsys.readouterr()
@@ -40,7 +40,7 @@ def test_github_readme_update_check_fine_time(requests_mock: Mocker, capsys):
     checker, date_critical_utc_string = initialize(requests_mock, capsys)
 
     requests_mock.get(f"{checker.repo.api}/commits?page=0&per_page=1&" +
-                      "path={checker.readme.filename}&since=" + date_critical_utc_string,
+                      f"path={checker.readme.filename}&since=" + date_critical_utc_string,
                       json=[], status_code=200)
     github_caching_check(checker)
     actual_out_err = capsys.readouterr()
@@ -52,7 +52,7 @@ def test_github_readme_update_check_no_readme(requests_mock: Mocker, capsys):
     checker, date_critical_utc_string = initialize(requests_mock, capsys)
 
     requests_mock.get(f"{checker.repo.api}/commits?page=0&per_page=1&" +
-                      "path={checker.readme.filename}&since=" + date_critical_utc_string,
+                      f"path={checker.readme.filename}&since=" + date_critical_utc_string,
                       json=None, status_code=404)
     github_caching_check(checker)
     actual_out_err = capsys.readouterr()

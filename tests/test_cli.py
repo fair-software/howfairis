@@ -63,7 +63,7 @@ def test_matching_badge(requests_mock: Mocker):
     date_critical_utc = datetime.now().replace(second=0).astimezone(tz.tzutc()) - timedelta(minutes=5)
     date_critical_utc_string = date_critical_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     requests_mock.get(f"{checker.repo.api}/commits?page=0&per_page=1&" +
-                      "path={checker.readme.filename}&since=" + date_critical_utc_string,
+                      f"path={checker.readme.filename}&since=" + date_critical_utc_string,
                       text="", status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
@@ -102,7 +102,7 @@ def test_upgraded_badge(requests_mock: Mocker):
     date_critical_utc = datetime.now().replace(second=0).astimezone(tz.tzutc()) - timedelta(minutes=5)
     date_critical_utc_string = date_critical_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     requests_mock.get(f"{checker.repo.api}/commits?page=0&per_page=1&" +
-                      "path={checker.readme.filename}&since=" + date_critical_utc_string,
+                      f"path={checker.readme.filename}&since=" + date_critical_utc_string,
                       text="", status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
@@ -139,7 +139,7 @@ def test_mismatching_badge(requests_mock: Mocker):
     date_critical_utc = datetime.now().replace(second=0).astimezone(tz.tzutc()) - timedelta(minutes=5)
     date_critical_utc_string = date_critical_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     requests_mock.get(f"{checker.repo.api}/commits?page=0&per_page=1&" +
-                      "path={checker.readme.filename}&since=" + date_critical_utc_string,
+                      f"path={checker.readme.filename}&since=" + date_critical_utc_string,
                       text="", status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
@@ -175,7 +175,7 @@ def test_missing_badge(requests_mock: Mocker):
     date_critical_utc = datetime.now().replace(second=0).astimezone(tz.tzutc()) - timedelta(minutes=5)
     date_critical_utc_string = date_critical_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     requests_mock.get(f"{checker.repo.api}/commits?page=0&per_page=1&" +
-                      "path={checker.readme.filename}&since=" + date_critical_utc_string,
+                      f"path={checker.readme.filename}&since=" + date_critical_utc_string,
                       text="", status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
