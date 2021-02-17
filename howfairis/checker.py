@@ -25,27 +25,27 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
 
     Args:
         repo: Repository to check
-        user_config_filename: Filename of config file on users local filesystem that overwrites
-            default checker behavior and optional config file in repository.
-        repo_config_filename: Filename of config file on repository that overwrites default behavior of checker.
+        user_config_filename: Filename of configuration file on users local filesystem.
+        repo_config_filename: Filename of configuration file on the repository.
             Default is ".howfairis.yml".
-        ignore_repo_config: If True then :attr:`Checker.repo_config_filename` on the :attr:`Checker.repo` is not loaded.
+        ignore_repo_config: If True then the configuration file on the repository is not loaded.
             Default is False.
         is_quiet: If True then less verbose output is printed. Default is False.
 
-    Examples:
+    Example:
 
-    The registry compliance of the ``https://github.com/fair-software/howfairis`` repository can be checked with:
+        The registry compliance of the ``https://github.com/fair-software/howfairis`` repository can be checked with:
 
-    .. code-block ::
+        .. code-block ::
 
-       >>> from howfairis import Repo, Checker
-       >>> url = "https://github.com/fair-software/howfairis"
-       >>> repo = Repo(url)
-       >>> checker = Checker(repo)
-       >>> compliance = checker.check_five_recommendations()
-       >>> compliance.registry
-       True
+           >>> from howfairis import Repo, Checker
+           >>> url = "https://github.com/fair-software/howfairis"
+           >>> repo = Repo(url)
+           >>> checker = Checker(repo, is_quiet=True)
+           ...
+           >>> compliance = checker.check_five_recommendations()
+           >>> compliance.registry
+           True
 
     Attributes:
         repo (.repo.Repo): Object describing the properties of the target repository.
