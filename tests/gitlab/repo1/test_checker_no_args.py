@@ -22,15 +22,15 @@ class TestCheckerNoArgs(Contract):
             mocked_checker = get_mocked_checker()
             assert mocked_checker.check_citation() is True
 
-    def test_check_license(self, mocker):
-        with mocker:
-            mocked_checker = get_mocked_checker()
-            assert mocked_checker.check_license() is True
-
     def test_check_registry(self, mocker):
         with mocker:
             mocked_checker = get_mocked_checker()
             assert mocked_checker.check_registry() is True
+
+    def test_check_repo_license(self, mocker):
+        with mocker:
+            mocked_checker = get_mocked_checker()
+            assert mocked_checker.check_repo_license() is True
 
     def test_check_repository(self, mocker):
         with mocker:

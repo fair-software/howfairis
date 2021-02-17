@@ -45,11 +45,11 @@ class TestComplianceNoArgs(Contract):
         for expected_compliance in expected_compliances:
             assert expected_compliance != compliance_fixture
 
-    def test_license(self, compliance_fixture):
-        assert compliance_fixture.license is False
-
     def test_registry(self, compliance_fixture):
         assert compliance_fixture.registry is False
+
+    def test_repo_license(self, compliance_fixture):
+        assert compliance_fixture.repo_license is False
 
     def test_repository(self, compliance_fixture):
         assert compliance_fixture.repository is False

@@ -5,7 +5,7 @@ from ..code_repository_platforms import Platform
 
 class LicenseMixin:
 
-    def check_license(self):
+    def check_repo_license(self):
         if not self.is_quiet:
             print("(2/5) license:")
         reason = self.skip_license_checks_reason

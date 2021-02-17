@@ -8,7 +8,7 @@ class Compliance:
 
     Attributes:
         repository: Whether repository is publicly accessible with version control
-        license: Whether repository has a license
+        repo_license: Whether repository has a license
         registry: Whether code is in a registry
         citation: Whether software is citable
         checklist: Whether a software quality checklist is used
@@ -19,11 +19,11 @@ class Compliance:
     COMPLIANT_SYMBOL = "\u25CF"
     NONCOMPLIANT_SYMBOL = "\u25CB"
 
-    def __init__(self, repository=False, license_=False, registry=False, citation=False, checklist=False):
+    def __init__(self, repository=False, repo_license=False, registry=False, citation=False, checklist=False):
         self._index = 0
         self.checklist = checklist
         self.citation = citation
-        self.license = license_
+        self.repo_license = repo_license
         self.registry = registry
         self.repository = repository
 
@@ -43,7 +43,7 @@ class Compliance:
 
     @property
     def _state(self):
-        return [self.repository, self.license, self.registry,
+        return [self.repository, self.repo_license, self.registry,
                 self.citation, self.checklist]
 
     def as_unicode(self):

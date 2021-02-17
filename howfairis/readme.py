@@ -40,7 +40,7 @@ class Readme:
             "-" \
             "(?P<repository>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
             "(?:" + Readme.SEPARATOR + ")" \
-            "(?P<license>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
+            "(?P<repo_license>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
             "(?:" + Readme.SEPARATOR + ")" \
             "(?P<registry>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
             "(?:" + Readme.SEPARATOR + ")" \
@@ -58,7 +58,7 @@ class Readme:
         groupdict = matched.groupdict()
 
         return Compliance(repository=groupdict.get("repository") == Readme.COMPLIANT_SYMBOL,
-                          license_=groupdict.get("license") == Readme.COMPLIANT_SYMBOL,
+                          repo_license=groupdict.get("repo_license") == Readme.COMPLIANT_SYMBOL,
                           registry=groupdict.get("registry") == Readme.COMPLIANT_SYMBOL,
                           citation=groupdict.get("citation") == Readme.COMPLIANT_SYMBOL,
                           checklist=groupdict.get("checklist") == Readme.COMPLIANT_SYMBOL)

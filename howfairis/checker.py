@@ -181,7 +181,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         After being called the :py:attr:`.Checker.compliance` property will be filled the the result of the check.
         """
         return Compliance(repository=self.check_repository(),
-                          license_=self.check_license(),
+                          repo_license=self.check_repo_license(),
                           registry=self.check_registry(),
                           citation=self.check_citation(),
                           checklist=self.check_checklist())

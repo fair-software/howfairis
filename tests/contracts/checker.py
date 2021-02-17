@@ -13,11 +13,11 @@ class Contract(ABC):
         pass
 
     @abstractmethod
-    def test_check_license(self, mocked_context: Mocker):
+    def test_check_registry(self, mocked_context: Mocker):
         pass
 
     @abstractmethod
-    def test_check_registry(self, mocked_context: Mocker):
+    def test_check_repo_license(self, mocked_context: Mocker):
         pass
 
     @abstractmethod

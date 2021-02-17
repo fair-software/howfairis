@@ -33,19 +33,19 @@ class TestCheckerWithReasonableUserConfig(Contract):
             captured = capsys.readouterr()
             assert "dunno4" in captured.out
 
-    def test_check_license(self, mocker: Mocker, user_config, capsys):
-        with mocker:
-            checker = get_checker(user_config)
-            assert checker.check_license() is True
-            captured = capsys.readouterr()
-            assert "dunno2" in captured.out
-
     def test_check_registry(self, mocker: Mocker, user_config, capsys):
         with mocker:
             checker = get_checker(user_config)
             assert checker.check_registry() is True
             captured = capsys.readouterr()
             assert "dunno3" in captured.out
+
+    def test_check_repo_license(self, mocker: Mocker, user_config, capsys):
+        with mocker:
+            checker = get_checker(user_config)
+            assert checker.check_repo_license() is True
+            captured = capsys.readouterr()
+            assert "dunno2" in captured.out
 
     def test_check_repository(self, mocker: Mocker, user_config, capsys):
         with mocker:

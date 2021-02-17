@@ -37,11 +37,11 @@ class Contract(ABC):
         pass
 
     @abstractmethod
-    def test_license(self, compliance_fixture: Compliance):
+    def test_registry(self, compliance_fixture: Compliance):
         pass
 
     @abstractmethod
-    def test_registry(self, compliance_fixture: Compliance):
+    def test_repo_license(self, compliance_fixture: Compliance):
         pass
 
     @abstractmethod
