@@ -109,7 +109,6 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             return dict()
 
         raw_url = repo.raw_url_format_string.format(repo_config_filename)
-        non_default_repo_config_filename = repo_config_filename != DEFAULT_CONFIG_FILENAME
 
         try:
             response = requests.get(raw_url)
@@ -117,7 +116,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             response.raise_for_status()
             print("Using the configuration file {0}".format(raw_url))
         except requests.HTTPError as e:
-            if non_default_repo_config_filename:
+            if repo_config_filename != DEFAULT_CONFIG_FILENAME:
                 raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
             return dict()
 
