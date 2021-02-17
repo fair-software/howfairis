@@ -72,7 +72,7 @@ Running the linters requires an activated virtualenv with the development tools 
     # requires activated virtualenv with development tools
     prospector && isort --recursive --check-only howfairis
 
-You can enable automatic linting with ``prospector`` and ``isort`` onCommit like so:
+You can enable automatic linting with ``prospector`` and ``isort`` on commit like so:
 
 .. code:: shell
 
