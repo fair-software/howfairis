@@ -116,7 +116,9 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             if repo_config_filename != DEFAULT_CONFIG_FILENAME:
                 print("Using the configuration file {0}".format(raw_url))
         except requests.HTTPError as e:
-            raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
+            if repo_config_filename != DEFAULT_CONFIG_FILENAME:
+                raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
+            return dict()
 
         try:
             repo_config = YAML(typ="safe").load(response.text)
