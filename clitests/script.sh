@@ -26,7 +26,7 @@ howfairis https://github.com/fair-software/badge-test -p force/11111
 sleep $DURATION
 howfairis https://github.com/fair-software/badge-test -p force/uu1uu
 sleep $DURATION
-howfairis https://github.com/fair-software/badge-test -p include_comments
+howfairis https://github.com/fair-software/badge-test -p ignore_commented_badges
 sleep $DURATION
 
 
@@ -43,5 +43,4 @@ howfairis https://gitlab.com/jspaaks/badge-test -p force/11111
 sleep $DURATION
 howfairis https://gitlab.com/jspaaks/badge-test -p force/uu1uu
 sleep $DURATION
-howfairis https://gitlab.com/jspaaks/badge-test -p include_comments
-
+howfairis https://gitlab.com/jspaaks/badge-test -p ignore_commented_badges
