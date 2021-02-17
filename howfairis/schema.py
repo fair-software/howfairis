@@ -9,7 +9,7 @@ schema = {
     Optional("skip_registry_checks_reason"): Any(str, None),
     Optional("skip_citation_checks_reason"): Any(str, None),
     Optional("skip_checklist_checks_reason"): Any(str, None),
-    Optional("include_comments"): Any(bool, None)
+    Optional("ignore_commented_badges"): Any(bool, None)
 }
 
 validate_against_schema = Schema(schema)
