@@ -100,5 +100,5 @@ class Repo:
         try:
             response.raise_for_status()
         except requests.HTTPError as e:
-            raise GetDefaultBranchException("Something went wrong asking the repo for its default branch.") from e
+            raise GetDefaultBranchException("Something went wrong asking the repo for its default branch: " + str(e)) from e
         return response.json().get("default_branch")

@@ -33,5 +33,4 @@ def mocker() -> Mocker:
         m.get(api + "/license", status_code=200)
         m.get(api, status_code=200, json=default_branch_response)
         m.get(api + "/commits?page=0&per_page=1&path=README.md&since=" + date_critical_utc_string, status_code=200)
-        m.get(api + "/commits?page=0&per_page=1&path=README.rst&since=" + date_critical_utc_string, status_code=200)
         return m

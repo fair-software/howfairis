@@ -1,7 +1,8 @@
+import re
 import pytest
 from requests_mock import Mocker
 from howfairis import Repo
-from howfairis.exceptions import GetDefaultBranchException
+from howfairis.exceptions.get_default_branch_exception import GetDefaultBranchException
 from tests.contracts.repo import Contract
 
 
@@ -24,7 +25,7 @@ class TestRepoNoArgs(Contract):
     def test_default_branch(self, mocker: Mocker):
         with mocker, pytest.raises(GetDefaultBranchException) as exc_info:
             get_repo()
-        assert str(exc_info.value) == "Something went wrong asking the repo for its default branch."
+        assert re.search("Something went wrong asking the repo for its default branch.", str(exc_info.value))
 
     @skip_unreachable
     def test_owner(self, mocker: Mocker):
