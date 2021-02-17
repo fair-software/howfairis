@@ -1,7 +1,7 @@
 import pytest
 from click.testing import CliRunner
 from howfairis import __version__
-from howfairis.cli import cli
+from howfairis.cli.cli import cli
 from tests.contracts.cli import Contract
 from tests.helpers import load_files_from_local_data
 
