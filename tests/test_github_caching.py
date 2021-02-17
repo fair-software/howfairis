@@ -18,7 +18,7 @@ def initialize(requests_mock: Mocker, capsys):
                       json={}, status_code=200)
     repo = Repo(url, branch="main")
     checker = Checker(repo)
-    date_critical_utc = datetime.now().astimezone(tz.tzutc()) - timedelta(minutes=5)
+    date_critical_utc = datetime.now().replace(second=0).astimezone(tz.tzutc()) - timedelta(minutes=5)
     date_critical_utc_string = date_critical_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     capsys.readouterr()
     return(checker, date_critical_utc_string)
