@@ -18,7 +18,7 @@ class Repo:
         url (str): URL of a code repository,
         branch (str, None): Branch to checkout. If None then :attr:`Repo.default_branch` will be used.
         path (str): Path inside repository.
-        platform (Platform): Detected code repository platform of repo.
+        platform (.code_repository_platforms.Platform): Detected code repository platform of repo.
         owner (str): Owner of the repo.
         repo (str): Name of repo. Normally the last part of the url.
         api (str): API endpoint of code repository platform where info about repo can be fetched.
