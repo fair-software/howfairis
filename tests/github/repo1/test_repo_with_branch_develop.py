@@ -11,46 +11,46 @@ class TestRepoWithBranchDevelop(Contract):
 
     def test_api(self, mocker):
         with mocker:
-            mocked_repo = get_repo()
-            assert mocked_repo.api == "https://api.github.com/repos/fair-software/badge"
+            repo = get_repo()
+            assert repo.api == "https://api.github.com/repos/fair-software/badge"
 
     def test_branch(self, mocker):
         with mocker:
-            mocked_repo = get_repo()
-            assert mocked_repo.branch == "develop"
+            repo = get_repo()
+            assert repo.branch == "develop"
 
     def test_default_branch(self, mocker):
         with mocker:
-            mocked_repo = get_repo()
-            assert mocked_repo.default_branch is None
+            repo = get_repo()
+            assert repo.default_branch is None
 
     def test_owner(self, mocker):
         with mocker:
-            mocked_repo = get_repo()
-            assert mocked_repo.owner == "fair-software"
+            repo = get_repo()
+            assert repo.owner == "fair-software"
 
     def test_path(self, mocker):
         with mocker:
-            mocked_repo = get_repo()
-            assert mocked_repo.path == ""
+            repo = get_repo()
+            assert repo.path == ""
 
     def test_platform(self, mocker):
         with mocker:
-            mocked_repo = get_repo()
-            assert mocked_repo.platform == Platform.GITHUB
+            repo = get_repo()
+            assert repo.platform == Platform.GITHUB
 
     def test_raw_url_format_string(self, mocker):
         with mocker:
-            mocked_repo = get_repo()
-            assert mocked_repo.raw_url_format_string == "https://raw.githubusercontent.com/fair-software" + \
+            repo = get_repo()
+            assert repo.raw_url_format_string == "https://raw.githubusercontent.com/fair-software" + \
                                                         "/badge/develop/{0}"
 
     def test_repo(self, mocker):
         with mocker:
-            mocked_repo = get_repo()
-            assert mocked_repo.repo == "badge"
+            repo = get_repo()
+            assert repo.repo == "badge"
 
     def test_url(self, mocker):
         with mocker:
-            mocked_repo = get_repo()
-            assert mocked_repo.url == "https://github.com/fair-software/badge"
+            repo = get_repo()
+            assert repo.url == "https://github.com/fair-software/badge"
