@@ -18,6 +18,7 @@ from .readme_format import ReadmeFormat
 from .repo import Repo
 from .schema import validate_against_schema
 
+
 DEFAULT_CONFIG_FILENAME = ".howfairis.yml"
 
 

@@ -2,7 +2,8 @@ import sys
 import click
 from colorama import init as init_terminal_colors
 from howfairis.__version__ import __version__
-from howfairis.checker import Checker, DEFAULT_CONFIG_FILENAME
+from howfairis.checker import DEFAULT_CONFIG_FILENAME
+from howfairis.checker import Checker
 from howfairis.cli.print_call_to_action import print_call_to_action
 from howfairis.cli.print_default_config import print_default_config
 from howfairis.cli.print_feedback_about_config_args import print_feedback_about_config_args
