@@ -2,7 +2,7 @@ import sys
 import click
 from colorama import init as init_terminal_colors
 from howfairis.__version__ import __version__
-from howfairis.checker import Checker
+from howfairis.checker import Checker, DEFAULT_CONFIG_FILENAME
 from howfairis.cli.print_call_to_action import print_call_to_action
 from howfairis.cli.print_default_config import print_default_config
 from howfairis.cli.print_feedback_about_config_args import print_feedback_about_config_args
@@ -27,7 +27,7 @@ from howfairis.repo import Repo
                    "README and a configuration file in a subdirectory.")
 @click.option("-q", "--quiet", default=False, is_flag=True,
               help="Use this flag to disable all printing except errors.")
-@click.option("-r", "--repo-config-filename", default=None, type=click.STRING,
+@click.option("-r", "--repo-config-filename", default=DEFAULT_CONFIG_FILENAME, type=click.STRING,
               help="Name of the configuration file to control howfairis'es behavior. The configuration " +
                    "file needs to be on the remote, and takes into account the value of " +
                    "--branch and --path. Default: .howfairis.yml")
