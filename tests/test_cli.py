@@ -4,7 +4,7 @@ from datetime import timedelta
 from click.testing import CliRunner
 from dateutil import tz
 from requests_mock import Mocker
-from howfairis.cli import cli
+from howfairis.cli.cli import cli
 
 
 runner = CliRunner()
