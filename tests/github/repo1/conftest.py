@@ -1,3 +1,6 @@
+from datetime import datetime
+from datetime import timedelta
+from dateutil import tz
 import pytest
 from tests.helpers import load_files_from_local_data
 from tests.helpers import get_urls
@@ -27,4 +30,8 @@ def mocker() -> Mocker:
         m.get(raw + "/master/README.rst", status_code=404)
         m.get(api + "/license", status_code=200)
         m.get(api, status_code=200, json=default_branch_response)
+        date_critical_utc = datetime.now().replace(second=0).astimezone(tz.tzutc()) - timedelta(minutes=5)
+        date_critical_utc_string = date_critical_utc.strftime("%Y-%m-%dT%H:%M:%SZ")
+        m.get(api + f"/commits?page=0&per_page=1&" +
+                      "path={checker.readme.filename}&since=" + date_critical_utc_string, status_code=200)
         return m

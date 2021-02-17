@@ -6,4 +6,4 @@
 #skip_citation_checks_reason: <reason for skipping goes here>
 #skip_checklist_checks_reason: <reason for skipping goes here>
 
-include_comments: false
+ignore_commented_badges: true
