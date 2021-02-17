@@ -8,5 +8,5 @@ def print_default_config(is_quiet=False):
         default_config_filename = os.path.join(pkg_root, "data", ".howfairis.yml")
         with open(default_config_filename, "rt") as f:
             text = f.read()
-        print(text)
+        print(text, end='')
     return 0
