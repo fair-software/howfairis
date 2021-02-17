@@ -7,40 +7,36 @@ from colorama import Style
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
-from howfairis.compliance import Compliance
-from howfairis.mixins import ChecklistMixin
-from howfairis.mixins import CitationMixin
-from howfairis.mixins import LicenseMixin
-from howfairis.mixins import RegistryMixin
-from howfairis.mixins import RepositoryMixin
-from howfairis.readme import Readme
-from howfairis.readme_format import ReadmeFormat
-from howfairis.repo import Repo
-from howfairis.schema import validate_against_schema
+from .compliance import Compliance
+from .mixins.checklist_mixin import ChecklistMixin
+from .mixins.citation_mixin import CitationMixin
+from .mixins.license_mixin import LicenseMixin
+from .mixins.registry_mixin import RegistryMixin
+from .mixins.repository_mixin import RepositoryMixin
+from .readme import Readme
+from .readme_format import ReadmeFormat
+from .repo import Repo
+from .schema import validate_against_schema
 
 
 class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, ChecklistMixin):
     """Check the repo against the five FAIR software recommendations using supplied config.
 
     Args:
-        config: Configuration to use
         repo: Repository to check
 
     Attributes:
         readme (Readme): Retrieved README from the repository.
-        compliance (Optional[Compliance]): The current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge_url (Optional[str]): URL of badge image for the current compliance.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-        badge (Optional[str]): Badge image link for the current compliance. Formatted in format of README.
-            Filled after :py:func:`Checker.check_five_recommendations` is called.
-
+        repo (howfairis.repo.Repo): Object describing the properties of the target repository
     """
 
-    def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None, ignore_repo_config=False):
+    # pylint: disable=too-many-arguments
+    def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=None,
+                 ignore_repo_config=False, is_quiet=False):
+
         super().__init__()
-        self.compliance = None
         self.repo = repo
+        self.is_quiet = is_quiet
         self._default_config = Checker._load_default_config()
         self._repo_config = Checker._load_repo_config(repo, repo_config_filename, ignore_repo_config)
         self._user_config = Checker._load_user_config(user_config_filename)
@@ -62,9 +58,6 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return False
 
     def _get_readme(self):
-        def remove_comments(text):
-            return re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
-
         for readme_filename in ["README.rst", "README.md"]:
             raw_url = self.repo.raw_url_format_string.format(readme_filename)
             try:
@@ -81,12 +74,8 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             else:
                 readme_file_format = None
 
-            if self.include_comments is True:
-                text = response.text
-            else:
-                text = remove_comments(response.text)
-
-            return Readme(filename=readme_filename, text=text, file_format=readme_file_format)
+            return Readme(filename=readme_filename, text=response.text, file_format=readme_file_format,
+                          ignore_commented_badges=self.ignore_commented_badges)
 
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
 
@@ -177,12 +166,12 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         m.update(self._user_config)
         return m
 
-    @staticmethod
-    def _print_state(check_name="", state=None, indent=6):
-        if state is True:
-            print(" " * indent + Style.BRIGHT + Fore.GREEN + "\u2713 " + Style.RESET_ALL + check_name)
-        elif state is False:
-            print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
+    def _print_state(self, check_name="", state=None, indent=6):
+        if not self.is_quiet:
+            if state is True:
+                print(" " * indent + Style.BRIGHT + Fore.GREEN + "\u2713 " + Style.RESET_ALL + check_name)
+            elif state is False:
+                print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
 
     def check_five_recommendations(self):
         """Check the repo against the five FAIR software recommendations
@@ -196,25 +185,25 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                           checklist=self.check_checklist())
 
     @property
-    def force_repository(self):
-        return self._merged_config.get("force_repository")
+    def skip_repository_checks_reason(self):
+        return self._merged_config.get("skip_repository_checks_reason", None)
 
     @property
-    def force_license(self):
-        return self._merged_config.get("force_license")
+    def skip_license_checks_reason(self):
+        return self._merged_config.get("skip_license_checks_reason", None)
 
     @property
-    def force_registry(self):
-        return self._merged_config.get("force_registry")
+    def skip_registry_checks_reason(self):
+        return self._merged_config.get("skip_registry_checks_reason", None)
 
     @property
-    def force_citation(self):
-        return self._merged_config.get("force_citation")
+    def skip_citation_checks_reason(self):
+        return self._merged_config.get("skip_citation_checks_reason", None)
 
     @property
-    def force_checklist(self):
-        return self._merged_config.get("force_checklist")
+    def skip_checklist_checks_reason(self):
+        return self._merged_config.get("skip_checklist_checks_reason", None)
 
     @property
-    def include_comments(self):
-        return self._merged_config.get("include_comments")
+    def ignore_commented_badges(self):
+        return self._merged_config.get("ignore_commented_badges")

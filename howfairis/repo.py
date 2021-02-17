@@ -1,17 +1,17 @@
 import re
 import requests
-from howfairis.code_repository_platforms import Platform
+from .code_repository_platforms import Platform
+from .exceptions.get_default_branch_exception import GetDefaultBranchException
 
 
 class Repo:
-    """Publicly accessible repository with version control
+    """Representation of a source code repository.
 
     Args:
-        url: URL of repository. For example https://github.com/fair-software/howfairis
-        branch: Branch to checkout. Defaults to default branch of the repository platform.
+        url: URL of a code repository such as https://github.com/fair-software/howfairis
+        branch: Branch to checkout. Defaults to default branch of the repository.
             Can also be a commit SHA-1 hash or tag.
         path: Path inside repository. Defaults to root.
-        config_file: Name of the configuration file to control the behavior of the howfairis package.
 
     """
 
@@ -129,19 +129,16 @@ class Repo:
         raise ValueError("Unsupported URL: URL does not match any of the supported source control platforms")
 
     def _get_default_branch(self):
-        fallback_branch = "main"
-        response = requests.get(self.api)
 
+        if self.branch is not None:
+            # user has specified a branch, use that regardless of whether it actually exists
+            return None
+
+        # GitHub API and GitLab API work the same
+        response = requests.get(self.api)
         # If the request was successful, the next line will not raise any Exception
         try:
             response.raise_for_status()
-        except requests.HTTPError:
-            return fallback_branch
-
-        if self.platform == Platform.BITBUCKET:
-            return response.json().get("mainbranch", {"name": fallback_branch}).get("name")
-
-        if self.platform in [Platform.GITLAB, Platform.GITHUB, Platform.HEPTAPOD]:
-            return response.json().get("default_branch", fallback_branch)
-
-        return None
+        except requests.HTTPError as e:
+            raise GetDefaultBranchException("Something went wrong asking the repo for its default branch.") from e
+        return response.json().get("default_branch")

@@ -9,7 +9,7 @@ with open("README.rst", "rt", encoding="UTF-8") as readme_file:
 setup(
     name="howfairis",
     entry_points={
-        "console_scripts": ["howfairis=howfairis.cli:cli"],
+        "console_scripts": ["howfairis=howfairis.cli.cli:cli"],
     },
     version="0.12.0",
     description="Python package to analyze compliance with fair-software.eu recommendations",
@@ -17,7 +17,13 @@ setup(
     author="https://github.com/jspaaks",
     author_email="j.spaaks@esciencecenter.nl",
     url="https://github.com/fair-software/howfairis",
-    packages=["howfairis", "howfairis.mixins"],
+    packages=[
+        "howfairis",
+        "howfairis.cli",
+        "howfairis.exceptions",
+        "howfairis.mixins",
+        "howfairis.workarounds"
+    ],
     include_package_data=True,
     license="Apache Software License 2.0",
     zip_safe=False,

@@ -1,6 +1,8 @@
 import re
 from typing import Optional
-from howfairis.compliance import Compliance
+from .compliance import Compliance
+from .readme_format import ReadmeFormat
+from .workarounds.remove_comments_rst import remove_comments_rst as remove_comments_with_workaround
 
 
 class Readme:
@@ -9,11 +11,15 @@ class Readme:
     NONCOMPLIANT_SYMBOL = "%E2%97%8B"
     SEPARATOR = "%20%20"
 
-    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, file_format: Optional[str] = None):
+    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, file_format: Optional[str] = None,
+                 ignore_commented_badges=True):
 
         self.filename = filename
         self.text = text
         self.file_format = file_format
+
+        if ignore_commented_badges is True:
+            self._remove_comments()
 
     def __eq__(self, other):
         return \
@@ -21,8 +27,14 @@ class Readme:
             self.text == other.text and \
             self.file_format == other.file_format
 
-    def get_compliance(self):
+    def _remove_comments(self):
+        if self.file_format == ReadmeFormat.MARKDOWN:
+            self.text = re.sub(r"<!--.*?-->", "", self.text, flags=re.DOTALL)
+        if self.file_format == ReadmeFormat.RESTRUCTUREDTEXT:
+            self.text = remove_comments_with_workaround(self.text, self.filename)
+        return self
 
+    def get_compliance(self):
         s = r"(?P<skip>^.*)" \
             "(?P<base>https://img.shields.io/badge/fair--software.eu)" \
             "-" \
