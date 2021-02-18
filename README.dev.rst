@@ -114,7 +114,7 @@ In a new terminal, without an activated virtual environment or a venv3 directory
     rm -rf dist
     python setup.py sdist bdist_wheel
 
-    # upload to test pypi instance
+    # upload to test pypi instance (requires credentials)
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
 In a new terminal, without an activated virtual environment or a venv3 directory:
@@ -139,7 +139,7 @@ Then upload to pypi.org with:
 .. code:: shell
 
     # Back to the first terminal,
-    # FINAL STEP: upload to PyPI
+    # FINAL STEP: upload to PyPI (requires credentials)
     twine upload dist/*
 
 Making a release (3/4): GitHub
