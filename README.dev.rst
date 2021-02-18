@@ -31,21 +31,6 @@ like so:
 
     howfairis https://github.com/<owner>/<repo>
 
-Docker
-------
-To build the image, run:
-
-.. code:: shell
-
-   docker build -t fairsoftware/howfairis .
-
-To push the image to DockerHub, run:
-
-.. code:: shell
-
-   docker push fairsoftware/howfairis
-
-
 Running linters locally
 -----------------------
 
@@ -150,9 +135,14 @@ Don't forget to also make a release on GitHub.
 Making a release (4/4): DockerHub
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-TODO
+To build the image, run:
 
-Credits
--------
+.. code:: shell
 
-This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `NLeSC/python-template <https://github.com/NLeSC/python-template>`_.
+   docker build -t fairsoftware/howfairis .
+
+To push the image to DockerHub, run:
+
+.. code:: shell
+
+   docker push fairsoftware/howfairis
