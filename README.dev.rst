@@ -91,7 +91,13 @@ Bumping the version across all files is done with bump2version, e.g.
 Making a release
 ^^^^^^^^^^^^^^^^
 
+Preparation
+"""""""""""
+
 Make sure the version is correct.
+
+Release on PyPI
+"""""""""""""""
 
 .. code:: shell
 
@@ -109,7 +115,11 @@ Make sure the version is correct.
     # upload to test pypi instance
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-    # In a new terminal, without an activated venv or a venv3 directory
+
+In a new terminal, without an activated virtual environment or a venv3 directory:
+
+.. code:: shell
+    
     cd $(mktemp -d --tmpdir howfairis-test.XXXXXX)
 
     # check you don't have an existing howfairis
@@ -121,10 +131,9 @@ Make sure the version is correct.
     --index-url https://test.pypi.org/simple/ \
     --extra-index-url https://pypi.org/simple howfairis
 
-    # check that the package works as it should when installed from pypitest
+Check that the package works as it should when installed from pypitest.
 
-
-Don't forget to also make a release on GitHub.
+Then upload to pypi.org with:
 
 .. code:: shell
 
@@ -132,6 +141,15 @@ Don't forget to also make a release on GitHub.
     # FINAL STEP: upload to PyPI
     twine upload dist/*
 
+Release on GitHub
+"""""""""""""""""
+
+Don't forget to also make a release on GitHub.
+
+Release on DockerHub
+""""""""""""""""""""
+
+TODO
 
 Credits
 -------
