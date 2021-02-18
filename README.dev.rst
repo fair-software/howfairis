@@ -88,16 +88,18 @@ Bumping the version across all files is done with bump2version, e.g.
     bump2version minor
 
 
-Making a release
-^^^^^^^^^^^^^^^^
+Making a release: preparation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Preparation
-"""""""""""
+1. Write the CHANGELOG.md
+1. Verify that the information in CITATION.cff is correct, and that .zenodo.json contains equivalent data
+1. Make sure the version has been updated.
+1. Run the unit tests with `pytest tests/`
+1. Run the live tests with `pytest livetests/`
+1. Run the clitests with `bash clitests/script.sh`
 
-Make sure the version is correct.
-
-Release on PyPI
-"""""""""""""""
+Making a release: PyPI
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: shell
 
@@ -141,13 +143,13 @@ Then upload to pypi.org with:
     # FINAL STEP: upload to PyPI
     twine upload dist/*
 
-Release on GitHub
-"""""""""""""""""
+Making a release: GitHub
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Don't forget to also make a release on GitHub.
 
-Release on DockerHub
-""""""""""""""""""""
+Making a release: DockerHub
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 TODO
 
