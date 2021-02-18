@@ -7,7 +7,7 @@ class LicenseMixin:
 
     def check_license(self):
         if not self.is_quiet:
-            print("(2/5) license:")
+            print("(2/5) license")
         reason = self.skip_license_checks_reason
         if reason is None:
             results = [self.has_license()]

@@ -2,7 +2,7 @@ Checking compliance with fair-software.eu...
 url: https://github.com/fair-software/badge
 (1/5) repository
       ✓ has_open_repository
-(2/5) license:
+(2/5) license
       ✓ has_license
 (3/5) registry
       × has_ascl_badge
@@ -15,13 +15,13 @@ url: https://github.com/fair-software/badge
       × has_pypi_badge
       × has_rsd_badge
       ✓ is_on_github_marketplace
-(4/5) citation:
+(4/5) citation
       × has_citation_file
       ✓ has_citationcff_file
       × has_codemeta_file
       × has_zenodo_badge
       × has_zenodo_metadata_file
-(5/5) checklist:
+(5/5) checklist
       × has_core_infrastructures_badge
 
 Calculated compliance: ● ● ● ● ○
