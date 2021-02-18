@@ -1,6 +1,7 @@
 import inspect
 import os
 import re
+from typing import Optional
 import requests
 from colorama import Fore
 from colorama import Style
@@ -27,15 +28,45 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
 
     Args:
         repo: Repository to check
+        user_config_filename: Filename of configuration file on users local filesystem.
+        repo_config_filename: Filename of configuration file on the repository.
+            Default is ".howfairis.yml".
+        ignore_repo_config: If True then the configuration file on the repository is not loaded.
+            Default is False.
+        is_quiet: If True then less verbose output is printed. Default is False.
+
+    Example:
+
+        The registry compliance of the ``https://github.com/fair-software/howfairis`` repository can be checked with:
+
+        .. code-block ::
+
+           >>> from howfairis import Repo, Checker
+           >>> url = "https://github.com/fair-software/howfairis"
+           >>> repo = Repo(url)
+           >>> checker = Checker(repo, is_quiet=True)
+           ...
+           >>> compliance = checker.check_five_recommendations()
+           >>> compliance.registry
+           True
 
     Attributes:
-        readme (Readme): Retrieved README from the repository.
-        repo (howfairis.repo.Repo): Object describing the properties of the target repository
+        repo (.repo.Repo): Object describing the properties of the target repository.
+        is_quiet (bool): If True then less verbose output is printed. Default is False.
+        readme (.readme.Readme): Retrieved README from the repository.
+
+    The ``skip_*_checks_reason`` and :attr:`Checker.ignore_commented_badges` properties are set based on merger of
+
+    1. the default configuration (see :download:`howfairis/data/.howfairis.yml </../howfairis/data/.howfairis.yml>`),
+    2. config file from repo and
+    3. config file from users local filesystem.
     """
 
     # pylint: disable=too-many-arguments
-    def __init__(self, repo: Repo, user_config_filename=None, repo_config_filename=DEFAULT_CONFIG_FILENAME,
-                 ignore_repo_config=False, is_quiet=False):
+    def __init__(self, repo: Repo,
+                 user_config_filename: Optional[str] = None,
+                 repo_config_filename: str = DEFAULT_CONFIG_FILENAME,
+                 ignore_repo_config: bool = False, is_quiet: bool = False):
 
         super().__init__()
         self.repo = repo
@@ -175,10 +206,10 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             elif state is False:
                 print(" " * indent + Style.BRIGHT + Fore.RED + "\u00D7 " + Style.RESET_ALL + check_name)
 
-    def check_five_recommendations(self):
+    def check_five_recommendations(self) -> Compliance:
         """Check the repo against the five FAIR software recommendations
 
-        After being called the :py:attr:`.Checker.compliance` property will be filled the the result of the check.
+        Returns: compliance result
         """
         return Compliance(repository=self.check_repository(),
                           license_=self.check_license(),
@@ -187,25 +218,36 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
                           checklist=self.check_checklist())
 
     @property
-    def skip_repository_checks_reason(self):
+    def skip_repository_checks_reason(self) -> bool:
+        """bool: If True then checks for the repository recommendation are skipped
+        and the recommendation is marked as compliant"""
         return self._merged_config.get("skip_repository_checks_reason", None)
 
     @property
-    def skip_license_checks_reason(self):
+    def skip_license_checks_reason(self) -> bool:
+        """bool: If True then checks for the license recommendation are skipped
+        and the recommendation is marked as compliant"""
         return self._merged_config.get("skip_license_checks_reason", None)
 
     @property
-    def skip_registry_checks_reason(self):
+    def skip_registry_checks_reason(self) -> bool:
+        """bool: If True then checks for the registry recommendation are skipped
+        and the recommendation is marked as compliant"""
         return self._merged_config.get("skip_registry_checks_reason", None)
 
     @property
-    def skip_citation_checks_reason(self):
+    def skip_citation_checks_reason(self) -> bool:
+        """bool: If True then checks for the citation recommendation are skipped
+        and the recommendation is marked as compliant"""
         return self._merged_config.get("skip_citation_checks_reason", None)
 
     @property
-    def skip_checklist_checks_reason(self):
+    def skip_checklist_checks_reason(self) -> bool:
+        """bool: If True then checks for the checklist recommendation are skipped
+        and the recommendation is marked as compliant"""
         return self._merged_config.get("skip_checklist_checks_reason", None)
 
     @property
-    def ignore_commented_badges(self):
+    def ignore_commented_badges(self) -> bool:
+        """bool: If True then any commented out badges in the README of the repository are ignored."""
         return self._merged_config.get("ignore_commented_badges")
