@@ -95,7 +95,7 @@ Making a release
 Preparation
 ^^^^^^^^^^^
 
-1. Write the ``CHANGELOG.md``
+1. Update the ``CHANGELOG.md``
 2. Verify that the information in ``CITATION.cff`` is correct, and that ``.zenodo.json`` contains equivalent data
 3. Make sure the version has been updated.
 4. Run the unit tests with ``pytest tests/``
