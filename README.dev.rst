@@ -5,7 +5,6 @@ If you're looking for user documentation, go `here <README.rst>`_.
 
 |
 |
-|
 
 Development install
 -------------------
@@ -32,20 +31,22 @@ like so:
 
     howfairis https://github.com/<owner>/<repo>
 
-Docker
-------
-To build the image, run:
+Running the tests
+-----------------
+
+Running the tests requires an activated virtualenv with the development tools installed.
 
 .. code:: shell
 
-   docker build -t fairsoftware/howfairis .
-
-To push the image to DockerHub, run:
-
-.. code:: shell
-
-   docker push fairsoftware/howfairis
-
+    # unit tests with mocked representations of repository behavior
+    pytest
+    pytest tests/
+    
+    # live tests with actual repository behavior (slow, prone to HttpError too many requests)
+    pytest livetests/
+    
+    # command line interface tests
+    bash clitests/script.sh
 
 Running linters locally
 -----------------------
@@ -78,8 +79,8 @@ You can enable automatic linting with ``prospector`` and ``isort`` on commit lik
 
     git config --local core.hooksPath .githooks
 
-For maintainers
----------------
+Versioning
+----------
 
 Bumping the version across all files is done with bump2version, e.g.
 
@@ -89,13 +90,25 @@ Bumping the version across all files is done with bump2version, e.g.
 
 
 Making a release
-^^^^^^^^^^^^^^^^
+----------------
 
-Make sure the version is correct.
+Preparation
+^^^^^^^^^^^
+
+1. Update the ``CHANGELOG.md``
+2. Verify that the information in ``CITATION.cff`` is correct, and that ``.zenodo.json`` contains equivalent data
+3. Make sure the version has been updated.
+4. Run the unit tests with ``pytest tests/``
+5. Run the live tests with ``pytest livetests/``
+6. Run the clitests with ``bash clitests/script.sh``
+
+PyPI
+^^^^
+
+In a new terminal, without an activated virtual environment or a venv3 directory:
 
 .. code:: shell
 
-    # In a new terminal, without venv
     cd $(mktemp -d --tmpdir howfairis.XXXXXX)
     git clone https://github.com/fair-software/howfairis.git .
     python3 -m venv venv3
@@ -106,10 +119,13 @@ Make sure the version is correct.
     rm -rf dist
     python setup.py sdist bdist_wheel
 
-    # upload to test pypi instance
+    # upload to test pypi instance (requires credentials)
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-    # In a new terminal, without an activated venv or a venv3 directory
+In a new terminal, without an activated virtual environment or a venv3 directory:
+
+.. code:: shell
+    
     cd $(mktemp -d --tmpdir howfairis-test.XXXXXX)
 
     # check you don't have an existing howfairis
@@ -121,19 +137,33 @@ Make sure the version is correct.
     --index-url https://test.pypi.org/simple/ \
     --extra-index-url https://pypi.org/simple howfairis
 
-    # check that the package works as it should when installed from pypitest
+Check that the package works as it should when installed from pypitest.
 
-
-Don't forget to also make a release on GitHub.
+Then upload to pypi.org with:
 
 .. code:: shell
 
     # Back to the first terminal,
-    # FINAL STEP: upload to PyPI
+    # FINAL STEP: upload to PyPI (requires credentials)
     twine upload dist/*
 
+GitHub
+^^^^^^
 
-Credits
--------
+Don't forget to also make a release on GitHub.
 
-This package was created with `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ and the `NLeSC/python-template <https://github.com/NLeSC/python-template>`_.
+DockerHub
+^^^^^^^^^
+
+To build the image, run:
+
+.. code:: shell
+
+    docker build -t fairsoftware/howfairis .
+
+To push the image to DockerHub, run:
+
+.. code:: shell
+
+    # (requires credentials)  
+    docker push fairsoftware/howfairis
