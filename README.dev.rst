@@ -31,6 +31,23 @@ like so:
 
     howfairis https://github.com/<owner>/<repo>
 
+Running the tests
+-----------------
+
+Running the tests requires an activated virtualenv with the development tools installed.
+
+.. code:: shell
+
+    # unit tests with mocked representations of repository behavior
+    pytest
+    pytest tests/
+    
+    # live tests with actual repository behavior (slow, prone to HttpError too many requests)
+    pytest livetests/
+    
+    # command line interface tests
+    bash clitests/script.sh
+
 Running linters locally
 -----------------------
 
