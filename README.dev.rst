@@ -139,10 +139,11 @@ To build the image, run:
 
 .. code:: shell
 
-   docker build -t fairsoftware/howfairis .
+    docker build -t fairsoftware/howfairis .
 
 To push the image to DockerHub, run:
 
 .. code:: shell
 
-   docker push fairsoftware/howfairis
+    # (requires credentials)  
+    docker push fairsoftware/howfairis
