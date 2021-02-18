@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
-## [0.13.0] - 2021-02-18
+## [0.13.0] - 2021-Feb-18
 
 ### Added
 - docstrings for public API
@@ -36,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - option to set compliant symbol [#178](https://github.com/fair-software/howfairis/issues/178)
 - config argument from the Repo constructor [#194](https://github.com/fair-software/howfairis/issues/194)
 
-## [0.12.0] - 2020-12-09
+## [0.12.0] - 2020-December-09
 
 We started to keep a changelog after this release.
 
