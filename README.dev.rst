@@ -92,18 +92,19 @@ Making a release: preparation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. Write the CHANGELOG.md
-1. Verify that the information in CITATION.cff is correct, and that .zenodo.json contains equivalent data
-1. Make sure the version has been updated.
-1. Run the unit tests with `pytest tests/`
-1. Run the live tests with `pytest livetests/`
-1. Run the clitests with `bash clitests/script.sh`
+2. Verify that the information in CITATION.cff is correct, and that .zenodo.json contains equivalent data
+3. Make sure the version has been updated.
+4. Run the unit tests with `pytest tests/`
+5. Run the live tests with `pytest livetests/`
+6. Run the clitests with `bash clitests/script.sh`
 
 Making a release: PyPI
 ^^^^^^^^^^^^^^^^^^^^^^
 
+In a new terminal, without an activated virtual environment or a venv3 directory:
+
 .. code:: shell
 
-    # In a new terminal, without venv
     cd $(mktemp -d --tmpdir howfairis.XXXXXX)
     git clone https://github.com/fair-software/howfairis.git .
     python3 -m venv venv3
@@ -116,7 +117,6 @@ Making a release: PyPI
 
     # upload to test pypi instance
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-
 
 In a new terminal, without an activated virtual environment or a venv3 directory:
 
