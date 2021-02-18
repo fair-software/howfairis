@@ -275,7 +275,7 @@ The configuration file should follow the voluptuous_ schema laid out in schema.p
         Optional("skip_registry_checks_reason"): Any(str, None),
         Optional("skip_citation_checks_reason"): Any(str, None),
         Optional("skip_checklist_checks_reason"): Any(str, None),
-        Optional("include_comments"): Any(bool, None)
+        Optional("ignore_commented_badges"): Any(bool, None)
     }
 
 For example, the following is a valid configuration file document:
@@ -290,18 +290,18 @@ For example, the following is a valid configuration file document:
     #skip_citation_checks_reason: <reason for skipping goes here>
     skip_checklist_checks_reason: "I'm using the Codacy dashboard to guide my development"
 
-    include_comments: false
+    ignore_commented_badges: false
 
 
 The manual override will be reflected in the output, as follows:
 
 .. code:: console
 
-    (1/5) repository:
+    (1/5) repository
           ✓ has_open_repository
-    (2/5) license:
+    (2/5) license
           ✓ has_license
-    (3/5) registry:
+    (3/5) registry
           × has_ascl_badge
           × has_bintray_badge
           × has_conda_badge
@@ -312,13 +312,13 @@ The manual override will be reflected in the output, as follows:
           ✓ has_pypi_badge
           × has_rsd_badge
           × is_on_github_marketplace
-    (4/5) citation:
+    (4/5) citation
           × has_citation_file
           ✓ has_citationcff_file
           × has_codemeta_file
           ✓ has_zenodo_badge
           ✓ has_zenodo_metadata_file
-    (5/5) checklist:
+    (5/5) checklist
           ✓ skipped (reason: I'm using the Codacy dashboard to guide my development)
 
 Contributing
