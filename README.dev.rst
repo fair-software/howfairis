@@ -79,8 +79,8 @@ You can enable automatic linting with ``prospector`` and ``isort`` on commit lik
 
     git config --local core.hooksPath .githooks
 
-For maintainers
----------------
+Versioning
+----------
 
 Bumping the version across all files is done with bump2version, e.g.
 
@@ -89,8 +89,11 @@ Bumping the version across all files is done with bump2version, e.g.
     bump2version minor
 
 
-Making a release (1/4): preparation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Making a release
+----------------
+
+Preparation
+^^^^^^^^^^^
 
 1. Write the ``CHANGELOG.md``
 2. Verify that the information in ``CITATION.cff`` is correct, and that ``.zenodo.json`` contains equivalent data
@@ -99,8 +102,8 @@ Making a release (1/4): preparation
 5. Run the live tests with ``pytest livetests/``
 6. Run the clitests with ``bash clitests/script.sh``
 
-Making a release (2/4): PyPI
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PyPI
+^^^^
 
 In a new terminal, without an activated virtual environment or a venv3 directory:
 
@@ -144,13 +147,13 @@ Then upload to pypi.org with:
     # FINAL STEP: upload to PyPI (requires credentials)
     twine upload dist/*
 
-Making a release (3/4): GitHub
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+GitHub
+^^^^^^
 
 Don't forget to also make a release on GitHub.
 
-Making a release (4/4): DockerHub
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+DockerHub
+^^^^^^^^^
 
 To build the image, run:
 
