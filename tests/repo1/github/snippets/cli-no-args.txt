@@ -26,7 +26,5 @@ url: https://github.com/owner1/repo1
 
 Calculated compliance: ● ● ● ● ●
 
-It seems you have not yet added the fair-software.eu badge to your README.rst. You can do so by pasting the following snippet:
+Expected badge is equal to the actual badge. It's all good.
 
-.. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
-   :target: https://fair-software.eu

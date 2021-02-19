@@ -22,3 +22,5 @@
       :target: https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.spotify%22%20dockerfile-maven
 11. .. image:: https://img.shields.io/npm/v/cnpm.svg?style=flat
       :target: https://npmjs.org/package/cnpm
+12. .. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
+      :target: https://fair-software.eu

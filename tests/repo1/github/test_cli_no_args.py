@@ -31,5 +31,5 @@ class TestCli(Contract):
     def test_with_a_url(self, invoke_cli):
         result = invoke_cli("https://github.com/owner1/repo1")
         expected = load_files_from_local_data(__file__, "output")["/cli-no-args.txt"]
-        assert result.exit_code == 1
+        assert result.exit_code == 0
         assert result.stdout == expected
