@@ -3,13 +3,11 @@ from requests_mock import Mocker
 from howfairis import Repo
 from howfairis.exceptions.get_default_branch_exception import GetDefaultBranchException
 from tests.contracts.repo import Contract
+from tests.helpers import skip_unreachable
 
 
 def get_repo():
-    return Repo("https://github.com/fair-software/doesnotexist")
-
-
-skip_unreachable = pytest.mark.skip("Code for test is unreachable")
+    return Repo("https://github.com/owner-doesnt-exist/repo-doesnt-exist")
 
 
 class TestRepoNoArgs(Contract):
