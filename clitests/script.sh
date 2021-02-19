@@ -6,7 +6,9 @@ eval_and_print_status () {
    then
       # has CI env var
       echo "$1"
+      echo "::group::output"
       eval "$1"
+      echo "::endgroup::"
    else
       # has no CI env var
       echo "       $1"
