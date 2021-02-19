@@ -178,7 +178,8 @@ To push the image to DockerHub, run:
 
     # (requires credentials)  
     docker login
-    docker push fairsoftware/howfairis
+    docker push fairsoftware/howfairis:latest
+    docker push fairsoftware/howfairis:${VERSION}
     
 The new image and its tags should now be listed here https://hub.docker.com/r/fairsoftware/howfairis/tags?page=1&ordering=last_updated.
     
