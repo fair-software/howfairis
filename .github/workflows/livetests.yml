@@ -34,7 +34,7 @@ jobs:
         run: python setup.py build
       - name: Run live cli tests
         shell: bash
-        run: ./clitests/script.sh
+        run: export TERM=dumb; ./clitests/script.sh
       - name: Run live tests
         shell: bash
         run: pytest livetests/
