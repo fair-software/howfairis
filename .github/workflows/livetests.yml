@@ -29,12 +29,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip wheel
           python -m pip install .[dev]
-      - name: Check style against standards using prospector
-        shell: bash
-        run: prospector
-      - name: Check style of imports
-        shell: bash
-        run: isort --check-only --recursive --diff howfairis
       - name: Build
         shell: bash
         run: python setup.py build
