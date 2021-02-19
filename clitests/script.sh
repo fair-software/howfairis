@@ -2,10 +2,26 @@
 
 
 eval_and_print_status () {
-   echo "       $1"
-   eval "$1 &> /dev/null || tput cuu1 ; echo '[FAIL]'; exit 1"
+   if [ -n "$CI" ]
+   then
+      # has CI env var
+      echo "$1"
+      eval "$1"
+   else
+      # has no CI env var
+      echo "       $1"
+      eval "$1 &> /dev/null"
+   fi
+
+   if [ "$?" != "0" ]
+   then
+      tput cuu1
+      echo "[FAIL] "
+      exit 1
+   fi
    tput cuu1
    echo "[PASS] "
+
    echo "sleeping for $SLEEP_DURATION seconds..."
    sleep $SLEEP_DURATION
    tput cuu1
