@@ -160,10 +160,25 @@ To build the image, run:
 .. code:: shell
 
     docker build -t fairsoftware/howfairis .
+    
+.. code:: shell
+
+    VERSION=<your-version>
+    docker tag fairsoftware/howfairis:latest fairsoftware/howfairis:${VERSION}
+
+Check that you have the tags you want with:
+
+.. code:: shell
+
+    docker images
 
 To push the image to DockerHub, run:
 
 .. code:: shell
 
     # (requires credentials)  
+    docker login
     docker push fairsoftware/howfairis
+    
+The new image and its tags should now be listed here https://hub.docker.com/r/fairsoftware/howfairis/tags?page=1&ordering=last_updated.
+    
