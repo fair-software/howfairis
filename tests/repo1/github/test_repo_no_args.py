@@ -4,7 +4,7 @@ from tests.contracts.repo import Contract
 
 
 def get_repo():
-    return Repo("https://gitlab.com/jspaaks/badge-test")
+    return Repo("https://github.com/owner1/repo1")
 
 
 class TestRepoNoArgs(Contract):
@@ -12,7 +12,7 @@ class TestRepoNoArgs(Contract):
     def test_api(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.api == "https://gitlab.com/api/v4/projects/jspaaks%2Fbadge-test"
+            assert repo.api == "https://api.github.com/repos/owner1/repo1"
 
     def test_branch(self, mocker):
         with mocker:
@@ -27,7 +27,7 @@ class TestRepoNoArgs(Contract):
     def test_owner(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.owner == "jspaaks"
+            assert repo.owner == "owner1"
 
     def test_path(self, mocker):
         with mocker:
@@ -37,19 +37,20 @@ class TestRepoNoArgs(Contract):
     def test_platform(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.platform == Platform.GITLAB
+            assert repo.platform == Platform.GITHUB
 
     def test_raw_url_format_string(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.raw_url_format_string == "https://gitlab.com/jspaaks/badge-test/-/raw/master/{0}"
+            assert repo.raw_url_format_string == "https://raw.githubusercontent.com/owner1" + \
+                                                 "/repo1/master/{0}"
 
     def test_repo(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.repo == "badge-test"
+            assert repo.repo == "repo1"
 
     def test_url(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.url == "https://gitlab.com/jspaaks/badge-test"
+            assert repo.url == "https://github.com/owner1/repo1"

@@ -18,9 +18,10 @@ def invoke_cli(mocker):
 
 
 class TestCli(Contract):
+
     def test_show_default_config(self, invoke_cli):
         result = invoke_cli("--show-default-config")
-        expected = load_files_from_local_data(__file__, "user")['/howfairis.default.yml']
+        expected = load_files_from_local_data(__file__, "user")["/.howfairis-default.yml"]
         assert result.stdout == expected
 
     def test_version_option(self, invoke_cli):
@@ -28,7 +29,7 @@ class TestCli(Contract):
         assert __version__ in result.stdout
 
     def test_with_a_url(self, invoke_cli):
-        result = invoke_cli("https://github.com/fair-software/badge")
-        expected = load_files_from_local_data(__file__, "output")['/cli_no_args.txt']
+        result = invoke_cli("https://github.com/owner1/repo1")
+        expected = load_files_from_local_data(__file__, "output")["/cli-no-args.txt"]
         assert result.exit_code == 1
         assert result.stdout == expected

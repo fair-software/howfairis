@@ -52,10 +52,12 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
         sys.tracebacklimit = 0
 
     if version is True:
-        sys.exit(print_version(__version__, is_quiet=quiet))
+        code = print_version(__version__, is_quiet=quiet)
+        sys.exit(code)
 
     if show_default_config is True:
-        sys.exit(print_default_config(is_quiet=quiet))
+        code = print_default_config(is_quiet=quiet)
+        sys.exit(code)
 
     print_feedback_about_repo_args(url, branch, path, is_quiet=quiet)
     print_feedback_about_config_args(ignore_repo_config, repo_config_filename, user_config_filename, is_quiet=quiet)
@@ -68,7 +70,8 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
     previous_compliance = checker.readme.get_compliance()
     current_compliance = checker.check_five_recommendations()
 
-    sys.exit(print_call_to_action(previous_compliance, current_compliance, checker.readme, is_quiet=quiet))
+    code = print_call_to_action(previous_compliance, current_compliance, checker.readme, is_quiet=quiet)
+    sys.exit(code)
 
 
 if __name__ == "__main__":

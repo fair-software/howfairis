@@ -15,7 +15,11 @@ def list_files_from_local_data(who_is_asking_file, dir_type):
 
     parent_dir = os.path.dirname(os.path.realpath(who_is_asking_file))
 
-    d = {"repo": "repo-files", "user": "user-files", "output": "output-files"}[dir_type]
+    d = {
+        "repo": "repo-files",
+        "user": "user-files",
+        "output": "snippets"
+    }[dir_type]
 
     data_dir = os.path.join(parent_dir, d)
     files_dict = dict()

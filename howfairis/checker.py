@@ -92,7 +92,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return False
 
     def _get_readme(self):
-        for readme_filename in ["README.rst", "README.md"]:
+        for readme_filename in ["README.rst", "README.rst"]:
             raw_url = self.repo.raw_url_format_string.format(readme_filename)
             try:
                 response = requests.get(raw_url)

@@ -4,35 +4,35 @@ from tests.contracts.repo import Contract
 
 
 def get_repo():
-    return Repo("https://github.com/fair-software/badge", path="mypath")
+    return Repo("https://github.com/owner1/repo1", branch="develop")
 
 
-class TestRepoWithPath(Contract):
+class TestRepoWithBranchDevelop(Contract):
 
     def test_api(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.api == "https://api.github.com/repos/fair-software/badge"
+            assert repo.api == "https://api.github.com/repos/owner1/repo1"
 
     def test_branch(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.branch is None
+            assert repo.branch == "develop"
 
     def test_default_branch(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.default_branch == "master"
+            assert repo.default_branch is None
 
     def test_owner(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.owner == "fair-software"
+            assert repo.owner == "owner1"
 
     def test_path(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.path == "/mypath"
+            assert repo.path == ""
 
     def test_platform(self, mocker):
         with mocker:
@@ -42,15 +42,14 @@ class TestRepoWithPath(Contract):
     def test_raw_url_format_string(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.raw_url_format_string == "https://raw.githubusercontent.com/fair-software" + \
-                                                        "/badge/master/mypath/{0}"
+            assert repo.raw_url_format_string == "https://raw.githubusercontent.com/owner1/repo1/develop/{0}"
 
     def test_repo(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.repo == "badge"
+            assert repo.repo == "repo1"
 
     def test_url(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.url == "https://github.com/fair-software/badge"
+            assert repo.url == "https://github.com/owner1/repo1"
