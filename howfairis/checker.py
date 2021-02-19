@@ -92,7 +92,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         return False
 
     def _get_readme(self):
-        for readme_filename in ["README.rst", "README.rst"]:
+        for readme_filename in ["README.rst", "README.md"]:
             raw_url = self.repo.raw_url_format_string.format(readme_filename)
             try:
                 response = requests.get(raw_url)
@@ -101,10 +101,10 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             except requests.HTTPError:
                 continue
 
-            if readme_filename == "README.md":
-                readme_file_format = ReadmeFormat.MARKDOWN
-            elif readme_filename == "README.rst":
+            if readme_filename == "README.rst":
                 readme_file_format = ReadmeFormat.RESTRUCTUREDTEXT
+            elif readme_filename == "README.md":
+                readme_file_format = ReadmeFormat.MARKDOWN
             else:
                 readme_file_format = None
 
