@@ -5,7 +5,7 @@ eval_and_print_status () {
    echo "       $1"
    eval "$1 &> /dev/null || tput cuu1 ; echo '[FAIL]'; exit 1"
    tput cuu1
-   echo "[OK]   "
+   echo "[PASS] "
    echo "sleeping for $SLEEP_DURATION seconds..."
    sleep $SLEEP_DURATION
    tput cuu1
