@@ -7,5 +7,5 @@ from ratelimit import limits
 # https://docs.github.com/en/rest/reference/rate-limit
 @on_exception(expo, RateLimitException, max_tries=8)
 @limits(calls=5000, period=3600)
-def get_from_github_api_with_auth(url, apikeys):
+def get_from_github_with_auth_raw(url, apikeys):
     raise NotImplementedError
