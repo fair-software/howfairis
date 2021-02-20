@@ -28,7 +28,7 @@ class RepositoryMixin:
             url = self.repo.api + "/repository/tree"
 
         try:
-            response = get_from_platform(self.repo.platform, url, "api")
+            response = get_from_platform(self.repo.platform, url, "api", apikeys=self.apikeys)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
         except requests.HTTPError:

@@ -109,7 +109,7 @@ class Repo:
             return None
 
         # GitHub API and GitLab API work the same
-        response = get_from_platform(self.platform, self.api, "api")
+        response = get_from_platform(self.platform, self.api, "api", apikeys=None)
         # If the request was successful, the next line will not raise any Exception
         try:
             response.raise_for_status()
