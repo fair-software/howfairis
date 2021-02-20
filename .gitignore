@@ -9,3 +9,5 @@
 
 docs/_build
 docs/apidocs
+
+secrets.yml
