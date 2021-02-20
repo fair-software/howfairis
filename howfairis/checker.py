@@ -17,6 +17,7 @@ from .mixins.repository_mixin import RepositoryMixin
 from .readme import Readme
 from .readme_format import ReadmeFormat
 from .repo import Repo
+from .requesting.get_from_platform import get_from_platform
 from .schema import validate_against_schema
 
 
@@ -72,7 +73,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         self.repo = repo
         self.is_quiet = is_quiet
         self._default_config = Checker._load_default_config()
-        self._repo_config = Checker._load_repo_config(repo, repo_config_filename, ignore_repo_config)
+        self._repo_config = self._load_repo_config(repo_config_filename, ignore_repo_config)
         self._user_config = Checker._load_user_config(user_config_filename)
         self._merged_config = self._merge_configurations()
         self.readme = self._get_readme()
@@ -95,7 +96,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         for readme_filename in ["README.rst", "README.md"]:
             raw_url = self.repo.raw_url_format_string.format(readme_filename)
             try:
-                response = requests.get(raw_url)
+                response = get_from_platform(self.repo.platform, raw_url, "raw")
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
@@ -131,19 +132,18 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             return dict()
         return default_config
 
-    @staticmethod
-    def _load_repo_config(repo, repo_config_filename, ignore_remote_config):
-        if repo is None:
+    def _load_repo_config(self, repo_config_filename, ignore_remote_config):
+        if self.repo is None:
             return dict()
 
         if ignore_remote_config is True:
             return dict()
 
-        raw_url = repo.raw_url_format_string.format(repo_config_filename)
+        raw_url = self.repo.raw_url_format_string.format(repo_config_filename)
         non_default_repo_config_filename = repo_config_filename != DEFAULT_CONFIG_FILENAME
 
         try:
-            response = requests.get(raw_url)
+            response = get_from_platform(self.repo.platform, raw_url, "raw")
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
             if non_default_repo_config_filename:

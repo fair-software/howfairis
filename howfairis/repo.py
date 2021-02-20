@@ -3,6 +3,7 @@ from typing import Optional
 import requests
 from .code_repository_platforms import Platform
 from .exceptions.get_default_branch_exception import GetDefaultBranchException
+from .requesting.get_from_platform import get_from_platform
 
 
 class Repo:
@@ -108,7 +109,7 @@ class Repo:
             return None
 
         # GitHub API and GitLab API work the same
-        response = requests.get(self.api)
+        response = get_from_platform(self.platform, self.api, "api")
         # If the request was successful, the next line will not raise any Exception
         try:
             response.raise_for_status()

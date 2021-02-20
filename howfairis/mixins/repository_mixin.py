@@ -1,4 +1,5 @@
 import requests
+from howfairis.requesting.get_from_platform import get_from_platform
 from ..code_repository_platforms import Platform
 
 
@@ -27,7 +28,7 @@ class RepositoryMixin:
             url = self.repo.api + "/repository/tree"
 
         try:
-            response = requests.get(url)
+            response = get_from_platform(self.repo.platform, url, "api")
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
         except requests.HTTPError:

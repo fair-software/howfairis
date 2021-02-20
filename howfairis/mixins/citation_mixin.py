@@ -1,4 +1,5 @@
 import requests
+from howfairis.requesting.get_from_platform import get_from_platform
 
 
 class CitationMixin:
@@ -25,7 +26,7 @@ class CitationMixin:
     def has_citation_file(self):
         url = self.repo.raw_url_format_string.format("CITATION")
         try:
-            response = requests.get(url)
+            response = get_from_platform(self.repo.platform, url, "raw")
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
         except requests.HTTPError:
@@ -37,7 +38,7 @@ class CitationMixin:
     def has_citationcff_file(self):
         url = self.repo.raw_url_format_string.format("CITATION.cff")
         try:
-            response = requests.get(url)
+            response = get_from_platform(self.repo.platform, url, "raw")
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
         except requests.HTTPError:
@@ -49,7 +50,7 @@ class CitationMixin:
     def has_codemeta_file(self):
         url = self.repo.raw_url_format_string.format("codemeta.json")
         try:
-            response = requests.get(url)
+            response = get_from_platform(self.repo.platform, url, "raw")
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
         except requests.HTTPError:
@@ -66,7 +67,7 @@ class CitationMixin:
     def has_zenodo_metadata_file(self):
         url = self.repo.raw_url_format_string.format(".zenodo.json")
         try:
-            response = requests.get(url)
+            response = get_from_platform(self.repo.platform, url, "raw")
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
         except requests.HTTPError:
