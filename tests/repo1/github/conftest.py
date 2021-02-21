@@ -1,5 +1,5 @@
 import pytest
-from tests.helpers import load_files_from_local_data
+from tests.helpers import load_repo_files_from_local_data
 from tests.helpers import get_urls
 from howfairis.code_repository_platforms import Platform
 import requests_mock
@@ -12,7 +12,7 @@ def mocker() -> Mocker:
     """This mock aims to reflect the state of a fictious repository at https://github.com/owner1/repo1 with
     contents to maximize the number of tests that will be True"""
 
-    repo_files = load_files_from_local_data(__file__, dir_type="repo")
+    repo_files = load_repo_files_from_local_data(__file__)
     default_branch_response = {"default_branch": "master"}
 
     with requests_mock.Mocker() as m:
