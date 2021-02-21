@@ -42,8 +42,7 @@ class TestRepoNoArgs(Contract):
     def test_raw_url_format_string(self, mocker):
         with mocker:
             repo = get_repo()
-            assert repo.raw_url_format_string == "https://raw.githubusercontent.com/owner1" + \
-                                                 "/repo1/master/{0}"
+            assert repo.raw_url_format_string == "https://raw.githubusercontent.com/owner1/repo1/master/{0}"
 
     def test_repo(self, mocker):
         with mocker:

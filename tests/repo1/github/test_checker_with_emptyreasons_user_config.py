@@ -1,4 +1,3 @@
-import pytest
 from requests_mock import Mocker
 from howfairis import Checker, Compliance
 from howfairis import Repo

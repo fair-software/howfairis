@@ -12,27 +12,27 @@ def get_checker():
 
 class TestCheckerNoArgs(Contract):
 
-    def test_check_checklist(self, mocker):
+    def test_check_checklist(self, mocker, capsys):
         with mocker:
             checker = get_checker()
             assert checker.check_checklist() is True
 
-    def test_check_citation(self, mocker):
+    def test_check_citation(self, mocker, capsys):
         with mocker:
             checker = get_checker()
             assert checker.check_citation() is True
 
-    def test_check_license(self, mocker):
+    def test_check_license(self, mocker, capsys):
         with mocker:
             checker = get_checker()
             assert checker.check_license() is True
 
-    def test_check_registry(self, mocker):
+    def test_check_registry(self, mocker, capsys):
         with mocker:
             checker = get_checker()
             assert checker.check_registry() is True
 
-    def test_check_repository(self, mocker):
+    def test_check_repository(self, mocker, capsys):
         with mocker:
             checker = get_checker()
             assert checker.check_repository() is True
