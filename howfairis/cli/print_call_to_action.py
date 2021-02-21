@@ -1,8 +1,6 @@
 def print_call_to_action(previous_compliance, current_compliance, readme, is_quiet=False):
 
     if readme.text is None:
-        if not is_quiet:
-            print("\nIt seems you have not yet added a README[.md|.rst] file to your project.")
         return 1
 
     badge = current_compliance.calc_badge(readme.file_format)
