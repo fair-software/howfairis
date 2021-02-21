@@ -4,52 +4,48 @@ from howfairis import Checker, Compliance
 from howfairis import Repo
 from howfairis.readme import Readme
 from tests.contracts.checker import Contract
-from tests.helpers.load_files_from_local_data import list_files_from_local_data
+from tests.helpers import list_files_from_local_data
 
 
-def get_checker(user_config_filename=None):
+def get_checker():
+    user_files = list_files_from_local_data(__file__, dir_type="user")
+    user_config_filename = user_files["/.howfairis-emptyreasons.yml"]
     repo = Repo("https://github.com/owner1/repo1")
     return Checker(repo, user_config_filename=user_config_filename)
 
 
-@pytest.fixture
-def user_config():
-    files = list_files_from_local_data(__file__, dir_type="user")
-    return files["/.howfairis-emptyreasons.yml"]
-
-
 class TestCheckerWithEmptyReasonsUserConfig(Contract):
-    def test_check_checklist(self, mocker: Mocker, user_config, capsys):
+    def test_check_checklist(self, mocker: Mocker, capsys):
         with mocker:
-            checker = get_checker(user_config)
+            checker = get_checker()
             assert checker.check_checklist() is True
             captured = capsys.readouterr()
             assert "no reason provided" in captured.out
 
-    def test_check_citation(self, mocker: Mocker, user_config, capsys):
+    def test_check_citation(self, mocker: Mocker, capsys):
         with mocker:
-            checker = get_checker(user_config)
+            checker = get_checker()
             assert checker.check_citation() is True
             captured = capsys.readouterr()
             assert "no reason provided" in captured.out
 
-    def test_check_license(self, mocker: Mocker, user_config, capsys):
+    def test_check_license(self, mocker: Mocker, capsys):
         with mocker:
-            checker = get_checker(user_config)
+            checker = get_checker()
             assert checker.check_license() is True
             captured = capsys.readouterr()
             assert "no reason provided" in captured.out
 
-    def test_check_registry(self, mocker: Mocker, user_config, capsys):
+    def test_check_registry(self, mocker: Mocker, capsys):
         with mocker:
-            checker = get_checker(user_config)
+            checker = get_checker()
             assert checker.check_registry() is True
             captured = capsys.readouterr()
             assert "no reason provided" in captured.out
 
-    def test_check_repository(self, mocker: Mocker, user_config, capsys):
+    def test_check_repository(self, mocker: Mocker, capsys):
         with mocker:
-            checker = get_checker(user_config)
+            checker = get_checker()
             assert checker.check_repository() is True
             captured = capsys.readouterr()
             assert "no reason provided" in captured.out

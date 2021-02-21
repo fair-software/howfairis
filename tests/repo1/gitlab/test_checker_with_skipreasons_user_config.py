@@ -4,7 +4,7 @@ from howfairis import Checker, Compliance
 from howfairis import Repo
 from howfairis.readme import Readme
 from tests.contracts.checker import Contract
-from tests.helpers.load_files_from_local_data import list_files_from_local_data
+from tests.helpers import list_files_from_local_data
 
 
 def get_checker(user_config_filename=None):
