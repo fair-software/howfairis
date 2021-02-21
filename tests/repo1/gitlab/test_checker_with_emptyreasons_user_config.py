@@ -3,11 +3,11 @@ from howfairis import Checker, Compliance
 from howfairis import Repo
 from howfairis.readme import Readme
 from tests.contracts.checker import Contract
-from tests.helpers import list_files_from_local_data
+from tests.helpers import list_user_files_from_local_data
 
 
 def get_checker():
-    user_files = list_files_from_local_data(__file__, dir_type="user")
+    user_files = list_user_files_from_local_data(__file__)
     user_config_filename = user_files["/.howfairis-emptyreasons.yml"]
     repo = Repo("https://gitlab.com/owner1/repo1")
     return Checker(repo, user_config_filename=user_config_filename)
