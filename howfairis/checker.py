@@ -171,12 +171,17 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         if user_config_filename is None:
             return dict()
 
-        p = os.path.join(os.getcwd(), user_config_filename)
+        if os.path.isabs(user_config_filename):
+            p = user_config_filename
+        else:
+            p = os.path.join(os.getcwd(), user_config_filename)
+
         if not os.path.exists(p):
             raise FileNotFoundError("{0} doesn't exist.".format(user_config_filename))
 
-        with open(p, "rt") as f:
+        with open(user_config_filename, "rt") as f:
             text = f.read()
+
         user_config = YAML(typ="safe").load(text)
         if user_config is None:
             user_config = dict()
