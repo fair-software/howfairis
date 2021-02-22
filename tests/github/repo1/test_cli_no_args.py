@@ -18,6 +18,7 @@ def invoke_cli(mocker):
 
 
 class TestCli(Contract):
+
     def test_show_default_config(self, invoke_cli):
         result = invoke_cli("--show-default-config")
         expected = load_files_from_local_data(__file__, "user")['/howfairis.default.yml']
@@ -32,3 +33,9 @@ class TestCli(Contract):
         expected = load_files_from_local_data(__file__, "output")['/cli_no_args.txt']
         assert result.exit_code == 1
         assert result.stdout == expected
+
+    def test_with_nonexistent_path(self, invoke_cli):
+        result = invoke_cli(["https://github.com/fair-software/badge", "--path", "this/path/does-not-exist"])
+        assert "Did not find a README[.md|.rst] file" in result.stdout, "Did not raise expected warning"
+        assert "expect the compliance to suffer" in result.stdout, "Did not raise expected warning"
+        assert result.exit_code == 1
