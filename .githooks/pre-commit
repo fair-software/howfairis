@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Script .git/hooks/pre-commit triggered ..."
+echo "Script $0 triggered ..."
 echo "Starting prospector analysis ..."
 
 # quietly run prospector
