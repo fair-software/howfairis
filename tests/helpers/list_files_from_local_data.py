@@ -2,14 +2,16 @@ import os
 
 
 def list_files_from_local_data(who_is_asking_file, dir_type):
-    assert dir_type in ["repo", "user", "output"], "Argument dir_type should be either 'repo' or 'user' or 'output'."
+    dir_types = ["frontend", "output", "repo", "user"]
+    assert dir_type in dir_types, "Argument dir_type should be one of {0}".format(str(dir_types))
 
     parent_dir = os.path.dirname(os.path.realpath(who_is_asking_file))
 
     d = {
-        "repo": "repo-files",
-        "user": "user-files",
-        "output": "snippets"
+        "frontend": "frontend-files",
+        "output": "snippets",
+        "repo": os.path.join("..", "repo-files"),
+        "user": os.path.join("..", "user-files")
     }[dir_type]
 
     data_dir = os.path.join(parent_dir, d)

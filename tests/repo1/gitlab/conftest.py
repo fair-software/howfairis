@@ -1,4 +1,5 @@
 import pytest
+from tests.helpers import load_frontend_files_from_local_data
 from tests.helpers import load_repo_files_from_local_data
 from tests.helpers import get_urls
 from howfairis.code_repository_platforms import Platform
@@ -13,6 +14,7 @@ def mocker() -> Mocker:
     contents to maximize the number of tests that will be True"""
 
     repo_files = load_repo_files_from_local_data(__file__)
+    frontend_files = load_frontend_files_from_local_data(__file__)
     default_branch_response = {"default_branch": "master"}
 
     with requests_mock.Mocker() as m:
@@ -25,6 +27,6 @@ def mocker() -> Mocker:
         m.get(raw + "/master/CITATION.cff", status_code=200, text=repo_files["/CITATION.cff"])
         m.get(raw + "/master/codemeta.json", status_code=200, text=repo_files["/codemeta.json"])
         m.get(raw + "/master/README.rst", status_code=200, text=repo_files["/README.rst"])
-        m.get(repo, status_code=200, text=repo_files["/index.html"])
+        m.get(repo, status_code=200, text=frontend_files["/index.html"])
 
         return m
