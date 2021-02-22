@@ -25,6 +25,13 @@ def mocker() -> Mocker:
         m.get(raw + "/master/CITATION", status_code=404)
         m.get(raw + "/master/README.md", status_code=200, text=repo_files["/README.md"])
         m.get(raw + "/master/README.rst", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/.howfairis.yml", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/.zenodo.json", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/codemeta.json", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/CITATION.cff", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/CITATION", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/README.md", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/README.rst", status_code=404)
         m.get(api + "/license", status_code=200)
         m.get(api, status_code=200, json=default_branch_response)
         return m
