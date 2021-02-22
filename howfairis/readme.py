@@ -15,9 +15,9 @@ class Readme:
         ignore_commented_badges: If False commented out badges will be considered.
 
     Attributes:
-        filename (str): Name of README
-        text (str): Content of README
-        file_format (ReadmeFormat): Format of README
+        filename (str, None): Name of README
+        text (str, None): Content of README
+        file_format (ReadmeFormat, None): Format of README
     """
 
     COMPLIANT_SYMBOL = "%E2%97%8F"
