@@ -35,5 +35,4 @@ def test_cli_shows_warning_for_nonexistent_path():
     runner = CliRunner()
     result = runner.invoke(cli, ["https://github.com/fair-software/howfairis", "--path", "this/path/does-not-exist"])
     assert "Proceeding without it -- expect the compliance to suffer" in result.stdout, "Did not raise expected warning"
-    # incorrect path means that we dont have a README, in turn that means exit code should be nonzero
     assert result.exit_code == 1
