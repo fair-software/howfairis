@@ -35,6 +35,10 @@ class Readme:
         return self
 
     def get_compliance(self):
+
+        if self.text is None:
+            return None
+
         s = r"(?P<skip>^.*)" \
             "(?P<base>https://img.shields.io/badge/fair--software.eu)" \
             "-" \
