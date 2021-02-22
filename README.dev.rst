@@ -159,7 +159,7 @@ To build the image, run:
 
 .. code:: shell
 
-    docker build -t fairsoftware/howfairis .
+    docker build -t fairsoftware/howfairis:latest .
     
 .. code:: shell
 
