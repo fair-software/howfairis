@@ -6,13 +6,27 @@ from .workarounds.remove_comments_rst import remove_comments_rst as remove_comme
 
 
 class Readme:
+    """Container for the README of a repository
 
+    Args:
+        filename: Name of README
+        text: Content of README
+        file_format: Format of README. It is used to ignore commented out badges.
+        ignore_commented_badges: If False commented out badges will be considered.
+
+    Attributes:
+        filename (str): Name of README
+        text (str): Content of README
+        file_format (ReadmeFormat): Format of README
+    """
+
+    # these are the symbols used in compliance badge
     COMPLIANT_SYMBOL = "%E2%97%8F"
     NONCOMPLIANT_SYMBOL = "%E2%97%8B"
     SEPARATOR = "%20%20"
 
-    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, file_format: Optional[str] = None,
-                 ignore_commented_badges=True):
+    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, file_format: Optional[ReadmeFormat] = None,
+                 ignore_commented_badges: bool = True):
 
         self.filename = filename
         self.text = text
@@ -34,7 +48,12 @@ class Readme:
             self.text = remove_comments_with_workaround(self.text, self.filename)
         return self
 
-    def get_compliance(self):
+    def get_compliance(self) -> Optional[Compliance]:
+        """Retrieve compliance from README based on presence of the FAIR Software badge.
+
+        Returns:
+            Compliance object when badge is found otherwise None.
+        """
 
         if self.text is None:
             return None
