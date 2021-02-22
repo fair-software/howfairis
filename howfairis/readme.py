@@ -20,10 +20,12 @@ class Readme:
         file_format (ReadmeFormat): Format of README
     """
 
-    # these are the symbols used in compliance badge
     COMPLIANT_SYMBOL = "%E2%97%8F"
+    """this is a compliant symbol used in :py:func:`get_compliance`"""
     NONCOMPLIANT_SYMBOL = "%E2%97%8B"
+    """this is a non-compliant symbol used in :py:func:`get_compliance`"""
     SEPARATOR = "%20%20"
+    """this is a separator symbol used in :py:func:`get_compliance`"""
 
     def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, file_format: Optional[ReadmeFormat] = None,
                  ignore_commented_badges: bool = True):
