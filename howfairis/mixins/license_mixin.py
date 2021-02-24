@@ -26,7 +26,7 @@ class LicenseMixin:
         if self.repo.platform == Platform.GITHUB:
             url = self.repo.api + "/license"
             try:
-                response = get_from_platform(self.repo.platform, url, "api", apikeys=self.apikeys)
+                response = get_from_platform(self.repo.platform, url, "api", apikeys=self._apikeys)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
@@ -38,7 +38,7 @@ class LicenseMixin:
             url = "https://gitlab.com/{0}/{1}".format(self.repo.owner, self.repo.repo)
 
             try:
-                response = get_from_platform(self.repo.platform, url, "frontend", apikeys=self.apikeys)
+                response = get_from_platform(self.repo.platform, url, "frontend", apikeys=self._apikeys)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:

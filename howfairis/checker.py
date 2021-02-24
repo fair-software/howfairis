@@ -9,6 +9,7 @@ from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
 from .compliance import Compliance
+from .get_apikeys_from_env_vars import get_apikeys_from_env_vars
 from .mixins.checklist_mixin import ChecklistMixin
 from .mixins.citation_mixin import CitationMixin
 from .mixins.license_mixin import LicenseMixin
@@ -67,13 +68,12 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     def __init__(self, repo: Repo,
                  user_config_filename: Optional[str] = None,
                  repo_config_filename: str = DEFAULT_CONFIG_FILENAME,
-                 ignore_repo_config: bool = False, is_quiet: bool = False,
-                 apikeys_filename: Optional[str] = None):
+                 ignore_repo_config: bool = False, is_quiet: bool = False):
 
         super().__init__()
         self.repo = repo
         self.is_quiet = is_quiet
-        self.apikeys = Checker._load_apikeys(apikeys_filename)
+        self._apikeys = get_apikeys_from_env_vars()
         self._default_config = Checker._load_default_config()
         self._repo_config = self._load_repo_config(repo_config_filename, ignore_repo_config)
         self._user_config = Checker._load_user_config(user_config_filename)
@@ -98,7 +98,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         for readme_filename in ["README.rst", "README.md"]:
             raw_url = self.repo.raw_url_format_string.format(readme_filename)
             try:
-                response = get_from_platform(self.repo.platform, raw_url, "raw", apikeys=self.apikeys)
+                response = get_from_platform(self.repo.platform, raw_url, "raw", apikeys=self._apikeys)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
@@ -117,14 +117,6 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         print("Did not find a README[.md|.rst] file at " + raw_url.replace(readme_filename, ""))
 
         return Readme(filename=None, text=None, file_format=None)
-
-    @staticmethod
-    def _load_apikeys(apikeys_filename):
-        if apikeys_filename is None:
-            return None
-        with open(apikeys_filename, "rt") as f:
-            text = f.read()
-        return YAML(typ="safe").load(text)
 
     @staticmethod
     def _load_default_config():
@@ -153,7 +145,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         non_default_repo_config_filename = repo_config_filename != DEFAULT_CONFIG_FILENAME
 
         try:
-            response = get_from_platform(self.repo.platform, raw_url, "raw", apikeys=self.apikeys)
+            response = get_from_platform(self.repo.platform, raw_url, "raw", apikeys=self._apikeys)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
             if non_default_repo_config_filename:

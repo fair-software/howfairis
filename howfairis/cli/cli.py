@@ -14,9 +14,6 @@ from howfairis.repo import Repo
 
 # pylint: disable=too-many-arguments
 @click.command(context_settings=dict(help_option_names=["-h", "--help"]))
-@click.option("-a", "--apikeys-filename", default=None, type=click.Path(),
-              help="Name of the file containing the API keys. The file needs to be present on "
-                   "the local system and can include a relative path.")
 @click.option("-b", "--branch", default=None, type=click.STRING,
               help="Which git branch to use. Also accepts other git references like SHA or tag.")
 @click.option("-u", "--user-config-filename", default=None, type=click.Path(),
@@ -41,8 +38,7 @@ from howfairis.repo import Repo
               help="Show version and exit.")
 @click.argument("url", required=False)
 def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=None, path=None,
-        show_trace=False, version=False, ignore_repo_config=False, show_default_config=False, quiet=False,
-        apikeys_filename=None):
+        show_trace=False, version=False, ignore_repo_config=False, show_default_config=False, quiet=False):
 
     """Determine compliance with recommendations from fair-software.eu for the repository at URL. The following
     code repository platforms are supported:
@@ -67,7 +63,7 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
     init_terminal_colors()
     repo = Repo(url, branch, path)
     checker = Checker(repo, user_config_filename=user_config_filename, repo_config_filename=repo_config_filename,
-                      ignore_repo_config=ignore_repo_config, is_quiet=quiet, apikeys_filename=apikeys_filename)
+                      ignore_repo_config=ignore_repo_config, is_quiet=quiet)
 
     previous_compliance = checker.readme.get_compliance()
     current_compliance = checker.check_five_recommendations()

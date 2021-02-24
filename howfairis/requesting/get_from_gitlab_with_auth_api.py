@@ -14,7 +14,7 @@ def get_from_gitlab_with_auth_api(url, apikeys):
         "Accept": "application/vnd.github.v3+json"
     }
 
-    username = apikeys.get("gitlab").get("username")
-    key = apikeys.get("gitlab").get("key")
+    username = apikeys.get("gitlab-user")
+    key = apikeys.get("gitlab-key")
 
     return requests.get(url, headers, auth=(username, key))
