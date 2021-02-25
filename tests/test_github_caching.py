@@ -19,7 +19,7 @@ def initialize_checker(requests_mock: Mocker, capsys):
     return checker
 
 
-def test_github_readme_update_check_critical_time(requests_mock: Mocker, capsys):
+def test_github_caching _should_warn(requests_mock: Mocker, capsys):
     checker = initialize(requests_mock, capsys)
     requests_mock.get("{0}/commits".format(checker.repo.api), json=[0], status_code=200)
     github_caching_check(checker)
