@@ -38,7 +38,7 @@ def test_github_caching_should_not_warn(requests_mock: Mocker, capsys):
     assert actual_out_err[0] == expected_out
 
 
-def test_github_readme_update_check_no_readme(requests_mock: Mocker, capsys):
+def test_github_caching_without_readme(requests_mock: Mocker, capsys):
     checker = initialize(requests_mock, capsys)
     requests_mock.get("{0}/commits".format(checker.repo.api), json=None, status_code=404)
     github_caching_check(checker)
