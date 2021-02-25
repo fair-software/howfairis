@@ -19,9 +19,9 @@ def initialize_checker(requests_mock: Mocker, capsys):
     return checker
 
 
-def test_github_caching _should_warn(requests_mock: Mocker, capsys):
-    checker = initialize(requests_mock, capsys)
-    requests_mock.get("{0}/commits".format(checker.repo.api), json=[0], status_code=200)
+def test_github_caching_should_warn(requests_mock: Mocker, capsys):
+    checker = initialize_checker(requests_mock, capsys)
+    requests_mock.get("{0}/commits".format(checker.repo.api), json=["nonzero array length should trigger warning"], status_code=200)
     github_caching_check(checker)
     actual_out_err = capsys.readouterr()
     expected_out = (("Warning: Your {0} was updated less than 5 minutes ago. The effects of this update are not " +
@@ -30,7 +30,7 @@ def test_github_caching _should_warn(requests_mock: Mocker, capsys):
 
 
 def test_github_caching_should_not_warn(requests_mock: Mocker, capsys):
-    checker = initialize(requests_mock, capsys)
+    checker = initialize_checker(requests_mock, capsys)
     requests_mock.get("{0}/commits".format(checker.repo.api), json=[], status_code=200)
     github_caching_check(checker)
     actual_out_err = capsys.readouterr()
@@ -39,7 +39,7 @@ def test_github_caching_should_not_warn(requests_mock: Mocker, capsys):
 
 
 def test_github_caching_without_readme(requests_mock: Mocker, capsys):
-    checker = initialize(requests_mock, capsys)
+    checker = initialize_checker(requests_mock, capsys)
     requests_mock.get("{0}/commits".format(checker.repo.api), json=None, status_code=404)
     github_caching_check(checker)
     actual_out_err = capsys.readouterr()
