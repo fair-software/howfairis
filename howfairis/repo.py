@@ -3,6 +3,8 @@ from typing import Optional
 import requests
 from .code_repository_platforms import Platform
 from .exceptions.get_default_branch_exception import GetDefaultBranchException
+from .get_apikeys_from_env_vars import get_apikeys_from_env_vars
+from .requesting.get_from_platform import get_from_platform
 
 
 class Repo:
@@ -37,6 +39,7 @@ class Repo:
         self.path = "" if path is None else "/" + path.strip("/")
 
         # assign remaining members as needed
+        self._apikeys = get_apikeys_from_env_vars()
         self.platform = self._derive_platform()
         self.owner, self.repo = self._derive_owner_and_repo()
         self.api = self._derive_api()
@@ -108,7 +111,7 @@ class Repo:
             return None
 
         # GitHub API and GitLab API work the same
-        response = requests.get(self.api)
+        response = get_from_platform(self.platform, self.api, "api", apikeys=self._apikeys)
         # If the request was successful, the next line will not raise any Exception
         try:
             response.raise_for_status()

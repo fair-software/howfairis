@@ -22,6 +22,7 @@ setup(
         "howfairis.cli",
         "howfairis.exceptions",
         "howfairis.mixins",
+        "howfairis.requesting",
         "howfairis.workarounds"
     ],
     include_package_data=True,
@@ -37,16 +38,18 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.9"
     ],
     test_suite="tests",
     install_requires=[
-        "beautifulsoup4>=4",
-        "click>=7",
-        "colorama>=0",
-        "ruamel.yaml>=0.16",
-        "requests>=2",
-        "voluptuous>=0.11"
+        "backoff == 1.*",
+        "beautifulsoup4 == 4.*",
+        "click == 7.*",
+        "colorama == 0.*",
+        "ratelimit == 2.*",
+        "requests == 2.*",
+        "ruamel.yaml == 0.16.*",
+        "voluptuous == 0.11.*"
     ],
     setup_requires=[
     ],
@@ -65,11 +68,11 @@ setup(
             "sphinx_rtd_theme",
             "sphinx-click",
             "sphinx",
-            "yapf",
+            "yapf"
         ],
         "publishing": [
             "twine",
-            "wheel",
+            "wheel"
         ]
     },
     data_files=[]
