@@ -4,7 +4,7 @@ from howfairis.repo import Repo
 from howfairis.workarounds.github_caching import github_caching_check
 
 
-def initialize(requests_mock: Mocker, capsys):
+def initialize_checker(requests_mock: Mocker, capsys):
     owner = "fair-software"
     repo_string = "howfairis"
     filename = "README.rst"
