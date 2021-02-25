@@ -23,5 +23,3 @@ def list_files_from_local_data(who_is_asking_file, dir_type):
             files_dict[key] = fullpath
 
     return files_dict
-
-
