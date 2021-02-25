@@ -79,3 +79,4 @@ eval_and_print_status "howfairis https://gitlab.com/jspaaks/badge-test -p ignore
 
 echo "All commands succeeded."
 exit 0
+

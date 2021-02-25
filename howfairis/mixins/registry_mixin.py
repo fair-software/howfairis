@@ -1,4 +1,5 @@
 import requests
+from howfairis.requesting.get_from_platform import get_from_platform
 from ..code_repository_platforms import Platform
 
 
@@ -90,7 +91,7 @@ class RegistryMixin:
 
         if self.repo.platform == Platform.GITHUB:
             try:
-                response = requests.get(self.repo.url)
+                response = get_from_platform(self.repo.platform, self.repo.url, "frontend", apikeys=self._apikeys)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
