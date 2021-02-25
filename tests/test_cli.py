@@ -32,9 +32,9 @@ def test_matching_badge(requests_mock: Mocker):
     owner = "fair-software"
     repo_string = "howfairis"
     filename = "README.rst"
-    url = f"https://github.com/{owner}/{repo_string}"
-    api = f"https://api.github.com/repos/{owner}/{repo_string}"
-    raw = f"https://raw.githubusercontent.com/{owner}/{repo_string}/master"
+    url = "https://github.com/{0}/{1}".format(owner, repo_string)
+    api = "https://api.github.com/repos/{0}/{1}".format(owner, repo_string)
+    raw = "https://raw.githubusercontent.com/{0}/{1}/master".format(owner, repo_string)
     howfairis_badge = "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green"
     pypi_badge = "https://img.shields.io/pypi/v/howfairis.svg?colorB=blue"
     cii_badge = "https://bestpractices.coreinfrastructure.org/projects/4630/badge"
@@ -57,9 +57,9 @@ def test_upgraded_badge(requests_mock: Mocker):
     owner = "fair-software"
     repo_string = "howfairis"
     filename = "README.rst"
-    url = f"https://github.com/{owner}/{repo_string}"
-    api = f"https://api.github.com/repos/{owner}/{repo_string}"
-    raw = f"https://raw.githubusercontent.com/{owner}/{repo_string}/master"
+    url = "https://github.com/{0}/{1}".format(owner, repo_string)
+    api = "https://api.github.com/repos/{0}/{1}".format(owner, repo_string)
+    raw = "https://raw.githubusercontent.com/{0}/{1}/master".format(owner, repo_string)
     howfairis_badge = "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow"
     pypi_badge = "https://img.shields.io/pypi/v/howfairis.svg?colorB=blue"
     cii_badge = "https://bestpractices.coreinfrastructure.org/projects/4630/badge"
@@ -82,9 +82,9 @@ def test_mismatching_badge(requests_mock: Mocker):
     owner = "fair-software"
     repo_string = "howfairis"
     filename = "README.rst"
-    url = f"https://github.com/{owner}/{repo_string}"
-    api = f"https://api.github.com/repos/{owner}/{repo_string}"
-    raw = f"https://raw.githubusercontent.com/{owner}/{repo_string}/master"
+    url = "https://github.com/{0}/{1}".format(owner, repo_string)
+    api = "https://api.github.com/repos/{0}/{1}".format(owner, repo_string)
+    raw = "https://raw.githubusercontent.com/{0}/{1}/master".format(owner, repo_string)
     howfairis_badge = "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green"
     requests_mock.get(url, status_code=200)
     requests_mock.get(api, json={"default_branch": "master"}, status_code=200)
@@ -105,9 +105,9 @@ def test_missing_badge(requests_mock: Mocker):
     owner = "fair-software"
     repo_string = "howfairis"
     filename = "README.rst"
-    url = f"https://github.com/{owner}/{repo_string}"
-    api = f"https://api.github.com/repos/{owner}/{repo_string}"
-    raw = f"https://raw.githubusercontent.com/{owner}/{repo_string}/master"
+    url = "https://github.com/{0}/{1}".format(owner, repo_string)
+    api = "https://api.github.com/repos/{0}/{1}".format(owner, repo_string)
+    raw = "https://raw.githubusercontent.com/{0}/{1}/master".format(owner, repo_string)
     requests_mock.get(url, status_code=200)
     requests_mock.get(api, json={"default_branch": "master"}, status_code=200)
     requests_mock.get(api + "/license", status_code=200)
