@@ -11,7 +11,7 @@ from ratelimit import limits
 def get_from_gitlab_with_auth_api(url, apikeys):
 
     headers = {
-        "Accept": "application/vnd.github.v3+json"
+        "Accept": "application/json"
     }
 
     username = apikeys.get("gitlab-user")
