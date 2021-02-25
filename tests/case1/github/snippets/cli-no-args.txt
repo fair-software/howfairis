@@ -1,5 +1,5 @@
 Checking compliance with fair-software.eu...
-url: https://github.com/owner1/repo1
+url: https://github.com/fair-software/repo1
 (1/5) repository
       ✓ has_open_repository
 (2/5) license

@@ -30,7 +30,7 @@ class TestCli(Contract):
         assert __version__ in result.stdout
 
     def test_with_a_url(self, invoke_cli):
-        result = invoke_cli("https://gitlab.com/owner1/repo1")
+        result = invoke_cli("https://gitlab.com/fair-software/repo1")
         expected = load_snippets_from_local_data(__file__)["/cli-no-args.txt"]
         assert result.exit_code == 0
         assert result.stdout == expected

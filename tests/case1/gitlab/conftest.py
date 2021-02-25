@@ -10,7 +10,7 @@ from requests_mock.mocker import Mocker
 @pytest.fixture
 def mocker() -> Mocker:
 
-    """This mock aims to reflect the state of a fictious repository at https://gitlab.com/owner1/repo1 with
+    """This mock aims to reflect the state of a fictious repository at https://gitlab.com/fair-software/repo1 with
     contents to maximize the number of tests that will be True"""
 
     repo_files = load_repo_files_from_local_data(__file__)
@@ -18,7 +18,7 @@ def mocker() -> Mocker:
     default_branch_response = {"default_branch": "master"}
 
     with requests_mock.Mocker() as m:
-        repo, raw, api = get_urls(Platform.GITLAB, owner="owner1", repo="repo1")
+        repo, raw, api = get_urls(Platform.GITLAB, owner="fair-software", repo="repo1")
         m.get(api, status_code=200, json=default_branch_response)
         m.get(api + "/repository/tree", status_code=200)
         m.get(raw + "/master/.howfairis.yml", status_code=200, text=repo_files["/.howfairis.yml"])

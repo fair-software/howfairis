@@ -6,7 +6,7 @@ from tests.contracts.checker import Contract
 
 
 def get_checker():
-    repo = Repo("https://gitlab.com/owner1/repo1")
+    repo = Repo("https://gitlab.com/fair-software/repo1")
     return Checker(repo)
 
 
