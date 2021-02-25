@@ -69,13 +69,13 @@ eval_and_print_status "howfairis https://github.com/fair-software/howfairis-live
 eval_and_print_status "howfairis https://github.com/fair-software/howfairis-livetest -p ignore_commented_badges"
 
 # gitlab
-eval_and_print_status "howfairis https://gitlab.com/jspaaks/badge-test"
-eval_and_print_status "howfairis https://gitlab.com/jspaaks/badge-test -p force/00100"
-eval_and_print_status "howfairis https://gitlab.com/jspaaks/badge-test -p force/10110"
-eval_and_print_status "howfairis https://gitlab.com/jspaaks/badge-test -p force/11110"
-eval_and_print_status "howfairis https://gitlab.com/jspaaks/badge-test -p force/11111"
-eval_and_print_status "howfairis https://gitlab.com/jspaaks/badge-test -p force/uu1uu"
-eval_and_print_status "howfairis https://gitlab.com/jspaaks/badge-test -p ignore_commented_badges"
+eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest"
+eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest -p skipping/00100"
+eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest -p skipping/10110"
+eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest -p skipping/11110"
+eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest -p skipping/11111"
+eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest -p skipping/uu1uu"
+eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest -p ignore_commented_badges"
 
 echo "All commands succeeded."
 exit 0
