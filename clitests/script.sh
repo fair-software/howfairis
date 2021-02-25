@@ -32,7 +32,6 @@ eval_and_print_status () {
 
 # For character encoding on Windows
 export PYTHONIOENCODING=UTF-8
-SLEEP_DURATION=20
 
 echo "-------------------------------------------------------------------------"
 echo "which howfairis:"
@@ -60,6 +59,7 @@ echo -e "\n\n"
 
 
 # github
+SLEEP_DURATION=20
 eval_and_print_status "howfairis https://github.com/fair-software/howfairis-livetest"
 eval_and_print_status "howfairis https://github.com/fair-software/howfairis-livetest -p skipping/00100"
 eval_and_print_status "howfairis https://github.com/fair-software/howfairis-livetest -p skipping/10110"
@@ -69,6 +69,7 @@ eval_and_print_status "howfairis https://github.com/fair-software/howfairis-live
 eval_and_print_status "howfairis https://github.com/fair-software/howfairis-livetest -p ignore_commented_badges"
 
 # gitlab
+SLEEP_DURATION=0
 eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest"
 eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest -p skipping/00100"
 eval_and_print_status "howfairis https://gitlab.com/jspaaks/howfairis-livetest -p skipping/10110"
