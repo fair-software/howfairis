@@ -7,27 +7,6 @@ from howfairis.cli.cli import cli
 runner = CliRunner()
 
 
-def test_invalid_url():
-    runner = CliRunner()
-    response = runner.invoke(cli, [""])
-    expected_message = "url should start with https://"
-    assert response.exception.args[0] == expected_message
-
-
-def test_url_not_git():
-    runner = CliRunner()
-    response = runner.invoke(cli, ["https://www.esciencecenter.nl"])
-    expected_message = "Repository should be on github.com or on gitlab.com."
-    assert response.exception.args[0] == expected_message
-
-
-def test_url_not_repository():
-    runner = CliRunner()
-    response = runner.invoke(cli, ["https://github.com/fair-software"])
-    expected_message = "url is not a repository"
-    assert response.exception.args[0] == expected_message
-
-
 def test_matching_badge(requests_mock: Mocker):
     owner = "fair-software"
     repo_string = "howfairis"
@@ -50,7 +29,7 @@ def test_matching_badge(requests_mock: Mocker):
     requests_mock.get(api + "/commits", status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
-    assert response.exit_code == 0 and re.search("all good", response.output)
+    assert response.exit_code == 0
 
 
 def test_upgraded_badge(requests_mock: Mocker):
@@ -75,7 +54,7 @@ def test_upgraded_badge(requests_mock: Mocker):
     requests_mock.get(api + "/commits", status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
-    assert response.exit_code == 1 and re.search("Congratulations", response.output)
+    assert response.exit_code == 1
 
 
 def test_mismatching_badge(requests_mock: Mocker):
@@ -98,7 +77,7 @@ def test_mismatching_badge(requests_mock: Mocker):
     requests_mock.get(api + "/commits", status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
-    assert response.exit_code == 1 and re.search("different from", response.output)
+    assert response.exit_code == 1
 
 
 def test_missing_badge(requests_mock: Mocker):
@@ -120,4 +99,4 @@ def test_missing_badge(requests_mock: Mocker):
     requests_mock.get(api + "/commits", status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
-    assert response.exit_code == 1 and re.search("It seems", response.output)
+    assert response.exit_code == 1
