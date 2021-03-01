@@ -16,13 +16,14 @@ jobs:
         with:
           fetch-depth: 0
       - name: lint
-        uses: docker://github/super-linter:v3
+        uses: github/super-linter@v3
         env:
           # general settings
           FILTER_REGEX_EXCLUDE: /github/workspace/docs/.*
           LOG_FILE: super-linter.log
           OUTPUT_FOLDER: super-linter.report
           VALIDATE_ALL_CODEBASE: false
+          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # shell scripts
           VALIDATE_BASH: true
           VALIDATE_BASH_EXEC: true
