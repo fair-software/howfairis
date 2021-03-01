@@ -24,10 +24,17 @@ def mocker() -> Mocker:
         m.get(api + "/commits", status_code=200, json={})
         m.get(raw + "/master/.howfairis.yml", status_code=200, text=repo_files["/.howfairis.yml"])
         m.get(raw + "/master/.zenodo.json", status_code=200, text=repo_files["/.zenodo.json"])
-        m.get(raw + "/master/CITATION", status_code=200, text=repo_files["/CITATION"])
         m.get(raw + "/master/CITATION.cff", status_code=200, text=repo_files["/CITATION.cff"])
+        m.get(raw + "/master/CITATION", status_code=200, text=repo_files["/CITATION"])
         m.get(raw + "/master/codemeta.json", status_code=200, text=repo_files["/codemeta.json"])
         m.get(raw + "/master/README.rst", status_code=200, text=repo_files["/README.rst"])
+        m.get(raw + "/master/this/path/does-not-exist/.howfairis.yml", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/.zenodo.json", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/CITATION.cff", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/CITATION", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/codemeta.json", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/README.md", status_code=404)
+        m.get(raw + "/master/this/path/does-not-exist/README.rst", status_code=404)
         m.get(repo, status_code=200, text=frontend_files["/index.html"])
 
         return m
