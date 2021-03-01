@@ -31,7 +31,7 @@ jobs:
           VALIDATE_DOCKERFILE: true
           VALIDATE_DOCKERFILE_HADOLINT: true
           # editorconfig
-          VALIDATE_EDITORCONFIG: true
+          VALIDATE_EDITORCONFIG: false
           EDITORCONFIG_FILE_NAME: .ecrc
           # env files
           VALIDATE_ENV: true
@@ -50,5 +50,5 @@ jobs:
           PYTHON_FLAKE8_CONFIG_FILE: .flake8
           VALIDATE_PYTHON_ISORT: false
           PYTHON_ISORT_CONFIG_FILE: .isort.cfg
-          VALIDATE_PYTHON_PYLINT: false
+          VALIDATE_PYTHON_PYLINT: true
           PYTHON_PYLINT_CONFIG_FILE: .python-lint
