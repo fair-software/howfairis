@@ -5,23 +5,23 @@ from requests_mock.mocker import Mocker
 class Contract(ABC):
 
     @abstractmethod
-    def test_check_checklist(self, mocked_context: Mocker):
+    def test_check_checklist(self, mocked_context: Mocker, captured_output):
         pass
 
     @abstractmethod
-    def test_check_citation(self, mocked_context: Mocker):
+    def test_check_citation(self, mocked_context: Mocker, captured_output):
         pass
 
     @abstractmethod
-    def test_check_license(self, mocked_context: Mocker):
+    def test_check_license(self, mocked_context: Mocker, captured_output):
         pass
 
     @abstractmethod
-    def test_check_registry(self, mocked_context: Mocker):
+    def test_check_registry(self, mocked_context: Mocker, captured_output):
         pass
 
     @abstractmethod
-    def test_check_repository(self, mocked_context: Mocker):
+    def test_check_repository(self, mocked_context: Mocker, captured_output):
         pass
 
     @abstractmethod

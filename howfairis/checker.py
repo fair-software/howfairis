@@ -9,6 +9,7 @@ from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
 from .compliance import Compliance
+from .get_apikeys_from_env_vars import get_apikeys_from_env_vars
 from .mixins.checklist_mixin import ChecklistMixin
 from .mixins.citation_mixin import CitationMixin
 from .mixins.license_mixin import LicenseMixin
@@ -17,6 +18,7 @@ from .mixins.repository_mixin import RepositoryMixin
 from .readme import Readme
 from .readme_format import ReadmeFormat
 from .repo import Repo
+from .requesting.get_from_platform import get_from_platform
 from .schema import validate_against_schema
 
 
@@ -71,8 +73,9 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         super().__init__()
         self.repo = repo
         self.is_quiet = is_quiet
+        self._apikeys = get_apikeys_from_env_vars()
         self._default_config = Checker._load_default_config()
-        self._repo_config = Checker._load_repo_config(repo, repo_config_filename, ignore_repo_config)
+        self._repo_config = self._load_repo_config(repo_config_filename, ignore_repo_config)
         self._user_config = Checker._load_user_config(user_config_filename)
         self._merged_config = self._merge_configurations()
         self.readme = self._get_readme()
@@ -95,16 +98,16 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         for readme_filename in ["README.rst", "README.md"]:
             raw_url = self.repo.raw_url_format_string.format(readme_filename)
             try:
-                response = requests.get(raw_url)
+                response = get_from_platform(self.repo.platform, raw_url, "raw", apikeys=self._apikeys)
                 # If the response was successful, no Exception will be raised
                 response.raise_for_status()
             except requests.HTTPError:
                 continue
 
-            if readme_filename == "README.md":
-                readme_file_format = ReadmeFormat.MARKDOWN
-            elif readme_filename == "README.rst":
+            if readme_filename == "README.rst":
                 readme_file_format = ReadmeFormat.RESTRUCTUREDTEXT
+            elif readme_filename == "README.md":
+                readme_file_format = ReadmeFormat.MARKDOWN
             else:
                 readme_file_format = None
 
@@ -132,19 +135,18 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             return dict()
         return default_config
 
-    @staticmethod
-    def _load_repo_config(repo, repo_config_filename, ignore_remote_config):
-        if repo is None:
+    def _load_repo_config(self, repo_config_filename, ignore_remote_config):
+        if self.repo is None:
             return dict()
 
         if ignore_remote_config is True:
             return dict()
 
-        raw_url = repo.raw_url_format_string.format(repo_config_filename)
+        raw_url = self.repo.raw_url_format_string.format(repo_config_filename)
         non_default_repo_config_filename = repo_config_filename != DEFAULT_CONFIG_FILENAME
 
         try:
-            response = requests.get(raw_url)
+            response = get_from_platform(self.repo.platform, raw_url, "raw", apikeys=self._apikeys)
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
             if non_default_repo_config_filename:
@@ -172,12 +174,17 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         if user_config_filename is None:
             return dict()
 
-        p = os.path.join(os.getcwd(), user_config_filename)
+        if os.path.isabs(user_config_filename):
+            p = user_config_filename
+        else:
+            p = os.path.join(os.getcwd(), user_config_filename)
+
         if not os.path.exists(p):
             raise FileNotFoundError("{0} doesn't exist.".format(user_config_filename))
 
-        with open(p, "rt") as f:
+        with open(user_config_filename, "rt") as f:
             text = f.read()
+
         user_config = YAML(typ="safe").load(text)
         if user_config is None:
             user_config = dict()
