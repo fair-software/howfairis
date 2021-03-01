@@ -23,7 +23,7 @@ jobs:
           LOG_FILE: super-linter.log
           OUTPUT_FOLDER: super-linter.report
           VALIDATE_ALL_CODEBASE: false
-          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # shell scripts
           VALIDATE_BASH: true
           VALIDATE_BASH_EXEC: true
