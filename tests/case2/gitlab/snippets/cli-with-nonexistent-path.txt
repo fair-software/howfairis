@@ -1,7 +1,8 @@
 Checking compliance with fair-software.eu...
 url: https://gitlab.com/fair-software/repo1
+path: this/path/does-not-exist
 
-Did not find a README[.md|.rst] file at https://gitlab.com/fair-software/repo1/-/raw/master/
+Did not find a README[.md|.rst] file at https://gitlab.com/fair-software/repo1/-/raw/master/this/path/does-not-exist/
 Proceeding without it -- expect the compliance to suffer.
 
 (1/5) repository
