@@ -59,7 +59,7 @@ echo -e "\n\n"
 
 
 # github
-SLEEP_DURATION=20
+SLEEP_DURATION=0
 eval_and_print_status "howfairis https://github.com/fair-software/howfairis-livetest"
 eval_and_print_status "howfairis https://github.com/fair-software/howfairis-livetest -p skipping/00100"
 eval_and_print_status "howfairis https://github.com/fair-software/howfairis-livetest -p skipping/10110"
