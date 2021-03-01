@@ -1,10 +1,10 @@
 import pytest
-from tests.helpers import load_frontend_files_from_local_data
-from tests.helpers import load_repo_files_from_local_data
-from tests.helpers import get_urls
-from howfairis.code_repository_platforms import Platform
 import requests_mock
 from requests_mock.mocker import Mocker
+from howfairis.code_repository_platforms import Platform
+from tests.helpers import get_urls
+from tests.helpers import load_frontend_files_from_local_data
+from tests.helpers import load_repo_files_from_local_data
 
 
 @pytest.fixture
@@ -21,6 +21,7 @@ def mocker() -> Mocker:
         repo, raw, api = get_urls(Platform.GITHUB, owner="fair-software", repo="repo1")
         m.get(api, status_code=200, json=default_branch_response)
         m.get(api + "/license", status_code=200)
+        m.get(api + "/commits", status_code=200, json={})
         m.get(raw + "/master/.howfairis.yml", status_code=200, text=repo_files["/.howfairis.yml"])
         m.get(raw + "/master/.zenodo.json", status_code=200, text=repo_files["/.zenodo.json"])
         m.get(raw + "/master/CITATION", status_code=200, text=repo_files["/CITATION"])

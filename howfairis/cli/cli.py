@@ -70,7 +70,7 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
     previous_compliance = checker.readme.get_compliance()
     current_compliance = checker.check_five_recommendations()
 
-    sys.exit(print_call_to_action(previous_compliance, current_compliance, checker.readme, is_quiet=quiet))
+    sys.exit(print_call_to_action(previous_compliance, current_compliance, checker, is_quiet=quiet))
 
 
 if __name__ == "__main__":
