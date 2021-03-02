@@ -1,7 +1,9 @@
 #!/bin/sh
 
 echo "Script $0 triggered ..."
-echo "Starting prospector analysis ..."
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+echo "Starting prospector analysis using configuration from .prospector.yml..."
 
 # quietly run prospector
 prospector 1>/dev/null
@@ -12,16 +14,30 @@ if [ $? != "0" ]; then
     exit 1
 fi
 
-
-echo "Starting isort analysis ..."
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+echo "Starting isort analysis using configuration from setup.cfg..."
 
 # recursively run isort on howfairis/ directory, don't try to automatically fix anything
 isort --recursive --check-only howfairis
 
 if [ $? != "0" ]; then
     echo "Commit aborted."
+    echo "  Run 'isort --recursive --check-only --diff howfairis' to see what's wrong."
+    echo "  Run 'isort --recursive howfairis' to let isort fix problems automatically."
     exit 1
 fi
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+echo "Starting pylint analysis using configuration from .pylintrc..."
+
+# quietly run pylint
+pylint --rcfile=.pylintrc howfairis 1>/dev/null
+
+if [ $? != "0" ]; then
+    echo "Commit aborted. Run 'pylint --rcfile=.pylintrc howfairis' to see what's wrong."
+    exit 1
+fi
+
 
 echo "Pre-commit checks completed successfully."
 exit 0
