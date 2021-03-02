@@ -22,7 +22,7 @@ class TestRepoNoArgs(Contract):
     def test_default_branch(self, mocker: Mocker):
         with mocker, pytest.raises(GetDefaultBranchException) as exc_info:
             get_repo()
-        assert str(exc_info.value).startswith("Something went wrong asking the repo for its default branch")
+        assert str(exc_info.value) == "Something went wrong asking the repo for its default branch."
 
     @skip_unreachable
     def test_owner(self, mocker: Mocker):

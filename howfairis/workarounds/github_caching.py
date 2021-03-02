@@ -18,5 +18,5 @@ def github_caching_check(checker):
             print(("Warning: Your {0} was updated less than 5 minutes ago. The effects of this update are not " +
                    "visible yet in the calculated compliance.").format(checker.readme.filename))
         return
-    except requests.exceptions.ConnectionError:
+    except Exception:
         return
