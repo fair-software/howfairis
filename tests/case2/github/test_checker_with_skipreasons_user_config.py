@@ -1,5 +1,6 @@
 from requests_mock import Mocker
-from howfairis import Checker, Compliance
+from howfairis import Checker
+from howfairis import Compliance
 from howfairis import Repo
 from howfairis.readme import Readme
 from tests.contracts.checker import Contract

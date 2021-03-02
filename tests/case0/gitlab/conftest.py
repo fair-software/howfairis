@@ -1,8 +1,8 @@
 import pytest
-from tests.helpers import get_urls
-from howfairis.code_repository_platforms import Platform
 import requests_mock
 from requests_mock.mocker import Mocker
+from howfairis.code_repository_platforms import Platform
+from tests.helpers import get_urls
 
 
 @pytest.fixture

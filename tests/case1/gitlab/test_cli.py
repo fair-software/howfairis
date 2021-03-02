@@ -3,8 +3,8 @@ from click.testing import CliRunner
 from howfairis import __version__
 from howfairis.cli.cli import cli
 from tests.contracts.cli import Contract
-from tests.helpers import load_user_files_from_local_data
 from tests.helpers import load_snippets_from_local_data
+from tests.helpers import load_user_files_from_local_data
 
 
 @pytest.fixture
@@ -42,4 +42,3 @@ class TestCli(Contract):
         assert "expect the compliance to suffer" in result.stdout, "Did not raise expected warning"
         assert result.exit_code == 1
         assert result.stdout == expected
-
