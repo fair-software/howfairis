@@ -6,12 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Compliance.color() [#301](https://github.com/fair-software/howfairis/issues/301)
+- Compliance.badge_image_url() [#304](https://github.com/fair-software/howfairis/issues/304)
 
 ## [0.13.0] - 2021-Feb-18
 
 ### Added
-- Compliance.color() [#301](https://github.com/fair-software/howfairis/issues/301)
-- Compliance.badge_image_url() [#304](https://github.com/fair-software/howfairis/issues/304)
 - docstrings for public API
 - documentation hosted on readthedocs [#51](https://github.com/fair-software/howfairis/issues/51)
 - code of conduct [#87](https://github.com/fair-software/howfairis/issues/87)
