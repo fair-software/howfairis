@@ -11,7 +11,7 @@ from .get_from_github_with_auth_raw import get_from_github_with_auth_raw
 @on_exception(expo, RateLimitException, max_tries=8)
 @limits(calls=5000, period=3600)
 def get_from_github_with_auth(url, url_type, apikeys):
-
+    """ """
     if url_type == "api":
         return get_from_github_with_auth_api(url, apikeys)
 

@@ -64,7 +64,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     3. config file from users local filesystem.
     """
 
-    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments,too-many-instance-attributes
     def __init__(self, repo: Repo,
                  user_config_filename: Optional[str] = None,
                  repo_config_filename: str = DEFAULT_CONFIG_FILENAME,
@@ -123,8 +123,8 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     def _load_default_config():
         pkg_root = os.path.dirname(__file__)
         default_config_filename = os.path.join(pkg_root, "data", ".howfairis.yml")
-        with open(default_config_filename, "rt") as f:
-            text = f.read()
+        with open(default_config_filename, "rt") as fid:
+            text = fid.read()
         default_config = YAML(typ="safe").load(text)
         if default_config is None:
             default_config = dict()
@@ -151,15 +151,15 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             response.raise_for_status()
             if non_default_repo_config_filename:
                 print("Using the configuration file {0}".format(raw_url))
-        except requests.HTTPError as e:
+        except requests.HTTPError as ex:
             if non_default_repo_config_filename:
-                raise Exception("Could not find the configuration file {0}".format(raw_url)) from e
+                raise Exception("Could not find the configuration file {0}".format(raw_url)) from ex
             return dict()
 
         try:
             repo_config = YAML(typ="safe").load(response.text)
-        except Exception as e:
-            raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from e
+        except Exception as ex:
+            raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from ex
 
         try:
             validate_against_schema(repo_config)
@@ -175,23 +175,23 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             return dict()
 
         if os.path.isabs(user_config_filename):
-            p = user_config_filename
+            path = user_config_filename
         else:
-            p = os.path.join(os.getcwd(), user_config_filename)
+            path = os.path.join(os.getcwd(), user_config_filename)
 
-        if not os.path.exists(p):
+        if not os.path.exists(path):
             raise FileNotFoundError("{0} doesn't exist.".format(user_config_filename))
 
-        with open(user_config_filename, "rt") as f:
-            text = f.read()
+        with open(user_config_filename, "rt") as fid:
+            text = fid.read()
 
         user_config = YAML(typ="safe").load(text)
         if user_config is None:
             user_config = dict()
         try:
             validate_against_schema(user_config)
-        except Exception as e:
-            raise Exception("User configuration file should follow the schema.") from e
+        except Exception as ex:
+            raise Exception("User configuration file should follow the schema.") from ex
         return user_config
 
     def _merge_configurations(self):
@@ -201,11 +201,11 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             * config from repository
             * config from local user
         """
-        m = dict()
-        m.update(self._default_config)
-        m.update(self._repo_config)
-        m.update(self._user_config)
-        return m
+        merged = dict()
+        merged.update(self._default_config)
+        merged.update(self._repo_config)
+        merged.update(self._user_config)
+        return merged
 
     def _print_state(self, check_name="", state=None, indent=6):
         if not self.is_quiet:

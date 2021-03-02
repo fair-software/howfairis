@@ -1,4 +1,5 @@
 def print_feedback_about_repo_args(url, branch, path, is_quiet=False):
+    """  """
 
     assert url is not None, "Expected URL to not be emtpy."
 

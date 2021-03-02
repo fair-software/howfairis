@@ -5,5 +5,6 @@ from enum import unique
 
 @unique
 class ReadmeFormat(Enum):
+    """ """
     MARKDOWN = auto()
     RESTRUCTUREDTEXT = auto()

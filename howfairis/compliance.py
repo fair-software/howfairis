@@ -59,8 +59,8 @@ class Compliance:
         Returns: A string
         """
         compliance_unicode = [None] * 5
-        for i, c in enumerate(self._state):
-            if c is True:
+        for i, is_compliant in enumerate(self._state):
+            if is_compliant:
                 compliance_unicode[i] = Compliance.COMPLIANT_SYMBOL
             else:
                 compliance_unicode[i] = Compliance.NONCOMPLIANT_SYMBOL

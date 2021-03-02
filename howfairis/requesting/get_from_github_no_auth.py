@@ -9,6 +9,9 @@ from .get_from_github_no_auth_raw import get_from_github_no_auth_raw
 
 
 def get_calls():
+    """helper function to parameterize the rate limit decorator with platform specific API
+    rate limit value unless it recognizes that we are in a test environment, then rate
+    limit value is set to an artificially high value."""
 
     if "pytest" in sys.modules:
         # in testing, the api is mocked, so we overrule the rate limit
@@ -21,7 +24,7 @@ def get_calls():
 @on_exception(expo, RateLimitException, max_tries=8)
 @limits(calls=get_calls(), period=3600)
 def get_from_github_no_auth(url, url_type):
-
+    """ """
     if url_type == "api":
         return get_from_github_no_auth_api(url)
 

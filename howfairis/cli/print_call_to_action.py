@@ -3,7 +3,7 @@ from howfairis.workarounds.github_caching import github_caching_check
 
 
 def print_call_to_action(previous_compliance, current_compliance, checker, is_quiet=False):
-
+    """  """
     if checker.readme.text is None:
         return 1
 
