@@ -22,7 +22,7 @@ def test_matching_badge(requests_mock: Mocker):
     requests_mock.get(raw + "/codemeta.json", status_code=200)
     requests_mock.get(raw + "/" + filename, text=howfairis_badge+pypi_badge+cii_badge, status_code=200)
     requests_mock.get(raw + "/.zenodo.json", status_code=200)
-    requests_mock.get(api + "/commits", json={}, status_code=200)
+    requests_mock.get(api + "/commits", json=[], status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
     assert response.exit_code == 0
@@ -47,7 +47,7 @@ def test_upgraded_badge(requests_mock: Mocker):
     requests_mock.get(raw + "/codemeta.json", status_code=200)
     requests_mock.get(raw + "/" + filename, text=howfairis_badge+pypi_badge+cii_badge, status_code=200)
     requests_mock.get(raw + "/.zenodo.json", status_code=200)
-    requests_mock.get(api + "/commits", json={}, status_code=200)
+    requests_mock.get(api + "/commits", json=[], status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
     assert response.exit_code == 1
@@ -70,7 +70,7 @@ def test_mismatching_badge(requests_mock: Mocker):
     requests_mock.get(raw + "/codemeta.json", status_code=200)
     requests_mock.get(raw + "/" + filename, text=howfairis_badge, status_code=200)
     requests_mock.get(raw + "/.zenodo.json", status_code=200)
-    requests_mock.get(api + "/commits", json={}, status_code=200)
+    requests_mock.get(api + "/commits", json=[], status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
     assert response.exit_code == 1
@@ -92,7 +92,7 @@ def test_missing_badge(requests_mock: Mocker):
     requests_mock.get(raw + "/codemeta.json", status_code=200)
     requests_mock.get(raw + "/" + filename, text="", status_code=200)
     requests_mock.get(raw + "/.zenodo.json", status_code=200)
-    requests_mock.get(api + "/commits", json={}, status_code=200)
+    requests_mock.get(api + "/commits", json=[], status_code=200)
     runner = CliRunner()
     response = runner.invoke(cli, [url])
     assert response.exit_code == 1

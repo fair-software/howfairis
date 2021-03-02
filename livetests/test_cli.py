@@ -12,7 +12,7 @@ def test_valid_github_url_unauthenticated():
 
 def test_valid_gitlab_url_unauthenticated():
     runner = CliRunner()
-    result = runner.invoke(cli, ["https://gitlab.com/jspaaks/badge-test"])
+    result = runner.invoke(cli, ["https://gitlab.com/jspaaks/howfairis-livetest"])
     expected_exit_code = str(0)
     actual_exit_code = str(result.exit_code)
     assert actual_exit_code == expected_exit_code
