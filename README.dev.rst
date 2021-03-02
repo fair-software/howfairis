@@ -118,7 +118,7 @@ In a new terminal, without an activated virtual environment or a venv3 directory
     # fresh git clone ensures the release has the state of origin/main branch
     git clone https://github.com/fair-software/howfairis.git .
     
-    # prepare a clean virtual environment
+    # prepare a clean virtual environment and activate it
     python3 -m venv venv3
     source venv3/bin/activate
     
