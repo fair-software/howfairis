@@ -2,7 +2,6 @@ howfairis
 =========
 
 |
-|
 
 Python package to analyze a GitHub or GitLab repository's compliance with the
 fair-software.eu_ recommendations.
