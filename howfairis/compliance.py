@@ -75,15 +75,19 @@ class Compliance:
         Returns:
             Badge image link or None when format of README is unsupported.
         """
-        color_string = self.color()
-
-        badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.urlencode(), color_string)
+        badge_url = self.badge_image_url()
         if readme_file_format == ReadmeFormat.RESTRUCTUREDTEXT:
             return ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
         if readme_file_format == ReadmeFormat.MARKDOWN:
             return "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
 
         return None
+
+    def badge_image_url(self) -> str:
+        """FAIR software badge image URL"""
+        color_string = self.color()
+        compliance_string = self.urlencode()
+        return "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(compliance_string, color_string)
 
     def color(self) -> str:
         """Traffic light color for badge based on compliance count
