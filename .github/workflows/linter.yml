@@ -20,36 +20,46 @@ jobs:
         env:
           # general settings
           FILTER_REGEX_EXCLUDE: /github/workspace/docs/.*
-          LOG_FILE: super-linter.log
-          OUTPUT_FOLDER: super-linter.report
+          # LOG_FILE: super-linter.log
+          # OUTPUT_FOLDER: super-linter.report
           VALIDATE_ALL_CODEBASE: false
+          # DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CI: true
+
           # shell scripts
           VALIDATE_BASH: true
           VALIDATE_BASH_EXEC: true
           VALIDATE_SHELL_SHFMT: true
+
           # docker
           VALIDATE_DOCKERFILE: true
           VALIDATE_DOCKERFILE_HADOLINT: true
+
           # editorconfig
           VALIDATE_EDITORCONFIG: false
           EDITORCONFIG_FILE_NAME: .ecrc
+
           # env files
           VALIDATE_ENV: true
+
           # json
           VALIDATE_JSON: true
+
           # markdown
           VALIDATE_MARKDOWN: true
+
           # yaml
           VALIDATE_YAML: true
           YAML_CONFIG_FILE: true
+
           # python
           VALIDATE_PYTHON: true
-          VALIDATE_PYTHON_BLACK: false
-          PYTHON_BLACK_CONFIG_FILE: .python-black
-          VALIDATE_PYTHON_FLAKE8: false
-          PYTHON_FLAKE8_CONFIG_FILE: .flake8
-          VALIDATE_PYTHON_ISORT: false
+          # VALIDATE_PYTHON_BLACK: false
+          # PYTHON_BLACK_CONFIG_FILE: .python-black
+          # VALIDATE_PYTHON_FLAKE8: false
+          # PYTHON_FLAKE8_CONFIG_FILE: .flake8
+          # VALIDATE_PYTHON_ISORT: false
           PYTHON_ISORT_CONFIG_FILE: .isort.cfg
           VALIDATE_PYTHON_PYLINT: true
           PYTHON_PYLINT_CONFIG_FILE: .python-lint
