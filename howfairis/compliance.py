@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Union
 from urllib.parse import quote
 from .readme_format import ReadmeFormat
 
@@ -66,7 +66,7 @@ class Compliance:
                 compliance_unicode[i] = Compliance.NONCOMPLIANT_SYMBOL
         return compliance_unicode
 
-    def calc_badge(self, readme_file_format: ReadmeFormat) -> Optional[str]:
+    def calc_badge(self, readme_file_format: ReadmeFormat) -> Union[str, None]:
         """Calculate FAIR software badge image URL and URL in format of README.
 
         Args:
