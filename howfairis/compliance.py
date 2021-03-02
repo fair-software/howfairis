@@ -1,46 +1,40 @@
+from typing import Optional
 from urllib.parse import quote
-from howfairis.readme_format import ReadmeFormat
+from .readme_format import ReadmeFormat
 
 
 # pylint: disable=too-many-arguments
 class Compliance:
     """Compliance of a repo against the 5 FAIR software recommendations
 
-    Attributes:
+    Args:
         repository: Whether repository is publicly accessible with version control
-        license: Whether repository has a license
+        license_: Whether repository has a license
         registry: Whether code is in a registry
         citation: Whether software is citable
         checklist: Whether a software quality checklist is used
-        compliant_symbol: Unicode symbol used in badge when compliant
-        noncompliant_symbol: Unicode symbol used in badge when non-compliant
-    """
 
-    def __init__(self, repository=False, license_=False, registry=False, citation=False, checklist=False,
-                 compliant_symbol="\u25CF", noncompliant_symbol="\u25CB"):
+    Attributes:
+        repository (bool): Whether repository is publicly accessible with version control
+        license (bool): Whether repository has a license
+        registry (bool): Whether code is in a registry
+        citation (bool): Whether software is citable
+        checklist (bool): Whether a software quality checklist is used
+    """
+    COMPLIANT_SYMBOL = "\u25CF"
+    NONCOMPLIANT_SYMBOL = "\u25CB"
+
+    def __init__(self, repository: bool = False, license_: bool = False, registry: bool = False,
+                 citation: bool = False, checklist: bool = False):
         self._index = 0
         self.checklist = checklist
         self.citation = citation
-        self.compliant_symbol = compliant_symbol
         self.license = license_
-        self.noncompliant_symbol = noncompliant_symbol
         self.registry = registry
         self.repository = repository
 
     def __eq__(self, other):
-        return self.count(True) == other.count(True)
-
-    def __ge__(self, other):
-        return self.count(True) >= other.count(True)
-
-    def __gt__(self, other):
-        return self.count(True) > other.count(True)
-
-    def __le__(self, other):
-        return self.count(True) <= other.count(True)
-
-    def __ne__(self, other):
-        return self.count(True) != other.count(True)
+        return isinstance(other, Compliance) and [s is o for s, o in zip(self._state, other._state)] == [True] * 5
 
     def __iter__(self):
         return self
@@ -58,7 +52,7 @@ class Compliance:
         return [self.repository, self.license, self.registry,
                 self.citation, self.checklist]
 
-    def as_unicode(self):
+    def as_unicode(self) -> str:
         """String representation of each 5 recommendations.
         Where a full dot means compliant with the recommendation and a open dot means not-compliant.
 
@@ -67,12 +61,20 @@ class Compliance:
         compliance_unicode = [None] * 5
         for i, c in enumerate(self._state):
             if c is True:
-                compliance_unicode[i] = self.compliant_symbol
+                compliance_unicode[i] = Compliance.COMPLIANT_SYMBOL
             else:
-                compliance_unicode[i] = self.noncompliant_symbol
+                compliance_unicode[i] = Compliance.NONCOMPLIANT_SYMBOL
         return compliance_unicode
 
-    def calc_badge(self, fmt):
+    def calc_badge(self, readme_file_format: ReadmeFormat) -> Optional[str]:
+        """Calculate FAIR software badge image URL and URL in format of README.
+
+        Args:
+            readme_file_format: Format of README.
+
+        Returns:
+            Badge image link or None when format of README is unsupported.
+        """
         score = self.count(True)
 
         if score in [0, 1]:
@@ -85,15 +87,31 @@ class Compliance:
             color_string = "green"
 
         badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.urlencode(), color_string)
-        if fmt == ReadmeFormat.RESTRUCTUREDTEXT:
+        if readme_file_format == ReadmeFormat.RESTRUCTUREDTEXT:
             return ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
-        if fmt == ReadmeFormat.MARKDOWN:
+        if readme_file_format == ReadmeFormat.MARKDOWN:
             return "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
 
         return None
 
-    def count(self, value):
+    def count(self, value=True) -> int:
+        """Number of recommendations which are compliant or non-compliant
+
+        Args:
+            value: If True then counts number of recommendations that are compliant.
+
+        Returns:
+            Count
+        """
         return self._state.count(value)
 
-    def urlencode(self, separator="%20%20"):
+    def urlencode(self, separator: str = "%20%20") -> str:
+        """Encodes compliance into string which can be used in a URL.
+
+        Args:
+            separator:
+
+        Returns:
+            String that can be used in a URL
+        """
         return separator.join([quote(symbol) for symbol in self.as_unicode()])

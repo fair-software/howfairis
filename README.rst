@@ -22,10 +22,11 @@ fair-software.nl recommendations
 (5/5) checklist                                        |core infrastructures badge|
 overall                                                |fair-software badge|
 **Other best practices**
-Documentation                                          |ReadTheDocs Badge|
+Documentation                                          |readthedocs badge|
 Supported Python versions                              |python versions badge| 
-Code quality                                           |Sonarcloud quality badge|
-Code coverage of unit tests                            |Sonarcloud coverage badge|
+Code quality                                           |sonarcloud quality badge|
+Code coverage of unit tests                            |sonarcloud coverage badge|
+DockerHub                                              |dockerhub badge|
 **GitHub Actions**
 Citation metadata consistency                          |workflow cffconvert badge|
 Unit tests                                             |workflow tests badge|
@@ -45,25 +46,29 @@ Live tests (triggered manually)                        |workflow livetests badge
    :target: https://doi.org/10.5281/zenodo.4017908
    
 .. |core infrastructures badge| image:: https://bestpractices.coreinfrastructure.org/projects/4630/badge
-   :target: https://bestpractices.coreinfrastructure.org/projects/4630
+   :target: https://bestpractices.coreinfrastructure.org/en/projects/4630
 
 .. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
    :target: https://fair-software.eu
    
-.. |ReadTheDocs Badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
+.. |readthedocs badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
    
 .. |python versions badge| image:: https://img.shields.io/pypi/pyversions/howfairis.svg
    :target: https://pypi.python.org/pypi/howfairis   
 
-.. |Sonarcloud quality badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=alert_status
+.. |sonarcloud quality badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=alert_status
    :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
    :alt: Quality Gate Status
 
-.. |Sonarcloud coverage badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=coverage
+.. |sonarcloud coverage badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=coverage
    :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
    :alt: Coverage
+
+.. |dockerhub badge| image:: https://img.shields.io/docker/pulls/fairsoftware/howfairis
+   :target: https://hub.docker.com/r/fairsoftware/howfairis
+   :alt: Docker Pulls
 
 .. |workflow tests badge| image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
@@ -80,16 +85,41 @@ Live tests (triggered manually)                        |workflow livetests badge
 Install
 -------
 
-.. code:: shell
+.. code:: console
 
     pip3 install --user howfairis
 
 Verify that the install directory is on the ``PATH`` environment variable. If so,
 you should be able to call the executable, like so:
 
-.. code:: shell
+.. code:: console
 
     howfairis https://github.com/<owner>/<repo>
+
+
+``howfairis`` supports URLs from the following code repository platforms:
+
+1. ``https://github.com``
+2. ``https://gitlab.com`` (not including self-hosted instances)
+
+Docker
+---------------
+
+You can run howfairis Docker image using the command below.
+
+.. code:: console
+
+    docker pull fairsoftware/howfairis
+
+You can run howfairis Docker image using the command below.
+
+.. code:: console
+
+    docker run --rm fairsoftware/howfairis --help
+
+`--rm` argument will remove Docker container after execution.
+
+See developer documentation to learn how to modify the Docker image.
 
 Expected output
 ---------------
@@ -97,7 +127,7 @@ Expected output
 Depending on which repository you are doing the analysis for, the output
 looks something like this:
 
-.. code:: shell
+.. code:: console
 
     Checking compliance with fair-software.eu...
     url: https://github.com/fair-software/badge-test
@@ -127,7 +157,7 @@ looks something like this:
 
 If your README already has the fair-software badge, you'll see some output like this:
 
-.. code:: shell
+.. code:: console
 
     Calculated compliance: ● ● ○ ● ●
 
@@ -136,7 +166,7 @@ If your README already has the fair-software badge, you'll see some output like 
 If your README doesn't have the fair-software badge yet, or its compliance is different from what's been calculated,
 you'll see output like this:
 
-.. code:: shell
+.. code:: console
 
     Calculated compliance: ● ● ○ ○ ○
 
@@ -183,87 +213,116 @@ More options
 
 There are some command line options to the executable. You can see them using:
 
-.. code:: shell
+.. code:: console
 
     howfairis --help
 
 Which then shows something like:
 
-.. code:: text
+.. code:: console
 
     Usage: howfairis [OPTIONS] [URL]
 
       Determine compliance with recommendations from fair-software.eu for the
-      GitHub or GitLab repository at URL.
+      repository at URL. The following code repository platforms are supported:
+
+      * https://github.com
+
+      * https://gitlab.com (not including any self-hosted instances)
 
     Options:
-      -b, --branch TEXT              Which git branch to use. Also accepts other
-                                     git references like SHA or tag.
+      -b, --branch TEXT               Which git branch to use. Also accepts other
+                                      git references like SHA or tag.
 
-      -c, --config-file PATH         Name of the configuration file to control
-                                     howfairis'es behavior. The configuration file
-                                     needs to be present on the local system and
-                                     can include a relative path.
+      -u, --user-config-filename PATH
+                                      Name of the configuration file to control
+                                      howfairis'es behavior. The configuration
+                                      file needs to be present on the local system
+                                      and can include a relative path.
 
-      -d, --show-default-config      Show default configuration and exit.
-      -i, --ignore-remote-config     Ignore any configuration files on the remote.
-      -p, --path TEXT                Relative path (on the remote). Use this if
-                                     you want howfairis to look for a README and a
-                                     configuration file in a subdirectory.
+      -d, --show-default-config       Show default configuration and exit.
+      -i, --ignore-repo-config        Ignore any configuration files on the
+                                      remote.
 
-      -r, --remote-config-file TEXT  Name of the configuration file to control
-                                     howfairis'es behavior. The configuration file
-                                     needs to be on the remote, and takes into
-                                     account the value of --branch and --path.
-                                     Default: .howfairis.yml
+      -p, --path TEXT                 Relative path (on the remote). Use this if
+                                      you want howfairis to look for a README and
+                                      a configuration file in a subdirectory.
 
-      -t, --show-trace               Show full traceback on errors.
-      -v, --version                  Show version and exit.
-      -h, --help                     Show this message and exit.
+      -q, --quiet                     Use this flag to disable all printing except
+                                      errors.
+
+      -r, --repo-config-filename TEXT
+                                      Name of the configuration file to control
+                                      howfairis'es behavior. The configuration
+                                      file needs to be on the remote, and takes
+                                      into account the value of --branch and
+                                      --path. Default: .howfairis.yml
+
+      -t, --show-trace                Show full traceback on errors.
+      -v, --version                   Show version and exit.
+      -h, --help                      Show this message and exit.
 
 Configuration file
 ^^^^^^^^^^^^^^^^^^
 
-The state of each check can be forced using a configuration file. This file needs to be present at ``URL``, taking into
-account the values passed with ``--path`` and with ``--config-file``.
+Each category of checks can be skipped using a configuration file. This file needs to be present at ``URL``, taking into
+account the values passed with ``--path`` and with ``--repo-config-filename``.
 
 The configuration file should follow the voluptuous_ schema laid out in schema.py_:
 
 .. code:: python
 
     schema = {
-        Optional("force_repository"): Any(bool, None),
-        Optional("force_license"): Any(bool, None),
-        Optional("force_registry"): Any(bool, None),
-        Optional("force_citation"): Any(bool, None),
-        Optional("force_checklist"): Any(bool, None),
-        Optional("include_comments"): Any(bool, None)
+        Optional("skip_repository_checks_reason"): Any(str, None),
+        Optional("skip_license_checks_reason"): Any(str, None),
+        Optional("skip_registry_checks_reason"): Any(str, None),
+        Optional("skip_citation_checks_reason"): Any(str, None),
+        Optional("skip_checklist_checks_reason"): Any(str, None),
+        Optional("ignore_commented_badges"): Any(bool, None)
     }
 
 For example, the following is a valid configuration file document:
 
 .. code:: yaml
 
-    force_registry: true  # It is good practice to add an explanation
-                          # of why you chose to set the state manually
+    ## Uncomment a line if you want to skip a given category of checks
+
+    #skip_repository_checks_reason: <reason for skipping goes here>
+    #skip_license_checks_reason: <reason for skipping goes here>
+    #skip_registry_checks_reason: <reason for skipping goes here>
+    #skip_citation_checks_reason: <reason for skipping goes here>
+    skip_checklist_checks_reason: "I'm using the Codacy dashboard to guide my development"
+
+    ignore_commented_badges: false
+
 
 The manual override will be reflected in the output, as follows:
 
-.. code:: shell
+.. code:: console
 
     (1/5) repository
           ✓ has_open_repository
     (2/5) license
           ✓ has_license
-    (3/5) registry: force True
+    (3/5) registry
+          × has_ascl_badge
+          × has_bintray_badge
+          × has_conda_badge
+          × has_cran_badge
+          × has_crates_badge
+          × has_maven_badge
+          × has_npm_badge
+          ✓ has_pypi_badge
+          × has_rsd_badge
+          × is_on_github_marketplace
     (4/5) citation
           × has_citation_file
-          × has_citationcff_file
+          ✓ has_citationcff_file
           × has_codemeta_file
-          × has_zenodo_badge
-          × has_zenodo_metadata_file
+          ✓ has_zenodo_badge
+          ✓ has_zenodo_metadata_file
     (5/5) checklist
-          × has_core_infrastructures_badge
+          ✓ skipped (reason: I'm using the Codacy dashboard to guide my development)
 
 Contributing
 ------------

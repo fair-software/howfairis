@@ -10,15 +10,22 @@ with open("README.rst", "rt", encoding="UTF-8") as readme_file:
 setup(
     name="howfairis",
     entry_points={
-        "console_scripts": ["howfairis=howfairis.cli:cli"],
+        "console_scripts": ["howfairis=howfairis.cli.cli:cli"],
     },
-    version="0.12.0",
+    version="0.13.0",
     description="Python package to analyze compliance with fair-software.eu recommendations",
     long_description=readme + "\n\n",
     author="https://github.com/jspaaks",
     author_email="j.spaaks@esciencecenter.nl",
     url="https://github.com/fair-software/howfairis",
-    packages=["howfairis", "howfairis.mixins"],
+    packages=[
+        "howfairis",
+        "howfairis.cli",
+        "howfairis.exceptions",
+        "howfairis.mixins",
+        "howfairis.requesting",
+        "howfairis.workarounds"
+    ],
     include_package_data=True,
     license="Apache Software License 2.0",
     zip_safe=False,
@@ -32,16 +39,18 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.9"
     ],
     test_suite="tests",
     install_requires=[
-        "beautifulsoup4>=4",
-        "click>=7",
-        "colorama>=0",
-        "ruamel.yaml>=0.16",
-        "requests>=2",
-        "voluptuous>=0.11"
+        "backoff == 1.*",
+        "beautifulsoup4 == 4.*",
+        "click == 7.*",
+        "colorama == 0.*",
+        "ratelimit == 2.*",
+        "requests == 2.*",
+        "ruamel.yaml == 0.16.*",
+        "voluptuous == 0.11.*"
     ],
     setup_requires=[
     ],
@@ -49,22 +58,22 @@ setup(
     ],
     extras_require={
         "dev": [
-            "prospector[with_pyroma]",
-            "yapf",
             "bumpversion",
-            "pytest",
-            "pytest-cov",
+            "prospector[with_pyroma]",
             "pycodestyle",
+            "pytest-cov",
             "pytest-runner",
-            "requests_mock",
-            "sphinx",
-            "sphinx_rtd_theme",
+            "pytest",
             "recommonmark",
+            "requests_mock",
+            "sphinx_rtd_theme",
             "sphinx-click",
+            "sphinx",
+            "yapf"
         ],
         "publishing": [
             "twine",
-            "wheel",
+            "wheel"
         ]
     },
     data_files=[]
