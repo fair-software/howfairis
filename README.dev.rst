@@ -129,7 +129,7 @@ In a new terminal, without an activated virtual environment or a venv3 directory
     pip install --no-cache-dir .
     pip install --no-cache-dir .[publishing]
     
-    # clean up any existing stuff
+    # clean up any previously generated artefacts 
     rm -rf howfairis.egg-info
     rm -rf dist
     
