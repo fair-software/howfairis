@@ -6,9 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0] - 2021-Mar-02
+
 ### Added
-- Compliance.color() [#301](https://github.com/fair-software/howfairis/issues/301)
-- Compliance.badge_image_url() [#304](https://github.com/fair-software/howfairis/issues/304)
+
+- Can now ask instances of `Compliance` for their color [#301](https://github.com/fair-software/howfairis/issues/301)
+- Can now ask instances of `Compliance` for their badge image url [#304](https://github.com/fair-software/howfairis/issues/304)
+- Now optionally uses authenticated requests when making requests to github.com and gitlab.com 
+- Rate limits are now configurable and use exponential backoff and retry (adds [ratelimit](https://pypi.org/project/ratelimit/) and [backoff](https://pypi.org/project/backoff/) dependencies)
+- Now warns about GitHub's caching when using READMEs that were recently changed
+- Directory structure of tests was updated for conceptually more meaningful scenarios, improved consistency between platforms, and directory-level mocked API calls using `pytest`'s standard `conftest.py` pattern
+- More tests
 
 ## [0.13.0] - 2021-Feb-18
 
@@ -44,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 We started to keep a changelog after this release.
 
 
-[Unreleased]: https://github.com/fair-software/howfairis/compare/0.13.0...HEAD
+[Unreleased]: https://github.com/fair-software/howfairis/compare/0.14.0...HEAD
+[0.14.0]: https://github.com/fair-software/howfairis/compare/0.13.0...0.14.0
 [0.13.0]: https://github.com/fair-software/howfairis/compare/0.12.0...0.13.0
 [0.12.0]: https://github.com/fair-software/howfairis/releases/tag/0.12.0
