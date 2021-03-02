@@ -1,7 +1,7 @@
 import pytest
+from howfairis import Compliance
 from howfairis.readme import Readme
 from howfairis.readme_format import ReadmeFormat
-from howfairis import Compliance
 
 
 def test_get_compliance():
