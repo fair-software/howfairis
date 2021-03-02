@@ -57,3 +57,8 @@ class TestComplianceNoArgs(Contract):
     def test_urlencode(self, compliance_fixture):
         expected_urlstr = "%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B"
         assert compliance_fixture.urlencode() == expected_urlstr
+
+    def test_badge_image_url(self, compliance_fixture):
+        expected = "https://img.shields.io/badge/fair--software.eu-" \
+                   "%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B%20%20%E2%97%8B-red"
+        assert compliance_fixture.badge_image_url() == expected
