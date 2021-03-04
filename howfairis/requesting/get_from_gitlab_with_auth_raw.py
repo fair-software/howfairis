@@ -9,7 +9,7 @@ from ratelimit import limits
 @on_exception(expo, RateLimitException, max_tries=8)
 @limits(calls=1000, period=60)
 def get_from_gitlab_with_auth_raw(url, apikeys):
-
+    """ """
     headers = {}
 
     username = apikeys.get("gitlab-user")

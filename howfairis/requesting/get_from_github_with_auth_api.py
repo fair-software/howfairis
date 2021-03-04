@@ -2,7 +2,7 @@ import requests
 
 
 def get_from_github_with_auth_api(url, apikeys):
-
+    """ """
     headers = {
         "Accept": "application/vnd.github.v3+json"
     }

@@ -5,7 +5,7 @@ from .get_from_gitlab import get_from_gitlab
 
 
 def get_from_platform(platform: Platform, url: str, url_type: str, apikeys=None):
-
+    """ """
     if platform == Platform.GITHUB:
         return get_from_github(url, url_type, apikeys)
 

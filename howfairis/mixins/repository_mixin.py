@@ -4,8 +4,9 @@ from ..code_repository_platforms import Platform
 
 
 class RepositoryMixin:
-
+    """ """
     def check_repository(self):
+        """ """
         if not self.is_quiet:
             print("(1/5) repository")
         reason = self.skip_repository_checks_reason
@@ -21,7 +22,7 @@ class RepositoryMixin:
         return True
 
     def has_open_repository(self):
-
+        """ """
         if self.repo.platform == Platform.GITHUB:
             url = self.repo.api
         elif self.repo.platform == Platform.GITLAB:

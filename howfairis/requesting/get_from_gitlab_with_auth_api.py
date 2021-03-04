@@ -9,7 +9,7 @@ from ratelimit import limits
 @on_exception(expo, RateLimitException, max_tries=8)
 @limits(calls=2000, period=60)
 def get_from_gitlab_with_auth_api(url, apikeys):
-
+    """ """
     headers = {
         "Accept": "application/json"
     }

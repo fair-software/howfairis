@@ -27,8 +27,8 @@ class Readme:
     SEPARATOR = "%20%20"
     """this is a separator symbol used in :py:func:`get_compliance`"""
 
-    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, file_format: Optional[ReadmeFormat] = None,
-                 ignore_commented_badges: bool = True):
+    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None,
+                 file_format: Optional[ReadmeFormat] = None, ignore_commented_badges: bool = True):
 
         self.filename = filename
         self.text = text
@@ -60,7 +60,8 @@ class Readme:
         if self.text is None:
             return None
 
-        s = r"(?P<skip>^.*)" \
+        regex_string = \
+            r"(?P<skip>^.*)" \
             "(?P<base>https://img.shields.io/badge/fair--software.eu)" \
             "-" \
             "(?P<repository>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
@@ -74,7 +75,7 @@ class Readme:
             "(?P<checklist>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
             "-" \
             "(?P<color>red|orange|yellow|green)"
-        regex = re.compile(s, re.MULTILINE | re.DOTALL)
+        regex = re.compile(regex_string, re.MULTILINE | re.DOTALL)
         matched = re.match(regex, self.text)
 
         if matched is None:
