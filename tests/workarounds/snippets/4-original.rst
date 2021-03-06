@@ -13,3 +13,6 @@
 This is normal text
 
 This is more normal text
+
+..
+   Examples from https://stackoverflow.com/a/4783854
