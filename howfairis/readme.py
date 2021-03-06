@@ -47,7 +47,7 @@ class Readme:
         if self.file_format == ReadmeFormat.MARKDOWN:
             self.text = re.sub(r"<!--.*?-->", "", self.text, flags=re.DOTALL)
         if self.file_format == ReadmeFormat.RESTRUCTUREDTEXT:
-            self.text = remove_comments_with_workaround(self.text, self.filename)
+            self.text = remove_comments_with_workaround(self.text)
         return self
 
     def get_compliance(self) -> Optional[Compliance]:

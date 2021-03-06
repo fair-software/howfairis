@@ -46,6 +46,7 @@ setup(
         "beautifulsoup4 == 4.*",
         "click == 7.*",
         "colorama == 0.*",
+        "docutils == 0.16.*",
         "ratelimit == 2.*",
         "requests == 2.*",
         "ruamel.yaml == 0.16.*",
