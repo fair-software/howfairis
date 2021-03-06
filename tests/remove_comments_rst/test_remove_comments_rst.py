@@ -1,4 +1,5 @@
-from howfairis.workarounds.remove_comments_rst import remove_comments_rst
+from howfairis.readme import Readme
+from howfairis.readme_format import ReadmeFormat
 from tests.helpers.load_snippets_from_local_data import load_snippets_from_local_data
 
 
@@ -6,7 +7,8 @@ def test_1():
     rst_filename = "1-original.rst"
     snippets = load_snippets_from_local_data(__file__)
     original_text = snippets["/" + rst_filename]
-    actual_text = remove_comments_rst(original_text)
+    readme = Readme(filename=None, text=original_text, file_format=ReadmeFormat.RESTRUCTUREDTEXT)
+    actual_text = readme.text
     assert "This is a comment in rst" not in actual_text, "expected the comment to have been removed."
     assert "This is normal text" in actual_text, "expected the first paragraph with normal text to still be there."
     assert "This is more normal text" in actual_text, \
@@ -18,7 +20,8 @@ def test_2():
     rst_filename = "2-original.rst"
     snippets = load_snippets_from_local_data(__file__)
     original_text = snippets["/" + rst_filename]
-    actual_text = remove_comments_rst(original_text)
+    readme = Readme(filename=None, text=original_text, file_format=ReadmeFormat.RESTRUCTUREDTEXT)
+    actual_text = readme.text
     assert actual_text != original_text, "expected the comment to have been removed."
     assert "This is a comment in rst" not in actual_text, "expected the comment to have been removed."
     assert "This is normal text" in actual_text, "expected the first paragraph with normal text to still be there."
@@ -31,7 +34,8 @@ def test_3():
     rst_filename = "3-original.rst"
     snippets = load_snippets_from_local_data(__file__)
     original_text = snippets["/" + rst_filename]
-    actual_text = remove_comments_rst(original_text)
+    readme = Readme(filename=None, text=original_text, file_format=ReadmeFormat.RESTRUCTUREDTEXT)
+    actual_text = readme.text
     assert actual_text != original_text, "expected the comment to have been removed."
     assert "This is a comment in rst" not in actual_text, "expected the comment to have been removed."
     assert "This is normal text" in actual_text, "expected the first paragraph with normal text to still be there."
@@ -44,7 +48,8 @@ def test_4():
     rst_filename = "4-original.rst"
     snippets = load_snippets_from_local_data(__file__)
     original_text = snippets["/" + rst_filename]
-    actual_text = remove_comments_rst(original_text)
+    readme = Readme(filename=None, text=original_text, file_format=ReadmeFormat.RESTRUCTUREDTEXT)
+    actual_text = readme.text
     assert actual_text != original_text, "expected the comment to have been removed."
     assert "This is a comment in rst" not in actual_text, "expected the comment to have been removed."
     assert "This is normal text" in actual_text, "expected the first paragraph with normal text to still be there."
@@ -57,7 +62,8 @@ def test_5():
     rst_filename = "5-original.rst"
     snippets = load_snippets_from_local_data(__file__)
     original_text = snippets["/" + rst_filename]
-    actual_text = remove_comments_rst(original_text)
+    readme = Readme(filename=None, text=original_text, file_format=ReadmeFormat.RESTRUCTUREDTEXT)
+    actual_text = readme.text
     expected_text = snippets["/5-expected.rst"]
     assert actual_text != original_text, "expected the comment to have been removed."
     assert "This is a comment in rst" not in actual_text, "expected the comment to have been removed."
