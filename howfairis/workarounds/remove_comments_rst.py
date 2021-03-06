@@ -11,8 +11,9 @@ def remove_comments_rst(text):
     class CommentVisitor(GenericNodeVisitor):
         """ """
         def default_visit(self, node):
-            is_leaf = isinstance(node, Text)
-            if node.tagname != "comment" and not is_leaf:
+            if isinstance(node, Text):
+                text.append(node.parent.rawsource)
+            elif len(node.children) == 0:
                 text.append(node.rawsource)
 
         def default_departure(self, node):
@@ -22,6 +23,11 @@ def remove_comments_rst(text):
     settings = OptionParser(components=[Parser]).get_default_values()
     doc = new_document("", settings=settings)
     parser.parse(text, doc)
+
+    # remove nodes that are comments
+    doc.children = [child for child in doc.children if child.tagname != "comment"]
+
+    # cobble together the rst text from all the leaf nodes
     visitor = CommentVisitor(doc)
     text = list()
     doc.walkabout(visitor)
