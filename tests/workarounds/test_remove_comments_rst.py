@@ -1,5 +1,5 @@
-from tests.helpers.load_snippets_from_local_data import load_snippets_from_local_data
 from howfairis.workarounds.remove_comments_rst import remove_comments_rst
+from tests.helpers.load_snippets_from_local_data import load_snippets_from_local_data
 
 
 def test_1():
