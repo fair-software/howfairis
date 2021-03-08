@@ -8,6 +8,10 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 
+# Don't overwrite anything in snippets
+[tests/**/snippets/*]
+insert_final_newline = false
+
 # Matches multiple files with brace expansion notation
 # Set default charset
 [*.{js,py}]

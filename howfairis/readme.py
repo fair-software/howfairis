@@ -1,8 +1,12 @@
 import re
 from typing import Optional
+from docutils.frontend import OptionParser
+from docutils.nodes import GenericNodeVisitor
+from docutils.nodes import Text
+from docutils.parsers.rst import Parser
+from docutils.utils import new_document
 from .compliance import Compliance
 from .readme_format import ReadmeFormat
-from .workarounds.remove_comments_rst import remove_comments_rst as remove_comments_with_workaround
 
 
 class Readme:
@@ -47,7 +51,36 @@ class Readme:
         if self.file_format == ReadmeFormat.MARKDOWN:
             self.text = re.sub(r"<!--.*?-->", "", self.text, flags=re.DOTALL)
         if self.file_format == ReadmeFormat.RESTRUCTUREDTEXT:
-            self.text = remove_comments_with_workaround(self.text, self.filename)
+            self._remove_comments_rst()
+        return self
+
+    def _remove_comments_rst(self):
+        """  """
+        class CommentVisitor(GenericNodeVisitor):
+            """ """
+
+            def default_visit(self, node):
+                if isinstance(node, Text):
+                    text.append(node.parent.rawsource)
+                elif len(node.children) == 0:
+                    text.append(node.rawsource)
+
+            def default_departure(self, node):
+                pass
+
+        parser = Parser()
+        settings = OptionParser(components=[Parser]).get_default_values()
+        doc = new_document("", settings=settings)
+        parser.parse(self.text, doc)
+
+        # remove nodes that are comments
+        doc.children = [child for child in doc.children if child.tagname != "comment"]
+
+        # cobble together the rst text from all the leaf nodes
+        visitor = CommentVisitor(doc)
+        text = list()
+        doc.walkabout(visitor)
+        self.text = "\n\n".join([item for item in text if item != ""])
         return self
 
     def get_compliance(self) -> Optional[Compliance]:

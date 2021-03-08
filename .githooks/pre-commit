@@ -27,17 +27,5 @@ if [ $? != "0" ]; then
     exit 1
 fi
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-echo "Starting pylint analysis using configuration from .pylintrc..."
-
-# quietly run pylint
-pylint --rcfile=.pylintrc howfairis 1>/dev/null
-
-if [ $? != "0" ]; then
-    echo "Commit aborted. Run 'pylint --rcfile=.pylintrc howfairis' to see what's wrong."
-    exit 1
-fi
-
-
 echo "Pre-commit checks completed successfully."
 exit 0
