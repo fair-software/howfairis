@@ -10,6 +10,9 @@
 ..
    |even| this:: !
 
+.. .. |pypi badge| image:: https://img.shields.io/pypi/v/howfairis.svg?colorB=blue
+..    :target: https://pypi.python.org/pypi/howfairis/
+
 This is normal text
 
 This is more normal text
