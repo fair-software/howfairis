@@ -60,7 +60,9 @@ class Readme:
             """ """
 
             def default_visit(self, node):
-                if isinstance(node, Text):
+                if node.tagname == "comment":
+                    return
+                if isinstance(node, Text) and node.parent.tagname != "comment":
                     text.append(node.parent.rawsource)
                 elif len(node.children) == 0:
                     text.append(node.rawsource)
@@ -72,9 +74,6 @@ class Readme:
         settings = OptionParser(components=[Parser]).get_default_values()
         doc = new_document("", settings=settings)
         parser.parse(self.text, doc)
-
-        # remove nodes that are comments
-        doc.children = [child for child in doc.children if child.tagname != "comment"]
 
         # cobble together the rst text from all the leaf nodes
         visitor = CommentVisitor(doc)
