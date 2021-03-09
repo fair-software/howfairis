@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.1] - 2021-Mar-09
+
+### Added
+
+- Describe how to get api keys [#319](https://github.com/fair-software/howfairis/issues/319)
+- Dont show cant-remove-comment warning for rst file without comments [#272](https://github.com/fair-software/howfairis/issues/272)
+
 ## [0.14.0] - 2021-Mar-02
 
 ### Added
@@ -52,7 +59,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 We started to keep a changelog after this release.
 
 
-[Unreleased]: https://github.com/fair-software/howfairis/compare/0.14.0...HEAD
+[Unreleased]: https://github.com/fair-software/howfairis/compare/0.14.1...HEAD
+[0.14.1]: https://github.com/fair-software/howfairis/compare/0.14.0...0.14.1
 [0.14.0]: https://github.com/fair-software/howfairis/compare/0.13.0...0.14.0
 [0.13.0]: https://github.com/fair-software/howfairis/compare/0.12.0...0.13.0
 [0.12.0]: https://github.com/fair-software/howfairis/releases/tag/0.12.0
