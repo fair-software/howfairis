@@ -57,6 +57,7 @@ setup(
             "bumpversion",
             "prospector[with_pyroma]",
             "pycodestyle",
+            "pygments",
             "pytest-cov",
             "pytest-runner",
             "pytest",
