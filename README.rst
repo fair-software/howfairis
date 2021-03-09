@@ -333,7 +333,7 @@ The format of the environment variable values are:
   export APIKEY_GITHUB=<user who made the token>:<personal access token>
   export APIKEY_GITLAB=<user who made the token>:<personal access token>
 
-Your personal access token should be created on `GitHub <https://github.com/settings/tokens>`_ and `GitLab <https://gitlab.com/-/profile/personal_access_tokens>`_ settings pages.
+Generation of personal access tokens are explained on `GitHub documentation <https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token>`_ and `GitLab documentation <https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#creating-a-personal-access-token>`_ .
 No scopes have to be selected, being authenticated is enough to get higher rate limit.
 
 Contributing
