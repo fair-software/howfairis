@@ -11,7 +11,7 @@ setup(
     entry_points={
         "console_scripts": ["howfairis=howfairis.cli.cli:cli"],
     },
-    version="0.13.0",
+    version="0.14.0",
     description="Python package to analyze compliance with fair-software.eu recommendations",
     long_description=readme + "\n\n",
     author="https://github.com/jspaaks",
@@ -22,6 +22,7 @@ setup(
         "howfairis.cli",
         "howfairis.exceptions",
         "howfairis.mixins",
+        "howfairis.requesting",
         "howfairis.workarounds"
     ],
     include_package_data=True,
@@ -37,16 +38,19 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.9"
     ],
     test_suite="tests",
     install_requires=[
-        "beautifulsoup4>=4",
-        "click>=7",
-        "colorama>=0",
-        "ruamel.yaml>=0.16",
-        "requests>=2",
-        "voluptuous>=0.11"
+        "backoff == 1.*",
+        "beautifulsoup4 == 4.*",
+        "click == 7.*",
+        "colorama == 0.*",
+        "docutils == 0.16.*",
+        "ratelimit == 2.*",
+        "requests == 2.*",
+        "ruamel.yaml == 0.16.*",
+        "voluptuous == 0.11.*"
     ],
     setup_requires=[
     ],
@@ -66,11 +70,11 @@ setup(
             "sphinx_rtd_theme",
             "sphinx-click",
             "sphinx",
-            "yapf",
+            "yapf"
         ],
         "publishing": [
             "twine",
-            "wheel",
+            "wheel"
         ]
     },
     data_files=[]

@@ -16,6 +16,9 @@ Development install
 
     # activate virtualenv
     source venv3/bin/activate
+    
+    # make sure to have a recent version of pip
+    pip install --upgrade pip 
 
     # (from the project root directory)
     # install howfairis as an editable package
@@ -109,14 +112,28 @@ In a new terminal, without an activated virtual environment or a venv3 directory
 
 .. code:: shell
 
+    # prepare a new directory
     cd $(mktemp -d --tmpdir howfairis.XXXXXX)
+    
+    # fresh git clone ensures the release has the state of origin/main branch
     git clone https://github.com/fair-software/howfairis.git .
+    
+    # prepare a clean virtual environment and activate it
     python3 -m venv venv3
     source venv3/bin/activate
+    
+    # make sure to have a recent version of pip
+    pip install --upgrade pip 
+
+    # install runtime dependencies and publishing dependencies
     pip install --no-cache-dir .
     pip install --no-cache-dir .[publishing]
+    
+    # clean up any previously generated artefacts 
     rm -rf howfairis.egg-info
     rm -rf dist
+    
+    # create the source distribution and the wheel
     python setup.py sdist bdist_wheel
 
     # upload to test pypi instance (requires credentials)

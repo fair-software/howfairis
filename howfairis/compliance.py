@@ -59,8 +59,8 @@ class Compliance:
         Returns: A string
         """
         compliance_unicode = [None] * 5
-        for i, c in enumerate(self._state):
-            if c is True:
+        for i, is_compliant in enumerate(self._state):
+            if is_compliant:
                 compliance_unicode[i] = Compliance.COMPLIANT_SYMBOL
             else:
                 compliance_unicode[i] = Compliance.NONCOMPLIANT_SYMBOL
@@ -75,8 +75,27 @@ class Compliance:
         Returns:
             Badge image link or None when format of README is unsupported.
         """
-        score = self.count(True)
+        badge_url = self.badge_image_url()
+        if readme_file_format == ReadmeFormat.RESTRUCTUREDTEXT:
+            return ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
+        if readme_file_format == ReadmeFormat.MARKDOWN:
+            return "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
 
+        return None
+
+    def badge_image_url(self) -> str:
+        """FAIR software badge image URL"""
+        color_string = self.color()
+        compliance_string = self.urlencode()
+        return "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(compliance_string, color_string)
+
+    def color(self) -> str:
+        """Traffic light color for badge based on compliance count
+
+        Returns:
+            CSS friendly color name
+        """
+        score = self.count(True)
         if score in [0, 1]:
             color_string = "red"
         elif score in [2, 3]:
@@ -85,14 +104,7 @@ class Compliance:
             color_string = "yellow"
         elif score == 5:
             color_string = "green"
-
-        badge_url = "https://img.shields.io/badge/fair--software.eu-{0}-{1}".format(self.urlencode(), color_string)
-        if readme_file_format == ReadmeFormat.RESTRUCTUREDTEXT:
-            return ".. image:: {0}\n   :target: {1}".format(badge_url, "https://fair-software.eu")
-        if readme_file_format == ReadmeFormat.MARKDOWN:
-            return "[![fair-software.eu]({0})]({1})".format(badge_url, "https://fair-software.eu")
-
-        return None
+        return color_string
 
     def count(self, value=True) -> int:
         """Number of recommendations which are compliant or non-compliant

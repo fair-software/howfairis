@@ -8,7 +8,7 @@ from .repo import Repo
 
 
 __author__ = "https://github.com/jspaaks"
-__email__ = 'j.spaaks@esciencecenter.nl'
+__email__ = "j.spaaks@esciencecenter.nl"
 
 __all__ = [
     "__version__",

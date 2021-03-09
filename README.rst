@@ -2,8 +2,6 @@ howfairis
 =========
 
 |
-|
-|
 
 Python package to analyze a GitHub or GitLab repository's compliance with the
 fair-software.eu_ recommendations.
@@ -320,6 +318,23 @@ The manual override will be reflected in the output, as follows:
           ✓ has_zenodo_metadata_file
     (5/5) checklist
           ✓ skipped (reason: I'm using the Codacy dashboard to guide my development)
+
+Rate limit
+^^^^^^^^^^
+
+By default ``howfairis`` uses anonymous requests to the API of the source code platforms.
+However when a lot of repositories are checked you will exceed the rate limit of those APIs and checks will fail.
+To increase the rate limit you need to use authenticated requests.
+Your username and token can be passed to ``howfairis`` using environment variables called ``APIKEY_GITHUB`` and ``APIKEY_GITLAB``.
+The format of the environment variable values are:
+
+.. code-block:: shell
+
+  export APIKEY_GITHUB=<user who made the token>:<personal access token>
+  export APIKEY_GITLAB=<user who made the token>:<personal access token>
+
+Generation of personal access tokens are explained on `GitHub documentation <https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token>`_ and `GitLab documentation <https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#creating-a-personal-access-token>`_.
+No scopes have to be selected, being authenticated is enough to get higher rate limit.
 
 Contributing
 ------------

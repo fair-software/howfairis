@@ -2,7 +2,7 @@ from howfairis.checker import DEFAULT_CONFIG_FILENAME
 
 
 def print_feedback_about_config_args(ignore_repo_config, repo_config_filename, user_config_filename, is_quiet=False):
-
+    """  """
     if not is_quiet:
         if ignore_repo_config is True:
             print("Ignoring any configuration files on the remote.")

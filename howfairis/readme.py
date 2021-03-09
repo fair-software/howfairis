@@ -1,8 +1,12 @@
 import re
 from typing import Optional
+from docutils.frontend import OptionParser
+from docutils.nodes import GenericNodeVisitor
+from docutils.nodes import Text
+from docutils.parsers.rst import Parser
+from docutils.utils import new_document
 from .compliance import Compliance
 from .readme_format import ReadmeFormat
-from .workarounds.remove_comments_rst import remove_comments_rst as remove_comments_with_workaround
 
 
 class Readme:
@@ -27,8 +31,8 @@ class Readme:
     SEPARATOR = "%20%20"
     """this is a separator symbol used in :py:func:`get_compliance`"""
 
-    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None, file_format: Optional[ReadmeFormat] = None,
-                 ignore_commented_badges: bool = True):
+    def __init__(self, filename: Optional[str] = None, text: Optional[str] = None,
+                 file_format: Optional[ReadmeFormat] = None, ignore_commented_badges: bool = True):
 
         self.filename = filename
         self.text = text
@@ -47,7 +51,35 @@ class Readme:
         if self.file_format == ReadmeFormat.MARKDOWN:
             self.text = re.sub(r"<!--.*?-->", "", self.text, flags=re.DOTALL)
         if self.file_format == ReadmeFormat.RESTRUCTUREDTEXT:
-            self.text = remove_comments_with_workaround(self.text, self.filename)
+            self._remove_comments_rst()
+        return self
+
+    def _remove_comments_rst(self):
+        """  """
+        class CommentVisitor(GenericNodeVisitor):
+            """ """
+
+            def default_visit(self, node):
+                if node.tagname == "comment":
+                    return
+                if isinstance(node, Text) and node.parent.tagname != "comment":
+                    text.append(node.parent.rawsource)
+                elif len(node.children) == 0:
+                    text.append(node.rawsource)
+
+            def default_departure(self, node):
+                pass
+
+        parser = Parser()
+        settings = OptionParser(components=[Parser]).get_default_values()
+        doc = new_document("", settings=settings)
+        parser.parse(self.text, doc)
+
+        # cobble together the rst text from all the leaf nodes
+        visitor = CommentVisitor(doc)
+        text = list()
+        doc.walkabout(visitor)
+        self.text = "\n\n".join([item for item in text if item != ""])
         return self
 
     def get_compliance(self) -> Optional[Compliance]:
@@ -60,7 +92,8 @@ class Readme:
         if self.text is None:
             return None
 
-        s = r"(?P<skip>^.*)" \
+        regex_string = \
+            r"(?P<skip>^.*)" \
             "(?P<base>https://img.shields.io/badge/fair--software.eu)" \
             "-" \
             "(?P<repository>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
@@ -74,7 +107,7 @@ class Readme:
             "(?P<checklist>(" + Readme.COMPLIANT_SYMBOL + "|" + Readme.NONCOMPLIANT_SYMBOL + "))" \
             "-" \
             "(?P<color>red|orange|yellow|green)"
-        regex = re.compile(s, re.MULTILINE | re.DOTALL)
+        regex = re.compile(regex_string, re.MULTILINE | re.DOTALL)
         matched = re.match(regex, self.text)
 
         if matched is None:

@@ -5,7 +5,6 @@
 import random
 import pytest
 import requests
-import time
 from howfairis import Checker
 from howfairis import Repo
 from howfairis import Compliance
@@ -32,15 +31,13 @@ def get_urls(n=None):
         return urls[:n]
 
 
-@pytest.fixture(params=get_urls(10))
+@pytest.fixture(params=get_urls(5))
 def url_fixture(request):
     return request.param
 
 
 def test_heavy_handed_testing_of_rsd_urls(url_fixture):
-    print(url_fixture)
     repo = Repo(url_fixture)
     checker = Checker(repo)
     compliance = checker.check_five_recommendations()
     assert isinstance(compliance, Compliance)
-    time.sleep(20)

@@ -1,0 +1,6 @@
+skip_repository_checks_reason: I don't want repository checks
+skip_license_checks_reason: I don't want license checks
+skip_registry_checks_reason: I don't want registry checks
+skip_citation_checks_reason: I don't want citation checks
+skip_checklist_checks_reason: I don't want checklist checks
+

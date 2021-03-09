@@ -2,9 +2,17 @@ from click.testing import CliRunner
 from howfairis.cli.cli import cli
 
 
-def test_valid_url():
+def test_valid_github_url_unauthenticated():
     runner = CliRunner()
     result = runner.invoke(cli, ["https://github.com/fair-software/howfairis"])
+    expected_exit_code = str(0)
+    actual_exit_code = str(result.exit_code)
+    assert actual_exit_code == expected_exit_code
+
+
+def test_valid_gitlab_url_unauthenticated():
+    runner = CliRunner()
+    result = runner.invoke(cli, ["https://gitlab.com/jspaaks/howfairis-livetest"])
     expected_exit_code = str(0)
     actual_exit_code = str(result.exit_code)
     assert actual_exit_code == expected_exit_code
@@ -29,3 +37,10 @@ def test_no_repository():
     result = runner.invoke(cli, ["https://github.com/fair-software"])
     expected_exception = "url is not a repository"
     assert str(result.exception) == expected_exception
+
+
+def test_cli_shows_warning_for_nonexistent_path():
+    runner = CliRunner()
+    result = runner.invoke(cli, ["https://github.com/fair-software/howfairis", "--path", "this/path/does-not-exist"])
+    assert "Proceeding without it -- expect the compliance to suffer" in result.stdout, "Did not raise expected warning"
+    assert result.exit_code == 1

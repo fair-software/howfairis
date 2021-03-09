@@ -3,8 +3,11 @@ from typing import Optional
 import requests
 from .code_repository_platforms import Platform
 from .exceptions.get_default_branch_exception import GetDefaultBranchException
+from .get_apikeys_from_env_vars import get_apikeys_from_env_vars
+from .requesting.get_from_platform import get_from_platform
 
 
+# pylint: disable=too-few-public-methods
 class Repo:
     """Representation of a source code repository.
 
@@ -27,7 +30,10 @@ class Repo:
             URL has single placeholder for filename.
 
     """
+
+    # pylint: disable=too-many-instance-attributes
     def __init__(self, url: str, branch: Optional[str] = None, path: Optional[str] = None):
+
         # run assertions on user input
         Repo._check_assertions(url)
 
@@ -37,6 +43,7 @@ class Repo:
         self.path = "" if path is None else "/" + path.strip("/")
 
         # assign remaining members as needed
+        self._apikeys = get_apikeys_from_env_vars()
         self.platform = self._derive_platform()
         self.owner, self.repo = self._derive_owner_and_repo()
         self.api = self._derive_api()
@@ -61,14 +68,14 @@ class Repo:
         if self.platform == Platform.GITHUB:
             try:
                 owner, repo = self.url.replace("https://github.com", "").strip("/").split("/")[:2]
-            except ValueError as e:
-                raise ValueError("Bad value for input argument URL.") from e
+            except ValueError as ex:
+                raise ValueError("Bad value for input argument URL.") from ex
 
         elif self.platform == Platform.GITLAB:
             try:
                 owner, repo = self.url.replace("https://gitlab.com", "").strip("/").split("/")[:2]
-            except ValueError as e:
-                raise ValueError("Bad value for input argument URL.") from e
+            except ValueError as ex:
+                raise ValueError("Bad value for input argument URL.") from ex
 
         if owner == "" or repo == "":
             raise ValueError("Bad value for input argument URL.")
@@ -108,10 +115,10 @@ class Repo:
             return None
 
         # GitHub API and GitLab API work the same
-        response = requests.get(self.api)
+        response = get_from_platform(self.platform, self.api, "api", apikeys=self._apikeys)
         # If the request was successful, the next line will not raise any Exception
         try:
             response.raise_for_status()
-        except requests.HTTPError as e:
-            raise GetDefaultBranchException("Something went wrong asking the repo for its default branch.") from e
+        except requests.HTTPError as ex:
+            raise GetDefaultBranchException("Something went wrong asking the repo for its default branch.") from ex
         return response.json().get("default_branch")
