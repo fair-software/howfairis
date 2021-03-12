@@ -9,3 +9,7 @@
 
 docs/_build
 docs/apidocs
+
+
+# don't accidentally commit secrets like apikeys
+/**secret**
