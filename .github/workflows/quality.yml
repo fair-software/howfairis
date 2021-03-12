@@ -19,9 +19,9 @@ jobs:
       - name: Check style against standards using prospector
         run: prospector --zero-exit -o grouped -o pylint:pylint-report.txt
       - name: Run unit tests with coverage
-        run: pytest --cov --cov-report term --cov-report xml --junitxml=xunit-result.xml tests/
+        run: pytest --cov --cov-config=.coveragerc --cov-report html --cov-report term --cov-report xml --junitxml=coverage/xunit-result.xml
       - name: Correct coverage paths
-        run: sed -i "s+$PWD/++g" coverage.xml
+        run: sed -i "s+$PWD/++g" coverage/coverage.xml
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
