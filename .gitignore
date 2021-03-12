@@ -12,9 +12,9 @@ docs/apidocs
 
 # ignore the coverage reports generated when running pylint with coverage calculation
 /coverage/.coverage
-/coverage/htmlcov/*
 /coverage/coverage.xml
-
+/coverage/htmlcov/*
+/coverage/xunit-result.xml
 
 # don't accidentally commit secrets like apikeys
 /**secret**
