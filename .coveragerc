@@ -1,0 +1,17 @@
+[run]
+data_file = coverage/.coverage
+branch = true
+
+[paths]
+source = fairtally/
+
+[html]
+directory = coverage/htmlcov/
+
+[xml]
+output = coverage/coverage.xml
+
+[report]
+omit =
+    venv*
+    tests/*
