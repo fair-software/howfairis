@@ -77,15 +77,3 @@ def test_5():
     assert "These badges are nested deeper in the DOM than regular text:" in actual_text, \
            "expected the first paragraph with normal text to still be there."
     assert actual_text == expected_text
-
-
-def test_6():
-    rst_filename = "6-original.rst"
-    snippets = load_snippets_from_local_data(__file__)
-    original_text = snippets["/" + rst_filename]
-    readme = Readme(filename=None, text=original_text, file_format=ReadmeFormat.RESTRUCTUREDTEXT)
-    actual_text = readme.text
-    expected_text = snippets["/6-expected.rst"]
-    assert actual_text != original_text, "expected the comment to have been removed."
-    assert "This is a comment in rst" not in actual_text, "expected the comment to have been removed."
-    assert actual_text == expected_text
