@@ -18,12 +18,12 @@ fi
 echo "Starting isort analysis using configuration from setup.cfg..."
 
 # recursively run isort on howfairis/ directory, don't try to automatically fix anything
-isort --recursive --check-only howfairis
+isort --check-only howfairis
 
 if [ $? != "0" ]; then
     echo "Commit aborted."
-    echo "  Run 'isort --recursive --check-only --diff howfairis' to see what's wrong."
-    echo "  Run 'isort --recursive howfairis' to let isort fix problems automatically."
+    echo "  Run 'isort --check-only --diff howfairis' to see what's wrong."
+    echo "  Run 'isort howfairis' to let isort fix problems automatically."
     exit 1
 fi
 

@@ -62,19 +62,19 @@ Running the linters requires an activated virtualenv with the development tools 
     prospector
 
     # recursively check import style for the howfairis module only
-    isort --recursive --check-only howfairis
+    isort --check-only howfairis
 
     # recursively check import style for the howfairis module only and show
     # any proposed changes as a diff
-    isort --recursive --check-only --diff howfairis
+    isort --check-only --diff howfairis
 
     # recursively fix  import style for the howfairis module only
-    isort --recursive howfairis
+    isort howfairis
 
 .. code:: shell
 
     # requires activated virtualenv with development tools
-    prospector && isort --recursive --check-only howfairis
+    prospector && isort --check-only howfairis
 
 You can enable automatic linting with ``prospector`` and ``isort`` on commit like so:
 
