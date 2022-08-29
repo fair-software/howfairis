@@ -77,7 +77,7 @@ class Readme:
 
         # cobble together the rst text from all the leaf nodes
         visitor = CommentVisitor(doc)
-        text = list()
+        text = []
         doc.walkabout(visitor)
         self.text = "\n\n".join([item for item in text if item != ""])
         return self

@@ -10,9 +10,8 @@ def print_call_to_action(previous_compliance, current_compliance, checker, is_qu
     badge = current_compliance.calc_badge(checker.readme.file_format)
 
     if previous_compliance is None:
-        message = ("It seems you have not yet added the fair-software.eu badge to " +
-                   "your {0}. You can do so by pasting the following snippet:\n\n{1}"
-                   .format(checker.readme.filename, badge))
+        message = "It seems you have not yet added the fair-software.eu badge to " + \
+                  f"your {checker.readme.filename}. You can do so by pasting the following snippet:\n\n{badge}"
         sys_exit_code = 1
 
     elif current_compliance == previous_compliance:
@@ -20,17 +19,15 @@ def print_call_to_action(previous_compliance, current_compliance, checker, is_qu
         sys_exit_code = 0
 
     elif current_compliance.count() > previous_compliance.count():
-        message = ("Congratulations! The compliance of your repository exceeds " +
-                   "the current fair-software.eu badge in your " +
-                   "{0}. You can replace it with the following snippet:\n\n{1}"
-                   .format(checker.readme.filename, badge))
+        message = "Congratulations! The compliance of your repository exceeds " + \
+                  "the current fair-software.eu badge in your " + \
+                  f"{checker.readme.filename}. You can replace it with the following snippet:\n\n{badge}"
         sys_exit_code = 1
 
     else:
-        message = ("The compliance of your repository is different from the current " +
-                   "fair-software.eu badge in your " +
-                   "{0}. Please replace it with the following snippet:\n\n{1}"
-                   .format(checker.readme.filename, badge))
+        message = "The compliance of your repository is different from the current " + \
+                  "fair-software.eu badge in your " + \
+                  f"{checker.readme.filename}. Please replace it with the following snippet:\n\n{badge}"
         sys_exit_code = 1
 
     if not is_quiet:

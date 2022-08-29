@@ -11,7 +11,7 @@ class ChecklistMixin:
         if reason == "":
             self._print_state(check_name="skipped (no reason provided)", state=True)
             return True
-        self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        self._print_state(check_name=f"skipped (reason: {reason})", state=True)
         return True
 
     def has_core_infrastructures_badge(self):

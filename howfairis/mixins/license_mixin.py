@@ -17,7 +17,7 @@ class LicenseMixin:
         if reason == "":
             self._print_state(check_name="skipped (no reason provided)", state=True)
             return True
-        self._print_state(check_name="skipped (reason: {0})".format(reason), state=True)
+        self._print_state(check_name=f"skipped (reason: {reason})", state=True)
         return True
 
     def has_license(self):
@@ -36,7 +36,7 @@ class LicenseMixin:
             result = True
 
         if self.repo.platform == Platform.GITLAB:
-            url = "https://gitlab.com/{0}/{1}".format(self.repo.owner, self.repo.repo)
+            url = f"https://gitlab.com/{self.repo.owner}/{self.repo.repo}"
 
             try:
                 response = get_from_platform(self.repo.platform, url, "frontend", apikeys=self._apikeys)
