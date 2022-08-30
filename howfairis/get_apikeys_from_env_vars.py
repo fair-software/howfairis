@@ -15,7 +15,7 @@ def get_apikeys_from_env_vars():
     if apikey_gitlab is None:
         gitlab_user, gitlab_key = None, None
     else:
-        gitlab_user, gitlab_key = apikey_github.split(":")
+        gitlab_user, gitlab_key = apikey_gitlab.split(":")
 
     return {
         "github-key": github_key,
