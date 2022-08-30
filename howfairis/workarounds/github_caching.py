@@ -15,7 +15,7 @@ def github_caching_check(checker):
             "path": checker.readme.filename,
             "since": critical_time.strftime("%Y-%m-%dT%H:%M:%SZ")
         }
-        response = requests.get("{0}/commits".format(checker.repo.api), params=params)
+        response = requests.get(f"{checker.repo.api}/commits", params=params, timeout=10)
         if len(response.json()) > 0:
             print(("Warning: Your {0} was updated less than 5 minutes ago. The effects of this update are not " +
                    "visible yet in the calculated compliance.").format(checker.readme.filename))

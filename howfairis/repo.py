@@ -59,9 +59,9 @@ class Repo:
 
     def _derive_api(self):
         if self.platform == Platform.GITHUB:
-            api = "https://api.github.com/repos/{0}/{1}".format(self.owner, self.repo)
+            api = f"https://api.github.com/repos/{self.owner}/{self.repo}"
         elif self.platform == Platform.GITLAB:
-            api = "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(self.owner, self.repo)
+            api = f"https://gitlab.com/api/v4/projects/{self.owner}%2F{self.repo}"
         return api
 
     def _derive_owner_and_repo(self):
@@ -99,12 +99,11 @@ class Repo:
             branch = self.default_branch
 
         if self.platform == Platform.GITHUB:
-            raw_url_format_string = "https://raw.githubusercontent.com/{0}/{1}/{2}{3}" \
-                                    .format(self.owner, self.repo, branch, self.path) + "/{0}"
+            raw_url_format_string = f"https://raw.githubusercontent.com/{self.owner}/{self.repo}" + \
+                                    f"/{branch}{self.path}/{{0}}"
 
         elif self.platform == Platform.GITLAB:
-            raw_url_format_string = "https://gitlab.com/{0}/{1}/-/raw/{2}{3}" \
-                                    .format(self.owner, self.repo, branch, self.path) + "/{0}"
+            raw_url_format_string = f"https://gitlab.com/{self.owner}/{self.repo}/-/raw/{branch}{self.path}/{{0}}"
 
         return raw_url_format_string
 

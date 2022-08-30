@@ -15,4 +15,4 @@ def get_from_gitlab_with_auth_raw(url, apikeys):
     username = apikeys.get("gitlab-user")
     key = apikeys.get("gitlab-key")
 
-    return requests.get(url, headers, auth=(username, key))
+    return requests.get(url, headers, auth=(username, key), timeout=10)

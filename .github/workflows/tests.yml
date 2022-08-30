@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
-        python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
+        python-version: ['3.7', '3.8', '3.9', '3.10']
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
@@ -36,7 +36,7 @@ jobs:
         run: prospector
       - name: Check style of imports
         shell: bash
-        run: isort --check-only --recursive --diff howfairis
+        run: isort --check-only --diff howfairis
       - name: Build
         shell: bash
         run: python setup.py build

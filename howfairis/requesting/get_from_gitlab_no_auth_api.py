@@ -7,4 +7,4 @@ def get_from_gitlab_no_auth_api(url):
         "Accept": "application/json"
     }
 
-    return requests.get(url, headers)
+    return requests.get(url, headers, timeout=10)

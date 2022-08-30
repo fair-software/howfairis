@@ -114,8 +114,8 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             return Readme(filename=readme_filename, text=response.text, file_format=readme_file_format,
                           ignore_commented_badges=self.ignore_commented_badges)
 
-        print("\nDid not find a README[.md|.rst] file at {0}\nProceeding without it -- expect the"
-              " compliance to suffer.\n".format(raw_url.replace(readme_filename, "")))
+        print(f"\nDid not find a README[.md|.rst] file at {raw_url.replace(readme_filename, '')}" +
+              "\nProceeding without it -- expect the compliance to suffer.\n")
 
         return Readme(filename=None, text=None, file_format=None)
 
@@ -123,24 +123,24 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
     def _load_default_config():
         pkg_root = os.path.dirname(__file__)
         default_config_filename = os.path.join(pkg_root, "data", ".howfairis.yml")
-        with open(default_config_filename, "rt") as fid:
+        with open(default_config_filename, "rt", encoding="utf-8") as fid:
             text = fid.read()
         default_config = YAML(typ="safe").load(text)
         if default_config is None:
-            default_config = dict()
+            default_config = {}
         try:
             validate_against_schema(default_config)
         except (Invalid, MultipleInvalid):
             print("Default configuration file should follow the schema for it to be considered.")
-            return dict()
+            return {}
         return default_config
 
     def _load_repo_config(self, repo_config_filename, ignore_remote_config):
         if self.repo is None:
-            return dict()
+            return {}
 
         if ignore_remote_config is True:
-            return dict()
+            return {}
 
         raw_url = self.repo.raw_url_format_string.format(repo_config_filename)
         non_default_repo_config_filename = repo_config_filename != DEFAULT_CONFIG_FILENAME
@@ -150,29 +150,29 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
             if non_default_repo_config_filename:
-                print("Using the configuration file {0}".format(raw_url))
+                print(f"Using the configuration file {raw_url}")
         except requests.HTTPError as ex:
             if non_default_repo_config_filename:
-                raise Exception("Could not find the configuration file {0}".format(raw_url)) from ex
-            return dict()
+                raise Exception(f"Could not find the configuration file {raw_url}") from ex
+            return {}
 
         try:
             repo_config = YAML(typ="safe").load(response.text)
         except Exception as ex:
-            raise Exception("Problem loading YAML configuration from file {0}".format(raw_url)) from ex
+            raise Exception(f"Problem loading YAML configuration from file {raw_url}") from ex
 
         try:
             validate_against_schema(repo_config)
         except (Invalid, MultipleInvalid):
             print("Repository's configuration file should follow the schema for it to be considered.")
-            return dict()
+            return {}
 
         return repo_config
 
     @staticmethod
     def _load_user_config(user_config_filename):
         if user_config_filename is None:
-            return dict()
+            return {}
 
         if os.path.isabs(user_config_filename):
             path = user_config_filename
@@ -180,14 +180,14 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             path = os.path.join(os.getcwd(), user_config_filename)
 
         if not os.path.exists(path):
-            raise FileNotFoundError("{0} doesn't exist.".format(user_config_filename))
+            raise FileNotFoundError(f"{user_config_filename} doesn't exist.")
 
-        with open(user_config_filename, "rt") as fid:
+        with open(user_config_filename, "rt", encoding="utf-8") as fid:
             text = fid.read()
 
         user_config = YAML(typ="safe").load(text)
         if user_config is None:
-            user_config = dict()
+            user_config = {}
         try:
             validate_against_schema(user_config)
         except Exception as ex:
@@ -201,7 +201,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
             * config from repository
             * config from local user
         """
-        merged = dict()
+        merged = {}
         merged.update(self._default_config)
         merged.update(self._repo_config)
         merged.update(self._user_config)

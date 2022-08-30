@@ -7,7 +7,7 @@ def print_default_config(is_quiet=False):
         parent_dir = os.path.dirname(__file__)
         pkg_root = os.path.join(parent_dir, "..")
         default_config_filename = os.path.join(pkg_root, "data", ".howfairis.yml")
-        with open(default_config_filename, "rt") as fid:
+        with open(default_config_filename, "rt", encoding="utf-8") as fid:
             text = fid.read()
         print(text, end="")
     return 0

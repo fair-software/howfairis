@@ -1,6 +1,6 @@
 # YAML 1.2
 ---
-abstract: "Command line tool to to analyze compliance with the five recommendations for FAIR software from https://fair-software.eu."
+abstract: "Command line tool to analyze compliance with the five recommendations for FAIR software from https://fair-software.eu."
 authors:
   -
     affiliation: "Netherlands eScience Center"
@@ -52,7 +52,7 @@ authors:
     family-names: Verhoeven
     given-names: Stefan
     orcid: "https://orcid.org/0000-0002-5821-2060"
-cff-version: 1.2.0
+cff-version: "1.2.0"
 keywords:
   - "FAIR software"
 license: "Apache-2.0"
