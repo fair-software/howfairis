@@ -3,7 +3,7 @@ data_file = coverage/.coverage
 branch = true
 
 [paths]
-source = fairtally/
+source = howfairis/
 
 [html]
 directory = coverage/htmlcov/
