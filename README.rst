@@ -26,7 +26,7 @@ Code quality                                           |sonarcloud quality badge
 Code coverage of unit tests                            |sonarcloud coverage badge|
 DockerHub                                              |dockerhub badge|
 **GitHub Actions**
-Citation metadata consistency                          |workflow cffconvert badge|
+cffconvert                                             |workflow cffconvert badge|
 Unit tests                                             |workflow tests badge|
 Live tests (triggered manually)                        |workflow livetests badge|
 ====================================================== ============================
@@ -74,8 +74,8 @@ Live tests (triggered manually)                        |workflow livetests badge
 .. |workflow livetests badge| image:: https://github.com/fair-software/howfairis/workflows/livetests/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Alivetests
 
-.. |workflow cffconvert badge| image:: https://github.com/fair-software/howfairis/workflows/metadata%20consistency/badge.svg
-   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22metadata+consistency%22
+.. |workflow cffconvert badge| image:: https://github.com/fair-software/howfairis/workflows/cffconvert/badge.svg
+   :target: https://github.com/fair-software/howfairis/actions?query=workflow%3A%22cffconvert%22
 
 Install
 -------
