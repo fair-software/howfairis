@@ -1,5 +1,8 @@
 name: cffconvert
 
+# When the file CITATION.cff sees any changes, this workflow verifies that
+# the citation file still passes validation using cffconvert
+
 on:
   push:
     paths:
