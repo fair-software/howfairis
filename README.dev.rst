@@ -161,10 +161,11 @@ Then upload to pypi.org with:
     # FINAL STEP: upload to PyPI (requires credentials)
     twine upload dist/*
 
-GitHub
+GitHub and Zenodo
 ^^^^^^
 
-Don't forget to also make a release on GitHub.
+1. Make a release on GitHub
+1. Verify that making the GitHub release triggered Zenodo into making an archived snapshot of the release.
 
 DockerHub
 ^^^^^^^^^
