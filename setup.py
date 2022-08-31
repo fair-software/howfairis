@@ -11,7 +11,7 @@ setup(
     entry_points={
         "console_scripts": ["howfairis=howfairis.cli.cli:cli"],
     },
-    version="0.14.1",
+    version="0.14.2",
     description="Python package to analyze compliance with fair-software.eu recommendations",
     long_description=readme + "\n\n",
     author="https://github.com/jspaaks",
@@ -35,10 +35,10 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9"
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10"
     ],
     test_suite="tests",
     install_requires=[
