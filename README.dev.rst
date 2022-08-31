@@ -165,7 +165,7 @@ GitHub and Zenodo
 ^^^^^^
 
 1. Make a release on GitHub
-1. Verify that making the GitHub release triggered Zenodo into making an archived snapshot of the release.
+2. Verify that making the GitHub release triggered Zenodo into making an archived snapshot of the release.
 
 DockerHub
 ^^^^^^^^^
