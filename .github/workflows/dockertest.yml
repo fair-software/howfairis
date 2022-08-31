@@ -1,5 +1,8 @@
 name: dockertest
 
+# When a new release is published onn GitHub, this workflow check if the Docker
+# image can successfully be built from the Dockerfile
+
 on:
   release:
     types:
@@ -10,9 +13,8 @@ jobs:
     name: "build"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         name: Check out a copy of the repository
 
       - name: Build image
         run: docker build . --file Dockerfile
-
