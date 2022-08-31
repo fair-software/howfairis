@@ -177,7 +177,7 @@ To build the image, run:
     
 .. code:: shell
 
-    VERSION=<your-version>
+    VERSION=$(howfairis --version | sed 's/version: //g')
     docker tag fairsoftware/howfairis:latest fairsoftware/howfairis:${VERSION}
 
 Check that you have the tags you want with:
