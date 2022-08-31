@@ -24,8 +24,8 @@ Development install
     # install howfairis as an editable package, with development dependencies
     python3 -m pip install --no-cache-dir --editable .[dev]
 
-Afterwards check that the install directory was added to the ``PATH``
-environment variable. You should then be able to call the executable,
+Afterwards check that the install directory is present on the ``PATH``
+environment variable. If so, you should  be able to call the executable,
 like so:
 
 .. code:: shell
