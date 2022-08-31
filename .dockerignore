@@ -1,0 +1,12 @@
+# exclude all local files from the Docker context...
+*
+
+# ... except the ones listed here
+!CITATION.cff
+!howfairis
+!LICENSE
+!MANIFEST.in
+!NOTICE
+!README.rst
+!setup.cfg
+!setup.py
