@@ -6,6 +6,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- added, changed, removed of bleeding edge versus latest stable goes here
+
+## [0.14.2] - 2022-Aug-31
+
+### Added 
+
+- added support for Python 3.10
+- added timeouts to all `requests.get()` calls to avoid hanging behavior
+- added `.dockerignore` to have smaller Docker context (< 0.5 MB instead of > 120MB)
+
+### Changed
+
+- updated `isort` related commands after it dropped its argument `--recursive`
+- updated Pull Request template with specific instructions on how to create a clean testing environment and what tests to run
+- updated cffconvert workflow after changes to the cffconvert GitHub Action
+- minor changeas to the citation metadata
+- updated the Dockerfile's FROM image to a more recent version of Alpine (3.16) and a more recent version of Python (3.10.6)
+- fixed linter errors after reporting by prospector
+- fixed bug in using gitlab credentials
+
+# Removed
+
+- dropped support for Python 3.6 (now end-of-life)
+- removed `.zenodo.json` metadata file, Zenodo does not use it when you have a `CITATION.cff` file
+
 ## [0.14.1] - 2021-Mar-09
 
 ### Added
@@ -58,9 +83,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 We started to keep a changelog after this release.
 
-
-[Unreleased]: https://github.com/fair-software/howfairis/compare/0.14.1...HEAD
-[0.14.1]: https://github.com/fair-software/howfairis/compare/0.14.0...0.14.1
-[0.14.0]: https://github.com/fair-software/howfairis/compare/0.13.0...0.14.0
-[0.13.0]: https://github.com/fair-software/howfairis/compare/0.12.0...0.13.0
+[Unreleased]: https://github.com/fair-software/howfairis/compare/0.14.2..HEAD
+[0.14.2]: https://github.com/fair-software/howfairis/compare/0.14.1..0.14.2
+[0.14.1]: https://github.com/fair-software/howfairis/compare/0.14.0..0.14.1
+[0.14.0]: https://github.com/fair-software/howfairis/compare/0.13.0..0.14.0
+[0.13.0]: https://github.com/fair-software/howfairis/compare/0.12.0..0.13.0
 [0.12.0]: https://github.com/fair-software/howfairis/releases/tag/0.12.0
