@@ -17,14 +17,12 @@ Development install
     # activate virtualenv
     source venv3/bin/activate
     
-    # make sure to have a recent version of pip
-    pip install --upgrade pip 
+    # make sure to have a recent version of pip, wheel, setuptools
+    python3 -m pip install --upgrade pip wheel setuptools
 
     # (from the project root directory)
-    # install howfairis as an editable package
-    pip install --no-cache-dir --editable .
-    # install development dependencies
-    pip install --no-cache-dir --editable .[dev]
+    # install howfairis as an editable package, with development dependencies
+    python3 -m pip install --no-cache-dir --editable .[dev]
 
 Afterwards check that the install directory was added to the ``PATH``
 environment variable. You should then be able to call the executable,
@@ -122,19 +120,18 @@ In a new terminal, without an activated virtual environment or a venv3 directory
     python3 -m venv venv3
     source venv3/bin/activate
     
-    # make sure to have a recent version of pip
-    pip install --upgrade pip 
+    # make sure to have a recent version of pip, wheel, setuptools
+    python3 -m pip install --upgrade pip wheel setuptools
 
     # install runtime dependencies and publishing dependencies
-    pip install --no-cache-dir .
-    pip install --no-cache-dir .[publishing]
+    python3 -m pip install --no-cache-dir .[publishing]
     
     # clean up any previously generated artefacts 
     rm -rf howfairis.egg-info
     rm -rf dist
     
     # create the source distribution and the wheel
-    python setup.py sdist bdist_wheel
+    python3 setup.py sdist bdist_wheel
 
     # upload to test pypi instance (requires credentials)
     twine upload --repository-url https://test.pypi.org/legacy/ dist/*
