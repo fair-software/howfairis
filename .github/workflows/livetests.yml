@@ -1,5 +1,8 @@
 name: livetests
 
+# This workflow is triggered manually and runs howfairis on some
+# live repositories on GitHub and GitLab
+
 on:
   workflow_dispatch:
 
