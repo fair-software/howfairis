@@ -1,13 +1,15 @@
 name: dockertest
 
-# When a new release is published onn GitHub, this workflow check if the Docker
-# image can successfully be built from the Dockerfile
+# When a new release is published on GitHub, this workflow checks if the Docker
+# image can successfully be built from the Dockerfile. The workflow can also be
+# triggered manually
 
 on:
   release:
     types:
       - published
-
+  workflow_dispatch:
+  
 jobs:
   docker:
     name: "build"
