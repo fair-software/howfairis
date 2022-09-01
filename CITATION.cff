@@ -58,6 +58,7 @@ authors:
     given-names: Andrew
     orcid: "https://orcid.org/0000-0002-8459-7048"
 cff-version: "1.2.0"
+date-released: "2022-09-01"
 keywords:
   - "FAIR software"
 license: "Apache-2.0"
