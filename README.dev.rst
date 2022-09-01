@@ -187,6 +187,18 @@ Check that you have the tags you want with:
 
     docker images
 
+Test the docker image with:
+
+.. code:: shell
+
+    docker run -ti --rm fairsoftware/howfairis:latest --help
+    docker run -ti --rm fairsoftware/howfairis:latest --version
+    docker run -ti --rm fairsoftware/howfairis:latest https://github.com/fair-software/howfairis-livetest
+    docker run -ti --rm fairsoftware/howfairis:latest https://gitlab.com/jspaaks/howfairis-livetest
+    
+    # check what's inside the docker container with
+    docker run -ti --rm --entrypoint /bin/sh fairsoftware/howfairis:latest
+
 To push the image to DockerHub, run:
 
 .. code:: shell
