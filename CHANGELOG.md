@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - added, changed, removed of bleeding edge versus latest stable goes here
 
-## [0.14.2] - 2022-Aug-31
+## [0.14.2] - 2022-Sep-1
 
 ### Added 
 
