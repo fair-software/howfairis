@@ -4,7 +4,7 @@ from colorama import init as init_terminal_colors
 from howfairis.__version__ import __version__
 from howfairis.checker import DEFAULT_CONFIG_FILENAME
 from howfairis.checker import Checker
-from howfairis.cli.print_call_to_action import print_call_to_action
+from howfairis.cli.print_call_to_action import print_call_to_action, automate_call_to_action
 from howfairis.cli.print_default_config import print_default_config
 from howfairis.cli.print_feedback_about_config_args import print_feedback_about_config_args
 from howfairis.cli.print_feedback_about_repo_args import print_feedback_about_repo_args
@@ -14,6 +14,8 @@ from howfairis.repo import Repo
 
 # pylint: disable=too-many-arguments
 @click.command(context_settings=dict(help_option_names=["-h", "--help"]))
+@click.option("-a", "--auto", default=False, is_flag=True,
+              help="Automatically update fair-software.eu badge in local README.")
 @click.option("-b", "--branch", default=None, type=click.STRING,
               help="Which git branch to use. Also accepts other git references like SHA or tag.")
 @click.option("-u", "--user-config-filename", default=None, type=click.Path(),
@@ -37,7 +39,7 @@ from howfairis.repo import Repo
 @click.option("-v", "--version", default=False, is_flag=True,
               help="Show version and exit.")
 @click.argument("url", required=False)
-def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=None, path=None,
+def cli(url=None, auto=False, branch=None, user_config_filename=None, repo_config_filename=None, path=None,
         show_trace=False, version=False, ignore_repo_config=False, show_default_config=False, quiet=False):
 
     """Determine compliance with recommendations from fair-software.eu for the repository at URL. The following
@@ -70,7 +72,10 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
     previous_compliance = checker.readme.get_compliance()
     current_compliance = checker.check_five_recommendations()
 
-    sys.exit(print_call_to_action(previous_compliance, current_compliance, checker, is_quiet=quiet))
+    if not auto:
+        sys.exit(print_call_to_action(previous_compliance, current_compliance, checker, is_quiet=quiet))
+    else:
+        sys.exit(automate_call_to_action(previous_compliance, current_compliance, checker, is_quiet=quiet))
 
 
 if __name__ == "__main__":
