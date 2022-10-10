@@ -57,10 +57,11 @@ def automate_call_to_action(previous_compliance, current_compliance, checker, is
     else:
         message = "Repository has a fair-software.eu badge, but current compliance does not match the badge\n" + \
                   f"Updating badge image URL in {checker.readme.filename}."
-        with open(checker.readme.filename, "r") as readme:
+        with open(checker.readme.filename, "r", encoding="utf8") as readme:
             readme_contents = readme.read()
-        readme_contents = readme_contents.replace(previous_compliance.badge_image_url(), current_compliance.badge_image_url())
-        with open(checker.readme.filename, "w") as readme:
+        readme_contents = readme_contents.replace(previous_compliance.badge_image_url(),
+                                                  current_compliance.badge_image_url())
+        with open(checker.readme.filename, "w", encoding="utf8") as readme:
             readme.write(readme_contents)
         sys_exit_code = 0
 

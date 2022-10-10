@@ -12,7 +12,7 @@ from howfairis.cli.print_version import print_version
 from howfairis.repo import Repo
 
 
-# pylint: disable=too-many-arguments
+# pylint: disable=too-many-arguments,too-many-locals
 @click.command(context_settings=dict(help_option_names=["-h", "--help"]))
 @click.option("-a", "--auto", default=False, is_flag=True,
               help="Automatically update fair-software.eu badge in local README.")
