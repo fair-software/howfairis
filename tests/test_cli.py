@@ -1,7 +1,9 @@
+import os
 from click.testing import CliRunner
 from requests_mock import Mocker
+from howfairis import Compliance
 from howfairis.cli.cli import cli
-
+from howfairis.cli.print_call_to_action import automate_call_to_action
 
 def test_matching_badge(requests_mock: Mocker):
     owner = "fair-software"
@@ -96,3 +98,43 @@ def test_missing_badge(requests_mock: Mocker):
     runner = CliRunner()
     response = runner.invoke(cli, [url])
     assert response.exit_code == 1
+
+
+def test_automate_call_to_action():
+
+    test_filename = "test-automate-call-to-action--readme.md"
+
+    # Mock the Checker
+    class Repo:
+        platform = "test"
+    class Readme:
+        filename = test_filename
+        text = 1
+    class Checker:
+        readme = Readme
+        repo = Repo
+
+    previous_compliance = Compliance(False, False, False, False, False)
+    current_compliance = Compliance(False, False, False, False, True)
+
+    try:
+        test_README_string = previous_compliance.badge_image_url()
+        with open(test_filename, "w") as test_file:
+            test_file.write(test_README_string)
+
+        automate_call_to_action(previous_compliance, current_compliance, Checker)
+
+        with open(test_filename, "r") as test_file:
+            result = test_file.read()
+        assert result == current_compliance.badge_image_url()
+
+    finally:
+        # cleanup the temporary file test_filename
+        try:
+            os.remove(test_filename)
+        except OSError as e:
+            # if the file does not exist, ignore the exception
+            if e.errno != errno.ENOENT:
+                raise e
+
+
