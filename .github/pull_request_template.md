@@ -1,10 +1,27 @@
-**List of related issues or pull requests**
+## Checklist
 
-Refs: #ISSUE_NUMBER
+- [ ] Code follows the [contributing guidelines](CONTRIBUTING.rst) of the project
+- [ ] This PR solves an existing issue and provided solution was discussed
+- [ ] The fix has been locally tested
+- [ ] Code follows the project's coding standards
+- [ ] Unit tests covering the new feature have been added
+- [ ] All existing tests pass
+- [ ] The documentation has been updated to reflect the new feature
 
-**Describe the changes made in this pull request**
+## List of related issues or pull requests
 
-**Instructions to review the pull request**
+- #ISSUE_NUMBER
+- #ISSUE_NUMBER
+
+## Briefly describe the changes made in this pull request
+
+
+## Additional Notes
+
+Any additional information or context relevant to this PR.
+
+
+## Instructions to review the pull request
 
 ```shell
 # make a new temporary directory and cd into it
