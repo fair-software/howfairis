@@ -49,6 +49,10 @@ class Contract(ABC):
         pass
 
     @abstractmethod
+    def test_has_conan_badge(self, mocked_context: Mocker):
+        pass
+
+    @abstractmethod
     def test_has_conda_badge(self, mocked_context: Mocker):
         pass
 

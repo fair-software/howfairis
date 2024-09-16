@@ -14,6 +14,7 @@ class RegistryMixin:
             results = [
                 self.has_ascl_badge(),
                 self.has_bintray_badge(),
+                self.has_conan_badge(),
                 self.has_conda_badge(),
                 self.has_cran_badge(),
                 self.has_crates_badge(),
@@ -41,6 +42,11 @@ class RegistryMixin:
         """ """
         regexes = [r"https://api\.bintray\.com/packages/.*/.*/.*/images/download\.svg",
                    r"https://img\.shields\.io/bintray/.*"]
+        return self._eval_regexes(regexes)
+
+    def has_conan_badge(self):
+        """ """
+        regexes = [r"https://img\.shields\.io/conan/.*"]
         return self._eval_regexes(regexes)
 
     def has_conda_badge(self):
