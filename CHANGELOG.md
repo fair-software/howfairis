@@ -8,9 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - added, changed, removed of bleeding edge versus latest stable goes here
 
+### Changed
+
+- update supported Python versions to 3.11, 3.12, 3.13 [#372](https://github.com/fair-software/howfairis/pull/372)
+
 ## [0.14.2] - 2022-Sep-1
 
-### Added 
+### Added
 
 - added support for Python 3.10
 - added timeouts to all `requests.get()` calls to avoid hanging behavior
@@ -44,7 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Can now ask instances of `Compliance` for their color [#301](https://github.com/fair-software/howfairis/issues/301)
 - Can now ask instances of `Compliance` for their badge image url [#304](https://github.com/fair-software/howfairis/issues/304)
-- Now optionally uses authenticated requests when making requests to github.com and gitlab.com 
+- Now optionally uses authenticated requests when making requests to github.com and gitlab.com
 - Rate limits are now configurable and use exponential backoff and retry (adds [ratelimit](https://pypi.org/project/ratelimit/) and [backoff](https://pypi.org/project/backoff/) dependencies) [PR#286](https://github.com/fair-software/howfairis/pull/286)
 - Now warns about GitHub's caching when using READMEs that were recently changed [PR#153](https://github.com/fair-software/howfairis/pull/153)
 - Directory structure of tests was updated for conceptually more meaningful scenarios, improved consistency between platforms, and directory-level mocked API calls using `pytest`'s standard `conftest.py` pattern. [PR#285](https://github.com/fair-software/howfairis/pull/285)
