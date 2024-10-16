@@ -82,6 +82,11 @@ class TestCheckerWithSkipReasonsUserConfig(Contract):
             checker = get_checker()
             assert checker.has_codemeta_file() is False
 
+    def test_has_conan_badge(self, mocker):
+        with mocker:
+            checker = get_checker()
+            assert checker.has_conan_badge() is False
+
     def test_has_conda_badge(self, mocker):
         with mocker:
             checker = get_checker()
