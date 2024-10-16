@@ -77,7 +77,8 @@ class RegistryMixin:
         """ """
         regexes = [r"https://badgen.net/maven/v/maven-central/.*",
                    r"https://img\.shields\.io/maven-central/.*",
-                   r"https://img\.shields\.io/maven-metadata/.*"]
+                   r"https://img\.shields\.io/maven-metadata/.*",
+                   r"https://maven-badges.herokuapp.com/maven-central/.*"]
         return self._eval_regexes(regexes)
 
     def has_npm_badge(self):
