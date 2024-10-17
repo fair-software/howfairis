@@ -35,23 +35,22 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10"
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13"
     ],
     test_suite="tests",
     install_requires=[
-        "backoff == 1.*",
-        "beautifulsoup4 == 4.*",
-        "click == 7.*",
-        "colorama == 0.*",
-        "docutils == 0.16.*",
-        "pygments == 2.*",
-        "ratelimit == 2.*",
-        "requests == 2.*",
-        "ruamel.yaml == 0.16.*",
-        "voluptuous == 0.11.*"
+        "backoff==2.2.*",
+        "beautifulsoup4==4.12.*",
+        "click==8.1.*",
+        "colorama==0.4.*",
+        "docutils==0.21.*",
+        "Pygments==2.18.*",
+        "ratelimit==2.2.*",
+        "requests==2.32.*",
+        "ruamel.yaml==0.18.*",
+        "voluptuous==0.15.*"
     ],
     setup_requires=[
     ],

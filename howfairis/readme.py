@@ -65,7 +65,9 @@ class Readme:
                 if isinstance(node, Text) and node.parent.tagname != "comment":
                     text.append(node.parent.rawsource)
                 elif len(node.children) == 0:
-                    text.append(node.rawsource)
+                    if hasattr(node, 'rawsource'):
+                        text.append(node.rawsource)
+
 
             def default_departure(self, node):
                 pass
