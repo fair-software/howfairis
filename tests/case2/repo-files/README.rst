@@ -24,3 +24,5 @@
       :target: https://npmjs.org/package/cnpm
 12. .. image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
       :target: https://fair-software.eu
+13. .. image:: https://img.shields.io/conan/v/vir-simd
+      :target: https://conan.io/center/recipes/vir-simd

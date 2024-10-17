@@ -133,6 +133,7 @@ looks something like this:
     (3/5) registry
           × has_ascl_badge
           × has_bintray_badge
+          × has_conan_badge
           × has_conda_badge
           × has_cran_badge
           × has_crates_badge
@@ -302,6 +303,7 @@ The manual override will be reflected in the output, as follows:
     (3/5) registry
           × has_ascl_badge
           × has_bintray_badge
+          × has_conan_badge
           × has_conda_badge
           × has_cran_badge
           × has_crates_badge
