@@ -1,4 +1,3 @@
-from urllib.parse import urlparse
 import requests
 from bs4 import BeautifulSoup
 from howfairis.exceptions.external_api_exception import ExternalAPIException
@@ -74,17 +73,14 @@ class LicenseMixin:
     def is_reuse_compliant(self):
         """ """
 
-        parsed_url = urlparse(self.repo.url)
-        reuse_url = f"https://api.reuse.software/status/{parsed_url.netloc}{parsed_url.path}.json"
-
         try:
-            response = get_from_external_no_auth_api(reuse_url)
+            response = get_from_external_no_auth_api(self.repo.reuse_url)
 
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
         except requests.HTTPError as exc:
             raise ExternalAPIException(
-                "Something went checking reuse compliance."
+                "Something went wrong when checking the reuse compliance."
             ) from exc
 
         # check if the repository is compliant
