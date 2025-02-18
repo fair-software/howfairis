@@ -78,14 +78,10 @@ class LicenseMixin:
 
             # If the response was successful, no Exception will be raised
             response.raise_for_status()
-        except requests.HTTPError as exc:
-            raise ExternalAPIException(
-                "Something went wrong when checking the reuse compliance."
-            ) from exc
-
-        # check if the repository is compliant
-        if response.json()["status"] == "compliant":
-            self._print_state(check_name="is_reuse_compliant", state=True)
-            return True
-        self._print_state(check_name="is_reuse_compliant", state=False)
-        return False
+            # check if the repository is compliant
+            if response.json()["status"] == "compliant":
+                self._print_state(check_name="is_reuse_compliant", state=True)
+                return True
+        except requests.HTTPError:
+            self._print_state(check_name="is_reuse_compliant", state=False)
+            return False
