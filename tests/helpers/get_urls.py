@@ -1,4 +1,5 @@
 from howfairis.code_repository_platforms import Platform
+from urllib.parse import urlparse
 
 
 def get_urls(code_repository_platform, owner, repo):
@@ -17,4 +18,9 @@ def get_urls(code_repository_platform, owner, repo):
         api_url = "https://gitlab.com/api/v4/projects/{0}%2F{1}".format(owner, repo)
         raw_url = "https://gitlab.com/{0}/{1}/-/raw".format(owner, repo)
 
-    return repo_url, raw_url, api_url
+    parsed_url = urlparse(repo_url)
+    reuse_url = (
+        f"https://api.reuse.software/status/{parsed_url.netloc}{parsed_url.path}.json"
+    )
+
+    return repo_url, raw_url, api_url, reuse_url
