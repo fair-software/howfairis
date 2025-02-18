@@ -7,11 +7,12 @@ from tests.helpers import get_urls
 
 @pytest.fixture
 def mocker() -> Mocker:
-
     """This mock aims to reflect the state of a fictious repository at
     https://github.com/owner-doesnt-exist/repo-doesnt-exist"""
 
     with requests_mock.Mocker() as m:
-        _, _, api = get_urls(Platform.GITHUB, owner="owner-doesnt-exist", repo="repo-doesnt-exist")
+        _, _, api, _ = get_urls(
+            Platform.GITHUB, owner="owner-doesnt-exist", repo="repo-doesnt-exist"
+        )
         m.get(api, status_code=404)
         return m
