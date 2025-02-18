@@ -1,5 +1,5 @@
-from howfairis.code_repository_platforms import Platform
 from urllib.parse import urlparse
+from howfairis.code_repository_platforms import Platform
 
 
 def get_urls(code_repository_platform, owner, repo):

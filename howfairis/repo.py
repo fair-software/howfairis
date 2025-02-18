@@ -1,6 +1,6 @@
-from urllib.parse import urlparse
 import re
 from typing import Optional
+from urllib.parse import urlparse
 import requests
 from .code_repository_platforms import Platform
 from .exceptions.get_default_branch_exception import GetDefaultBranchException
