@@ -11,7 +11,7 @@ from howfairis import Compliance
 
 
 def get_urls(n=None):
-    software_api_url = "https://www.research-software.nl/api/software?isPublished=true"
+    software_api_url = "https://research-software-directory.org/api/v1/repository_url"
     try:
         response = requests.get(software_api_url)
         # If the response was successful, no Exception will be raised
@@ -21,9 +21,9 @@ def get_urls(n=None):
         return False
 
     urls = []
-    for d in response.json():
-        for key, values in d["repositoryURLs"].items():
-            urls.extend(values)
+    for _repo in response.json():
+        if _repo["url"].startswith(("https://github.com", "https://gitlab.com")):
+            urls.append(_repo["url"])
     if n is None:
         return random.shuffle(urls)
     else:
