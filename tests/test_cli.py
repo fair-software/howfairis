@@ -10,6 +10,9 @@ def test_matching_badge(requests_mock: Mocker):
     url = "https://github.com/{0}/{1}".format(owner, repo_string)
     api = "https://api.github.com/repos/{0}/{1}".format(owner, repo_string)
     raw = "https://raw.githubusercontent.com/{0}/{1}/main".format(owner, repo_string)
+    reuse_url = "https://api.reuse.software/status/github.com/{0}/{1}.json".format(
+        owner, repo_string
+    )
     howfairis_badge = "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green"
     pypi_badge = "https://img.shields.io/pypi/v/howfairis.svg?colorB=blue"
     cii_badge = "https://bestpractices.coreinfrastructure.org/projects/4630/badge"
@@ -20,9 +23,16 @@ def test_matching_badge(requests_mock: Mocker):
     requests_mock.get(raw + "/CITATION", status_code=200)
     requests_mock.get(raw + "/CITATION.cff", status_code=200)
     requests_mock.get(raw + "/codemeta.json", status_code=200)
-    requests_mock.get(raw + "/" + filename, text=howfairis_badge+pypi_badge+cii_badge, status_code=200)
+    requests_mock.get(
+        raw + "/" + filename,
+        text=howfairis_badge + pypi_badge + cii_badge,
+        status_code=200,
+    )
     requests_mock.get(raw + "/.zenodo.json", status_code=200)
     requests_mock.get(api + "/commits", json=[], status_code=200)
+    reuse_return_value = {"error": "Not a Git repository"}
+    requests_mock.get(reuse_url, json=reuse_return_value, status_code=400)
+
     runner = CliRunner()
     response = runner.invoke(cli, [url])
     assert response.exit_code == 0
@@ -45,7 +55,11 @@ def test_upgraded_badge(requests_mock: Mocker):
     requests_mock.get(raw + "/CITATION", status_code=200)
     requests_mock.get(raw + "/CITATION.cff", status_code=200)
     requests_mock.get(raw + "/codemeta.json", status_code=200)
-    requests_mock.get(raw + "/" + filename, text=howfairis_badge+pypi_badge+cii_badge, status_code=200)
+    requests_mock.get(
+        raw + "/" + filename,
+        text=howfairis_badge + pypi_badge + cii_badge,
+        status_code=200,
+    )
     requests_mock.get(raw + "/.zenodo.json", status_code=200)
     requests_mock.get(api + "/commits", json=[], status_code=200)
     runner = CliRunner()

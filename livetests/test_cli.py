@@ -45,6 +45,15 @@ def test_no_repository():
 
 def test_cli_shows_warning_for_nonexistent_path():
     runner = CliRunner()
-    result = runner.invoke(cli, ["https://github.com/fair-software/howfairis", "--path", "this/path/does-not-exist"])
-    assert "Proceeding without it -- expect the compliance to suffer" in result.stdout, "Did not raise expected warning"
+    result = runner.invoke(
+        cli,
+        [
+            "https://github.com/fair-software/howfairis",
+            "--path",
+            "this/path/does-not-exist",
+        ],
+    )
+    assert (
+        "Proceeding without it -- expect the compliance to suffer" in result.stdout
+    ), "Did not raise expected warning"
     assert result.exit_code == 1
