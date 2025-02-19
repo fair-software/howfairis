@@ -1,5 +1,6 @@
 import re
 from typing import Optional
+from urllib.parse import urlparse
 import requests
 from .code_repository_platforms import Platform
 from .exceptions.get_default_branch_exception import GetDefaultBranchException
@@ -32,7 +33,9 @@ class Repo:
     """
 
     # pylint: disable=too-many-instance-attributes
-    def __init__(self, url: str, branch: Optional[str] = None, path: Optional[str] = None):
+    def __init__(
+        self, url: str, branch: Optional[str] = None, path: Optional[str] = None
+    ):
 
         # run assertions on user input
         Repo._check_assertions(url)
@@ -49,13 +52,18 @@ class Repo:
         self.api = self._derive_api()
         self.default_branch = self._get_default_branch()
         self.raw_url_format_string = self._derive_raw_url_format_string()
+        self.reuse_url = self._derive_reuse_url()
 
     @staticmethod
     def _check_assertions(url):
         assert url.startswith("https://"), "url should start with https://"
-        assert True in [url.startswith("https://github.com"),
-                        url.startswith("https://gitlab.com")], "Repository should be on github.com or on gitlab.com."
-        assert re.search("^https://git(hub|lab).com/[^/]+/[^/]+", url), "url is not a repository"
+        assert True in [
+            url.startswith("https://github.com"),
+            url.startswith("https://gitlab.com"),
+        ], "Repository should be on github.com or on gitlab.com."
+        assert re.search(
+            "^https://git(hub|lab).com/[^/]+/[^/]+", url
+        ), "url is not a repository"
 
     def _derive_api(self):
         if self.platform == Platform.GITHUB:
@@ -64,16 +72,25 @@ class Repo:
             api = f"https://gitlab.com/api/v4/projects/{self.owner}%2F{self.repo}"
         return api
 
+    def _derive_reuse_url(self):
+        parsed_url = urlparse(self.url)
+        reuse_url = f"https://api.reuse.software/status/{parsed_url.netloc}{parsed_url.path}.json"
+        return reuse_url
+
     def _derive_owner_and_repo(self):
         if self.platform == Platform.GITHUB:
             try:
-                owner, repo = self.url.replace("https://github.com", "").strip("/").split("/")[:2]
+                owner, repo = (
+                    self.url.replace("https://github.com", "").strip("/").split("/")[:2]
+                )
             except ValueError as ex:
                 raise ValueError("Bad value for input argument URL.") from ex
 
         elif self.platform == Platform.GITLAB:
             try:
-                owner, repo = self.url.replace("https://gitlab.com", "").strip("/").split("/")[:2]
+                owner, repo = (
+                    self.url.replace("https://gitlab.com", "").strip("/").split("/")[:2]
+                )
             except ValueError as ex:
                 raise ValueError("Bad value for input argument URL.") from ex
 
@@ -99,8 +116,10 @@ class Repo:
             branch = self.default_branch
 
         if self.platform == Platform.GITHUB:
-            raw_url_format_string = f"https://raw.githubusercontent.com/{self.owner}/{self.repo}" + \
-                                    f"/{branch}{self.path}/{{0}}"
+            raw_url_format_string = (
+                f"https://raw.githubusercontent.com/{self.owner}/{self.repo}"
+                + f"/{branch}{self.path}/{{0}}"
+            )
 
         elif self.platform == Platform.GITLAB:
             raw_url_format_string = f"https://gitlab.com/{self.owner}/{self.repo}/-/raw/{branch}{self.path}/{{0}}"
@@ -114,10 +133,14 @@ class Repo:
             return None
 
         # GitHub API and GitLab API work the same
-        response = get_from_platform(self.platform, self.api, "api", apikeys=self._apikeys)
+        response = get_from_platform(
+            self.platform, self.api, "api", apikeys=self._apikeys
+        )
         # If the request was successful, the next line will not raise any Exception
         try:
             response.raise_for_status()
         except requests.HTTPError as ex:
-            raise GetDefaultBranchException("Something went wrong asking the repo for its default branch.") from ex
+            raise GetDefaultBranchException(
+                "Something went wrong asking the repo for its default branch."
+            ) from ex
         return response.json().get("default_branch")

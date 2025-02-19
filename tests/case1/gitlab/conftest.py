@@ -8,7 +8,6 @@ from tests.helpers import load_frontend_files_from_local_data
 
 @pytest.fixture
 def mocker() -> Mocker:
-
     """This mock aims to reflect the state of a fictious repository at https://gitlab.com/fair-software/repo1
     without any files in it"""
 
@@ -16,7 +15,9 @@ def mocker() -> Mocker:
     default_branch_response = {"default_branch": "master"}
 
     with requests_mock.Mocker() as m:
-        repo, raw, api = get_urls(Platform.GITLAB, owner="fair-software", repo="repo1")
+        repo, raw, api, reuse_url = get_urls(
+            Platform.GITLAB, owner="fair-software", repo="repo1"
+        )
         m.get(api, status_code=200, json=default_branch_response)
         m.get(api + "/repository/tree", status_code=200)
         m.get(raw + "/master/.howfairis.yml", status_code=404)
@@ -34,5 +35,5 @@ def mocker() -> Mocker:
         m.get(raw + "/master/README.rst", status_code=404)
         m.get(raw + "/master/README.md", status_code=404)
         m.get(repo, status_code=200, text=frontend_files["/index.html"])
-
+        m.get(reuse_url, status_code=400)
         return m

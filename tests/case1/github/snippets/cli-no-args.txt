@@ -8,6 +8,7 @@ Proceeding without it -- expect the compliance to suffer.
       ✓ has_open_repository
 (2/5) license
       ✓ has_license
+      ✓ is_reuse_compliant
 (3/5) registry
       × has_ascl_badge
       × has_bintray_badge
