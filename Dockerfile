@@ -1,6 +1,6 @@
-FROM python:3.10.6-alpine3.16
+FROM python:3.13.2-alpine3.21
 
-COPY . /app    
+COPY . /app
 # see also .dockerignore
 
 WORKDIR /app

@@ -8,9 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - added, changed, removed of bleeding edge versus latest stable goes here
 
+## [0.15.0] - 2025-Feb-19
+
+### Added
+
+- implement reuse compliance check by [#377](https://github.com/fair-software/howfairis/pull/377)
+- Recognize the new OpenSSF badge URL  [#370](https://github.com/fair-software/howfairis/pull/370)
+- A Conan badge as a proper listing in a registry  [#369](https://github.com/fair-software/howfairis/pull/369)
+- Include  maven release badges using maven-badges.herokuapp.com [#364](https://github.com/fair-software/howfairis/pull/364)
+
 ### Changed
 
 - update supported Python versions to 3.11, 3.12, 3.13 [#372](https://github.com/fair-software/howfairis/pull/372)
+- updated the Docker base image
+
+# Removed
 
 ## [0.14.2] - 2022-Sep-1
 

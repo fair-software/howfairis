@@ -11,11 +11,11 @@ setup(
     entry_points={
         "console_scripts": ["howfairis=howfairis.cli.cli:cli"],
     },
-    version="0.14.2",
+    version="0.15.0",
     description="Python package to analyze compliance with fair-software.eu recommendations",
     long_description=readme + "\n\n",
-    author="https://github.com/jspaaks",
-    author_email="j.spaaks@esciencecenter.nl",
+    author="The Netherlands eScience Center",
+    author_email="info@esciencecenter.nl",
     url="https://github.com/fair-software/howfairis",
     packages=[
         "howfairis",
@@ -23,21 +23,21 @@ setup(
         "howfairis.exceptions",
         "howfairis.mixins",
         "howfairis.requesting",
-        "howfairis.workarounds"
+        "howfairis.workarounds",
     ],
     include_package_data=True,
     license="Apache Software License 2.0",
     zip_safe=False,
     keywords="howfairis",
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
-        "Programming Language :: Python :: 3.13"
+        "Programming Language :: Python :: 3.13",
     ],
     test_suite="tests",
     install_requires=[
@@ -50,12 +50,10 @@ setup(
         "ratelimit==2.2.*",
         "requests==2.32.*",
         "ruamel.yaml==0.18.*",
-        "voluptuous==0.15.*"
+        "voluptuous==0.15.*",
     ],
-    setup_requires=[
-    ],
-    tests_require=[
-    ],
+    setup_requires=[],
+    tests_require=[],
     extras_require={
         "dev": [
             "bumpversion",
@@ -69,12 +67,9 @@ setup(
             "sphinx_rtd_theme",
             "sphinx-click",
             "sphinx",
-            "yapf"
+            "yapf",
         ],
-        "publishing": [
-            "twine",
-            "wheel"
-        ]
+        "publishing": ["twine", "wheel"],
     },
-    data_files=[]
+    data_files=[],
 )
