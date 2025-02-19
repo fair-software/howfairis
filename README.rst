@@ -25,6 +25,7 @@ Supported Python versions                              |python versions badge|
 Code quality                                           |sonarcloud quality badge|
 Code coverage of unit tests                            |sonarcloud coverage badge|
 DockerHub                                              |dockerhub badge|
+MyBinder                                               |mybinder badge|
 **GitHub Actions**
 cffconvert                                             |workflow cffconvert badge|
 Unit tests                                             |workflow tests badge|
@@ -67,7 +68,11 @@ Live tests (triggered manually)                        |workflow livetests badge
 .. |dockerhub badge| image:: https://img.shields.io/docker/pulls/fairsoftware/howfairis
    :target: https://hub.docker.com/r/fairsoftware/howfairis
    :alt: Docker Pulls
-
+   
+.. |mybinder badge| image:: https://mybinder.org/badge_logo.svg
+   :target: https://mybinder.org/v2/gh/fair-software/howfairis-notebooks/main?filepath=demo.ipynb
+   :alt: MyBinder demo notebook
+   
 .. |workflow tests badge| image:: https://github.com/fair-software/howfairis/workflows/tests/badge.svg
    :target: https://github.com/fair-software/howfairis/actions?query=workflow%3Atests
 
