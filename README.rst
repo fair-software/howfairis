@@ -21,7 +21,7 @@ fair-software.nl recommendations
 overall                                                |fair-software badge|
 **Other best practices**
 Documentation                                          |readthedocs badge|
-Supported Python versions                              |python versions badge| 
+Supported Python versions                              |python versions badge|
 Code quality                                           |sonarcloud quality badge|
 Code coverage of unit tests                            |sonarcloud coverage badge|
 DockerHub                                              |dockerhub badge|
@@ -42,19 +42,19 @@ Live tests (triggered manually)                        |workflow livetests badge
 
 .. |zenodo badge| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg
    :target: https://doi.org/10.5281/zenodo.4017908
-   
+
 .. |core infrastructures badge| image:: https://bestpractices.coreinfrastructure.org/projects/4630/badge
    :target: https://bestpractices.coreinfrastructure.org/en/projects/4630
 
 .. |fair-software badge| image:: https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green
    :target: https://fair-software.eu
-   
+
 .. |readthedocs badge| image:: https://readthedocs.org/projects/howfairis/badge/?version=latest
    :target: https://howfairis.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
-   
+
 .. |python versions badge| image:: https://img.shields.io/pypi/pyversions/howfairis.svg
-   :target: https://pypi.python.org/pypi/howfairis   
+   :target: https://pypi.python.org/pypi/howfairis
 
 .. |sonarcloud quality badge| image:: https://sonarcloud.io/api/project_badges/measure?project=fair-software_howfairis&metric=alert_status
    :target: https://sonarcloud.io/dashboard?id=fair-software_howfairis
@@ -130,6 +130,7 @@ looks something like this:
           ✓ has_open_repository
     (2/5) license
           ✓ has_license
+          × is_reuse_compliant
     (3/5) registry
           × has_ascl_badge
           × has_bintray_badge
