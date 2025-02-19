@@ -65,5 +65,5 @@ license: "Apache-2.0"
 message: "If you use this software, please cite it using these metadata."
 repository-code: "https://github.com/fair-software/howfairis"
 title: howfairis
-version: "0.14.2"
+version: "0.15.0"
 ...
