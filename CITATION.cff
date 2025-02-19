@@ -57,6 +57,16 @@ authors:
     family-names: Holding
     given-names: Andrew
     orcid: "https://orcid.org/0000-0002-8459-7048"
+  -
+    affiliation: "Netherlands eScience Center"
+    family-names: Kasalica
+    given-names: Vedran
+    orcid: "https://orcid.org/0000-0002-0097-1056"
+  -
+    affiliation: "GSI Helmholtzzentrum für Schwerionenforschung"
+    family-names: Kretz
+    given-names: Matthias
+    orcid: "https://orcid.org/0000-0002-0867-243X"
 cff-version: "1.2.0"
 date-released: "2022-09-01"
 keywords:
