@@ -85,3 +85,6 @@ class LicenseMixin:
         except requests.HTTPError:
             self._print_state(check_name="is_reuse_compliant", state=False)
             return False
+
+        self._print_state(check_name="is_reuse_compliant", state=False)
+        return False
