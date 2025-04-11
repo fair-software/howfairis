@@ -1,3 +1,4 @@
+import json
 import sys
 import click
 from colorama import init as init_terminal_colors
@@ -34,11 +35,13 @@ from howfairis.repo import Repo
                    "--branch and --path. Default: .howfairis.yml")
 @click.option("-t", "--show-trace", default=False, is_flag=True,
               help="Show full traceback on errors.")
+@click.option("-j", "--json-output", default=False, is_flag=True,
+              help="Show the compliance as JSON.")
 @click.option("-v", "--version", default=False, is_flag=True,
               help="Show version and exit.")
 @click.argument("url", required=False)
 def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=None, path=None,
-        show_trace=False, version=False, ignore_repo_config=False, show_default_config=False, quiet=False):
+        show_trace=False, json_output=False, version=False, ignore_repo_config=False, show_default_config=False, quiet=False):
 
     """Determine compliance with recommendations from fair-software.eu for the repository at URL. The following
     code repository platforms are supported:
@@ -59,19 +62,27 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
         code = print_default_config(is_quiet=quiet)
         sys.exit(code)
 
-    print_feedback_about_repo_args(url, branch, path, is_quiet=quiet)
-    print_feedback_about_config_args(ignore_repo_config, repo_config_filename, user_config_filename, is_quiet=quiet)
+    if json_output is True:
+        quiet = True
 
     init_terminal_colors()
     repo = Repo(url, branch, path)
+
+    print_feedback_about_repo_args(url, branch, path, is_quiet=quiet)
+    print_feedback_about_config_args(ignore_repo_config, repo_config_filename, user_config_filename, is_quiet=quiet)
+
     checker = Checker(repo, user_config_filename=user_config_filename, repo_config_filename=repo_config_filename,
-                      ignore_repo_config=ignore_repo_config, is_quiet=quiet)
+                    ignore_repo_config=ignore_repo_config, is_quiet=quiet)
 
     previous_compliance = checker.readme.get_compliance()
     current_compliance = checker.check_five_recommendations()
 
-    sys.exit(print_call_to_action(previous_compliance, current_compliance, checker, is_quiet=quiet))
-
+    if json_output is True:
+        json_data = json.dumps(current_compliance.as_json(), ensure_ascii=True)
+        print(json_data)
+        sys.exit(0)
+    else:
+        sys.exit(print_call_to_action(previous_compliance, current_compliance, checker, is_quiet=quiet))
 
 if __name__ == "__main__":
     cli()

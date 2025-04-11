@@ -12,6 +12,16 @@ def test_get_compliance():
     assert actual_compliance == expected_compliance
 
 
+def test_get_compliance_json():
+    expected_compliance = {'checklist': False, 'citation': True, 'license': True, 'registry': True, 'repository': True}
+    actual_compliance = Compliance(repository=True, license_=True, registry=True, citation=True, checklist=False).as_json()
+    assert actual_compliance == expected_compliance
+
+    expected_compliance = {'checklist': True, 'citation': True, 'license': True, 'registry': False, 'repository': True}
+    actual_compliance = Compliance(repository=True, license_=True, registry=False, citation=True, checklist=True).as_json()
+    assert actual_compliance == expected_compliance
+
+
 @pytest.mark.parametrize("compliance,expected", [
     (Compliance(True, True, True, True, True), "green"),
     (Compliance(True, True, True, True, False), "yellow"),
