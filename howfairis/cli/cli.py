@@ -78,7 +78,7 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
     current_compliance = checker.check_five_recommendations()
 
     if json_output is True:
-        json_data = json.dumps(current_compliance.as_json(), indent=2, ensure_ascii=True)
+        json_data = json.dumps(current_compliance.as_json(), ensure_ascii=True)
         print(json_data)
         sys.exit(0)
     else:
