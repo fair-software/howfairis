@@ -174,6 +174,23 @@ you'll see output like this:
 
 When you get this message, just copy-and-paste the suggested badge into your README.
 
+JSON output
+---------------
+
+If you use `--json-output` argument, a JSON representation of the result will be shown. However, the checks for each category will not be displayed.
+Depending on which repository you are doing the analysis for, the output
+looks something like this:
+
+.. code:: console
+
+   {
+      "checklist": false,
+      "citation": true,
+      "license": true,
+      "registry": true,
+      "repository": true
+   }
+
 Some examples of badges
 -----------------------
 
