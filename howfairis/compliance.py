@@ -71,13 +71,7 @@ class Compliance:
 
         Returns: A JSON
         """
-        return {
-            "checklist": self.checklist,
-            "citation": self.citation,
-            "license": self.license,
-            "registry": self.registry,
-            "repository": self.repository
-        }
+        return {"checklist": self.checklist, "citation": self.citation, "license": self.license, "registry": self.registry, "repository": self.repository}
 
     def calc_badge(self, readme_file_format: ReadmeFormat) -> Optional[str]:
         """Calculate FAIR software badge image URL and URL in format of README.
