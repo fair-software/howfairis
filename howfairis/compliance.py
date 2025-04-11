@@ -71,7 +71,6 @@ class Compliance:
 
         Returns: A JSON
         """
-
         return {
             "checklist": self.checklist,
             "citation": self.citation,
