@@ -1,6 +1,6 @@
+import json
 import sys
 import click
-import json
 from colorama import init as init_terminal_colors
 from howfairis.__version__ import __version__
 from howfairis.checker import DEFAULT_CONFIG_FILENAME
