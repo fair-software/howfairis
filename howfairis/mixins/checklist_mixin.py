@@ -17,5 +17,7 @@ class ChecklistMixin:
     def has_core_infrastructures_badge(self):
         """ """
         regexes = [r"https://bestpractices\.coreinfrastructure\.org/projects/[0-9]*/badge",
-                   r"https://www.bestpractices.dev/projects/[0-9]*/badge"]
+                   r"https://www.bestpractices.dev/projects/[0-9]*/badge",
+                   r"https://fairsoftwarechecklist\.net/badge\.svg",
+                   r"https://www.fairsoftwarechecklist\.net/badge\.svg"]
         return self._eval_regexes(regexes)
