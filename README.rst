@@ -142,6 +142,7 @@ looks something like this:
           × has_npm_badge
           ✓ has_pypi_badge
           × has_rsd_badge
+          × has_biotools_badge
           × is_on_github_marketplace
     (4/5) citation
           × has_citation_file
@@ -329,6 +330,7 @@ The manual override will be reflected in the output, as follows:
           × has_npm_badge
           ✓ has_pypi_badge
           × has_rsd_badge
+          × has_biotools_badge
           × is_on_github_marketplace
     (4/5) citation
           × has_citation_file

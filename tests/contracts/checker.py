@@ -94,6 +94,10 @@ class Contract(ABC):
         pass
 
     @abstractmethod
+    def test_has_biotools_badge(self, mocked_context: Mocker):
+        pass
+
+    @abstractmethod
     def test_has_zenodo_badge(self, mocked_context: Mocker):
         pass
 

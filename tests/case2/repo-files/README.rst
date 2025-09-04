@@ -26,3 +26,5 @@
       :target: https://fair-software.eu
 13. .. image:: https://img.shields.io/conan/v/vir-simd
       :target: https://conan.io/center/recipes/vir-simd
+14. .. image:: https://img.shields.io/badge/bio.tools-metabolink-blue
+      :target: https://bio.tools/metabolink

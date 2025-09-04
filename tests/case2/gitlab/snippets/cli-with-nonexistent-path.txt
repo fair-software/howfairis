@@ -21,6 +21,7 @@ Proceeding without it -- expect the compliance to suffer.
       × has_npm_badge
       × has_pypi_badge
       × has_rsd_badge
+      × has_biotools_badge
       × is_on_github_marketplace
 (4/5) citation
       × has_citation_file

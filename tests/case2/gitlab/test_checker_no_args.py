@@ -124,6 +124,11 @@ class TestCheckerNoArgs(Contract):
             checker = get_checker()
             assert checker.has_rsd_badge() is True
 
+    def test_has_biotools_badge(self, mocker):
+        with mocker:
+            checker = get_checker()
+            assert checker.has_biotools_badge() is True
+
     def test_has_zenodo_badge(self, mocker):
         with mocker:
             checker = get_checker()

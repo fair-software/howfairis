@@ -22,6 +22,7 @@ class RegistryMixin:
                 self.has_npm_badge(),
                 self.has_pypi_badge(),
                 self.has_rsd_badge(),
+                self.has_biotools_badge(),
                 self.is_on_github_marketplace()
             ]
             return True in results
@@ -100,6 +101,11 @@ class RegistryMixin:
         """ """
         regexes = [r"https://img\.shields\.io/badge/RSD-.*",
                    r"https://img\.shields\.io/badge/rsd-.*"]
+        return self._eval_regexes(regexes)
+
+    def has_biotools_badge(self):
+        """ """
+        regexes = [r"https://img\.shields\.io/badge/bio.tools-.*"]
         return self._eval_regexes(regexes)
 
     def is_on_github_marketplace(self):
