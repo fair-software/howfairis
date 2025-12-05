@@ -22,6 +22,15 @@ def test_valid_gitlab_url_unauthenticated():
     assert actual_exit_code == expected_exit_code
 
 
+def test_valid_gitlab_group_url_unauthenticated():
+    assert os.getenv("APIKEY_GITLAB") is None, "This test should run unauthenticated"
+    runner = CliRunner()
+    result = runner.invoke(cli, ["https://gitlab.com/hifis/hifis-workshops/make-your-code-ready-for-publication/astronaut-analysis"])
+    assert (
+        "url: https://gitlab.com/hifis/hifis-workshops/make-your-code-ready-for-publication/astronaut-analysis\n(1/5) repository" in result.stdout
+    ), "Did not find expected string"
+
+
 def test_invalid_url():
     runner = CliRunner()
     result = runner.invoke(cli, ["howfairis"])

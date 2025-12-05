@@ -69,7 +69,7 @@ class Repo:
         if self.platform == Platform.GITHUB:
             api = f"https://api.github.com/repos/{self.owner}/{self.repo}"
         elif self.platform == Platform.GITLAB:
-            api = f"https://gitlab.com/api/v4/projects/{self.owner}%2F{self.repo}"
+            api = f"https://gitlab.com/api/v4/projects/{self.owner.replace('/','%2F')}%2F{self.repo}"
         return api
 
     def _derive_reuse_url(self):
@@ -88,9 +88,8 @@ class Repo:
 
         elif self.platform == Platform.GITLAB:
             try:
-                owner, repo = (
-                    self.url.replace("https://gitlab.com", "").strip("/").split("/")[:2]
-                )
+                owner = '/'.join(self.url.replace("https://gitlab.com", "").strip("/").split("/")[0:-1])
+                repo = self.url.replace("https://gitlab.com", "").strip("/").split("/")[-1:][0]
             except ValueError as ex:
                 raise ValueError("Bad value for input argument URL.") from ex
 
