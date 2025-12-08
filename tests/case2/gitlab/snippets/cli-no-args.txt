@@ -28,5 +28,5 @@ url: https://gitlab.com/fair-software/repo1
 
 Calculated compliance: ● ● ● ● ●
 
-Expected badge is equal to the actual badge. It's all good.
+Expected badge is equal to the actual badge(s). It's all good.
 

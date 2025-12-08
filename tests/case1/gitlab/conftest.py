@@ -20,6 +20,7 @@ def mocker() -> Mocker:
         )
         m.get(api, status_code=200, json=default_branch_response)
         m.get(api + "/repository/tree", status_code=200)
+        m.get(api + "/badges", status_code=200, text=frontend_files["/badges.json"])
         m.get(raw + "/master/.howfairis.yml", status_code=404)
         m.get(raw + "/master/.zenodo.json", status_code=404)
         m.get(raw + "/master/CITATION.cff", status_code=404)

@@ -74,7 +74,10 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
     checker = Checker(repo, user_config_filename=user_config_filename, repo_config_filename=repo_config_filename,
                     ignore_repo_config=ignore_repo_config, is_quiet=quiet)
 
-    previous_compliance = checker.readme.get_compliance()
+    previous_compliance = {
+        'readme': checker.readme.get_compliance(),
+        'badges': checker.badges.get_compliance()
+    }
     current_compliance = checker.check_five_recommendations()
 
     if json_output is True:

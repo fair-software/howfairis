@@ -87,6 +87,8 @@ class Compliance:
             return f".. image:: {badge_url}\n   :target: https://fair-software.eu"
         if readme_file_format == ReadmeFormat.MARKDOWN:
             return f"[![fair-software.eu]({badge_url})](https://fair-software.eu)"
+        if readme_file_format == ReadmeFormat.NONE:
+            return f"Link: https://fair-software.eu\nBadge image URL: {badge_url}"
 
         return None
 

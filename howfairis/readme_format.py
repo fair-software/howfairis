@@ -8,3 +8,4 @@ class ReadmeFormat(Enum):
     """ """
     MARKDOWN = auto()
     RESTRUCTUREDTEXT = auto()
+    NONE = auto()

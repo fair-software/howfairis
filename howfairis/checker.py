@@ -8,6 +8,8 @@ from colorama import Style
 from ruamel.yaml import YAML
 from voluptuous.error import Invalid
 from voluptuous.error import MultipleInvalid
+from .badges import Badges
+from .code_repository_platforms import Platform
 from .compliance import Compliance
 from .get_apikeys_from_env_vars import get_apikeys_from_env_vars
 from .mixins.checklist_mixin import ChecklistMixin
@@ -79,6 +81,7 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         self._user_config = Checker._load_user_config(user_config_filename)
         self._merged_config = self._merge_configurations()
         self.readme = self._get_readme()
+        self.badges = self._get_badges()
 
     def _eval_regexes(self, regexes, check_name=None):
         if check_name is None:
@@ -87,10 +90,19 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
         if self.readme.text is None:
             self._print_state(check_name=check_name, state=False)
             return False
-        for regex in regexes:
-            if re.compile(regex).search(self.readme.text) is not None:
-                self._print_state(check_name=check_name, state=True)
-                return True
+        else:
+            for regex in regexes:
+                if re.compile(regex).search(self.readme.text) is not None:
+                    self._print_state(check_name=check_name, state=True)
+                    return True
+        if self.badges.text is None:
+            self._print_state(check_name=check_name, state=False)
+            return False
+        else:
+            for regex in regexes:
+                if re.compile(regex).search(self.badges.text) is not None:
+                    self._print_state(check_name=check_name, state=True)
+                    return True
         self._print_state(check_name=check_name, state=False)
         return False
 
@@ -118,6 +130,19 @@ class Checker(RepositoryMixin, LicenseMixin, RegistryMixin, CitationMixin, Check
               "\nProceeding without it -- expect the compliance to suffer.\n")
 
         return Readme(filename=None, text=None, file_format=None)
+
+    def _get_badges(self):
+        if self.repo.platform == Platform.GITLAB:
+            try:
+                response = get_from_platform(self.repo.platform, self.repo.api, "badges", apikeys=self._apikeys)
+                # If the response was successful, no Exception will be raised
+                response.raise_for_status()
+            except requests.HTTPError:
+                return Badges(text=None)
+
+            return Badges(text=response.text)
+
+        return Badges(text=None)
 
     @staticmethod
     def _load_default_config():

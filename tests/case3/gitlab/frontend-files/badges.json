@@ -1,0 +1,119 @@
+[
+  {
+    "name": "ASCL",
+    "link_url": "https://ascl.net/1410.001",
+    "image_url": "https://img.shields.io/badge/ascl-1410.001-red",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 001,
+    "kind": "project"
+  },
+  {
+    "name": "BESTPRACTICES",
+    "link_url": "https://bestpractices.coreinfrastructure.org/en/projects/4630",
+    "image_url": "https://bestpractices.coreinfrastructure.org/projects/4630/badge",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 002,
+    "kind": "project"
+  },
+  {
+    "name": "ZENODO",
+    "link_url": "https://doi.org/10.5281/zenodo.4017908",
+    "image_url": "https://zenodo.org/badge/DOI/10.5281/zenodo.4017908.svg",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 003,
+    "kind": "project"
+  },
+  {
+    "name": "CONDA",
+    "link_url": "https://conda.anaconda.org/nlesc",
+    "image_url": "https://anaconda.org/nlesc/matchms/badges/installer/conda.svg",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 004,
+    "kind": "project"
+  },
+  {
+    "name": "RSD",
+    "link_url": "https://www.research-software.nl/software/matchms",
+    "image_url": "https://img.shields.io/badge/rsd-matchms-00a3e3.svg",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 005,
+    "kind": "project"
+  },
+  {
+    "name": "PYPI",
+    "link_url": "https://pypi.org/project/matchms/",
+    "image_url": "https://img.shields.io/pypi/v/matchms?color=blue",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 006,
+    "kind": "project"
+  },
+  {
+    "name": "BINTRAY",
+    "link_url": "https://bintray.com/nlesc/xenon/xenon/_latestVersion",
+    "image_url": "https://api.bintray.com/packages/nlesc/xenon/xenon/images/download.svg",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 007,
+    "kind": "project"
+  },
+  {
+    "name": "CRAN",
+    "link_url": "https://cran.r-project.org/package=GGIR",
+    "image_url": "https://cranlogs.r-pkg.org/badges/grand-total/GGIR",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 008,
+    "kind": "project"
+  },
+  {
+    "name": "CRATES",
+    "link_url": "https://crates.io/crates/tensorflow",
+    "image_url": "https://img.shields.io/crates/v/tensorflow.svg",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 009,
+    "kind": "project"
+  },
+  {
+    "name": "MAVEN",
+    "link_url": "https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.spotify%22%20dockerfile-maven",
+    "image_url": "https://img.shields.io/maven-central/v/com.spotify/dockerfile-maven.svg",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 010,
+    "kind": "project"
+  },
+  {
+    "name": "NPM",
+    "link_url": "https://npmjs.org/package/cnpm",
+    "image_url": "https://img.shields.io/npm/v/cnpm.svg?style=flat",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 011,
+    "kind": "project"
+  },
+  {
+    "name": "HOWFAIRIS",
+    "link_url": "https://fair-software.eu",
+    "image_url": "https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow"
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 012,
+    "kind": "project"
+  },
+  {
+    "name": "CONAN",
+    "link_url": "https://conan.io/center/recipes/vir-simd",
+    "image_url": "https://img.shields.io/conan/v/vir-simd",
+    "rendered_link_url": "",
+    "rendered_image_url": "",
+    "id": 013,
+    "kind": "project"
+  }
+]

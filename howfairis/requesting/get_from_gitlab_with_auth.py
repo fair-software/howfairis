@@ -8,6 +8,9 @@ def get_from_gitlab_with_auth(url, url_type, apikeys):
     if url_type == "api":
         return get_from_gitlab_with_auth_api(url, apikeys)
 
+    if url_type == "badges":
+        return get_from_gitlab_with_auth_api(url+"/badges", apikeys)
+
     if url_type == "frontend":
         return get_from_gitlab_with_auth_frontend(url, apikeys)
 

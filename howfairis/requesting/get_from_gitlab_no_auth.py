@@ -27,6 +27,9 @@ def get_from_gitlab_no_auth(url, url_type):
     if url_type == "api":
         return get_from_gitlab_no_auth_api(url)
 
+    if url_type == "badges":
+        return get_from_gitlab_no_auth_api(url+"/badges")
+
     if url_type == "frontend":
         return get_from_gitlab_no_auth_frontend(url)
 
