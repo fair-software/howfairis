@@ -1,4 +1,4 @@
-def print_feedback_about_repo_args(url, branch, path, is_quiet=False):
+def print_feedback_about_repo_args(url, branch, self_hosted, path, is_quiet=False):
     """  """
 
     assert url is not None, "Expected URL to not be emtpy."
@@ -8,6 +8,9 @@ def print_feedback_about_repo_args(url, branch, path, is_quiet=False):
 
         if url is not None:
             print("url: " + url)
+
+        if self_hosted:
+            print("using self-hosted instance")
 
         if branch is not None:
             print("branch: " + branch)

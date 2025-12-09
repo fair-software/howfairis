@@ -41,7 +41,7 @@ class LicenseMixin:
             result = True
 
         if self.repo.platform == Platform.GITLAB:
-            url = f"https://gitlab.com/{self.repo.owner}/{self.repo.repo}"
+            url = f"https://{self.repo.instance}/{self.repo.owner}/{self.repo.repo}"
 
             try:
                 response = get_from_platform(

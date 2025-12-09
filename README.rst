@@ -95,18 +95,22 @@ you should be able to call the executable, like so:
 ``howfairis`` supports URLs from the following code repository platforms:
 
 1. ``https://github.com``
-2. ``https://gitlab.com`` (not including self-hosted instances)
+2. ``https://gitlab.com``
+3. self-hosted GitLab instances
+
+Self-hosted GitLab instances will rely on the required features being supported,
+expect errors if this is not the case.
 
 Docker
 ---------------
 
-You can run howfairis Docker image using the command below.
+There is a howfairis Docker image that can be obtrained using the command below.
 
 .. code:: console
 
     docker pull fairsoftware/howfairis
 
-You can run howfairis Docker image using the command below.
+You can then run the howfairis Docker image using the command below.
 
 .. code:: console
 
@@ -242,7 +246,10 @@ Which then shows something like:
 
       * https://github.com
 
-      * https://gitlab.com (not including any self-hosted instances)
+      * https://gitlab.com
+
+      * a self-hosted GitLab instance (provided the required features are
+        supported, expect errors)
 
     Options:
       -b, --branch TEXT               Which git branch to use. Also accepts other
@@ -257,6 +264,11 @@ Which then shows something like:
       -d, --show-default-config       Show default configuration and exit.
       -i, --ignore-repo-config        Ignore any configuration files on the
                                       remote.
+
+      -s, --self-hosted               Use a self-hosted GitLab instance, guessing
+                                      the FQDN to use. This may not work,
+                                      depending on the server version. Expect
+                                      errors if unsupported features are requried.
 
       -p, --path TEXT                 Relative path (on the remote). Use this if
                                       you want howfairis to look for a README and
