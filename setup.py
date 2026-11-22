@@ -67,7 +67,6 @@ setup(
             "sphinx_rtd_theme",
             "sphinx-click",
             "sphinx",
-            "yapf",
         ],
         "publishing": ["twine", "wheel"],
     },
