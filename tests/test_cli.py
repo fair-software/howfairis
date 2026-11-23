@@ -110,3 +110,16 @@ def test_missing_badge(requests_mock: Mocker):
     runner = CliRunner()
     response = runner.invoke(cli, [url])
     assert response.exit_code == 1
+
+
+def test_missing_url():
+    runner = CliRunner()
+    response = runner.invoke(cli, [])
+    assert response.exit_code == 2
+    assert "Missing argument 'URL'" in response.output
+
+
+def test_show_default_config_without_url():
+    runner = CliRunner()
+    response = runner.invoke(cli, ["-d"])
+    assert response.exit_code == 0

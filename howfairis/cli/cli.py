@@ -58,9 +58,15 @@ def cli(url=None, branch=None, user_config_filename=None, repo_config_filename=N
         code = print_version(__version__, is_quiet=quiet)
         sys.exit(code)
 
+
     if show_default_config is True:
         code = print_default_config(is_quiet=quiet)
         sys.exit(code)
+
+    if url is None:
+        print("Error: Missing argument 'URL'.")
+        print("Try 'howfairis --help' for help.")
+        sys.exit(2)
 
     if json_output is True:
         quiet = True
